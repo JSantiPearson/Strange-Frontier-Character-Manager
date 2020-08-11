@@ -1,5 +1,5 @@
 # Strange Frontier
-## Character Sheet Manager
+Character Sheet Manager
 
 ### Planned Functionality
 * Create and save multiple characters
