@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "595938427331",
+    "firebase_url": "https://sf-character-manager.firebaseio.com",
+    "project_id": "sf-character-manager",
+    "storage_bucket": "sf-character-manager.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:595938427331:android:51987176376100b777fd76",
+        "android_client_info": {
+          "package_name": "com.charactermanager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "595938427331-h06jn9uhv6dqu6upgruhfkiesdvdns41.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.charactermanager",
+            "certificate_hash": "3ea130ccac1b433acd9b032ede8bfa76636c3ac2"
+          }
+        },
+        {
+          "client_id": "595938427331-ue6hflf6qon4o058jislavufl789je61.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA14QJRUtHvAJ2ctCyJX8gUIM0Ou2SKQ84"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "595938427331-ue6hflf6qon4o058jislavufl789je61.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
