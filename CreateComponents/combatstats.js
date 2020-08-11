@@ -20,6 +20,8 @@ class CombatStats extends Component {
 
   componentDidMount() {
     this.handleSpeed();
+    this.handleResilience();
+    this.handleAwareness();
   }
   //if species changes, update corresponding stats.
   //TODO: later on make sure to include changes to equipment or move buffs/debuffs
@@ -27,6 +29,8 @@ class CombatStats extends Component {
     if(!equal(this.props.species, prevProps.species))
     {
       this.handleSpeed();
+      this.handleResilience();
+      this.handleAwareness();
     }
   }
   /* Takes species, equipment and move buffs/debuffs into account to determine character speed */
@@ -69,8 +73,33 @@ class CombatStats extends Component {
     else if (species == 'capra' || species == 'wheepe' || species == 'construct' || species == 'modhuman'){
       this.setState({ resilience: 6 });
     }
+    else if (species == 'giant'){
+      this.setState({ resilience: 7 });
+    }
     else {
-      this.setState({ speed: 5 });
+      this.setState({ resilience: 5 });
+    }
+  }
+
+  handleAwareness = () => {
+    var species = this.props.species;
+    if (species == 'modhuman'){
+      this.setState({ awareness: 3 }); //TODO: hard coding a value right now... once equipment affects this stat, this will need to change
+    }
+    else if (species == 'energybeing' || species == 'vermile' || species == 'capra'){
+      this.setState({ awareness: 4 });
+    }
+    else if (species == 'human' || species == 'simian' || species == 'gloom' || species == 'grubtub' || species == 'giant' || species == 'wheepe' || species == 'construct'){
+      this.setState({ awareness: 5 });
+    }
+    else if (species == 'arachnet'){
+      this.setState({ awareness: 6 });
+    }
+    else if (species == 'ogoloid' || species == 'orbiden'){
+      this.setState({ awareness: 7 });
+    }
+    else {
+      this.setState({ awareness: 5 });
     }
   }
 
