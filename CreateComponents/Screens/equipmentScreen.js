@@ -1,16 +1,30 @@
 import React, { Component } from 'react';
 import { View, Button, Text, Picker, TouchableOpacity, TextInput, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
+import { useNavigation } from '@react-navigation/native';
+
+function CatalogueButton({ screenName }) {
+  const navigation = useNavigation();
+  return (
+    <Button
+      title={'Browse Catalogues'}
+      onPress={() => navigation.navigate(screenName)}
+    />
+  );
+}
 
 class EquipmentScreen extends Component {
+  state = {
+    equipped: []
+  }
   render() {
      return (
        <>
          <View style={styles.sectionDescription}>
-           <Text>Add Item</Text>
+           <CatalogueButton screenName="Catalogues" />
          </View>
          <View style={styles.sectionDescription}>
-           <Text>Add Weapon</Text>
+           <Text>Equipment:</Text>
          </View>
        </>
      )

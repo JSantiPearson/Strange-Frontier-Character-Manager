@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import CombatStats from '../combatstats';
 import SkillCollection from '../SkillCollection';
+import { createStackNavigator } from '@react-navigation/stack';
+
+const Stack = createStackNavigator();
 
 class CombatScreen extends Component {
   render() {

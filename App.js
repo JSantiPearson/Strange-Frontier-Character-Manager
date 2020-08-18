@@ -20,6 +20,7 @@ import MoveScreen from './CreateComponents/Screens/moveScreen';
 import CombatScreen from './CreateComponents/Screens/combatScreen';
 import EquipmentScreen from './CreateComponents/Screens/equipmentScreen';
 import NoteScreen from './CreateComponents/Screens/noteScreen';
+import Catalogues from './CreateComponents/Screens/catalogueScreen'
 
 import {
   SafeAreaView,
@@ -45,7 +46,7 @@ function HomeScreen({ navigation }) {
       <View style={styles.sectionContainer}>
         <Button
         title="Create Character"
-        onPress={() => navigation.navigate('Create', {})}
+        onPress={() => navigation.navigate('Create', { navigation })}
         />
       </View>
       <View style={styles.sectionContainer}>
@@ -54,6 +55,12 @@ function HomeScreen({ navigation }) {
         />
       </View>
     </>
+  )
+}
+
+function CatalogueScreen({ navigation }) {
+  return (
+    <Catalogues />
   )
 }
 
@@ -73,6 +80,7 @@ class App extends React.Component {
           <Stack.Navigator>
             <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name="Create" component={CreateScreen} />
+            <Stack.Screen name="Catalogues" component={CatalogueScreen} />
           </Stack.Navigator>
         </NavigationContainer>
       </>
