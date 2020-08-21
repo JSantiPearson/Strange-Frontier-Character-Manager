@@ -26,9 +26,12 @@ import {
   SafeAreaView,
   StyleSheet,
   ScrollView,
+  Dimensions,
   Button,
   View,
   Text,
+  TouchableOpacity,
+  Image,
   StatusBar,
 } from 'react-native';
 
@@ -43,16 +46,17 @@ import {
 function HomeScreen({ navigation }) {
   return (
     <>
-      <View style={styles.sectionContainer}>
-        <Button
-        title="Create Character"
-        onPress={() => navigation.navigate('Create', { navigation })}
-        />
-      </View>
-      <View style={styles.sectionContainer}>
-        <Button
-        title="Play Character"
-        />
+      <View style={styles.container}>
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity onPress={() => navigation.navigate('Create', { navigation })}>
+            <Image source={require('./img/CreateScreen.png')} style={styles.backgroundImage} resizeMode='cover' />
+          </TouchableOpacity>
+        </View>
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity onPress={() => navigation.navigate('Play', { navigation })}>
+              <Image source={require('./img/poker.jpg')} style={styles.backgroundImage} resizeMode='cover' />
+          </TouchableOpacity>
+        </View>
       </View>
     </>
   )
@@ -102,9 +106,22 @@ const styles = StyleSheet.create({
   body: {
     backgroundColor: Colors.white,
   },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  backgroundImage: {
+    flex: 1,
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').width / 2,
+  },
+  container: {
+    flex: 1,
+    alignItems: 'stretch',
+    justifyContent: 'center',
+    alignContent: 'stretch',
+    flexDirection: 'column',
+  },
+  buttonContainer: {
+    flex: 1,
+    borderWidth: 1,
+    alignItems: 'center',
   },
   sectionTitle: {
     fontSize: 24,
@@ -128,7 +145,7 @@ const styles = StyleSheet.create({
     padding: 4,
     paddingRight: 12,
     textAlign: 'right',
-  },
+  }
 });
 
 export default App;

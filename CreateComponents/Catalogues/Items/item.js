@@ -6,18 +6,14 @@ import Accordion from 'react-native-collapsible/Accordion';
 
 const SECTION = [
   {
-    title: "Weapon Name",
+    title: "Item Name",
     content: "Description"
   }
 ];
 
-class Weapon extends Component {
+class Item extends Component {
   state = {
     active: []
-  }
-
-  toggleExpand=()=>{
-    this.setState({expanded : !this.state.expanded})
   }
 
   _renderHeader = () => {
@@ -32,10 +28,46 @@ class Weapon extends Component {
   _renderContent = () => {
     return (
       <View style={styles.child}>
-        <Text>Range: {this.props.range} sq.</Text>
-        <Text>Damage: {this.props.damage}</Text>
-        <Text>Durabililty: {this.props.durability}</Text>
         <Text>{this.props.description}</Text>
+        {this.props.misc != null &&
+          <Text>{this.props.misc}</Text>
+        }
+        {this.props.category != null &&
+          <Text>
+            <Text style={{fontWeight: "bold"}}>Category: </Text>
+            <Text>{this.props.category}</Text>
+          </Text>
+        }
+        {this.props.range != null &&
+          <Text>
+            <Text style={{fontWeight: "bold"}}>Range: </Text>
+            <Text>{this.props.range} sq.</Text>
+          </Text>
+        }
+        {this.props.damage != null &&
+          <Text>
+            <Text style={{fontWeight: "bold"}}>Damage: </Text>
+            <Text>{this.props.damage}</Text>
+          </Text>
+        }
+        {this.props.durability != null &&
+          <Text>
+            <Text style={{fontWeight: "bold"}}>Durability: </Text>
+            <Text>{this.props.durability}</Text>
+          </Text>
+        }
+        {this.props.stats[0] != 0 &&
+          <Text style={{fontWeight: "bold"}}>{this.props.stats[0]} Armor</Text>
+        }
+        {this.props.stats[1] != 0 &&
+          <Text style={{fontWeight: "bold"}}>{this.props.stats[1]} Resilience</Text>
+        }
+        {this.props.stats[2] != 0 &&
+          <Text style={{fontWeight: "bold"}}>{this.props.stats[2]} Speed</Text>
+        }
+        {this.props.stats[3] != 0 &&
+          <Text style={{fontWeight: "bold"}}>{this.props.stats[3]} Awareness</Text>
+        }
       </View>
     );
   };
@@ -66,7 +98,7 @@ class Weapon extends Component {
   }
 }
 
-export default Weapon;
+export default Item;
 
 const styles = StyleSheet.create({
     title:{
@@ -81,7 +113,7 @@ const styles = StyleSheet.create({
     row:{
         flexDirection: 'row',
         justifyContent:'space-between',
-        height:56,
+        height:40,
         paddingLeft:25,
         paddingRight:18,
         alignItems:'center',
@@ -89,7 +121,6 @@ const styles = StyleSheet.create({
     },
     child:{
         backgroundColor: Colors.LIGHTGRAY,
-        padding:16,
     },
     purchaseButton:{
       borderWidth:5,
