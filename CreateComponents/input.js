@@ -34,6 +34,11 @@ class ProfileInputs extends Component {
       armor: 0,
       feats: ['']
    }
+
+   componentDidMount() {
+     this.props.speciesCallback(this.state.species);
+   }
+
    handleName = (text) => {
       this.setState({ name: text });
    }

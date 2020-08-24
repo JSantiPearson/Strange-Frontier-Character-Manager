@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Alert, Button, Text, Picker, TouchableOpacity, TextInput, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { useNavigation } from '@react-navigation/native';
+import CheckBox from '@react-native-community/checkbox';
 
 class EquipmentScreen extends Component {
   state = {
@@ -9,7 +10,9 @@ class EquipmentScreen extends Component {
     meleeEquipment: [],
     armorEquipment: [],
     gearEquipment: [],
-    miscEquipment: []
+    miscEquipment: [],
+    equipped: [],
+    stats: [0, 0, 0, 0]
   }
 
   /**
@@ -47,6 +50,7 @@ class EquipmentScreen extends Component {
     let item = {
       key: data.props.name,
       amount: 1,
+      equipped: false,
       name: data.props.name,
       type: data.props.type,
       price: data.props.price,
@@ -111,14 +115,44 @@ class EquipmentScreen extends Component {
     }
   }
 
+  //TODO: Eventually replace the checkbox for a component that better
+  // handles multiple of one item. Allow user to equip a specific amount of the same item.
+  setToggleCheckbox = (item, equipValue) => {
+    let equipped = [...this.state.equipped];
+    let stats = this.state.stats;
+    item.equipped = equipValue;
+
+    if (equipValue){
+      equipped.push(item);
+      for (let i = 0; i < stats.length; i++){
+        stats[i] += item.stats[i];
+      }
+    }
+    else {
+      for (let i = 0; i < equipped.length; i++){
+        let currItem = equipped[i];
+        if (currItem.name === item.name){
+          equipped.splice(i, 1);
+          for (let j = 0; j < stats.length; j++){
+            stats[j] -= item.stats[j];
+          }
+        }
+      }
+    }
+    this.setState({ equipped });
+    this.setState({ stats });
+    this.props.statCallback(stats);
+  }
+
   /**
-  * Repeatedly returns text displays of every item and its amount in the array until none remain
+  * Displays every item that is equipped.
   */
-  equipmentList = (equipment) => {
-    return equipment.map((item) => {
+  equippedDisplay = () => {
+    let equipped = this.state.equipped;
+    return equipped.map((item) => {
       return (
-        <View>
-          <Text>
+        <View style={styles.row}>
+          <Text style={styles.rowItem}>
             <Text>{item.name}</Text>
             {item.amount > 1 &&
               <Text> (x{item.amount})</Text>
@@ -129,35 +163,68 @@ class EquipmentScreen extends Component {
     })
   }
 
+  /**
+  * Repeatedly returns text displays of every item and its amount in the array until none remain
+  */
+  equipmentList = (equipment) => {
+    return equipment.map((item) => {
+      return (
+        <View style={styles.row}>
+          <Text style={styles.rowItem}>
+            <Text>{item.name}</Text>
+            {item.amount > 1 &&
+              <Text> (x{item.amount})</Text>
+            }
+          </Text>
+          <View style={styles.rowItem}>
+            <CheckBox
+              disabled={false}
+              value={item.equipped}
+              onValueChange={(equipValue) => this.setToggleCheckbox(item, equipValue)}
+            />
+          </View>
+        </View>
+      )
+    })
+  }
+
   render() {
      return (
        <>
-         <View style={styles.sectionDescription}>
-           <Button
-             title={'Browse Catalogues'}
-             onPress={() => { this.props.navigation.navigate('Catalogues', { itemCallback: this.addItem })}}
-           />
-         </View>
-         <View style={styles.sectionDescription}>
-           <Text style={styles.sectionTitle}>Ranged Weaponry:</Text>
-           { this.equipmentList(this.state.rangedEquipment) }
-         </View>
-         <View style={styles.sectionDescription}>
-           <Text style={styles.sectionTitle}>Melee Weaponry:</Text>
-           { this.equipmentList(this.state.meleeEquipment) }
-         </View>
-         <View style={styles.sectionDescription}>
-           <Text style={styles.sectionTitle}>Armor and Wearables:</Text>
-           { this.equipmentList(this.state.armorEquipment) }
-         </View>
-         <View style={styles.sectionDescription}>
-           <Text style={styles.sectionTitle}>Gear and Utility:</Text>
-           { this.equipmentList(this.state.gearEquipment) }
-         </View>
-         <View style={styles.sectionDescription}>
-           <Text style={styles.sectionTitle}>Miscellaneous:</Text>
-           { this.equipmentList(this.state.miscEquipment) }
-         </View>
+         <SafeAreaView>
+           <ScrollView>
+             <View style={styles.sectionDescription}>
+               <Button
+                 title={'Browse Catalogues'}
+                 onPress={() => { this.props.navigation.navigate('Catalogues', { itemCallback: this.addItem })}}
+               />
+             </View>
+             <View style={styles.sectionDescription}>
+               <Text style={styles.sectionTitle}>Equipped:</Text>
+               { this.equippedDisplay() }
+             </View>
+             <View style={styles.sectionDescription}>
+               <Text style={styles.sectionTitle}>Ranged Weaponry:</Text>
+               { this.equipmentList(this.state.rangedEquipment) }
+             </View>
+             <View style={styles.sectionDescription}>
+               <Text style={styles.sectionTitle}>Melee Weaponry:</Text>
+               { this.equipmentList(this.state.meleeEquipment) }
+             </View>
+             <View style={styles.sectionDescription}>
+               <Text style={styles.sectionTitle}>Armor and Wearables:</Text>
+               { this.equipmentList(this.state.armorEquipment) }
+             </View>
+             <View style={styles.sectionDescription}>
+               <Text style={styles.sectionTitle}>Gear and Utility:</Text>
+               { this.equipmentList(this.state.gearEquipment) }
+             </View>
+             <View style={styles.sectionDescription}>
+               <Text style={styles.sectionTitle}>Miscellaneous:</Text>
+               { this.equipmentList(this.state.miscEquipment) }
+             </View>
+           </ScrollView>
+         </SafeAreaView>
        </>
      )
    }
@@ -167,7 +234,6 @@ class EquipmentScreen extends Component {
 
  const styles = StyleSheet.create({
    sectionDescription: {
-     marginTop: 10,
      padding: 10,
      fontSize: 18,
      fontWeight: '400',
@@ -175,6 +241,14 @@ class EquipmentScreen extends Component {
      color: Colors.dark,
    },
    sectionTitle: {
-     fontWeight: "bold"
+     fontWeight: "bold",
+     paddingVertical: 5
    },
+   row: {
+     flexDirection: "row"
+   },
+   rowItem: {
+    flex: 1,
+    paddingHorizontal: 5,
+  },
  });

@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { View, Button, Text, Picker, TouchableOpacity, TextInput, StyleSheet, SafeAreaView, ScrollView} from 'react-native'
-import equal from 'fast-deep-equal'
 
 class CombatStats extends Component {
   state = {
@@ -15,26 +14,19 @@ class CombatStats extends Component {
     speed: 0,
     armor: 0,
     awareness: 0,
-    resilience: 0
+    resilience: 0,
+    equipmentStats: [0, 0, 0, 0] //TODO: Change this into an object for readability. This is messy
   }
 
   componentDidMount() {
-    this.handleSpeed();
-    this.handleResilience();
-    this.handleAwareness();
-    this.handleAttack();
-    this.handleDefense();
+    this.handleStats();
   }
   //if species changes, update corresponding stats.
   //TODO: later on make sure to include changes to equipment or move buffs/debuffs
   componentDidUpdate(prevProps) {
-    if(!equal(this.props, prevProps))
+    if(prevProps !== this.props)
     {
-      this.handleSpeed();
-      this.handleResilience();
-      this.handleAwareness();
-      this.handleAttack();
-      this.handleDefense();
+      this.handleStats();
     }
   }
   /* calculates the bonus from a attribute score */
@@ -42,6 +34,29 @@ class CombatStats extends Component {
     var bonus = Math.floor((attr-10)/2);
     return bonus;
   }
+
+  handleStats = () => {
+    let stats = this.handleEquipmentStats();
+    var armor = stats[0];
+    var resilience = this.handleResilience() + stats[1];
+    var speed = this.handleSpeed() + stats[2];
+    var awareness = this.handleAwareness() + stats[3];
+
+    this.handleAttack(speed, awareness);
+    this.handleDefense(armor, resilience);
+
+    this.setState({ armor });
+    this.setState({ resilience });
+    this.setState({ speed });
+    this.setState({ awareness });
+  }
+
+  handleEquipmentStats = () => {
+    let equipmentStats = this.props.equipmentStats;
+    this.setState({ equipmentStats })
+    return equipmentStats;
+  }
+
   /* Takes species, equipment and move buffs/debuffs into account to determine character speed */
   handleSpeed = () => {
     var species = this.props.species;
@@ -66,7 +81,7 @@ class CombatStats extends Component {
       speed = 5;
     }
     speed += dexBonus;
-    this.setState({ speed });
+    return speed;
   }
 
   handleResilience = () => {
@@ -95,7 +110,7 @@ class CombatStats extends Component {
       resilience = 5;
     }
     resilience += conBonus;
-    this.setState({ resilience });
+    return resilience;
   }
 
   handleAwareness = () => {
@@ -121,11 +136,11 @@ class CombatStats extends Component {
       awareness = 5;
     }
     awareness += wisBonus;
-    this.setState({ awareness });
+    return awareness;
   }
 
-  handleAttack = () => {
-    var baseAttack = this.state.speed + this.state.awareness;
+  handleAttack = (speed, awareness) => {
+    var baseAttack = speed + awareness;
 
     var strBonus = this.calculateBonus(this.props.strength);
     var dexBonus = this.calculateBonus(this.props.dexterity);
@@ -144,8 +159,8 @@ class CombatStats extends Component {
     this.setState({ psionic });
   }
 
-  handleDefense = () => {
-    var baseDefense = this.state.armor + this.state.resilience;
+  handleDefense = (armor, resilience) => {
+    var baseDefense = armor + resilience;
 
     var strBonus = this.calculateBonus(this.props.strength);
     var dexBonus = this.calculateBonus(this.props.dexterity);
@@ -165,7 +180,6 @@ class CombatStats extends Component {
   }
 
   render() {
-    console.log(this.props.species);
      return (
        <>
          <SafeAreaView style={styles.container}>
@@ -212,10 +226,10 @@ class CombatStats extends Component {
              </View>
              <View style={styles.row}>
                <View style={styles.item}>
-                 <Text>Will Defense: {this.state.will}</Text>
+                 <Text>Psionic Attack: {this.state.psionic}</Text>
                </View>
                <View style={styles.item}>
-                 <Text>Psionic Attack: {this.state.psionic}</Text>
+                 <Text>Will Defense: {this.state.will}</Text>
                </View>
              </View>
            </ScrollView>

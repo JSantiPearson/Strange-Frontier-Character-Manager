@@ -22,7 +22,8 @@ class Create extends Component {
      wisdom: 10,
      intelligence: 10,
      influence: 10,
-     species: ''
+     species: '',
+     equipmentStats: [0, 0, 0, 0]
   }
   setStrength = (strengthValue) => {
     this.setState({ strength: strengthValue });
@@ -44,6 +45,9 @@ class Create extends Component {
   }
   setSpecies = (speciesValue) => {
     this.setState({ species: speciesValue });
+  }
+  setEquipmentStats = (equipmentStats) => {
+    this.setState({ equipmentStats });
   }
   render() {
      return (
@@ -116,6 +120,7 @@ class Create extends Component {
                intelligence={this.state.intelligence}
                influence={this.state.influence}
                species={this.state.species}
+               equipmentStats={this.state.equipmentStats}
             />}
        </Tab.Screen>
        <Tab.Screen name="Equipment">
@@ -127,6 +132,7 @@ class Create extends Component {
               wisdom={this.state.wisdom}
               intelligence={this.state.intelligence}
               influence={this.state.influence}
+              statCallback={this.setEquipmentStats}
            />}
       </Tab.Screen>
       <Tab.Screen name="Notes">

@@ -20,6 +20,7 @@ class CombatScreen extends Component {
                intelligence={this.props.intelligence}
                influence={this.props.influence}
                species={this.props.species}
+               equipmentStats={this.props.equipmentStats}
              />
            <SkillCollection
                strength={this.props.strength}

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { View, Button, Text, Picker, TouchableOpacity, TextInput, StyleSheet, SafeAreaView, ScrollView} from 'react-native'
-import Item from './Items/item'
+import Item from './item'
 
 class TrinitaireArms extends Component {
 
