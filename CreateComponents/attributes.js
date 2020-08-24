@@ -21,7 +21,13 @@ class DetermineAttributes extends Component {
     this.props.intCallback(value)
   }
   sendInfluence = (value) => {
-    this.props.infCallback(value)
+    var bonus = this.calculateBonus(value);
+    this.props.infCallback(value);
+  }
+  /* calculates the bonus from a attribute score */
+  calculateBonus = (attr) => {
+    var bonus = Math.floor((attr-10)/2);
+    return bonus;
   }
   render() {
      return (

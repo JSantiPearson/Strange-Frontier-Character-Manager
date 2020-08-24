@@ -22,85 +22,146 @@ class CombatStats extends Component {
     this.handleSpeed();
     this.handleResilience();
     this.handleAwareness();
+    this.handleAttack();
+    this.handleDefense();
   }
   //if species changes, update corresponding stats.
   //TODO: later on make sure to include changes to equipment or move buffs/debuffs
   componentDidUpdate(prevProps) {
-    if(!equal(this.props.species, prevProps.species))
+    if(!equal(this.props, prevProps))
     {
       this.handleSpeed();
       this.handleResilience();
       this.handleAwareness();
+      this.handleAttack();
+      this.handleDefense();
     }
+  }
+  /* calculates the bonus from a attribute score */
+  calculateBonus = (attr) => {
+    var bonus = Math.floor((attr-10)/2);
+    return bonus;
   }
   /* Takes species, equipment and move buffs/debuffs into account to determine character speed */
   handleSpeed = () => {
     var species = this.props.species;
+    var dexBonus = this.calculateBonus(this.props.dexterity);
+    var speed = 0;
     if (species == 'giant' || species == 'ogoloid'){
-      this.setState({ speed: 3 }); //TODO: hard coding a value right now... once equipment affects this stat, this will need to change
+      speed = 3;
     }
     else if (species == 'wheepe' || species == 'construct'){
-      this.setState({ speed: 4 });
+      speed = 4;
     }
     else if (species == 'human' || species == 'simian' || species == 'gloom' || species == 'capra'){
-      this.setState({ speed: 5 });
+      speed = 5;
     }
     else if (species == 'grubtub' || species == 'vermile' || species == 'arachnet' || species == 'modhuman' || species == 'orbiden'){
-      this.setState({ speed: 6 });
+      speed = 6;
     }
     else if (species == 'energybeing'){
-      this.setState({ speed: 8 });
+      speed = 8;
     }
     else {
-      this.setState({ speed: 5 });
+      speed = 5;
     }
+    speed += dexBonus;
+    this.setState({ speed });
   }
 
   handleResilience = () => {
     var species = this.props.species;
+    var conBonus = this.calculateBonus(this.props.constitution);
+    var resilience = 0;
     if (species == 'orbiden'){
-      this.setState({ resilience: 2 }); //TODO: hard coding a value right now... once equipment affects this stat, this will need to change
+      resilience = 2;
     }
     else if (species == 'energybeing' || species == 'arachnet'){
-      this.setState({ resilience: 3 });
+      resilience = 3;
     }
     else if (species == 'grubtub'){
-      this.setState({ resilience: 4 });
+      resilience = 4;
     }
     else if (species == 'human' || species == 'simian' || species == 'gloom' || species == 'vermile' || species == 'ogoloid'){
-      this.setState({ resilience: 5 });
+      resilience = 5;
     }
     else if (species == 'capra' || species == 'wheepe' || species == 'construct' || species == 'modhuman'){
-      this.setState({ resilience: 6 });
+      resilience = 6;
     }
     else if (species == 'giant'){
-      this.setState({ resilience: 7 });
+      resilience = 7;
     }
     else {
-      this.setState({ resilience: 5 });
+      resilience = 5;
     }
+    resilience += conBonus;
+    this.setState({ resilience });
   }
 
   handleAwareness = () => {
     var species = this.props.species;
+    var wisBonus = this.calculateBonus(this.props.wisdom);
+    var awareness = 0;
     if (species == 'modhuman'){
-      this.setState({ awareness: 3 }); //TODO: hard coding a value right now... once equipment affects this stat, this will need to change
+      awareness = 3;
     }
     else if (species == 'energybeing' || species == 'vermile' || species == 'capra'){
-      this.setState({ awareness: 4 });
+      awareness = 4;
     }
     else if (species == 'human' || species == 'simian' || species == 'gloom' || species == 'grubtub' || species == 'giant' || species == 'wheepe' || species == 'construct'){
-      this.setState({ awareness: 5 });
+      awareness = 5;
     }
     else if (species == 'arachnet'){
-      this.setState({ awareness: 6 });
+      awareness = 6;
     }
     else if (species == 'ogoloid' || species == 'orbiden'){
-      this.setState({ awareness: 7 });
+      awareness = 7;
     }
     else {
-      this.setState({ awareness: 5 });
+      awareness = 5;
     }
+    awareness += wisBonus;
+    this.setState({ awareness });
+  }
+
+  handleAttack = () => {
+    var baseAttack = this.state.speed + this.state.awareness;
+
+    var strBonus = this.calculateBonus(this.props.strength);
+    var dexBonus = this.calculateBonus(this.props.dexterity);
+    var conBonus = this.calculateBonus(this.props.constitution);
+    var wisBonus = this.calculateBonus(this.props.wisdom);
+    var intBonus = this.calculateBonus(this.props.intelligence);
+    var infBonus = this.calculateBonus(this.props.influence);
+
+    var melee = ((strBonus + conBonus)/2)*10 + baseAttack;
+    var ranged = ((dexBonus + intBonus)/2)*10 + baseAttack;
+    var psionic = ((wisBonus + infBonus)/2)*10 + baseAttack;
+
+    this.setState({ baseAttack });
+    this.setState({ melee });
+    this.setState({ ranged });
+    this.setState({ psionic });
+  }
+
+  handleDefense = () => {
+    var baseDefense = this.state.armor + this.state.resilience;
+
+    var strBonus = this.calculateBonus(this.props.strength);
+    var dexBonus = this.calculateBonus(this.props.dexterity);
+    var conBonus = this.calculateBonus(this.props.constitution);
+    var wisBonus = this.calculateBonus(this.props.wisdom);
+    var intBonus = this.calculateBonus(this.props.intelligence);
+    var infBonus = this.calculateBonus(this.props.influence);
+
+    var block = ((strBonus + conBonus)/2)*10 + baseDefense;
+    var dodge = ((dexBonus + intBonus)/2)*10 + baseDefense;
+    var will = ((wisBonus + infBonus)/2)*10 + baseDefense;
+
+    this.setState({ baseDefense });
+    this.setState({ block });
+    this.setState({ dodge });
+    this.setState({ will });
   }
 
   render() {

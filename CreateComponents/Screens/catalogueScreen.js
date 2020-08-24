@@ -4,9 +4,16 @@ import { Colors } from 'react-native/Libraries/NewAppScreen';
 import TrinitaireArms from '../Catalogues/TrinitaireArms'
 
 class Catalogues extends Component {
+
+  addItem = (item) => {
+    this.props.route.params.itemCallback(item);
+  }
+
   render() {
      return (
-       <TrinitaireArms />
+       <TrinitaireArms
+         itemCallback={this.addItem}
+       />
      )
    }
  }

@@ -3,9 +3,11 @@ import { View, Button, Text, Picker, TouchableOpacity, TextInput, StyleSheet, Sa
 import Item from './Items/item'
 
 class TrinitaireArms extends Component {
-  state = {
-    activeSections: []
+
+  addItem = (item) => {
+    this.props.itemCallback(item);
   }
+
   render() {
     return (
       <>
@@ -13,7 +15,9 @@ class TrinitaireArms extends Component {
         <ScrollView style={styles.scrollView}>
           <Text>Ranged Weaponry</Text>
             <Item
+            itemCallback={this.addItem}
             name={"Galaggir's Auto Rifle"}
+            type={"ranged"}
             price={1200}
             range={"10-30-50"}
             damage={"7d10"}
@@ -22,7 +26,9 @@ class TrinitaireArms extends Component {
             description={"Replica of the same rifle used in the breach of Fort Kirck in the giant capra war. This rifle model still sees service."}
             />
             <Item
+            itemCallback={this.addItem}
             name={"Molk'so SMG"}
+            type={"ranged"}
             price={1350}
             range={"5-10-15"}
             damage={"5d10+20 AOE"}
@@ -32,6 +38,8 @@ class TrinitaireArms extends Component {
             />
             <Item
             name={"Admiral Brikk's DMR"}
+            type={"ranged"}
+            itemCallback={this.addItem}
             price={1475}
             range={"20-40-60"}
             damage={"3d10+30"}
@@ -41,6 +49,8 @@ class TrinitaireArms extends Component {
             />
             <Item
             name={"Falcomoor's Sidearm"}
+            type={"ranged"}
+            itemCallback={this.addItem}
             price={1100}
             range={"15-25-35"}
             damage={"7d8+10"}
@@ -50,6 +60,8 @@ class TrinitaireArms extends Component {
             />
             <Item
             name={"Dackman's Laser Rifle"}
+            type={"ranged"}
+            itemCallback={this.addItem}
             price={1250}
             range={"40"}
             damage={"5d12"}
@@ -59,6 +71,8 @@ class TrinitaireArms extends Component {
             />
             <Item
             name={"Jergo's Automatic Laser Rifle"}
+            type={"ranged"}
+            itemCallback={this.addItem}
             price={1200}
             range={"40"}
             damage={"5d10+10 AOE"}
@@ -68,6 +82,8 @@ class TrinitaireArms extends Component {
             />
             <Item
             name={"Scerkoe's Laser Sniper Rifle"}
+            type={"ranged"}
+            itemCallback={this.addItem}
             price={1500}
             range={"30-50-80"}
             damage={"(5d10, 6d10, 7d10)+20"}
@@ -77,6 +93,8 @@ class TrinitaireArms extends Component {
             />
             <Item
             name={"Mercy's Trench Rifle"}
+            type={"ranged"}
+            itemCallback={this.addItem}
             price={1400}
             range={"4-12-16"}
             damage={"7d10, 6d10, 5d10"}
@@ -86,6 +104,8 @@ class TrinitaireArms extends Component {
             />
             <Item
             name={"Coco's Crossbow"}
+            type={"ranged"}
+            itemCallback={this.addItem}
             price={2000}
             range={"8-16-24"}
             damage={"4d10 + Ammunition Damage"}
@@ -95,6 +115,8 @@ class TrinitaireArms extends Component {
             />
             <Item
             name={"Icarus Anthem's Rocket Launcher"}
+            type={"ranged"}
+            itemCallback={this.addItem}
             price={2300}
             range={"30-50-70"}
             damage={"5d12 + Ammunition Damage (If N/A add + 20)"}
@@ -104,6 +126,8 @@ class TrinitaireArms extends Component {
             />
             <Item
             name={"Sparrow's Shrieking LMG"}
+            type={"ranged"}
+            itemCallback={this.addItem}
             price={2100}
             range={"15-25-35"}
             damage={"7d12, 6d12, 5d12"}
@@ -113,6 +137,8 @@ class TrinitaireArms extends Component {
             />
             <Item
             name={"Stormbane's Minigun"}
+            type={"ranged"}
+            itemCallback={this.addItem}
             price={3000}
             range={"15-25-35"}
             damage={"6d12, 1d4 knockback"}
@@ -123,6 +149,8 @@ class TrinitaireArms extends Component {
           <Text>Telum Mass-Produced Weaponry</Text>
             <Item
             name={"Telum-I Laser Rifle"}
+            type={"ranged"}
+            itemCallback={this.addItem}
             price={1700}
             range={"20-40-60"}
             damage={"8d8"}
@@ -132,6 +160,8 @@ class TrinitaireArms extends Component {
             />
             <Item
             name={"Telum-II Machina Laser"}
+            type={"ranged"}
+            itemCallback={this.addItem}
             price={1750}
             range={"15-25-35"}
             damage={"5d12"}
@@ -141,6 +171,8 @@ class TrinitaireArms extends Component {
             />
             <Item
             name={"Telum-III Rail Rifle"}
+            type={"ranged"}
+            itemCallback={this.addItem}
             price={3500}
             range={"15-25-35"}
             damage={"7d10 + 50% AOE explosive damage on adjacent squares"}
@@ -150,6 +182,8 @@ class TrinitaireArms extends Component {
             />
             <Item
             name={"Telum-IV Breach Shot"}
+            type={"ranged"}
+            itemCallback={this.addItem}
             price={2300}
             range={"15-25-35"}
             damage={"4d8, 6d8 if target is armored"}
@@ -159,6 +193,8 @@ class TrinitaireArms extends Component {
             />
             <Item
             name={"Telum-V CQB Gun"}
+            type={"ranged"}
+            itemCallback={this.addItem}
             price={2700}
             range={"10-15-20"}
             damage={"7d10, 6d10, 5d10"}
@@ -169,6 +205,8 @@ class TrinitaireArms extends Component {
           <Text>Melee Weaponry</Text>
             <Item
             name={"Drog's Might Hammer"}
+            type={"melee"}
+            itemCallback={this.addItem}
             price={2000}
             range={"1"}
             damage={"4d10 + (3d10 if target is non-biological)"}
@@ -178,6 +216,8 @@ class TrinitaireArms extends Component {
             />
             <Item
             name={"Rimhelm's Staff"}
+            type={"melee"}
+            itemCallback={this.addItem}
             price={1900}
             range={"5"}
             damage={"9d8"}
@@ -187,6 +227,8 @@ class TrinitaireArms extends Component {
             />
             <Item
             name={"Solomon's Last Stand"}
+            type={"melee"}
+            itemCallback={this.addItem}
             price={2200}
             range={"1"}
             damage={"9d8 Slashing Damage"}
@@ -196,6 +238,8 @@ class TrinitaireArms extends Component {
             />
             <Item
             name={"Grindwind's Saw"}
+            type={"melee"}
+            itemCallback={this.addItem}
             price={1950}
             range={"1"}
             damage={"6d10, no penalty to attacks on limbs. (Still penalty for vitals)"}
@@ -205,6 +249,8 @@ class TrinitaireArms extends Component {
             />
             <Item
             name={"Dallis Dawn's Morning Star"}
+            type={"melee"}
+            itemCallback={this.addItem}
             price={2100}
             range={"2"}
             damage={"8d8 + 10"}
@@ -214,6 +260,8 @@ class TrinitaireArms extends Component {
             />
             <Item
             name={"Latt's Fury"}
+            type={"melee"}
+            itemCallback={this.addItem}
             price={2000}
             range={"1"}
             damage={"6d10 Slashing Damage"}
@@ -223,6 +271,8 @@ class TrinitaireArms extends Component {
             />
             <Item
             name={"Naia's Shade Blades"}
+            type={"melee"}
+            itemCallback={this.addItem}
             price={1900}
             range={"1"}
             damage={"5d8 for each blade"}
@@ -234,6 +284,8 @@ class TrinitaireArms extends Component {
           <Text>Explosives</Text>
             <Item
             name={"T3-21 Galleon Explosive"}
+            type={"gear"}
+            itemCallback={this.addItem}
             price={3000}
             damage={"1d8 Capital Damage"}
             durability={10}
@@ -242,6 +294,8 @@ class TrinitaireArms extends Component {
             />
             <Item
             name={"T3-39 Bore Incidiary"}
+            type={"gear"}
+            itemCallback={this.addItem}
             price={4500}
             damage={"1d6 Capital Damage every round"}
             durability={10}
@@ -250,6 +304,8 @@ class TrinitaireArms extends Component {
             />
             <Item
             name={"T3-Tango Acid Charge"}
+            type={"gear"}
+            itemCallback={this.addItem}
             price={4750}
             damage={"1d10 Capital Damage to armor and non-biological items"}
             durability={10}
@@ -258,6 +314,8 @@ class TrinitaireArms extends Component {
             />
             <Item
             name={"T2-Mortar Shiphead"}
+            type={"gear"}
+            itemCallback={this.addItem}
             price={2500}
             damage={"1d6 Capital Damage AOE 10 sq. radius"}
             durability={80}
@@ -266,6 +324,8 @@ class TrinitaireArms extends Component {
             />
             <Item
             name={"T2-Serpent Charge"}
+            type={"gear"}
+            itemCallback={this.addItem}
             price={2100}
             damage={"8d8 AOE, 3 sq. radius"}
             durability={8}
@@ -274,6 +334,8 @@ class TrinitaireArms extends Component {
             />
             <Item
             name={"T2-Malachite Hand Grenade"}
+            type={"gear"}
+            itemCallback={this.addItem}
             price={1900}
             damage={"6d10 AOE, 5 sq. radius"}
             durability={12}
@@ -282,6 +344,8 @@ class TrinitaireArms extends Component {
             />
             <Item
             name={"T2-Spitfire Charge"}
+            type={"gear"}
+            itemCallback={this.addItem}
             price={2100}
             damage={"7d10, No AOE"}
             durability={10}
@@ -290,6 +354,8 @@ class TrinitaireArms extends Component {
             />
             <Item
             name={"T1-X77 Firecracker"}
+            type={"gear"}
+            itemCallback={this.addItem}
             price={5800}
             damage={"5d8 per round AOE, 3 sq. radius"}
             durability={12}
@@ -298,6 +364,8 @@ class TrinitaireArms extends Component {
             />
             <Item
             name={"T1-E4 Hand Grenade"}
+            type={"gear"}
+            itemCallback={this.addItem}
             price={700}
             damage={"4d8+10 AOE, 4 sq. radius"}
             durability={10}
@@ -307,6 +375,8 @@ class TrinitaireArms extends Component {
           <Text>Armor and Wearables</Text>
             <Item
               name={"Trinit Hard Suit"}
+              type={"armor"}
+              itemCallback={this.addItem}
               price={800}
               description={"A sealed ballistic suit usable for EVA and combat. Standard for most infantry."}
               category={"Light/Gear"}
@@ -314,6 +384,8 @@ class TrinitaireArms extends Component {
             />
             <Item
               name={"Trinit Helm"}
+              type={"armor"}
+              itemCallback={this.addItem}
               price={500}
               description={"A durable helmet with a visor uplink  for compatable weapons."}
               category={"Light/Head"}
@@ -321,6 +393,8 @@ class TrinitaireArms extends Component {
             />
             <Item
               name={"Trinit Chest and Coil"}
+              type={"armor"}
+              itemCallback={this.addItem}
               price={400}
               description={"A ballistic and metal alloy hard plate with flexible waist protection."}
               category={"Light/Torso"}
@@ -328,6 +402,8 @@ class TrinitaireArms extends Component {
             />
             <Item
               name={"Trinit Greeves"}
+              type={"armor"}
+              itemCallback={this.addItem}
               price={200}
               description={"Armored gauntlets fit for rugged use."}
               category={"Light/Arms"}
@@ -335,6 +411,8 @@ class TrinitaireArms extends Component {
             />
             <Item
               name={"Kelly's Helmet"}
+              type={"armor"}
+              itemCallback={this.addItem}
               price={750}
               description={"Used by the famous gunner in her many strike missions against the Imperial Giants during the violent stage of their divergence."}
               category={"Medium/Head"}
@@ -343,6 +421,8 @@ class TrinitaireArms extends Component {
             />
             <Item
               name={"Shoal's Goggles"}
+              type={"armor"}
+              itemCallback={this.addItem}
               price={2000}
               description={"Modified with various lens magnifications of Shoal's design, have been mass produced to help other Trinitaire snipers."}
               category={"Light/Gear"}
@@ -351,6 +431,8 @@ class TrinitaireArms extends Component {
             />
             <Item
               name={"Malik's Cage"}
+              type={"armor"}
+              itemCallback={this.addItem}
               price={500}
               description={"Malik liked having protection on top of his protection, so he fashioned an armored cage to wield on top of his normal armor to give that extra layer between him and enemy fire."}
               category={"Heavy/Gear"}
@@ -359,6 +441,8 @@ class TrinitaireArms extends Component {
             />
             <Item
               name={"Grindwind's Platemail"}
+              type={"armor"}
+              itemCallback={this.addItem}
               price={600}
               description={"Grindwind loved melee combat as much as he hated being hit in melee combat. Thus he ordered a chest piece to help with such a problem."}
               category={"Medium/Torso"}
@@ -367,6 +451,8 @@ class TrinitaireArms extends Component {
             />
             <Item
               name={"Olive's Jet Plate"}
+              type={"armor"}
+              itemCallback={this.addItem}
               price={1400}
               description={"Do you like to go fast? Olive did, so she welded a strafe jet to her torso armor."}
               category={"Light/Torso"}
@@ -375,6 +461,8 @@ class TrinitaireArms extends Component {
             />
             <Item
               name={"Admiral Brikk's Coil"}
+              type={"armor"}
+              itemCallback={this.addItem}
               price={1000}
               description={"Used by Brikk himself to rapid reload and hold extra ammo for his trusty rifle. "}
               category={"Light/Gear"}
@@ -384,6 +472,8 @@ class TrinitaireArms extends Component {
           <Text>Items</Text>
             <Item
               name={"Medical Syrum"}
+              type={"gear"}
+              itemCallback={this.addItem}
               price={1200}
               description={"A syringe filled with rigorously tested pharmaceuticals."}
               misc={"Heals 1d10 HP and any effects class C or lower."}
@@ -392,6 +482,8 @@ class TrinitaireArms extends Component {
             />
             <Item
               name={"Medical Crate"}
+              type={"gear"}
+              itemCallback={this.addItem}
               price={1000}
               description={"A stock of medical supplies large enough to supply a small clinic for a day. Can be used 15 times for basic medical checks and or cures 1 class B effect or lower with 5 uses."}
               misc={"Heals 1d20 HP & TH."}
@@ -400,6 +492,8 @@ class TrinitaireArms extends Component {
             />
             <Item
               name={"Medical Case"}
+              type={"gear"}
+              itemCallback={this.addItem}
               price={2300}
               description={"A compact utility set of medical tools and supplies. Heals with no check."}
               misc={"Heals 4d10 + 10"}
@@ -408,6 +502,8 @@ class TrinitaireArms extends Component {
             />
             <Item
               name={"Handheld Deepwave Scanner"}
+              type={"gear"}
+              itemCallback={this.addItem}
               price={2000}
               description={"A high powered scanning device used to give tactical read outs and positions of allies or enemies."}
               misc={"Conical 50 sq radius to detect enemies. Makes foes in range roll vs a DC 70 stealth check to not be detected."}
@@ -416,6 +512,8 @@ class TrinitaireArms extends Component {
             />
             <Item
               name={"Insta Cover Box"}
+              type={"gear"}
+              itemCallback={this.addItem}
               price={2400}
               description={"Fold out to create a 3 square wide wall of half cover if crouched and full cover if prone."}
               misc={"Wall has 1d4+60 health."}
@@ -424,6 +522,8 @@ class TrinitaireArms extends Component {
             />
             <Item
               name={"Plasma Cutter/Sealer"}
+              type={"gear"}
+              itemCallback={this.addItem}
               price={3000}
               description={"Seals or seperates various materials through plasma."}
               misc={"Can cut through grade B materials or lower. Requires 1 Power cell or battery per use."}
@@ -432,6 +532,8 @@ class TrinitaireArms extends Component {
             />
             <Item
               name={"Trinit Data Pad"}
+              type={"gear"}
+              itemCallback={this.addItem}
               price={1700}
               description={"A compact and hard to break data pad with moderate upgrades compared to the standard."}
               misc={"Add +10 to rolls when using the data pad in its appropriate circumstances."}

@@ -62,15 +62,15 @@ function HomeScreen({ navigation }) {
   )
 }
 
-function CatalogueScreen({ navigation }) {
+function CatalogueScreen({ navigation, route }) {
   return (
-    <Catalogues />
+    <Catalogues route={route} navigation={navigation} />
   )
 }
 
-function CreateScreen() {
+function CreateScreen({ navigation }) {
   return (
-      <Create />
+      <Create navigation={navigation} />
   );
 }
 

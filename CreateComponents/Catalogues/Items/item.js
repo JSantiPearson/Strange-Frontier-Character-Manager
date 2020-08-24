@@ -25,6 +25,11 @@ class Item extends Component {
     )
   }
 
+  addItem = () => {
+    let item = this;
+    this.props.itemCallback(item);
+  }
+
   _renderContent = () => {
     return (
       <View style={styles.child}>
@@ -68,15 +73,12 @@ class Item extends Component {
         {this.props.stats[3] != 0 &&
           <Text style={{fontWeight: "bold"}}>{this.props.stats[3]} Awareness</Text>
         }
-      </View>
-    );
-  };
-
-  _renderPurchaseButton = () => {
-    return (
-        <TouchableOpacity style={styles.purchaseButton}>
+        <TouchableOpacity
+          style={styles.purchaseButton}
+          onPress={this.addItem}>
           <Icon name={"chevron-right"}  size={50} color="#01a699" />
         </TouchableOpacity>
+      </View>
     );
   };
 
@@ -127,12 +129,10 @@ const styles = StyleSheet.create({
       borderColor:'rgba(0,0,0,0.2)',
       alignItems:'center',
       justifyContent:'center',
-      width:100,
-      height:100,
+      width:80,
+      height:80,
       backgroundColor:'#fff',
       borderRadius:50,
       alignSelf: 'flex-end',
-      bottom: -150,
-      right: 15
     }
 });
