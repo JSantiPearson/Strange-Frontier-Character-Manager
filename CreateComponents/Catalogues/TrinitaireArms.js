@@ -5,10 +5,11 @@ import Item from './item'
 class TrinitaireArms extends Component {
 
   addItem = (item) => {
-    this.props.itemCallback(item);
+    this.props.route.params.itemCallback(item);
   }
 
   render() {
+    console.log("Loaded Trinitaire");
     return (
       <>
       <SafeAreaView style={styles.container}>

@@ -12,7 +12,7 @@ class EquipmentScreen extends Component {
     gearEquipment: [],
     miscEquipment: [],
     equipped: [],
-    stats: [0, 0, 0, 0]
+    stats: [0, 0, 0, 0] //TODO: Turn this into an object for readability
   }
 
   /**
@@ -60,7 +60,8 @@ class EquipmentScreen extends Component {
       range: data.props.range,
       damage: data.props.damage,
       durability: data.props.durability,
-      stats: data.props.stats
+      stats: data.props.stats,
+      special: data.props.special
     }
 
     const exists = equipment.some(i => (i.name === item.name)); //check if instance of item is in inventory. "exists" is a boolean.
@@ -120,15 +121,28 @@ class EquipmentScreen extends Component {
   setToggleCheckbox = (item, equipValue) => {
     let equipped = [...this.state.equipped];
     let stats = this.state.stats;
-    item.equipped = equipValue;
+    item.equipped = equipValue; //swap equip status based on checkbox
 
-    if (equipValue){
+    if (equipValue){ //item is being equipped
       equipped.push(item);
+      switch(item.special) { //switch statement for special cases, such as armor doubling equipment.
+        case "double armor":
+          console.log("Armor before doubling: " + stats[0]);
+          stats[0] *= 2;
+          console.log("Armor after doubling: " + stats[0]);
+          break;
+        case "double speed":
+          stats[2] *= 2;
+          break;
+        default:
+          console.log("Item special value: " + item.special);
+          break;
+      }
       for (let i = 0; i < stats.length; i++){
         stats[i] += item.stats[i];
       }
     }
-    else {
+    else { //item is being unequipped
       for (let i = 0; i < equipped.length; i++){
         let currItem = equipped[i];
         if (currItem.name === item.name){
@@ -139,6 +153,7 @@ class EquipmentScreen extends Component {
         }
       }
     }
+    console.log("Final armor: " + stats[0]);
     this.setState({ equipped });
     this.setState({ stats });
     this.props.statCallback(stats);

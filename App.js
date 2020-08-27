@@ -21,6 +21,8 @@ import CombatScreen from './CreateComponents/Screens/combatScreen';
 import EquipmentScreen from './CreateComponents/Screens/equipmentScreen';
 import NoteScreen from './CreateComponents/Screens/noteScreen';
 import Catalogues from './CreateComponents/Screens/catalogueScreen'
+import TrinitaireArms from './CreateComponents/Catalogues/TrinitaireArms';
+import DodanaArmsEmporium from './CreateComponents/Catalogues/DodanaArmsEmporium';
 
 import {
   SafeAreaView,
@@ -49,12 +51,12 @@ function HomeScreen({ navigation }) {
       <View style={styles.container}>
         <View style={styles.buttonContainer}>
           <TouchableOpacity onPress={() => navigation.navigate('Create', { navigation })}>
-            <Image source={require('./img/CreateScreen.png')} style={styles.backgroundImage} resizeMode='cover' />
+            <Image source={require('./assets/img/CreateScreen.png')} style={styles.backgroundImage} resizeMode='cover' />
           </TouchableOpacity>
         </View>
         <View style={styles.buttonContainer}>
           <TouchableOpacity onPress={() => navigation.navigate('Play', { navigation })}>
-              <Image source={require('./img/poker.jpg')} style={styles.backgroundImage} resizeMode='cover' />
+              <Image source={require('./assets/img/poker.jpg')} style={styles.backgroundImage} resizeMode='cover' />
           </TouchableOpacity>
         </View>
       </View>
@@ -85,6 +87,8 @@ class App extends React.Component {
             <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name="Create" component={CreateScreen} />
             <Stack.Screen name="Catalogues" component={CatalogueScreen} />
+            <Stack.Screen name="Trinitaire" component={TrinitaireArms} />
+            <Stack.Screen name="Dodana" component={DodanaArmsEmporium} />
           </Stack.Navigator>
         </NavigationContainer>
       </>
