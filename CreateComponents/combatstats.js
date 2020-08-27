@@ -15,7 +15,12 @@ class CombatStats extends Component {
     armor: 0,
     awareness: 0,
     resilience: 0,
-    equipmentStats: [0, 0, 0, 0] //TODO: Change this into an object for readability. This is messy
+    equipmentStats: {
+      armor: 0,
+      resilience: 0,
+      speed: 0,
+      awareness: 0
+    }
   }
 
   componentDidMount() {
@@ -37,10 +42,10 @@ class CombatStats extends Component {
 
   handleStats = () => {
     let stats = this.handleEquipmentStats();
-    var armor = stats[0];
-    var resilience = this.handleResilience() + stats[1];
-    var speed = this.handleSpeed() + stats[2];
-    var awareness = this.handleAwareness() + stats[3];
+    var armor = stats.armor;
+    var resilience = this.handleResilience() + stats.resilience;
+    var speed = this.handleSpeed() + stats.speed;
+    var awareness = this.handleAwareness() + stats.awareness;
 
     this.handleAttack(speed, awareness);
     this.handleDefense(armor, resilience);

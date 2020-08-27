@@ -12,7 +12,12 @@ class EquipmentScreen extends Component {
     gearEquipment: [],
     miscEquipment: [],
     equipped: [],
-    stats: [0, 0, 0, 0] //TODO: Turn this into an object for readability
+    stats: {
+      armor: 0,
+      resilience: 0,
+      speed: 0,
+      awareness: 0
+    }
   }
 
   /**
@@ -93,6 +98,7 @@ class EquipmentScreen extends Component {
       case "armor":
         let armorEquipment = equipment;
         console.log("Adding " + item.name + " to armor equipment");
+        console.log(item.name + " has a " + item.stats.armor + " in armor.");
         this.setState({ armorEquipment });
         break;
       case "gear":
@@ -127,33 +133,35 @@ class EquipmentScreen extends Component {
       equipped.push(item);
       switch(item.special) { //switch statement for special cases, such as armor doubling equipment.
         case "double armor":
-          console.log("Armor before doubling: " + stats[0]);
-          stats[0] *= 2;
-          console.log("Armor after doubling: " + stats[0]);
+          console.log("Armor before doubling: " + stats.armor);
+          stats.armor *= 2;
+          console.log("Armor after doubling: " + stats.armor);
           break;
         case "double speed":
-          stats[2] *= 2;
+          stats.speed *= 2;
           break;
         default:
           console.log("Item special value: " + item.special);
           break;
       }
-      for (let i = 0; i < stats.length; i++){
-        stats[i] += item.stats[i];
-      }
+      stats.armor += item.stats.armor;
+      stats.resilience += item.stats.resilience;
+      stats.speed += item.stats.speed;
+      stats.awareness += item.stats.awareness;
     }
     else { //item is being unequipped
       for (let i = 0; i < equipped.length; i++){
         let currItem = equipped[i];
         if (currItem.name === item.name){
           equipped.splice(i, 1);
-          for (let j = 0; j < stats.length; j++){
-            stats[j] -= item.stats[j];
-          }
+          stats.armor -= item.stats.armor;
+          stats.resilience -= item.stats.resilience;
+          stats.speed -= item.stats.speed;
+          stats.awareness -= item.stats.awareness;
         }
       }
     }
-    console.log("Final armor: " + stats[0]);
+    console.log("Final armor: " + stats.armor);
     this.setState({ equipped });
     this.setState({ stats });
     this.props.statCallback(stats);

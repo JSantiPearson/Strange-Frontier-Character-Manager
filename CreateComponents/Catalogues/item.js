@@ -61,17 +61,17 @@ class Item extends Component {
             <Text>{this.props.durability}</Text>
           </Text>
         }
-        {this.props.stats[0] != 0 &&
-          <Text style={{fontWeight: "bold"}}>{this.props.stats[0]} Armor</Text>
+        {this.props.stats.armor != 0 &&
+          <Text style={{fontWeight: "bold"}}>{this.props.stats.armor} Armor</Text>
         }
-        {this.props.stats[1] != 0 &&
-          <Text style={{fontWeight: "bold"}}>{this.props.stats[1]} Resilience</Text>
+        {this.props.stats.resilience != 0 &&
+          <Text style={{fontWeight: "bold"}}>{this.props.stats.resilience} Resilience</Text>
         }
-        {this.props.stats[2] != 0 &&
-          <Text style={{fontWeight: "bold"}}>{this.props.stats[2]} Speed</Text>
+        {this.props.stats.speed != 0 &&
+          <Text style={{fontWeight: "bold"}}>{this.props.stats.speed} Speed</Text>
         }
-        {this.props.stats[3] != 0 &&
-          <Text style={{fontWeight: "bold"}}>{this.props.stats[3]} Awareness</Text>
+        {this.props.stats.awareness != 0 &&
+          <Text style={{fontWeight: "bold"}}>{this.props.stats.awareness} Awareness</Text>
         }
         <TouchableOpacity
           style={styles.purchaseButton}
