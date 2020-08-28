@@ -57,7 +57,6 @@ class MoveScreen extends Component {
   }
 
   handleMove = (move) => {
-    console.log("Handling " + move.name);
     this.setState({[move.id]: move});
     console.log(move.id)
   }
