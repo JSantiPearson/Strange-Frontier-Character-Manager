@@ -6,51 +6,61 @@ class MoveScreen extends Component {
   state = {
     move1: {
       name: "EMPTY",
+			description: "",
       id: "move1",
       cost: null
     },
     move2: {
       name: "EMPTY",
+			description: "",
       id: "move2",
       cost: null
     },
     move3: {
       name: "EMPTY",
+			description: "",
       id: "move3",
       cost: null
     },
     move4: {
       name: "EMPTY",
+			description: "",
       id: "move4",
       cost: null
     },
     move5: {
       name: "EMPTY",
+			description: "",
       id: "move5",
       cost: null
     },
     shift: {
       name: "EMPTY",
+			description: "",
       id: "shift",
       cost: null
     },
     exotic1: {
       name: "EMPTY",
+			description: "",
       id: "exotic1",
       cost: null
     },
     exotic2: {
       name: "EMPTY",
+			description: "",
       id: "exotic2",
       cost: null
     },
     exotic3: {
       name: "EMPTY",
+			description: "",
       id: "exotic3",
       cost: null
     },
     flash: {
       name: "EMPTY",
+			description: "",
       id: "flash",
       cost: null
     }
@@ -66,7 +76,12 @@ class MoveScreen extends Component {
         <TouchableOpacity onPress={() => this.props.navigation.navigate('Create Move', { moveCallback: this.handleMove, move: move})}>
           <ImageBackground style={styles.image} source={require('../../assets/img/blue.png')}>
             <Text style={styles.text}>{move.name}</Text>
-            <Text style={styles.text}>{move.cost}</Text>
+            <Text style={styles.text}>
+              <Text>{move.cost}</Text>
+              {move.cost != null &&
+                <Text>*</Text>
+              }
+            </Text>
           </ImageBackground>
         </TouchableOpacity>
       </View>
@@ -119,5 +134,7 @@ class MoveScreen extends Component {
      fontFamily: 'CCWildWordsRoman',
      fontSize: 24,
      color: Colors.white,
+     margin: 15,
+     textAlign: 'center',
    }
  });

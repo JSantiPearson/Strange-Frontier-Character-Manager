@@ -5,12 +5,14 @@ import NumericInput from 'react-native-numeric-input'
 class CreateMove extends Component {
   state = {
     name: "",
+    description: "",
     id: "",
     cost: 1
   }
 
   componentDidMount() {
     this.handleName(this.props.route.params.move.name);
+    this.handleDescription(this.props.route.params.move.description);
     this.handleID();
     this.handleCost(this.props.route.params.move.cost);
   }
@@ -18,6 +20,7 @@ class CreateMove extends Component {
   componentDidUpdate() {
     let move = {
       name: this.state.name,
+      description: this.state.description,
       id: this.state.id,
       cost: this.state.cost
     }
@@ -32,6 +35,10 @@ class CreateMove extends Component {
     this.setState({name: input})
   }
 
+  handleDescription = input => {
+    this.setState({description: input})
+  }
+
   handleCost = cost => {
     console.log("Cost: " + cost);
     this.setState({ cost });
@@ -40,7 +47,7 @@ class CreateMove extends Component {
   _renderName = () => {
     if (this.props.route.params.move.name != "EMPTY"){
       return(
-        <TextInput style = {styles.input}
+        <TextInput style = {styles.nameInput}
            underlineColorAndroid = "transparent"
            placeholder = {this.props.route.params.move.name}
            defaultValue = {this.props.route.params.move.name}
@@ -52,7 +59,7 @@ class CreateMove extends Component {
     }
     else {
       return(
-        <TextInput style = {styles.input}
+        <TextInput style = {styles.nameInput}
            underlineColorAndroid = "transparent"
            placeholder = "Move Name"
            placeholderTextColor = "#9a73ef"
@@ -86,10 +93,41 @@ class CreateMove extends Component {
     }
   }
 
+  _renderDescription = () => {
+    if (this.props.route.params.move.description != ""){
+      return(
+        <TextInput style = {styles.descriptionInput}
+           underlineColorAndroid = "transparent"
+           multiline = {true}
+           textAlignVertical = 'top'
+           placeholder = {this.props.route.params.move.description}
+           defaultValue = {this.props.route.params.move.description}
+           placeholderTextColor = "#9a73ef"
+           autoCapitalize = "none"
+           onChangeText = {this.handleDescription}
+        />
+      )
+    }
+    else {
+      return(
+        <TextInput style = {styles.descriptionInput}
+           underlineColorAndroid = "transparent"
+           multiline = {true}
+           textAlignVertical = 'top'
+           placeholder = "Move Description"
+           placeholderTextColor = "#9a73ef"
+           autoCapitalize = "none"
+           onChangeText = {this.handleDescription}
+        />
+      )
+    }
+  }
+
   render() {
      return (
        <>
         {this._renderName()}
+        {this._renderDescription()}
         {this._renderCost()}
        </>
      )
@@ -99,9 +137,16 @@ class CreateMove extends Component {
 export default CreateMove;
 
 const styles = StyleSheet.create({
-   input: {
+   nameInput: {
       margin: 15,
       height: 40,
+      backgroundColor: 'white',
+      borderColor: '#7a42f4',
+      borderWidth: 1
+   },
+   descriptionInput: {
+      margin: 15,
+      height: 80,
       backgroundColor: 'white',
       borderColor: '#7a42f4',
       borderWidth: 1
