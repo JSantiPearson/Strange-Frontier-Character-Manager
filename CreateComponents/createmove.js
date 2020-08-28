@@ -53,6 +53,7 @@ class CreateMove extends Component {
            defaultValue = {this.props.route.params.move.name}
            placeholderTextColor = "#9a73ef"
            autoCapitalize = "none"
+           maxLength = {40}
            onChangeText = {this.handleName}
         />
       )
@@ -64,6 +65,7 @@ class CreateMove extends Component {
            placeholder = "Move Name"
            placeholderTextColor = "#9a73ef"
            autoCapitalize = "none"
+           maxLength = {40}
            onChangeText = {this.handleName}
         />
       )

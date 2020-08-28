@@ -16,7 +16,8 @@ class EquipmentScreen extends Component {
       armor: 0,
       resilience: 0,
       speed: 0,
-      awareness: 0
+      awareness: 0,
+      special: []
     }
   }
 
@@ -131,28 +132,14 @@ class EquipmentScreen extends Component {
 
     if (equipValue){ //item is being equipped
       equipped.push(item);
-      switch(item.special) { //switch statement for special cases, such as armor doubling equipment.
-        case "double armor":
-          stats.armor *= 2;
-          break;
-        case "double speed":
-          stats.speed *= 2;
-          break;
-        case "speed 150%":
-          stats.speed *= 1.5;
-          Math.floor(stats.speed);
-          break;
-        default:
-          console.log("Item special value: " + item.special);
-          break;
-      }
       stats.armor += item.stats.armor;
       stats.resilience += item.stats.resilience;
       stats.speed += item.stats.speed;
       stats.awareness += item.stats.awareness;
+      stats.special.push(item.special);
     }
     else { //item is being unequipped
-      for (let i = 0; i < equipped.length; i++){
+      for (let i = 0; i < equipped.length; i++){ //TODO: This next section is extremely messy and can likely be optimized
         let currItem = equipped[i];
         if (currItem.name === item.name){
           equipped.splice(i, 1);
@@ -160,10 +147,18 @@ class EquipmentScreen extends Component {
           stats.resilience -= item.stats.resilience;
           stats.speed -= item.stats.speed;
           stats.awareness -= item.stats.awareness;
+          if (currItem.special != null){
+            let special = [...this.state.stats.special];
+            for (let j = 0; j < special.length; j++){
+              if (currItem.special === special[j]){
+                special.splice(j, 1);
+                stats.special = special;
+              }
+            }
+          }
         }
       }
     }
-    console.log("Final armor: " + stats.armor);
     this.setState({ equipped });
     this.setState({ stats });
     this.props.statCallback(stats);

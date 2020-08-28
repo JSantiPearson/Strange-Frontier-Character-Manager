@@ -23,7 +23,13 @@ class Create extends Component {
      intelligence: 10,
      influence: 10,
      species: '',
-     equipmentStats: [0, 0, 0, 0]
+     equipmentStats: {
+       armor: 0,
+       resilience: 0,
+       speed: 0,
+       awareness: 0,
+       special: [],
+     }
   }
   setStrength = (strengthValue) => {
     this.setState({ strength: strengthValue });

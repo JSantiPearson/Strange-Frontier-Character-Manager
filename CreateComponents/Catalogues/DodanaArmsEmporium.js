@@ -418,7 +418,7 @@ class DodanaArmsEmporium extends Component {
               stats={{
                 armor: 6,
                 resilience: 0,
-                speed: 12,
+                speed: 8,
                 awareness: 0
               }}
             />

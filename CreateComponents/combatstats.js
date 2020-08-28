@@ -19,8 +19,9 @@ class CombatStats extends Component {
       armor: 0,
       resilience: 0,
       speed: 0,
-      awareness: 0
-    }
+      awareness: 0,
+      special: []
+    },
   }
 
   componentDidMount() {
@@ -47,13 +48,48 @@ class CombatStats extends Component {
     var speed = this.handleSpeed() + stats.speed;
     var awareness = this.handleAwareness() + stats.awareness;
 
-    this.handleAttack(speed, awareness);
-    this.handleDefense(armor, resilience);
+    stats = this.handleSpecial(armor, resilience, speed, awareness); //stats state is set with handleSpecial
 
+    armor = stats.armor;
+    resilience = stats.resilience;
+    speed = stats.speed;
+    awareness = stats.awareness;
+
+    this.handleAttack(speed, awareness); //attack state set with handleAttack
+    this.handleDefense(armor, resilience); //defense state set with handleDefense
+  }
+
+  handleSpecial = (armor, resilience, speed, awareness) => {
+    let special = this.state.equipmentStats.special;
+    for (let i = 0; i < special.length; i++){
+      switch(special[i]) { //switch statement for special cases, such as armor doubling equipment.
+        case "double armor":
+          armor *= 2;
+          break;
+        case "double speed":
+          speed *= 2;
+          break;
+        case "speed 150%":
+          speed *= 1.5;
+          Math.floor(speed);
+          break;
+        default:
+          break;
+      }
+    }
     this.setState({ armor });
     this.setState({ resilience });
     this.setState({ speed });
     this.setState({ awareness });
+
+    let stats = {
+      armor: armor,
+      resilience: resilience,
+      speed: speed,
+      awareness: awareness
+    }
+
+    return stats;
   }
 
   handleEquipmentStats = () => {
