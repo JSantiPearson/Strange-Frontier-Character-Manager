@@ -1,42 +1,97 @@
 import React, { Component } from 'react'
 import { View, Button, Text, Picker, TouchableOpacity, TextInput, StyleSheet, SafeAreaView, ScrollView} from 'react-native'
+import NumericInput from 'react-native-numeric-input'
 
 class CreateMove extends Component {
   state = {
     name: "",
     id: "",
-    cost: 0
+    cost: 1
   }
 
   componentDidMount() {
+    this.handleName(this.props.route.params.move.name);
     this.handleID();
+    this.handleCost(this.props.route.params.move.cost);
   }
 
-  handleID = () => {
-    this.setState({ id: this.props.route.params.move.id});
-    console.log("move id is: " + this.props.route.params.move.id);
-  }
-
-  handleName = input => {
-    this.setState({name: input})
+  componentDidUpdate() {
     let move = {
-      name: input,
+      name: this.state.name,
       id: this.state.id,
       cost: this.state.cost
     }
     this.props.route.params.moveCallback(move);
-    console.log("Sent " + move.name);
+  }
+
+  handleID = () => {
+    this.setState({ id: this.props.route.params.move.id});
+  }
+
+  handleName = input => {
+    this.setState({name: input})
+  }
+
+  handleCost = cost => {
+    console.log("Cost: " + cost);
+    this.setState({ cost });
+  }
+
+  _renderName = () => {
+    if (this.props.route.params.move.name != "EMPTY"){
+      return(
+        <TextInput style = {styles.input}
+           underlineColorAndroid = "transparent"
+           placeholder = {this.props.route.params.move.name}
+           defaultValue = {this.props.route.params.move.name}
+           placeholderTextColor = "#9a73ef"
+           autoCapitalize = "none"
+           onChangeText = {this.handleName}
+        />
+      )
+    }
+    else {
+      return(
+        <TextInput style = {styles.input}
+           underlineColorAndroid = "transparent"
+           placeholder = "Move Name"
+           placeholderTextColor = "#9a73ef"
+           autoCapitalize = "none"
+           onChangeText = {this.handleName}
+        />
+      )
+    }
+  }
+
+  _renderCost = () => {
+    if (this.props.route.params.move.cost != 0){
+      return(
+        <NumericInput
+          type='plus-minus'
+          minValue={1}
+          value={this.props.route.params.move.cost}
+          onChange={cost => this.handleCost(cost)}
+        />
+      )
+    }
+    else {
+      return(
+        <NumericInput
+          type='plus-minus'
+          minValue={1}
+          value={1}
+          onChange={cost => this.handleCost(cost)}
+        />
+      )
+    }
   }
 
   render() {
      return (
-       <TextInput style = {styles.input}
-          underlineColorAndroid = "transparent"
-          placeholder = "Move Name"
-          placeholderTextColor = "#9a73ef"
-          autoCapitalize = "none"
-          onChangeText = {this.handleName}
-       />
+       <>
+        {this._renderName()}
+        {this._renderCost()}
+       </>
      )
    }
 }

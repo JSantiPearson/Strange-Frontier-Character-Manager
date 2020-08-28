@@ -7,58 +7,57 @@ class MoveScreen extends Component {
     move1: {
       name: "EMPTY",
       id: "move1",
-      cost: 0
+      cost: null
     },
     move2: {
       name: "EMPTY",
       id: "move2",
-      cost: 0
+      cost: null
     },
     move3: {
       name: "EMPTY",
       id: "move3",
-      cost: 0
+      cost: null
     },
     move4: {
       name: "EMPTY",
       id: "move4",
-      cost: 0
+      cost: null
     },
     move5: {
       name: "EMPTY",
       id: "move5",
-      cost: 0
+      cost: null
     },
     shift: {
       name: "EMPTY",
       id: "shift",
-      cost: 0
+      cost: null
     },
     exotic1: {
       name: "EMPTY",
       id: "exotic1",
-      cost: 0
+      cost: null
     },
     exotic2: {
       name: "EMPTY",
       id: "exotic2",
-      cost: 0
+      cost: null
     },
     exotic3: {
       name: "EMPTY",
       id: "exotic3",
-      cost: 0
+      cost: null
     },
     flash: {
       name: "EMPTY",
       id: "flash",
-      cost: 0
+      cost: null
     }
   }
 
   handleMove = (move) => {
     this.setState({[move.id]: move});
-    console.log(move.id)
   }
 
   _renderMove = (move) => {
@@ -67,6 +66,7 @@ class MoveScreen extends Component {
         <TouchableOpacity onPress={() => this.props.navigation.navigate('Create Move', { moveCallback: this.handleMove, move: move})}>
           <ImageBackground style={styles.image} source={require('../../assets/img/blue.png')}>
             <Text style={styles.text}>{move.name}</Text>
+            <Text style={styles.text}>{move.cost}</Text>
           </ImageBackground>
         </TouchableOpacity>
       </View>
