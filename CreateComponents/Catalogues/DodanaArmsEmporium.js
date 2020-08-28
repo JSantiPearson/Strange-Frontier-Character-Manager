@@ -404,8 +404,8 @@ class DodanaArmsEmporium extends Component {
               stats={{
                 armor: 20,
                 resilience: 0,
-                speed: 0,
-                awareness: 10
+                speed: 10,
+                awareness: 0
               }}
             />
             <Item
@@ -413,12 +413,12 @@ class DodanaArmsEmporium extends Component {
               type={"armor"}
               itemCallback={this.addItem}
               price={4000}
-              description={"A modified Pneumatic Thruster Suit that halves its armor to prioritize handling, at double the cost."}
+              description={"A modified Pneumatic Thruster Suit that minimizes its armor to prioritize handling and speed, at double the cost."}
               category={"Light/Torso"}
               stats={{
-                armor: 10,
+                armor: 6,
                 resilience: 0,
-                speed: 8,
+                speed: 12,
                 awareness: 0
               }}
             />
@@ -431,6 +431,20 @@ class DodanaArmsEmporium extends Component {
               category={"Medium/Head"}
               stats={{
                 armor: 5,
+                resilience: 0,
+                speed: 0,
+                awareness: 9
+              }}
+            />
+            <Item
+              name={"RayTracer Lens"}
+              type={"gear"}
+              itemCallback={this.addItem}
+              price={1300}
+              description={"All the intel and data of the Visual Suite processing without the armored helmet."}
+              category={"Medium/Head"}
+              stats={{
+                armor: 0,
                 resilience: 0,
                 speed: 0,
                 awareness: 9

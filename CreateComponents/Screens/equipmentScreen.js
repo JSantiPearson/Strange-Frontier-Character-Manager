@@ -133,12 +133,14 @@ class EquipmentScreen extends Component {
       equipped.push(item);
       switch(item.special) { //switch statement for special cases, such as armor doubling equipment.
         case "double armor":
-          console.log("Armor before doubling: " + stats.armor);
           stats.armor *= 2;
-          console.log("Armor after doubling: " + stats.armor);
           break;
         case "double speed":
           stats.speed *= 2;
+          break;
+        case "speed 150%":
+          stats.speed *= 1.5;
+          Math.floor(stats.speed);
           break;
         default:
           console.log("Item special value: " + item.special);

@@ -20,9 +20,14 @@ import MoveScreen from './CreateComponents/Screens/moveScreen';
 import CombatScreen from './CreateComponents/Screens/combatScreen';
 import EquipmentScreen from './CreateComponents/Screens/equipmentScreen';
 import NoteScreen from './CreateComponents/Screens/noteScreen';
+
 import Catalogues from './CreateComponents/Screens/catalogueScreen'
 import TrinitaireArms from './CreateComponents/Catalogues/TrinitaireArms';
 import DodanaArmsEmporium from './CreateComponents/Catalogues/DodanaArmsEmporium';
+import NarmatoArms from './CreateComponents/Catalogues/NarmatoArms';
+
+import CreateMove from './CreateComponents/createmove';
+
 
 import {
   SafeAreaView,
@@ -86,9 +91,13 @@ class App extends React.Component {
           <Stack.Navigator>
             <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name="Create" component={CreateScreen} />
+
             <Stack.Screen name="Catalogues" component={CatalogueScreen} />
             <Stack.Screen name="Trinitaire" component={TrinitaireArms} />
             <Stack.Screen name="Dodana" component={DodanaArmsEmporium} />
+            <Stack.Screen name="Narmato" component={NarmatoArms} />
+
+            <Stack.Screen name="Create Move" component={CreateMove} />
           </Stack.Navigator>
         </NavigationContainer>
       </>
@@ -124,7 +133,6 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flex: 1,
-    borderWidth: 1,
     alignItems: 'center',
   },
   sectionTitle: {

@@ -3,6 +3,7 @@ import { View, ImageBackground, Dimensions, Button, Text, Picker, TouchableOpaci
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import TrinitaireArms from '../Catalogues/TrinitaireArms'
 import DodanaArmsEmporium from '../Catalogues/DodanaArmsEmporium'
+import NarmatoArms from '../Catalogues/NarmatoArms'
 
 class Catalogues extends Component {
 
@@ -26,6 +27,13 @@ class Catalogues extends Component {
                <TouchableOpacity onPress={() => this.props.navigation.navigate('Dodana', { itemCallback: this.addItem })}>
                  <ImageBackground style={styles.image} source={require('../../assets/img/pink.jpeg')}>
                    <Text style={styles.text}>Dodana Arms Emporium</Text>
+                 </ImageBackground>
+               </TouchableOpacity>
+             </View>
+             <View style={styles.catalogue}>
+               <TouchableOpacity onPress={() => this.props.navigation.navigate('Narmato', { itemCallback: this.addItem })}>
+                 <ImageBackground style={styles.image} source={require('../../assets/img/crimson.jpg')}>
+                   <Text style={styles.text}>Class D Narmato Arms</Text>
                  </ImageBackground>
                </TouchableOpacity>
              </View>

@@ -82,7 +82,6 @@ class ProfileInputs extends Component {
           <SafeAreaView style={styles.container}>
             <ScrollView style={styles.scrollView}>
               <View>
-
                   <TextInput style = {styles.input}
                      underlineColorAndroid = "transparent"
                      placeholder = "Name"
