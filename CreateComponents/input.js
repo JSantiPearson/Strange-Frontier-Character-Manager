@@ -24,12 +24,22 @@ class ProfileInputs extends Component {
    state = {
       name: '',
       species: "human",
-      strength: 10,
-      dexterity: 10,
-      constitution: 10,
-      wisdom: 10,
-      intelligence: 10,
-      influence: 10,
+
+      attributes: {
+        strength: 10,
+        dexterity: 10,
+        constitution: 10,
+        wisdom: 10,
+        intelligence: 10,
+        influence: 10
+      },
+
+      saves: {
+        fortitude: 0,
+        reflex: 0,
+        willpower: 0
+      },
+
       threshold: 0,
       armor: 0,
       feats: ['']
@@ -39,36 +49,49 @@ class ProfileInputs extends Component {
      this.props.speciesCallback(this.state.species);
    }
 
+   /* Takes the bonuses of the two relevant attributes and averages them, returning the save value */
+   calculateSave = (attr1, attr2) => {
+     var save = 0;
+     var firstBonus = Math.floor((attr1-10)/2)*10;
+     var secondBonus = Math.floor((attr2-10)/2)*10;
+     save = Math.floor((firstBonus + secondBonus)/2)+10;
+     return save;
+   }
+
+   handleSavingThrows = (attributes) => {
+     let fortitude = this.calculateSave(attributes.strength, attributes.constitution);
+     let reflex = this.calculateSave(attributes.dexterity, attributes.intelligence);
+     let willpower = this.calculateSave(attributes.wisdom, attributes.influence);
+
+     let saves = {
+       fortitude: fortitude,
+       reflex: reflex,
+       willpower: willpower
+     }
+
+     this.setState({ saves });
+     this.props.saveCallback(saves);
+   }
+
    handleName = (text) => {
-      this.setState({ name: text });
+    this.setState({ name: text });
    }
    handleSpecies = (speciesValue) => {
     this.setState({ species: speciesValue });
     this.props.speciesCallback(speciesValue);
    }
-   setStrength = (strengthValue) => {
-     this.setState({ strength: strengthValue });
-     this.props.strCallback(strengthValue);
-   }
-   setDexterity = (dexValue) => {
-     this.setState({ dexterity: dexValue });
-     this.props.dexCallback(dexValue);
-   }
-   setConstitution = (conValue) => {
-     this.setState({ constitution: conValue });
-     this.props.conCallback(conValue);
-   }
-   setWisdom = (wisValue) => {
-     this.setState({ wisdom: wisValue });
-     this.props.wisCallback(wisValue);
-   }
-   setIntelligence = (intValue) => {
-     this.setState({ intelligence: intValue });
-     this.props.intCallback(intValue);
-   }
-   setInfluence = (chaValue) => {
-     this.setState({ influence: chaValue });
-     this.props.infCallback(chaValue)
+   setAttributes = (attr) => {
+     let attributes = {
+       strength: attr.strength,
+       dexterity: attr.dexterity,
+       constitution: attr.constitution,
+       wisdom: attr.wisdom,
+       intelligence: attr.intelligence,
+       influence: attr.influence
+     }
+     this.handleSavingThrows(attributes);
+     this.setState({ attributes });
+     this.props.attributeCallback(attributes);
    }
    handleSkills = (skillsList) => {
      this.setState({ skills: skillsList})
@@ -114,35 +137,21 @@ class ProfileInputs extends Component {
                   <LifePoints />
 
                   <DetermineAttributes
-                    strCallback={this.setStrength}
-                    dexCallback={this.setDexterity}
-                    conCallback={this.setConstitution}
-                    wisCallback={this.setWisdom}
-                    intCallback={this.setIntelligence}
-                    infCallback={this.setInfluence}
-                    strength={this.state.strength}
-                    dexterity={this.state.dexterity}
-                    constitution={this.state.constitution}
-                    intelligence={this.state.intelligence}
-                    wisdom={this.state.wisdom}
-                    influence={this.state.influence}
+                    attributeCallback={this.setAttributes}
+                    attributes={this.state.attributes}
                   />
 
-                <SavingThrows
-                  strength={this.state.strength}
-                  dexterity={this.state.dexterity}
-                  constitution={this.state.constitution}
-                  wisdom={this.state.wisdom}
-                  intelligence={this.state.intelligence}
-                  influence={this.state.influence}
-                />
+                  <SavingThrows
+                    saves={this.state.saves}
+                  />
 
                    <TextInput style = {styles.input}
                      underlineColorAndroid = "transparent"
                      placeholder = "Feats"
                      placeholderTextColor = "#9a73ef"
                      autoCapitalize = "none"
-                     onChangeText = {this.handleFeats}/>
+                     onChangeText = {this.handleFeats}
+                   />
                   </View>
                 </ScrollView>
               </SafeAreaView>

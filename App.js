@@ -25,6 +25,7 @@ import Catalogues from './CreateComponents/Screens/catalogueScreen'
 import TrinitaireArms from './CreateComponents/Catalogues/TrinitaireArms';
 import DodanaArmsEmporium from './CreateComponents/Catalogues/DodanaArmsEmporium';
 import NarmatoArms from './CreateComponents/Catalogues/NarmatoArms';
+import LeparsBlackMarket from './CreateComponents/Catalogues/LeparsBlackMarket';
 
 import CreateMove from './CreateComponents/createmove';
 
@@ -96,6 +97,7 @@ class App extends React.Component {
             <Stack.Screen name="Trinitaire" component={TrinitaireArms} />
             <Stack.Screen name="Dodana" component={DodanaArmsEmporium} />
             <Stack.Screen name="Narmato" component={NarmatoArms} />
+            <Stack.Screen name="Lepars" component={LeparsBlackMarket} />
 
             <Stack.Screen name="Create Move" component={CreateMove} />
           </Stack.Navigator>

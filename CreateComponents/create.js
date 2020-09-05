@@ -16,12 +16,21 @@ const Tab = createMaterialTopTabNavigator();
 
 class Create extends Component {
   state = {
-     strength: 10,
-     dexterity: 10,
-     constitution: 10,
-     wisdom: 10,
-     intelligence: 10,
-     influence: 10,
+    attributes: {
+       strength: 10,
+       dexterity: 10,
+       constitution: 10,
+       wisdom: 10,
+       intelligence: 10,
+       influence: 10
+     },
+
+     saves: {
+       fortitude: 0,
+       reflex: 0,
+       willpower: 0
+     },
+
      species: '',
      equipmentStats: {
        armor: 0,
@@ -31,23 +40,16 @@ class Create extends Component {
        special: [],
      }
   }
-  setStrength = (strengthValue) => {
-    this.setState({ strength: strengthValue });
-  }
-  setDexterity = (dexterityValue) => {
-    this.setState({ dexterity: dexterityValue });
-  }
-  setConstitution = (conValue) => {
-    this.setState({ constitution: conValue });
-  }
-  setWisdom = (wisValue) => {
-    this.setState({ wisdom: wisValue });
-  }
-  setIntelligence = (intValue) => {
-    this.setState({ intelligence: intValue });
-  }
-  setInfluence = (chaValue) => {
-    this.setState({ influence: chaValue });
+  setAttributes = (attr) => {
+    let attributes = {
+      strength: attr.strength,
+      dexterity: attr.dexterity,
+      constitution: attr.constitution,
+      wisdom: attr.wisdom,
+      intelligence: attr.intelligence,
+      influence: attr.influence
+    }
+    this.setState({ attributes });
   }
   setSpecies = (speciesValue) => {
     this.setState({ species: speciesValue });
@@ -55,10 +57,14 @@ class Create extends Component {
   setEquipmentStats = (equipmentStats) => {
     this.setState({ equipmentStats });
   }
+  setSaves = (saves) => {
+    this.setState({ saves });
+  }
   render() {
      return (
        <>
          <Tab.Navigator
+           swipeEnabled={false}
            screenOptions={({ route }) => ({
                tabBarIcon: ({ focused, color, size }) => {
                  let iconName;
@@ -81,8 +87,6 @@ class Create extends Component {
                  else if (route.name === 'Notes') {
                    iconName = 'format-list-bulleted';
                  }
-
-                 // You can return any component that you like here!
                  return <Icon name={iconName} size={26} color={color} style={{ textAlignVertical: 'center' }} />;
                },
              })}
@@ -96,60 +100,37 @@ class Create extends Component {
           <Tab.Screen name="Profile">
              {props => <ProfileScreen
                  {...props}
-                 strCallback={this.setStrength}
-                 dexCallback={this.setDexterity}
-                 conCallback={this.setConstitution}
-                 wisCallback={this.setWisdom}
-                 intCallback={this.setIntelligence}
-                 infCallback={this.setInfluence}
+                 attributeCallback={this.setAttributes}
                  speciesCallback={this.setSpecies}
+                 saveCallback={this.setSaves}
               />}
          </Tab.Screen>
          <Tab.Screen name="Moves">
             {props => <MoveScreen
                 {...props}
-                strength={this.state.strength}
-                dexterity={this.state.dexterity}
-                constitution={this.state.constitution}
-                wisdom={this.state.wisdom}
-                intelligence={this.state.intelligence}
-                influence={this.state.influence}
+                attributes={this.state.attributes}
              />}
         </Tab.Screen>
         <Tab.Screen name="Combat & Skills">
            {props => <CombatScreen
                {...props}
-               strength={this.state.strength}
-               dexterity={this.state.dexterity}
-               constitution={this.state.constitution}
-               wisdom={this.state.wisdom}
-               intelligence={this.state.intelligence}
-               influence={this.state.influence}
+               attributes={this.state.attributes}
                species={this.state.species}
                equipmentStats={this.state.equipmentStats}
+               saves={this.state.saves}
             />}
        </Tab.Screen>
        <Tab.Screen name="Equipment">
           {props => <EquipmentScreen
               {...props}
-              strength={this.state.strength}
-              dexterity={this.state.dexterity}
-              constitution={this.state.constitution}
-              wisdom={this.state.wisdom}
-              intelligence={this.state.intelligence}
-              influence={this.state.influence}
+              attributes={this.state.attributes}
               statCallback={this.setEquipmentStats}
            />}
       </Tab.Screen>
       <Tab.Screen name="Notes">
          {props => <NoteScreen
              {...props}
-             strength={this.state.strength}
-             dexterity={this.state.dexterity}
-             constitution={this.state.constitution}
-             wisdom={this.state.wisdom}
-             intelligence={this.state.intelligence}
-             influence={this.state.influence}
+             attributes={this.state.attributes}
           />}
      </Tab.Screen>
          </Tab.Navigator>

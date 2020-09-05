@@ -39,140 +39,140 @@ class SkillCollection extends Component {
         <Skill
           name="Athletics"
           skill="athletics"
-          attr={this.props.strength}
+          attr={this.props.attributes.strength}
           score={this.state.athletics[1]}
           scoreCallback={this.setSkill}
         />
         <Skill
           name="Acrobatics"
           skill="acrobatics"
-          attr={this.props.dexterity}
+          attr={this.props.attributes.dexterity}
           score={this.state.acrobatics[1]}
           scoreCallback={this.setSkill}
         />
         <Skill
           name="Bluff"
           skill="bluff"
-          attr={this.props.influence}
+          attr={this.props.attributes.influence}
           score={this.state.bluff[1]}
           scoreCallback={this.setSkill}
         />
         <Skill
           name="Chemistry"
           skill="chemistry"
-          attr={this.props.intelligence}
+          attr={this.props.attributes.intelligence}
           score={this.state.chemistry[1]}
           scoreCallback={this.setSkill}
         />
         <Skill
           name="Climb"
           skill="climb"
-          attr={this.props.strength}
+          attr={this.props.attributes.strength}
           score={this.state.climb[1]}
           scoreCallback={this.setSkill}
         />
         <Skill
           name="Computer"
           skill="computer"
-          attr={this.props.intelligence}
+          attr={this.props.attributes.intelligence}
           score={this.state.computer[1]}
           scoreCallback={this.setSkill}
         />
         <Skill
           name="Cooking"
           skill="cooking"
-          attr={this.props.wisdom}
+          attr={this.props.attributes.wisdom}
           score={this.state.cooking[1]}
           scoreCallback={this.setSkill}
         />
         <Skill
           name="Detection"
           skill="detection"
-          attr={this.props.wisdom}
+          attr={this.props.attributes.wisdom}
           score={this.state.detection[1]}
           scoreCallback={this.setSkill}
         />
         <Skill
           name="Endurance"
           skill="endurance"
-          attr={this.props.constitution}
+          attr={this.props.attributes.constitution}
           score={this.state.endurance[1]}
           scoreCallback={this.setSkill}
         />
         <Skill
           name="Knowledge One"
           skill="knowledgeOne"
-          attr={this.props.wisdom}
+          attr={this.props.attributes.wisdom}
           score={this.state.knowledgeOne[1]}
           scoreCallback={this.setSkill}
         />
         <Skill
           name="Knowledge Two"
           skill="knowledgeTwo"
-          attr={this.props.wisdom}
+          attr={this.props.attributes.wisdom}
           score={this.state.knowledgeTwo[1]}
           scoreCallback={this.setSkill}
         />
         <Skill
           name="Knowledge Three"
           skill="knowledgeThree"
-          attr={this.props.wisdom}
+          attr={this.props.attributes.wisdom}
           score={this.state.knowledgeThree[1]}
           scoreCallback={this.setSkill}
         />
         <Skill
           name="Investigation"
           skill="investigation"
-          attr={this.props.intelligence}
+          attr={this.props.attributes.intelligence}
           score={this.state.investigation[1]}
           scoreCallback={this.setSkill}
         />
         <Skill
           name="Intimidation"
           skill="intimidation"
-          attr={this.props.influence}
+          attr={this.props.attributes.influence}
           score={this.state.intimidation[1]}
           scoreCallback={this.setSkill}
         />
         <Skill
           name="Navigation"
           skill="navigation"
-          attr={this.props.wisdom}
+          attr={this.props.attributes.wisdom}
           score={this.state.navigation[1]}
           scoreCallback={this.setSkill}
         />
         <Skill
           name="Persuasion"
           skill="persuasion"
-          attr={this.props.influence}
+          attr={this.props.attributes.influence}
           score={this.state.persuasion[1]}
           scoreCallback={this.setSkill}
         />
         <Skill
           name="Pilot"
           skill="pilot"
-          attr={this.props.dexterity}
+          attr={this.props.attributes.dexterity}
           score={this.state.pilot[1]}
           scoreCallback={this.setSkill}
         />
         <Skill
           name="Stealth"
           skill="stealth"
-          attr={this.props.dexterity}
+          attr={this.props.attributes.dexterity}
           score={this.state.stealth[1]}
           scoreCallback={this.setSkill}
         />
         <Skill
           name="Sabotage"
           skill="sabotage"
-          attr={this.props.intelligence}
+          attr={this.props.attributes.intelligence}
           score={this.state.sabotage[1]}
           scoreCallback={this.setSkill}
         />
         <Skill
           name="Survival"
           skill="survival"
-          attr={this.props.intelligence}
+          attr={this.props.attributes.intelligence}
           score={this.state.survival[1]}
           scoreCallback={this.setSkill}
         />

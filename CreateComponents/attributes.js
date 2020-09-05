@@ -5,26 +5,31 @@ import { Dropdown } from "react-native-material-dropdown"
 import NumericInput from 'react-native-numeric-input'
 
 class DetermineAttributes extends Component {
-  sendStrength = (value) => {
-    this.props.strCallback(value)
+  sendAttribute = (attr, value) => {
+    let attributes = this.props.attributes;
+    switch (attr){
+      case "strength":
+        attributes.strength = value;
+        break;
+      case "dexterity":
+        attributes.dexterity = value;
+        break;
+      case "constitution":
+        attributes.constitution = value;
+        break;
+      case "wisdom":
+        attributes.wisdom = value;
+        break;
+      case "intelligence":
+        attributes.intelligence = value;
+        break;
+      case "influence":
+        attributes.influence = value;
+        break;
+    }
+    this.props.attributeCallback(attributes);
   }
-  sendDexterity = (value) => {
-    this.props.dexCallback(value)
-  }
-  sendConstitution = (value) => {
-    this.props.conCallback(value)
-  }
-  sendWisdom = (value) => {
-    this.props.wisCallback(value)
-  }
-  sendIntelligence = (value) => {
-    this.props.intCallback(value)
-  }
-  sendInfluence = (value) => {
-    var bonus = this.calculateBonus(value);
-    this.props.infCallback(value);
-  }
-  /* calculates the bonus from a attribute score */
+  /* calculates the bonus from a attribute score. TODO: Add visual for attribute bonus */
   calculateBonus = (attr) => {
     var bonus = Math.floor((attr-10)/2);
     return bonus;
@@ -35,29 +40,29 @@ class DetermineAttributes extends Component {
          <View style={styles.row}>
            <View style={styles.inputWrap}>
              <Text>Strength</Text>
-             <NumericInput type='plus-minus' value={this.props.strength} onChange={value => {this.sendStrength(value)}} />
+             <NumericInput type='plus-minus' value={this.props.attributes.strength} onChange={value => {this.sendAttribute("strength", value)}} />
            </View>
            <View style={styles.inputWrap}>
              <Text>Dexterity</Text>
-             <NumericInput type='plus-minus' value={this.props.dexterity}  onChange={value => {this.sendDexterity(value)}} />
+             <NumericInput type='plus-minus' value={this.props.attributes.dexterity}  onChange={value => {this.sendAttribute("dexterity", value)}} />
            </View>
            <View style={styles.inputWrap}>
              <Text>Constitution</Text>
-             <NumericInput type='plus-minus' value={this.props.constitution} onChange={value => {this.sendConstitution(value)}} />
+             <NumericInput type='plus-minus' value={this.props.attributes.constitution} onChange={value => {this.sendAttribute("constitution", value)}} />
            </View>
         </View>
         <View style={styles.row}>
           <View style={styles.inputWrap}>
             <Text>Wisdom</Text>
-            <NumericInput type='plus-minus' value={this.props.wisdom} onChange={value => {this.sendWisdom(value)}} />
+            <NumericInput type='plus-minus' value={this.props.attributes.wisdom} onChange={value => {this.sendAttribute("wisdom", value)}} />
           </View>
           <View style={styles.inputWrap}>
             <Text>Intelligence</Text>
-            <NumericInput type='plus-minus' value={this.props.intelligence} onChange={value => {this.sendIntelligence(value)}} />
+            <NumericInput type='plus-minus' value={this.props.attributes.intelligence} onChange={value => {this.sendAttribute("intelligence", value)}} />
           </View>
           <View style={styles.inputWrap}>
             <Text>Influence</Text>
-            <NumericInput type='plus-minus' value={this.props.influence} onChange={value => {this.sendInfluence(value)}} />
+            <NumericInput type='plus-minus' value={this.props.attributes.influence} onChange={value => {this.sendAttribute("influence", value)}} />
           </View>
         </View>
      </>

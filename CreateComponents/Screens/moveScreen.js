@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
-import { View, Dimensions, ImageBackground, Button, Text, Picker, TouchableOpacity, TextInput, StyleSheet, SafeAreaView, ScrollView} from 'react-native'
+import { View, Dimensions, ImageBackground, Button, Text, Picker, TouchableOpacity, TouchableHighlight, TextInput, StyleSheet, SafeAreaView, ScrollView} from 'react-native'
 import { Colors } from 'react-native/Libraries/NewAppScreen';
+import Swipeable from 'react-native-swipeable-row';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+
+const leftContent = <Icon name='star' size={26} color={Colors.white} style={{ textAlignVertical: 'center' }} />;
 
 class MoveScreen extends Component {
   state = {
@@ -71,19 +75,25 @@ class MoveScreen extends Component {
   }
 
   _renderMove = (move) => {
+    let rightButtons = [
+      <TouchableHighlight onPress={() => this.props.navigation.navigate('Create Move', { moveCallback: this.handleMove, move: move})}>
+        <Icon name='pencil' size={26} color={Colors.white} style={{ textAlignVertical: 'center' }} />
+      </TouchableHighlight>,
+      <TouchableHighlight>
+        <Icon name='trash-can-outline' size={26} color={Colors.white} style={{ textAlignVertical: 'center' }} />
+      </TouchableHighlight>
+    ];
     return (
       <View style={styles.move}>
-        <TouchableOpacity onPress={() => this.props.navigation.navigate('Create Move', { moveCallback: this.handleMove, move: move})}>
-          <ImageBackground style={styles.image} source={require('../../assets/img/blue.png')}>
-            <Text style={styles.text}>{move.name}</Text>
-            <Text style={styles.text}>
-              <Text>{move.cost}</Text>
-              {move.cost != null &&
-                <Text>*</Text>
-              }
-            </Text>
-          </ImageBackground>
-        </TouchableOpacity>
+        <Swipeable leftContent={leftContent} rightButtons={rightButtons}>
+          <Text style={styles.text}>{move.name}</Text>
+          <Text style={styles.text}>
+            <Text>{move.cost}</Text>
+            {move.cost != null &&
+              <Text>*</Text>
+            }
+          </Text>
+        </Swipeable>
       </View>
     );
   }
@@ -124,6 +134,7 @@ class MoveScreen extends Component {
      justifyContent: 'center',
      alignContent: 'stretch',
      alignItems: 'center',
+     backgroundColor: Colors.black,
    },
    image: {
      borderWidth: 1,

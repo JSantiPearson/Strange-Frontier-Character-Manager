@@ -13,22 +13,13 @@ class CombatScreen extends Component {
          <SafeAreaView style={styles.container}>
            <ScrollView style={styles.scrollView}>
              <CombatStats
-               strength={this.props.strength}
-               dexterity={this.props.dexterity}
-               constitution={this.props.constitution}
-               wisdom={this.props.wisdom}
-               intelligence={this.props.intelligence}
-               influence={this.props.influence}
+               attributes={this.props.attributes}
                species={this.props.species}
                equipmentStats={this.props.equipmentStats}
+               saves={this.props.saves}
              />
            <SkillCollection
-               strength={this.props.strength}
-               dexterity={this.props.dexterity}
-               constitution={this.props.constitution}
-               wisdom={this.props.wisdom}
-               intelligence={this.props.intelligence}
-               influence={this.props.influence}
+               attributes={this.props.attributes}
              />
            </ScrollView>
          </SafeAreaView>

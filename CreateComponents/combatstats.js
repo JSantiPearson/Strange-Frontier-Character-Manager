@@ -71,7 +71,12 @@ class CombatStats extends Component {
           break;
         case "speed 150%":
           speed *= 1.5;
-          Math.floor(speed);
+          speed = Math.floor(speed);
+          break;
+        case "pine goggles":
+          if (this.props.species == "modhuman"){
+            awareness += 4;
+          }
           break;
         default:
           break;
@@ -101,7 +106,7 @@ class CombatStats extends Component {
   /* Takes species, equipment and move buffs/debuffs into account to determine character speed */
   handleSpeed = () => {
     var species = this.props.species;
-    var dexBonus = this.calculateBonus(this.props.dexterity);
+    var dexBonus = this.calculateBonus(this.props.attributes.dexterity);
     var speed = 0;
     if (species == 'giant' || species == 'ogoloid'){
       speed = 3;
@@ -127,7 +132,7 @@ class CombatStats extends Component {
 
   handleResilience = () => {
     var species = this.props.species;
-    var conBonus = this.calculateBonus(this.props.constitution);
+    var conBonus = this.calculateBonus(this.props.attributes.constitution);
     var resilience = 0;
     if (species == 'orbiden'){
       resilience = 2;
@@ -156,7 +161,7 @@ class CombatStats extends Component {
 
   handleAwareness = () => {
     var species = this.props.species;
-    var wisBonus = this.calculateBonus(this.props.wisdom);
+    var wisBonus = this.calculateBonus(this.props.attributes.wisdom);
     var awareness = 0;
     if (species == 'modhuman'){
       awareness = 3;
@@ -183,16 +188,9 @@ class CombatStats extends Component {
   handleAttack = (speed, awareness) => {
     var baseAttack = speed + awareness;
 
-    var strBonus = this.calculateBonus(this.props.strength);
-    var dexBonus = this.calculateBonus(this.props.dexterity);
-    var conBonus = this.calculateBonus(this.props.constitution);
-    var wisBonus = this.calculateBonus(this.props.wisdom);
-    var intBonus = this.calculateBonus(this.props.intelligence);
-    var infBonus = this.calculateBonus(this.props.influence);
-
-    var melee = ((strBonus + conBonus)/2)*10 + baseAttack;
-    var ranged = ((dexBonus + intBonus)/2)*10 + baseAttack;
-    var psionic = ((wisBonus + infBonus)/2)*10 + baseAttack;
+    var melee = this.props.saves.fortitude + baseAttack;
+    var ranged = this.props.saves.reflex + baseAttack;
+    var psionic = this.props.saves.willpower + baseAttack;
 
     this.setState({ baseAttack });
     this.setState({ melee });
@@ -203,16 +201,9 @@ class CombatStats extends Component {
   handleDefense = (armor, resilience) => {
     var baseDefense = armor + resilience;
 
-    var strBonus = this.calculateBonus(this.props.strength);
-    var dexBonus = this.calculateBonus(this.props.dexterity);
-    var conBonus = this.calculateBonus(this.props.constitution);
-    var wisBonus = this.calculateBonus(this.props.wisdom);
-    var intBonus = this.calculateBonus(this.props.intelligence);
-    var infBonus = this.calculateBonus(this.props.influence);
-
-    var block = ((strBonus + conBonus)/2)*10 + baseDefense;
-    var dodge = ((dexBonus + intBonus)/2)*10 + baseDefense;
-    var will = ((wisBonus + infBonus)/2)*10 + baseDefense;
+    var block = this.props.saves.fortitude + baseDefense;
+    var dodge = this.props.saves.reflex + baseDefense;
+    var will = this.props.saves.willpower + baseDefense;
 
     this.setState({ baseDefense });
     this.setState({ block });

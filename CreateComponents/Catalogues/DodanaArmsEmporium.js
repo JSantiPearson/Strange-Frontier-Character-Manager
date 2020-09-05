@@ -399,7 +399,6 @@ class DodanaArmsEmporium extends Component {
               itemCallback={this.addItem}
               price={2000}
               description={"This tempered fiberglass plat armor, is equipped with a series of air powered rear thrusters. To say the wind is at your back, would be an understatement."}
-              misc={"+10 to ranged weapons with proficiency."}
               category={"Heavy/Torso"}
               stats={{
                 armor: 20,
@@ -418,7 +417,7 @@ class DodanaArmsEmporium extends Component {
               stats={{
                 armor: 6,
                 resilience: 0,
-                speed: 8,
+                speed: 10,
                 awareness: 0
               }}
             />

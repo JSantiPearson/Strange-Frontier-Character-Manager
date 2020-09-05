@@ -24,6 +24,13 @@ class Catalogues extends Component {
                </TouchableOpacity>
              </View>
              <View style={styles.catalogue}>
+               <TouchableOpacity onPress={() => this.props.navigation.navigate('Lepars', { itemCallback: this.addItem })}>
+                 <ImageBackground style={styles.image} source={require('../../assets/img/green.jpeg')}>
+                   <Text style={styles.text}>Lepar's Black Market</Text>
+                 </ImageBackground>
+               </TouchableOpacity>
+             </View>
+             <View style={styles.catalogue}>
                <TouchableOpacity onPress={() => this.props.navigation.navigate('Dodana', { itemCallback: this.addItem })}>
                  <ImageBackground style={styles.image} source={require('../../assets/img/pink.jpeg')}>
                    <Text style={styles.text}>Dodana Arms Emporium</Text>
