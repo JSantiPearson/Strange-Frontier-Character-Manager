@@ -21,6 +21,8 @@ import CombatScreen from './CreateComponents/Screens/combatScreen';
 import EquipmentScreen from './CreateComponents/Screens/equipmentScreen';
 import NoteScreen from './CreateComponents/Screens/noteScreen';
 
+import CreateScreen from './CreateComponents/Screens/createScreen';
+
 import Catalogues from './CreateComponents/Screens/catalogueScreen'
 import TrinitaireArms from './CreateComponents/Catalogues/TrinitaireArms';
 import DodanaArmsEmporium from './CreateComponents/Catalogues/DodanaArmsEmporium';
@@ -76,22 +78,28 @@ function CatalogueScreen({ navigation, route }) {
   )
 }
 
-function CreateScreen({ navigation }) {
-  return (
-      <Create navigation={navigation} />
-  );
-}
-
 const Stack = createStackNavigator();
 
 class App extends React.Component {
+  state = {
+    strength: 10
+  }
+  setStrength = (strengthValue) => {
+    this.setState({ strength: strengthValue });
+    console.log("Set the strength in app state.");
+  }
   render() {
     return(
       <>
         <NavigationContainer>
           <Stack.Navigator>
             <Stack.Screen name="Home" component={HomeScreen} />
-            <Stack.Screen name="Create" component={CreateScreen} />
+            <Stack.Screen name="Create">
+              {props => <CreateScreen
+                {...props}
+                strengthCallback={this.setStrength}
+              />}
+            </Stack.Screen>
 
             <Stack.Screen name="Catalogues" component={CatalogueScreen} />
             <Stack.Screen name="Trinitaire" component={TrinitaireArms} />

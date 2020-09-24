@@ -9,7 +9,7 @@ import { Colors } from 'react-native/Libraries/NewAppScreen';
 import ProfileScreen from './Screens/profileScreen';
 import EquipmentScreen from './Screens/equipmentScreen';
 import CombatScreen from './Screens/combatScreen';
-import MoveScreen from './Screens/moveScreen';
+import MoveScreen from './Screens/moveScreenSwipes';
 import NoteScreen from './Screens/noteScreen';
 
 const Tab = createMaterialTopTabNavigator();
@@ -24,7 +24,6 @@ class Create extends Component {
        intelligence: 10,
        influence: 10
      },
-
      saves: {
        fortitude: 0,
        reflex: 0,
@@ -49,6 +48,7 @@ class Create extends Component {
       intelligence: attr.intelligence,
       influence: attr.influence
     }
+    this.props.strengthCallback(attr.strength);
     this.setState({ attributes });
   }
   setSpecies = (speciesValue) => {

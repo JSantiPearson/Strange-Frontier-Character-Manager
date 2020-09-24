@@ -4,10 +4,9 @@ import { Colors } from 'react-native/Libraries/NewAppScreen';
 import Swipeable from 'react-native-swipeable-row';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-const leftContent = <Icon name='star' size={26} color={Colors.white} style={{ textAlignVertical: 'center' }} />;
-
 class MoveScreen extends Component {
   state = {
+    currentlyOpenSwipeable: null,
     move1: {
       name: "EMPTY",
 			description: "",
@@ -70,23 +69,43 @@ class MoveScreen extends Component {
     }
   }
 
+  handleScroll = () => {
+    const {currentlyOpenSwipeable} = this.state;
+
+    if (currentlyOpenSwipeable){
+      currentlyOpenSwipeable.recenter();
+    }
+  }
+
   handleMove = (move) => {
     this.setState({[move.id]: move});
   }
 
   _renderMove = (move) => {
-    let rightButtons = [
-      <TouchableHighlight onPress={() => this.props.navigation.navigate('Create Move', { moveCallback: this.handleMove, move: move})}>
-        <Icon name='pencil' size={26} color={Colors.white} style={{ textAlignVertical: 'center' }} />
-      </TouchableHighlight>,
-      <TouchableHighlight>
-        <Icon name='trash-can-outline' size={26} color={Colors.white} style={{ textAlignVertical: 'center' }} />
-      </TouchableHighlight>
+
+    const rightButtons =
+    [
+      <View style={styles.rightSwipeItem}>
+        <TouchableHighlight onPress={() => this.props.navigation.navigate('Create Move', { moveCallback: this.handleMove, move: move})}>
+          <Icon name='pencil' size={26} color={Colors.white} style={{ textAlignVertical: 'center' }} />
+        </TouchableHighlight>
+      </View>,
+      <View style={styles.rightSwipeItem}>
+        <TouchableHighlight>
+          <Icon name='trash-can-outline' size={26} color={Colors.white} style={{ textAlignVertical: 'center' }} />
+        </TouchableHighlight>
+      </View>
     ];
+
+    const leftContent =
+    <View style={styles.leftSwipeItem}>
+      <Text style={styles.text} color={Colors.white}>Pull</Text>
+    </View>;
+
     return (
-      <View style={styles.move}>
-        <Swipeable leftContent={leftContent} rightButtons={rightButtons}>
-          <Text style={styles.text}>{move.name}</Text>
+      <View style={styles.listItem}>
+        <Swipeable leftContent={leftContent} rightButtons={rightButtons} rightActivationDistance={100}>
+          <Text style={styles.moveText}>{move.name}</Text>
           <Text style={styles.text}>
             <Text>{move.cost}</Text>
             {move.cost != null &&
@@ -126,26 +145,38 @@ class MoveScreen extends Component {
 
  const styles = StyleSheet.create({
    container: {
-     flexDirection: 'column',
-     flex: 1
-   },
-   move: {
      flex: 1,
-     justifyContent: 'center',
-     alignContent: 'stretch',
+   },
+   listItem: {
+     height: 75,
      alignItems: 'center',
+     justifyContent: 'center',
      backgroundColor: Colors.black,
    },
-   image: {
-     borderWidth: 1,
-     width: Dimensions.get('window').width,
-     height: Dimensions.get('window').height / 5,
+   leftSwipeItem: {
+     flex: 1,
+     alignItems: 'flex-end',
+     justifyContent: 'center',
+     paddingRight: 20
+   },
+   rightSwipeItem: {
+     flex: 1,
+     justifyContent: 'center',
+     paddingLeft: 20
    },
    text: {
      fontFamily: 'CCWildWordsRoman',
      fontSize: 24,
-     color: Colors.white,
-     margin: 15,
      textAlign: 'center',
-   }
+     alignItems: 'center',
+     justifyContent: 'center',
+     color: Colors.white,
+   },
+   moveText: {
+     fontFamily: 'CCWildWordsRoman',
+     fontSize: 24,
+     textAlign: 'center',
+     marginTop: 30, //TODO: This hard coded margin to align the move text with the swipeable might come back to haunt me with different screen sizes. Temp fix.
+     color: Colors.white,
+   },
  });
