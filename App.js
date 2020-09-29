@@ -82,11 +82,42 @@ const Stack = createStackNavigator();
 
 class App extends React.Component {
   state = {
-    strength: 10
+    attributes: {
+       strength: 10,
+       dexterity: 10,
+       constitution: 10,
+       wisdom: 10,
+       intelligence: 10,
+       influence: 10
+     },
+     species: '',
+     stats: {
+       armor: 0,
+       resilience: 0,
+       speed: 0,
+       awareness: 0
+     },
+     saves: {
+       fortitude: 0,
+       reflex: 0,
+       willpower: 0
+     }
   }
-  setStrength = (strengthValue) => {
-    this.setState({ strength: strengthValue });
-    console.log("Set the strength in app state.");
+  setAttributes = (attributes) => {
+    console.log("Current strength: " + attributes.strength);
+    this.setState({ attributes });
+  }
+  setSpecies = (species) => {
+    console.log("Current species: " + species);
+    this.setState({ species });
+  }
+  setStats = (stats) => {
+    console.log("Current armor: " + stats.armor);
+    this.setState({ stats });
+  }
+  setSaves = (saves) => {
+    console.log("Current fortitude: " + saves.fortitude);
+    this.setState({ saves });
   }
   render() {
     return(
@@ -97,7 +128,10 @@ class App extends React.Component {
             <Stack.Screen name="Create">
               {props => <CreateScreen
                 {...props}
-                strengthCallback={this.setStrength}
+                attributeCallback={this.setAttributes}
+                speciesCallback={this.setSpecies}
+                statsCallback={this.setStats}
+                savesCallback={this.setSaves}
               />}
             </Stack.Screen>
 

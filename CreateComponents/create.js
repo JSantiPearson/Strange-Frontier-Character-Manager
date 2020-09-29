@@ -29,7 +29,6 @@ class Create extends Component {
        reflex: 0,
        willpower: 0
      },
-
      species: '',
      equipmentStats: {
        armor: 0,
@@ -47,17 +46,22 @@ class Create extends Component {
       wisdom: attr.wisdom,
       intelligence: attr.intelligence,
       influence: attr.influence
-    }
-    this.props.strengthCallback(attr.strength);
+    };
+    this.props.attributeCallback(attributes);
     this.setState({ attributes });
   }
   setSpecies = (speciesValue) => {
+    this.props.speciesCallback(speciesValue);
     this.setState({ species: speciesValue });
   }
+  setStats = (stats) => {
+    this.props.statsCallback(stats);
+  }
   setEquipmentStats = (equipmentStats) => {
-    this.setState({ equipmentStats });
+    this.setState({ equipmentStats: equipmentStats });
   }
   setSaves = (saves) => {
+    this.props.savesCallback(saves);
     this.setState({ saves });
   }
   render() {
@@ -118,6 +122,7 @@ class Create extends Component {
                species={this.state.species}
                equipmentStats={this.state.equipmentStats}
                saves={this.state.saves}
+               statsCallback={this.setStats}
             />}
        </Tab.Screen>
        <Tab.Screen name="Equipment">

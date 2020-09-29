@@ -4,14 +4,27 @@ import { Colors } from 'react-native/Libraries/NewAppScreen';
 import Create from '../create';
 
 class CreateScreen extends Component {
-  setStrength = (strengthValue) => {
-  this.setState({ strength: strengthValue });
-  console.log("Set the strength in CreateScreen.");
-  this.props.strengthCallback(strengthValue);
-}
+  sendAttributes = (attr) => {
+    this.props.attributeCallback(attr);
+  }
+  sendSpecies = (species) => {
+    this.props.speciesCallback(species);
+  }
+  sendStats = (stats) => {
+    this.props.statsCallback(stats);
+  }
+  sendSaves = (saves) => {
+    this.props.savesCallback(saves);
+  }
   render() {
      return (
-       <Create navigation={this.props.navigation} strengthCallback={this.setStrength} />
+       <Create
+         navigation={this.props.navigation}
+         attributeCallback={this.sendAttributes}
+         speciesCallback={this.sendSpecies}
+         statsCallback={this.sendStats}
+         savesCallback={this.sendSaves}
+       />
      )
    }
  }

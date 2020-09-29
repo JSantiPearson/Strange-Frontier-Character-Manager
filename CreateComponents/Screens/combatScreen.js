@@ -7,6 +7,9 @@ import { StyleSheet, SafeAreaView, ScrollView } from 'react-native';
 const Stack = createStackNavigator();
 
 class CombatScreen extends Component {
+  sendStats = (stats) => {
+    this.props.statsCallback(stats);
+  }
   render() {
      return (
        <>
@@ -17,10 +20,11 @@ class CombatScreen extends Component {
                species={this.props.species}
                equipmentStats={this.props.equipmentStats}
                saves={this.props.saves}
+               statsCallback={this.sendStats}
              />
-           <SkillCollection
+            <SkillCollection
                attributes={this.props.attributes}
-             />
+            />
            </ScrollView>
          </SafeAreaView>
        </>
