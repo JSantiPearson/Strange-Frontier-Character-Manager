@@ -11,6 +11,7 @@ class CreateScreen extends Component {
     this.props.speciesCallback(species);
   }
   sendStats = (stats) => {
+    console.log("stats made it to CreateScreen");
     this.props.statsCallback(stats);
   }
   sendSaves = (saves) => {

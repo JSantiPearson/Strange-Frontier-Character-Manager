@@ -112,7 +112,7 @@ class App extends React.Component {
     this.setState({ species });
   }
   setStats = (stats) => {
-    console.log("Current armor: " + stats.armor);
+    console.log("Current armor in App.js: " + stats.armor);
     this.setState({ stats });
   }
   setSaves = (saves) => {
@@ -127,7 +127,6 @@ class App extends React.Component {
             <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name="Create">
               {props => <CreateScreen
-                {...props}
                 attributeCallback={this.setAttributes}
                 speciesCallback={this.setSpecies}
                 statsCallback={this.setStats}

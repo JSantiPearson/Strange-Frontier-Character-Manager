@@ -161,7 +161,7 @@ class EquipmentScreen extends Component {
     }
     this.setState({ equipped });
     this.setState({ stats });
-    this.props.statCallback(stats);
+    this.props.statsCallback(stats);
   }
 
   /**

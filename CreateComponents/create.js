@@ -54,7 +54,8 @@ class Create extends Component {
     this.props.speciesCallback(speciesValue);
     this.setState({ species: speciesValue });
   }
-  setStats = (stats) => {
+  sendStats = (stats) => {
+    console.log("stats going up from create component.");
     this.props.statsCallback(stats);
   }
   setEquipmentStats = (equipmentStats) => {
@@ -117,19 +118,18 @@ class Create extends Component {
         </Tab.Screen>
         <Tab.Screen name="Combat & Skills">
            {props => <CombatScreen
-               {...props}
                attributes={this.state.attributes}
                species={this.state.species}
                equipmentStats={this.state.equipmentStats}
                saves={this.state.saves}
-               statsCallback={this.setStats}
+               statsCallback={this.sendStats}
             />}
        </Tab.Screen>
        <Tab.Screen name="Equipment">
           {props => <EquipmentScreen
               {...props}
               attributes={this.state.attributes}
-              statCallback={this.setEquipmentStats}
+              statsCallback={this.setEquipmentStats}
            />}
       </Tab.Screen>
       <Tab.Screen name="Notes">

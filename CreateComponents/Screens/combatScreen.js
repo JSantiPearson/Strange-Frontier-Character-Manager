@@ -8,6 +8,7 @@ const Stack = createStackNavigator();
 
 class CombatScreen extends Component {
   sendStats = (stats) => {
+    console.log("Current armor in combat screen: " + stats.armor);
     this.props.statsCallback(stats);
   }
   render() {

@@ -27,14 +27,19 @@ class CombatStats extends Component {
   componentDidMount() {
     this.handleStats();
   }
-  //if species changes, update corresponding stats.
-  //TODO: later on make sure to include changes to equipment or move buffs/debuffs
+  //if props change, update corresponding stats.
   componentDidUpdate(prevProps) {
-    if(prevProps !== this.props)
+    if(prevProps.attributes !== this.props.attributes || prevProps.equipmentStats !== this.props.equipmentStats || prevProps.saves !== this.props.saves) //TODO: Seems like a gross solution to the infinite loop solution with statsCallback. Think about simplifying this.
     {
       this.handleStats();
     }
   }
+
+  sendStats = (stats) => {
+    console.log("Sending stats!");
+    this.props.statsCallback(stats);
+  }
+
   /* calculates the bonus from a attribute score */
   calculateBonus = (attr) => {
     var bonus = Math.floor((attr-10)/2);
@@ -54,6 +59,8 @@ class CombatStats extends Component {
     resilience = stats.resilience;
     speed = stats.speed;
     awareness = stats.awareness;
+
+    this.sendStats(stats);
 
     this.handleAttack(speed, awareness); //attack state set with handleAttack
     this.handleDefense(armor, resilience); //defense state set with handleDefense
