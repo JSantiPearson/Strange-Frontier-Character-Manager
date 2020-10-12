@@ -1,10 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
 import 'react-native-gesture-handler';
 
 import React from 'react';
@@ -15,6 +8,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import ProfileInputs from './CreateComponents/input.js';
 import CombatStats from './CreateComponents/combatstats';
 import Create from './CreateComponents/create';
+
 import ProfileScreen from './CreateComponents/Screens/profileScreen';
 import MoveScreen from './CreateComponents/Screens/moveScreen';
 import CombatScreen from './CreateComponents/Screens/combatScreen';
@@ -22,6 +16,9 @@ import EquipmentScreen from './CreateComponents/Screens/equipmentScreen';
 import NoteScreen from './CreateComponents/Screens/noteScreen';
 
 import CreateScreen from './CreateComponents/Screens/createScreen';
+
+import Builder from './CreateComponents/builder';
+import Species from './CreateComponents/Screens/speciesScreen';
 
 import Catalogues from './CreateComponents/Screens/catalogueScreen'
 import TrinitaireArms from './CreateComponents/Catalogues/TrinitaireArms';
@@ -58,7 +55,7 @@ function HomeScreen({ navigation }) {
     <>
       <View style={styles.container}>
         <View style={styles.buttonContainer}>
-          <TouchableOpacity onPress={() => navigation.navigate('Create', { navigation })}>
+          <TouchableOpacity onPress={() => navigation.navigate('Build', { navigation })}>
             <Image source={require('./assets/img/CreateScreen.png')} style={styles.backgroundImage} resizeMode='cover' />
           </TouchableOpacity>
         </View>
@@ -75,6 +72,17 @@ function HomeScreen({ navigation }) {
 function CatalogueScreen({ navigation, route }) {
   return (
     <Catalogues route={route} navigation={navigation} />
+  )
+}
+
+const BuilderStack = createStackNavigator();
+
+function BuildScreen({ navigation, route }) {
+  return(
+    <BuilderStack.Navigator>
+      <Stack.Screen name="Character Builder" component={Builder} />
+      <Stack.Screen name="Species" component={Species} />
+    </BuilderStack.Navigator>
   )
 }
 
@@ -133,6 +141,7 @@ class App extends React.Component {
                 savesCallback={this.setSaves}
               />}
             </Stack.Screen>
+            <Stack.Screen name="Build" component={BuildScreen} options={{ headerShown: false }} />
 
             <Stack.Screen name="Catalogues" component={CatalogueScreen} />
             <Stack.Screen name="Trinitaire" component={TrinitaireArms} />

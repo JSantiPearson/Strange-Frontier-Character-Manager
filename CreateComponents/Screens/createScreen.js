@@ -18,6 +18,7 @@ class CreateScreen extends Component {
     this.props.savesCallback(saves);
   }
   render() {
+    console.log("Navigation in create: " + this.props.navigation);
      return (
        <Create
          navigation={this.props.navigation}
