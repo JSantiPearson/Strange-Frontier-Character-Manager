@@ -19,6 +19,7 @@ import CreateScreen from './CreateComponents/Screens/createScreen';
 
 import Builder from './CreateComponents/builder';
 import Species from './CreateComponents/Screens/speciesScreen';
+import SpeciesChoice from './CreateComponents/Screens/speciesChoice';
 
 import Catalogues from './CreateComponents/Screens/catalogueScreen'
 import TrinitaireArms from './CreateComponents/Catalogues/TrinitaireArms';
@@ -82,6 +83,7 @@ function BuildScreen({ navigation, route }) {
     <BuilderStack.Navigator>
       <Stack.Screen name="Character Builder" component={Builder} />
       <Stack.Screen name="Species" component={Species} />
+      <Stack.Screen name="Species Choice" component={SpeciesChoice} />
     </BuilderStack.Navigator>
   )
 }

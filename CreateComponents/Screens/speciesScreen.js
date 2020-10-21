@@ -2,9 +2,19 @@ import React, { Component } from 'react';
 import { View, Button, Text, Picker, TouchableOpacity, TextInput, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 
+/**
+* Option is a component that renders a button that will redirect the user to a page
+* that goes into detail about the species they have selected, and provides them an option
+* to choose that species as their character's.
+**/
 function Option(props){
   return(
-    <TouchableOpacity style={styles.option} onPress={() => console.log("touched " + props.species)}>
+    <TouchableOpacity style={styles.option} onPress={() => props.navigation.navigate('Species Choice', {
+        route: props.route,
+        navigation: props.navigation,
+        species: props.species,
+        stats: props.stats
+      })}>
       <View style={styles.column}>
         <Text style={styles.species}>{props.species}</Text>
         <Text style={styles.stats}>Speed: {props.stats.speed}     Resilience: {props.stats.resilience}      Awareness: {props.stats.awareness}</Text>
@@ -13,6 +23,7 @@ function Option(props){
   );
 }
 
+// constant variables containing objects that describe each species' stats.
 const humanStats = {speed: 5, resilience: 5, awareness: 5};
 const grubtubStats = {speed: 6, resilience: 4, awareness: 5};
 const giantStats = {speed: 3, resilience: 7, awareness: 5};
@@ -30,7 +41,7 @@ const customStats = {speed: 5, resilience: 5, awareness: 5};
 
 
 class Species extends Component {
-  render() {
+  render() { //TODO: Find an efficient way to incorporate species feats here.
      return (
        <>
        <SafeAreaView>
@@ -38,20 +49,20 @@ class Species extends Component {
            <View style={styles.container}>
              <Text style={styles.title}>Choose a Species</Text>
               <View style={styles.column}>
-               <Option species="Human" stats={humanStats} />
-               <Option species="Grub Tub" stats={grubtubStats}/>
-               <Option species="Giant" stats={giantStats}/>
-               <Option species="Vermile" stats={vermileStats}/>
-               <Option species="Capra" stats={capraStats}/>
-               <Option species="Ogoloid" stats={ogoloidStats}/>
-               <Option species="Arachnet" stats={arachnetStats}/>
-               <Option species="Wheepe" stats={wheepeStats}/>
-               <Option species="Construct" stats={constructStats}/>
-               <Option species="Mod Human" stats={modhumanStats}/>
-               <Option species="Energy Being" stats={energybeingStats}/>
-               <Option species="Simian" stats={simianStats}/>
-               <Option species="Orbiden" stats={orbidenStats}/>
-               <Option species="Custom" stats={customStats}/>
+               <Option route={this.props.route}  navigation={this.props.navigation} species="Human" stats={humanStats} />
+               <Option route={this.props.route}  navigation={this.props.navigation} species="Grub Tub" stats={grubtubStats}/>
+               <Option route={this.props.route}  navigation={this.props.navigation} species="Giant" stats={giantStats}/>
+               <Option route={this.props.route}  navigation={this.props.navigation} species="Vermile" stats={vermileStats}/>
+               <Option route={this.props.route}  navigation={this.props.navigation} species="Capra" stats={capraStats}/>
+               <Option route={this.props.route}  navigation={this.props.navigation} species="Ogoloid" stats={ogoloidStats}/>
+               <Option route={this.props.route}  navigation={this.props.navigation} species="Arachnet" stats={arachnetStats}/>
+               <Option route={this.props.route}  navigation={this.props.navigation} species="Wheepe" stats={wheepeStats}/>
+               <Option route={this.props.route}  navigation={this.props.navigation} species="Construct" stats={constructStats}/>
+               <Option route={this.props.route}  navigation={this.props.navigation} species="Mod Human" stats={modhumanStats}/>
+               <Option route={this.props.route}  navigation={this.props.navigation} species="Energy Being" stats={energybeingStats}/>
+               <Option route={this.props.route}  navigation={this.props.navigation} species="Simian" stats={simianStats}/>
+               <Option route={this.props.route}  navigation={this.props.navigation} species="Orbiden" stats={orbidenStats}/>
+               <Option route={this.props.route}  navigation={this.props.navigation} species="Custom" stats={customStats}/>
              </View>
            </View>
          </ScrollView>
