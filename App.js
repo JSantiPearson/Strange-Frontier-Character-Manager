@@ -17,9 +17,9 @@ import NoteScreen from './CreateComponents/Screens/noteScreen';
 
 import CreateScreen from './CreateComponents/Screens/createScreen';
 
-import Builder from './CreateComponents/builder';
-import Species from './CreateComponents/Screens/speciesScreen';
-import SpeciesChoice from './CreateComponents/Screens/speciesChoice';
+import Builder from './CreateComponents/Builder/builder';
+import Species from './CreateComponents/Builder/speciesScreen';
+import SpeciesChoice from './CreateComponents/Builder/speciesChoice';
 
 import Catalogues from './CreateComponents/Screens/catalogueScreen'
 import TrinitaireArms from './CreateComponents/Catalogues/TrinitaireArms';
@@ -28,7 +28,6 @@ import NarmatoArms from './CreateComponents/Catalogues/NarmatoArms';
 import LeparsBlackMarket from './CreateComponents/Catalogues/LeparsBlackMarket';
 
 import CreateMove from './CreateComponents/createmove';
-
 
 import {
   SafeAreaView,
@@ -81,9 +80,63 @@ const BuilderStack = createStackNavigator();
 function BuildScreen({ navigation, route }) {
   return(
     <BuilderStack.Navigator>
-      <Stack.Screen name="Character Builder" component={Builder} />
-      <Stack.Screen name="Species" component={Species} />
-      <Stack.Screen name="Species Choice" component={SpeciesChoice} />
+      <Stack.Screen
+        name="Character Builder"
+        component={Builder}
+        options={{
+          headerTitle: "",
+          headerLeft: props => (
+            <TouchableOpacity
+              title="Cancel"
+              color='rgb(230, 59, 225)'
+              onPress={() => navigation.goBack(null)}
+            >
+              <Text style={styles.headerButton}>Cancel</Text>
+            </TouchableOpacity>
+          ),
+          headerRight: () => (
+            <TouchableOpacity
+              onPress={() => alert('Pressed skip button!')}
+              title="Accept"
+              color='rgb(230, 59, 225)'
+            >
+              <Text style={styles.headerButton}>Skip</Text>
+            </TouchableOpacity>
+          ),
+          headerStyle: {backgroundColor: 'rgb(230, 59, 225)'},
+        }}
+      />
+      <Stack.Screen
+        name="Species"
+        component={Species}
+        options={{
+          headerTitle: "",
+          headerLeft: props => (
+            <Icon {...props} name={"chevron-left"}  size={40} color="white" />
+          ),
+          headerStyle: {backgroundColor: 'rgb(230, 59, 225)'},
+        }}
+      />
+      <Stack.Screen
+        name="Species Choice"
+        component={SpeciesChoice}
+        options={{
+          headerTitle: "",
+          headerLeft: props => (
+            <Icon {...props} name={"chevron-left"}  size={40} color="white" />
+          ),
+          headerRight: () => (
+            <TouchableOpacity
+              onPress={() => alert('Pressed accept button!')}
+              title="Accept"
+              color='rgb(230, 59, 225)'
+            >
+              <Text style={styles.headerButton}>Accept</Text>
+            </TouchableOpacity>
+          ),
+          headerStyle: {backgroundColor: 'rgb(230, 59, 225)'},
+        }}
+      />
     </BuilderStack.Navigator>
   )
 }
@@ -134,7 +187,13 @@ class App extends React.Component {
       <>
         <NavigationContainer>
           <Stack.Navigator>
-            <Stack.Screen name="Home" component={HomeScreen} />
+            <Stack.Screen
+              name="Home"
+              component={HomeScreen}
+              options={{
+                headerShown: false
+              }}
+            />
             <Stack.Screen name="Create">
               {props => <CreateScreen
                 attributeCallback={this.setAttributes}
@@ -161,7 +220,13 @@ class App extends React.Component {
 
 const styles = StyleSheet.create({
   tabTitle: {
-    fontSize: 12
+    fontSize: 12,
+    color: "white",
+  },
+  headerButton: {
+    fontSize: 15,
+    paddingHorizontal: 20,
+    color: "white",
   },
   scrollView: {
     backgroundColor: Colors.lighter,
