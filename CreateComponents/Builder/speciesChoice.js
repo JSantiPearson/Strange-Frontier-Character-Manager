@@ -3,8 +3,18 @@ import { View, Button, Text, Picker, TouchableOpacity, TextInput, StyleSheet, Sa
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-function BaseCombatStats(props){
-
+function Stat(props){
+  return(
+    <View style={styles.row}>
+      <TouchableOpacity onPress={() => props.changeStat(props.statName, false)}>
+        <Icon name="minus-circle" style={{paddingRight: 15}} size={22} color='rgb(230, 59, 225)' />
+      </TouchableOpacity>
+      <Text style={styles.text}>{props.statValue}</Text>
+      <TouchableOpacity onPress={() => props.changeStat(props.statName, true)}>
+        <Icon name="plus-circle" style={{paddingLeft: 15}} size={22} color='rgb(230, 59, 225)' />
+      </TouchableOpacity>
+    </View>
+  );
 }
 
 class SpeciesChoice extends Component {
@@ -13,24 +23,44 @@ class SpeciesChoice extends Component {
     resilience: this.props.route.params.stats.resilience,
     awareness: this.props.route.params.stats.awareness,
   }
+
+  /**
+  * Increment or decrement a stat and change the state to reflext this change
+  **/
+  changeStat = (stat, increase) => {
+    var statNum = this.state[stat];
+    if (increase){
+      statNum++;
+      this.setState({[stat]: statNum});
+    }
+    else {
+      statNum--;
+      this.setState({[stat]: statNum});
+    }
+  }
+
   render() {
+     console.log(this.state.speed);
      return (
        <>
          <View style={styles.container}>
            <Text style={styles.title}>{this.props.route.params.species} Species Traits</Text>
            <View style={styles.column}>
-             <View style={styles.item}>
-               <View style={styles.row}>
-                 <View style={styles.rowItem}>
-                  <Icon name="shield-account" size={18} color='rgb(230, 59, 225)' />
-                 </View>
-                 <View style={styles.rowItem}>
-                   <Text style={styles.text}>Base Combat Stats</Text>
-                   <Text style={styles.text}>Speed: {this.state.speed}</Text>
-                   <Text style={styles.text}>Resilience: {this.state.resilience}</Text>
-                   <Text style={styles.text}>Awareness: {this.state.awareness}</Text>
-                 </View>
-               </View>
+             <View style={styles.row}>
+               <Icon name="shield-account" style={{paddingLeft: 10}} size={20} color='rgb(230, 59, 225)' />
+               <Text style={[styles.text, {paddingLeft: 20}]}>Base Combat Stats</Text>
+             </View>
+             <View style={styles.statRow}>
+               <Text style={[styles.text, {paddingLeft: 50}]}>Speed: </Text>
+               <Stat statName={"speed"} statValue={this.state.speed} changeStat={this.changeStat} />
+             </View>
+             <View style={styles.statRow}>
+               <Text style={[styles.text, {paddingLeft: 50}]}>Resilience: </Text>
+               <Stat statName={"resilience"} statValue={this.state.resilience} changeStat={this.changeStat} />
+             </View>
+             <View style={styles.statRow}>
+               <Text style={[styles.text, {paddingLeft: 50}]}>Awareness: </Text>
+               <Stat statName={"awareness"} statValue={this.state.awareness} changeStat={this.changeStat} />
              </View>
            </View>
          </View>
@@ -49,15 +79,23 @@ class SpeciesChoice extends Component {
      backgroundColor: "black",
    },
    column: {
-     flex: 1,
+     flexDirection: "column",
    },
    row: {
      flexDirection: "row",
+   },
+   statRow: {
+     flexDirection: "row",
+     justifyContent: "space-between",
+     paddingTop: 5,
      borderBottomColor: 'rgb(230, 59, 225)',
-     borderWidth: 0.5,
+     borderBottomWidth: 1,
+   },
+   stat: {
+     flex: 1,
    },
    rowItem: {
-     paddingRight: 15,
+     flex: 1,
    },
    item: {
      paddingVertical: 5,
@@ -71,7 +109,7 @@ class SpeciesChoice extends Component {
      fontSize: 16,
      marginBottom: 5,
      color: "white",
-     alignItems: "center",
+     textAlign: "left",
    },
    stats: {
      flex: 1,

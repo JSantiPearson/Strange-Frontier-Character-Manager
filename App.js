@@ -96,7 +96,7 @@ function BuildScreen({ navigation, route }) {
           ),
           headerRight: () => (
             <TouchableOpacity
-              onPress={() => alert('Pressed skip button!')}
+              onPress={() => navigation.navigate('Create', { navigation })}
               title="Accept"
               color='rgb(230, 59, 225)'
             >
