@@ -51,15 +51,15 @@ class SpeciesChoice extends Component {
                <Text style={[styles.text, {paddingLeft: 20}]}>Base Combat Stats</Text>
              </View>
              <View style={styles.statRow}>
-               <Text style={[styles.text, {paddingLeft: 50}]}>Speed: </Text>
+               <Text style={styles.text}>Speed: </Text>
                <Stat statName={"speed"} statValue={this.state.speed} changeStat={this.changeStat} />
              </View>
              <View style={styles.statRow}>
-               <Text style={[styles.text, {paddingLeft: 50}]}>Resilience: </Text>
+               <Text style={styles.text}>Resilience: </Text>
                <Stat statName={"resilience"} statValue={this.state.resilience} changeStat={this.changeStat} />
              </View>
              <View style={styles.statRow}>
-               <Text style={[styles.text, {paddingLeft: 50}]}>Awareness: </Text>
+               <Text style={styles.text}>Awareness: </Text>
                <Stat statName={"awareness"} statValue={this.state.awareness} changeStat={this.changeStat} />
              </View>
            </View>
@@ -90,6 +90,8 @@ class SpeciesChoice extends Component {
      paddingTop: 5,
      borderBottomColor: 'rgb(230, 59, 225)',
      borderBottomWidth: 1,
+     marginLeft: 45,
+     paddingLeft: 5,
    },
    stat: {
      flex: 1,

@@ -83,6 +83,7 @@ function BuildScreen({ navigation, route }) {
       <Stack.Screen
         name="Character Builder"
         component={Builder}
+        initialParams={{skillsAvail: false, featsAvail: false, equipmentAvail: false }}
         options={{
           headerTitle: "",
           headerLeft: props => (
@@ -127,7 +128,10 @@ function BuildScreen({ navigation, route }) {
           ),
           headerRight: () => (
             <TouchableOpacity
-              onPress={() => alert('Pressed accept button!')}
+              onPress={() => navigation.navigate('Character Builder', {
+                navigation,
+                skillsAvail: true,
+              })}
               title="Accept"
               color='rgb(230, 59, 225)'
             >
