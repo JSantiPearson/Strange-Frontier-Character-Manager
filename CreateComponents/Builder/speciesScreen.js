@@ -89,7 +89,7 @@ class Species extends Component {
      paddingHorizontal: 10,
      paddingVertical: 5,
      marginBottom: 2,
-     borderBottomColor: 'rgb(230, 59, 225)',
+     borderBottomColor: 'hotpink',
      borderBottomWidth: 1,
    },
    title: {

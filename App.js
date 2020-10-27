@@ -20,6 +20,8 @@ import CreateScreen from './CreateComponents/Screens/createScreen';
 import Builder from './CreateComponents/Builder/builder';
 import Species from './CreateComponents/Builder/speciesScreen';
 import SpeciesChoice from './CreateComponents/Builder/speciesChoice';
+import BuilderAttributes from './CreateComponents/Builder/builderAttributes';
+import BuilderSkills from './CreateComponents/Builder/builderSkills';
 
 import Catalogues from './CreateComponents/Screens/catalogueScreen'
 import TrinitaireArms from './CreateComponents/Catalogues/TrinitaireArms';
@@ -83,7 +85,7 @@ function BuildScreen({ navigation, route }) {
       <Stack.Screen
         name="Character Builder"
         component={Builder}
-        initialParams={{skillsAvail: false, featsAvail: false, equipmentAvail: false }}
+        initialParams={{species: '', skillsAvail: false, featsAvail: false, equipmentAvail: false }}
         options={{
           headerTitle: "",
           headerLeft: props => (
@@ -98,7 +100,7 @@ function BuildScreen({ navigation, route }) {
           headerRight: () => (
             <TouchableOpacity
               onPress={() => navigation.navigate('Create', { navigation })}
-              title="Accept"
+              title="Skip"
               color='rgb(230, 59, 225)'
             >
               <Text style={styles.headerButton}>Skip</Text>
@@ -107,6 +109,17 @@ function BuildScreen({ navigation, route }) {
           headerStyle: {backgroundColor: 'rgb(230, 59, 225)'},
         }}
       />
+
+      <Stack.Screen
+        name="Attributes"
+        component={BuilderAttributes}
+      />
+
+      <Stack.Screen
+        name="Skills"
+        component={BuilderSkills}
+      />
+
       <Stack.Screen
         name="Species"
         component={Species}
@@ -125,18 +138,6 @@ function BuildScreen({ navigation, route }) {
           headerTitle: "",
           headerLeft: props => (
             <Icon {...props} name={"chevron-left"}  size={40} color="white" />
-          ),
-          headerRight: () => (
-            <TouchableOpacity
-              onPress={() => navigation.navigate('Character Builder', {
-                navigation,
-                skillsAvail: true,
-              })}
-              title="Accept"
-              color='rgb(230, 59, 225)'
-            >
-              <Text style={styles.headerButton}>Accept</Text>
-            </TouchableOpacity>
           ),
           headerStyle: {backgroundColor: 'rgb(230, 59, 225)'},
         }}

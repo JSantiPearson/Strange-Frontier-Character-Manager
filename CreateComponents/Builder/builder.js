@@ -38,6 +38,9 @@ function Option(props){
       onPress={props.available.includes(props.id) ? () => props.navigation.navigate(props.id) : undefined}
     >
       <Text style={styles.optionText}>{props.text}</Text>
+      {props.id == "Species" && props.route.params.species != '' &&
+        <Text style={[styles.optionText, { fontSize: 14, fontStyle: "italic"} ]}>{props.route.params.species}</Text>
+      }
     </TouchableOpacity>
   )
 }
@@ -50,26 +53,41 @@ class Builder extends Component {
 
   /**
   * If availability for a character builder section has opened, change state to reflect this.
+  * TODO: Could do some optimizing here, maybe pushing onto a stack. Either way, this logic is spaghetti code, on top of being pretty ugly.
   **/
   handleAvailability = () => {
+    if (this.props.route.params.attributesAvail){
+      console.log("Attributes available!");
+      let available = [...this.state.available];
+      let complete = [...this.state.complete];
+      available.push("Attributes");
+      complete.push("Species");
+      this.setState({ available });
+      this.setState({ complete });
+    }
     if (this.props.route.params.skillsAvail){
-      console.log("skillsAvail condition called");
       let available = [...this.state.available];
       let complete = [...this.state.complete];
       available.push("Skills");
-      complete.push("Species");
+      complete.push("Attributes");
       this.setState({ available });
       this.setState({ complete });
     }
     if (this.props.route.params.featsAvail){
       let available = [...this.state.available];
+      let complete = [...this.state.complete];
       available.push("Feats");
+      complete.push("Attributes");
       this.setState({ available });
+      this.setState({ complete });
     }
     if (this.props.route.params.equipmentAvail){
       let available = [...this.state.available];
+      let complete = [...this.state.complete];
       available.push("Equipment");
+      complete.push("Feats");
       this.setState({ available });
+      this.setState({ complete });
     }
   }
 
@@ -84,17 +102,17 @@ class Builder extends Component {
   }
 
   render() {
-    console.log(this.state.available);
      return (
        <>
          <View style={styles.container}>
            <SafeAreaView>
              <ScrollView style={styles.scrollView}>
                <View>
-                 <Option navigation={this.props.navigation} text="Choose a Species" id="Species" available={this.state.available} complete={this.state.complete} />
-                 <Option navigation={this.props.navigation} text="Choose Skills" id="Skills" available={this.state.available} complete={this.state.complete} />
-                 <Option navigation={this.props.navigation} text="Choose Feats" id="Feats" available={this.state.available} complete={this.state.complete} />
-                 <Option navigation={this.props.navigation} text="Choose Equipment" id="Catalogue" available={this.state.available} complete={this.state.complete} />
+                 <Option text="Choose a Species" id="Species" navigation={this.props.navigation} route={this.props.route} available={this.state.available} complete={this.state.complete} />
+                 <Option text="Determine Attributes" id="Attributes" navigation={this.props.navigation} route={this.props.route} available={this.state.available} complete={this.state.complete} />
+                 <Option text="Choose Skills" id="Skills" navigation={this.props.navigation} route={this.props.route} available={this.state.available} complete={this.state.complete} />
+                 <Option text="Choose Feats" id="Feats" navigation={this.props.navigation} route={this.props.route} available={this.state.available} complete={this.state.complete} />
+                 <Option text="Choose Equipment" id="Catalogue" navigation={this.props.navigation} route={this.props.route} available={this.state.available} complete={this.state.complete} />
                </View>
              </ScrollView>
            </SafeAreaView>

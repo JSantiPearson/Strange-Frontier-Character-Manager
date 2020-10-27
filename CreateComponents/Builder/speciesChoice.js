@@ -19,9 +19,34 @@ function Stat(props){
 
 class SpeciesChoice extends Component {
   state = {
-    speed: this.props.route.params.stats.speed,
-    resilience: this.props.route.params.stats.resilience,
-    awareness: this.props.route.params.stats.awareness,
+    stats: {
+      speed: this.props.route.params.stats.speed,
+      resilience: this.props.route.params.stats.resilience,
+      awareness: this.props.route.params.stats.awareness,
+    }
+  }
+
+  /**
+  * When the component is mounted, add an option to the screen that will send species name and stats data back to builder Screen
+  * when the user hits the header accept button
+  **/
+  componentDidMount(){
+    this.props.navigation.setOptions({
+      headerRight: props => (
+        <TouchableOpacity
+          onPress={() => this.props.navigation.navigate('Character Builder', {
+            navigation: this.props.navigation,
+            attributesAvail: true,
+            species: this.props.route.params.species,
+            stats: this.state.stats
+          })}
+          title="Accept"
+          color='rgb(230, 59, 225)'
+        >
+          <Text style={styles.headerButton}>Accept</Text>
+        </TouchableOpacity>
+      )
+    })
   }
 
   /**
@@ -38,9 +63,7 @@ class SpeciesChoice extends Component {
       this.setState({[stat]: statNum});
     }
   }
-
   render() {
-     console.log(this.state.speed);
      return (
        <>
          <View style={styles.container}>
@@ -52,15 +75,15 @@ class SpeciesChoice extends Component {
              </View>
              <View style={styles.statRow}>
                <Text style={styles.text}>Speed: </Text>
-               <Stat statName={"speed"} statValue={this.state.speed} changeStat={this.changeStat} />
+               <Stat statName={"speed"} statValue={this.state.stats.speed} changeStat={this.changeStat} />
              </View>
              <View style={styles.statRow}>
                <Text style={styles.text}>Resilience: </Text>
-               <Stat statName={"resilience"} statValue={this.state.resilience} changeStat={this.changeStat} />
+               <Stat statName={"resilience"} statValue={this.state.stats.resilience} changeStat={this.changeStat} />
              </View>
              <View style={styles.statRow}>
                <Text style={styles.text}>Awareness: </Text>
-               <Stat statName={"awareness"} statValue={this.state.awareness} changeStat={this.changeStat} />
+               <Stat statName={"awareness"} statValue={this.state.stats.awareness} changeStat={this.changeStat} />
              </View>
            </View>
          </View>
@@ -83,6 +106,11 @@ class SpeciesChoice extends Component {
    },
    row: {
      flexDirection: "row",
+   },
+   headerButton: {
+     fontSize: 15,
+     paddingHorizontal: 20,
+     color: "white",
    },
    statRow: {
      flexDirection: "row",

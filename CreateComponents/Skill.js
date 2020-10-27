@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { View, Button, Text, Picker, TouchableOpacity, TextInput, StyleSheet, SafeAreaView, ScrollView} from 'react-native'
-import NumericInput from 'react-native-numeric-input'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import equal from 'fast-deep-equal'
 
 class Skill extends Component {
@@ -19,9 +19,15 @@ class Skill extends Component {
     }
   }
   /* umbrella function for training value change */
-  handleChange = (trainLvl) => {
-     this.setState({ train: trainLvl });
-     this.sendScore(trainLvl);
+  handleChange = (trainLevel, increment) => {
+    if (increment){
+      trainLevel++;
+    }
+    else{
+      trainLevel--;
+    }
+    this.setState({ trainLevel });
+    this.sendScore(trainLevel);
   }
   /* calculates the bonus from a attribute score */
   calculateBonus = (attr) => {
@@ -29,15 +35,15 @@ class Skill extends Component {
     return bonus;
   }
   /* Determines skill score based on relevant attribute and training */
-  handleScore = (trainLvl) => {
+  handleScore = (trainLevel) => {
     var score = 0; //score is always a multiple of 5
     var bonus = this.calculateBonus(this.props.attr);
     // training should never be below 0
-    if (trainLvl < 0){
+    if (trainLevel < 0){
       console.warn(this.props.name + " is trained below 0!");
     }
     // if training is 0, score is calculated based on whether or not attribute bonus is negative
-    else if (trainLvl == 0){
+    else if (trainLevel == 0){
       // if bonus is less <= 0, score penalty is doubled
       if (bonus <= 0){
         score = (bonus * 2)*10;
@@ -49,15 +55,15 @@ class Skill extends Component {
     }
     // if character is trained in a skill, add training to bonus
     else {
-      score = (trainLvl+bonus)*10;
+      score = (trainLevel+bonus)*10;
     }
     return score;
   }
   /* calculates the score then sends it up the hierarchy */
-  sendScore = (trainLvl) => {
+  sendScore = (trainLevel) => {
     var skill = this.props.skill;
-    var score = this.handleScore(trainLvl);
-    this.props.scoreCallback(skill, trainLvl, score);
+    var score = this.handleScore(trainLevel);
+    this.props.scoreCallback(skill, trainLevel, score);
   }
   render() {
      return (
@@ -65,13 +71,14 @@ class Skill extends Component {
          <View style={styles.item}>
            <Text>{this.props.name}</Text>
          </View>
-         <View style={styles.item}>
-           <NumericInput
-             type='plus-minus'
-             minValue={0}
-             value={this.props.train}
-             onChange={trainLvl => this.handleChange(trainLvl)}
-           />
+         <View style={styles.row}>
+           <TouchableOpacity onPress={() => this.handleChange(this.state.trainLevel, false)}>
+             <Icon name="minus-circle" style={{paddingRight: 15}} size={22} color='rgb(230, 59, 225)' />
+           </TouchableOpacity>
+           <Text style={styles.text}>{this.state.trainLevel}</Text>
+           <TouchableOpacity onPress={() => this.handleChange(this.state.trainLevel, true)}>
+             <Icon name="plus-circle" style={{paddingLeft: 15}} size={22} color='rgb(230, 59, 225)' />
+           </TouchableOpacity>
          </View>
          <View style={styles.score}>
           <Text>Score: {this.props.score}</Text>
@@ -84,7 +91,7 @@ export default Skill;
 
 const styles = StyleSheet.create({
    row: {
-     justifyContent: 'space-evenly',
+     justifyContent: 'space-between',
      flexDirection: "row"
    },
    item: {
