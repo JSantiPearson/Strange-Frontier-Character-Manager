@@ -56,14 +56,15 @@ function HomeScreen({ navigation }) {
   return (
     <>
       <View style={styles.container}>
-        <View style={styles.buttonContainer}>
+        <View style={[styles.buttonContainer, {backgroundColor: 'black'}]}>
           <TouchableOpacity onPress={() => navigation.navigate('Build', { navigation })}>
-            <Image source={require('./assets/img/CreateScreen.png')} style={styles.backgroundImage} resizeMode='cover' />
+            <Text style={styles.buttonText}>Create</Text>
           </TouchableOpacity>
         </View>
-        <View style={styles.buttonContainer}>
+        <View style={[styles.buttonContainer, {backgroundColor: 'white'}]}>
           <TouchableOpacity onPress={() => navigation.navigate('Play', { navigation })}>
-              <Image source={require('./assets/img/poker.jpg')} style={styles.backgroundImage} resizeMode='cover' />
+              <Text style={[styles.buttonText, {color: "black"}]}>Play</Text>
+              <Text style={[styles.buttonText, {fontSize: 25, color: "black"}]}>(Under Construction)</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -224,6 +225,12 @@ class App extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  buttonText: {
+    fontSize: 50,
+    color: "white",
+    fontFamily: 'CCWildWordsRoman',
+    textAlign: "center"
+  },
   tabTitle: {
     fontSize: 12,
     color: "white",
@@ -258,6 +265,7 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flex: 1,
     alignItems: 'center',
+    justifyContent: 'center',
   },
   sectionTitle: {
     fontSize: 24,
