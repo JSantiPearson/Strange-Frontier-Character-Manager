@@ -41,6 +41,16 @@ function Option(props){
       {props.id == "Species" && props.route.params.species != '' &&
         <Text style={[styles.optionText, { fontSize: 14, fontStyle: "italic"} ]}>{props.route.params.species}</Text>
       }
+      {props.id == "Attributes" && props.route.params.attributes != undefined &&
+        <Text style={[styles.optionText, { fontSize: 14, fontStyle: "italic"} ]}>
+          Str: {props.route.params.attributes.strength.score},
+          Dex: {props.route.params.attributes.dexterity.score},
+          Con: {props.route.params.attributes.constitution.score},
+          Wis: {props.route.params.attributes.wisdom.score},
+          Int: {props.route.params.attributes.intelligence.score},
+          Inf: {props.route.params.attributes.influence.score}, 
+        </Text>
+      }
     </TouchableOpacity>
   )
 }
