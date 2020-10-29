@@ -57,12 +57,12 @@ function HomeScreen({ navigation }) {
     <>
       <View style={styles.container}>
         <View style={[styles.buttonContainer, {backgroundColor: 'black'}]}>
-          <TouchableOpacity onPress={() => navigation.navigate('Build', { navigation })}>
+          <TouchableOpacity style={styles.backgroundImage} onPress={() => navigation.navigate('Build', { navigation })}>
             <Text style={styles.buttonText}>Create</Text>
           </TouchableOpacity>
         </View>
         <View style={[styles.buttonContainer, {backgroundColor: 'white'}]}>
-          <TouchableOpacity onPress={() => navigation.navigate('Play', { navigation })}>
+          <TouchableOpacity style={styles.backgroundImage} onPress={() => navigation.navigate('Play', { navigation })}>
               <Text style={[styles.buttonText, {color: "black"}]}>Play</Text>
               <Text style={[styles.buttonText, {fontSize: 25, color: "black"}]}>(Under Construction)</Text>
           </TouchableOpacity>
@@ -92,7 +92,7 @@ function BuildScreen({ navigation, route }) {
           headerLeft: props => (
             <TouchableOpacity
               title="Cancel"
-              color='rgb(230, 59, 225)'
+              color='rgb(250, 50, 220)'
               onPress={() => navigation.goBack(null)}
             >
               <Text style={styles.headerButton}>Cancel</Text>
@@ -102,18 +102,25 @@ function BuildScreen({ navigation, route }) {
             <TouchableOpacity
               onPress={() => navigation.navigate('Create', { navigation })}
               title="Skip"
-              color='rgb(230, 59, 225)'
+              color='rgb(250, 50, 220)'
             >
               <Text style={styles.headerButton}>Skip</Text>
             </TouchableOpacity>
           ),
-          headerStyle: {backgroundColor: 'rgb(230, 59, 225)'},
+          headerStyle: {backgroundColor: 'rgb(250, 50, 220)'},
         }}
       />
 
       <Stack.Screen
         name="Attributes"
         component={BuilderAttributes}
+        options={{
+          headerTitle: "",
+          headerLeft: props => (
+            <Icon {...props} name={"chevron-left"}  size={40} color="white" />
+          ),
+          headerStyle: {backgroundColor: 'rgb(250, 50, 220)'},
+        }}
       />
 
       <Stack.Screen
@@ -129,7 +136,7 @@ function BuildScreen({ navigation, route }) {
           headerLeft: props => (
             <Icon {...props} name={"chevron-left"}  size={40} color="white" />
           ),
-          headerStyle: {backgroundColor: 'rgb(230, 59, 225)'},
+          headerStyle: {backgroundColor: 'rgb(250, 50, 220)'},
         }}
       />
       <Stack.Screen
@@ -140,7 +147,7 @@ function BuildScreen({ navigation, route }) {
           headerLeft: props => (
             <Icon {...props} name={"chevron-left"}  size={40} color="white" />
           ),
-          headerStyle: {backgroundColor: 'rgb(230, 59, 225)'},
+          headerStyle: {backgroundColor: 'rgb(250, 50, 220)'},
         }}
       />
     </BuilderStack.Navigator>
@@ -254,6 +261,8 @@ const styles = StyleSheet.create({
     flex: 1,
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').width / 2,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   container: {
     flex: 1,

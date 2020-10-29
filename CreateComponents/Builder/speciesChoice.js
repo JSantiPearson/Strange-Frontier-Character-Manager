@@ -7,11 +7,11 @@ function Stat(props){
   return(
     <View style={styles.row}>
       <TouchableOpacity onPress={() => props.changeStat(props.statName, false)}>
-        <Icon name="minus-circle" style={{paddingRight: 15}} size={22} color='rgb(230, 59, 225)' />
+        <Icon name="minus-circle" style={{paddingRight: 15}} size={22} color='rgb(250, 50, 220)' />
       </TouchableOpacity>
       <Text style={styles.text}>{props.statValue}</Text>
       <TouchableOpacity onPress={() => props.changeStat(props.statName, true)}>
-        <Icon name="plus-circle" style={{paddingLeft: 15}} size={22} color='rgb(230, 59, 225)' />
+        <Icon name="plus-circle" style={{paddingLeft: 15}} size={22} color='rgb(250, 50, 220)' />
       </TouchableOpacity>
     </View>
   );
@@ -41,7 +41,7 @@ class SpeciesChoice extends Component {
             stats: this.state.stats
           })}
           title="Accept"
-          color='rgb(230, 59, 225)'
+          color='rgb(250, 50, 220)'
         >
           <Text style={styles.headerButton}>Accept</Text>
         </TouchableOpacity>
@@ -70,7 +70,7 @@ class SpeciesChoice extends Component {
            <Text style={styles.title}>{this.props.route.params.species} Species Traits</Text>
            <View style={styles.column}>
              <View style={styles.row}>
-               <Icon name="shield-account" style={{paddingLeft: 10}} size={20} color='rgb(230, 59, 225)' />
+               <Icon name="shield-account" style={{paddingLeft: 10}} size={20} color='rgb(250, 50, 220)' />
                <Text style={[styles.text, {paddingLeft: 20}]}>Base Combat Stats</Text>
              </View>
              <View style={styles.statRow}>
@@ -116,19 +116,10 @@ class SpeciesChoice extends Component {
      flexDirection: "row",
      justifyContent: "space-between",
      paddingTop: 5,
-     borderBottomColor: 'rgb(230, 59, 225)',
+     borderBottomColor: 'rgba(250, 50, 220, 0.5)',
      borderBottomWidth: 1,
      marginLeft: 45,
      paddingLeft: 5,
-   },
-   stat: {
-     flex: 1,
-   },
-   rowItem: {
-     flex: 1,
-   },
-   item: {
-     paddingVertical: 5,
    },
    title: {
      fontSize: 24,
@@ -140,12 +131,5 @@ class SpeciesChoice extends Component {
      marginBottom: 5,
      color: "white",
      textAlign: "left",
-   },
-   stats: {
-     flex: 1,
-     fontSize: 12,
-     paddingTop: 5,
-     color: "white",
-     fontStyle: "italic",
    },
  });

@@ -6,7 +6,7 @@ import { Dropdown } from "react-native-material-dropdown"
 function getOptionStyle(option, available, complete){
   if (complete.includes(option)){
     return {
-      borderLeftColor: 'rgba(230, 59, 225, 0.5)',
+      borderLeftColor: 'rgba(250, 50, 220, 0.5)',
       borderLeftWidth: 5,
       marginVertical: 10,
       paddingLeft: 10,
@@ -15,7 +15,7 @@ function getOptionStyle(option, available, complete){
   }
   else if (available.includes(option)){
     return {
-      borderLeftColor: 'rgb(230, 59, 225)',
+      borderLeftColor: 'rgb(250, 50, 220)',
       borderLeftWidth: 5,
       marginVertical: 10,
       paddingLeft: 10,
@@ -57,7 +57,6 @@ class Builder extends Component {
   **/
   handleAvailability = () => {
     if (this.props.route.params.attributesAvail){
-      console.log("Attributes available!");
       let available = [...this.state.available];
       let complete = [...this.state.complete];
       available.push("Attributes");

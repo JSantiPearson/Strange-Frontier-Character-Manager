@@ -73,11 +73,11 @@ class Skill extends Component {
          </View>
          <View style={styles.row}>
            <TouchableOpacity onPress={() => this.handleChange(this.state.trainLevel, false)}>
-             <Icon name="minus-circle" style={{paddingRight: 15}} size={22} color='rgb(230, 59, 225)' />
+             <Icon name="minus-circle" style={{paddingRight: 15}} size={22} color='rgb(250, 50, 220)' />
            </TouchableOpacity>
            <Text style={styles.text}>{this.state.trainLevel}</Text>
            <TouchableOpacity onPress={() => this.handleChange(this.state.trainLevel, true)}>
-             <Icon name="plus-circle" style={{paddingLeft: 15}} size={22} color='rgb(230, 59, 225)' />
+             <Icon name="plus-circle" style={{paddingLeft: 15}} size={22} color='rgb(250, 50, 220)' />
            </TouchableOpacity>
          </View>
          <View style={styles.score}>
