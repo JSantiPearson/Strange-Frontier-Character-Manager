@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { View, Button, Text, Picker, TouchableOpacity, TextInput, StyleSheet, SafeAreaView, ScrollView} from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import equal from 'fast-deep-equal'
+import equal from 'fast-deep-equal';
+import NumberInput from './Utilities/numberInput';
 
 class Skill extends Component {
   state = {
@@ -18,8 +19,10 @@ class Skill extends Component {
       this.sendScore(this.state.trainLevel);
     }
   }
+
   /* umbrella function for training value change */
-  handleChange = (trainLevel, increment) => {
+  handleChange = (skill, increment) => {
+    var trainLevel = this.state.trainLevel;
     if (increment){
       trainLevel++;
     }
@@ -55,7 +58,7 @@ class Skill extends Component {
     }
     // if character is trained in a skill, add training to bonus
     else {
-      score = (trainLevel+bonus)*10;
+      score = (trainLevel + bonus)*10;
     }
     return score;
   }
@@ -65,24 +68,18 @@ class Skill extends Component {
     var score = this.handleScore(trainLevel);
     this.props.scoreCallback(skill, trainLevel, score);
   }
+
   render() {
      return (
-       <View style={styles.row}>
+       <View style={styles.skillRow}>
          <View style={styles.item}>
-           <Text>{this.props.name}</Text>
+           <Text style={styles.text}>{this.props.name}:   {this.handleScore(this.state.trainLevel)}</Text>
          </View>
-         <View style={styles.row}>
-           <TouchableOpacity onPress={() => this.handleChange(this.state.trainLevel, false)}>
-             <Icon name="minus-circle" style={{paddingRight: 15}} size={22} color='rgb(250, 50, 220)' />
-           </TouchableOpacity>
-           <Text style={styles.text}>{this.state.trainLevel}</Text>
-           <TouchableOpacity onPress={() => this.handleChange(this.state.trainLevel, true)}>
-             <Icon name="plus-circle" style={{paddingLeft: 15}} size={22} color='rgb(250, 50, 220)' />
-           </TouchableOpacity>
-         </View>
-         <View style={styles.score}>
-          <Text>Score: {this.props.score}</Text>
-         </View>
+         <NumberInput
+           numberName={this.props.skill}
+           numberValue={this.state.trainLevel}
+           changeNumber={this.handleChange}
+         />
        </View>
      )
    }
@@ -90,22 +87,19 @@ class Skill extends Component {
 export default Skill;
 
 const styles = StyleSheet.create({
+   skillRow: {
+     paddingTop: 10,
+     justifyContent: 'space-between',
+     flexDirection: "row",
+     borderBottomWidth: 1,
+     borderBottomColor: 'rgba(250, 0, 115, 0.5)',
+   },
    row: {
      justifyContent: 'space-between',
      flexDirection: "row"
    },
-   item: {
-    flex: 1,
-    borderColor: "#cccccc",
-    borderBottomWidth: 1,
-    marginBottom: 10,
-    paddingHorizontal: 10
-  },
-   score: {
-    flex: 1,
-    borderColor: "#cccccc",
-    borderBottomWidth: 1,
-    marginBottom: 10,
-    paddingHorizontal: 40
+   text: {
+     fontSize: 16,
+     color: "white",
    }
 })

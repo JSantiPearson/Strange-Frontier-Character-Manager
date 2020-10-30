@@ -6,7 +6,7 @@ import { Dropdown } from "react-native-material-dropdown"
 function getOptionStyle(option, available, complete){
   if (complete.includes(option)){
     return {
-      borderLeftColor: 'rgba(250, 50, 220, 0.5)',
+      borderLeftColor: 'rgba(250, 0, 115, 0.5)',
       borderLeftWidth: 5,
       marginVertical: 10,
       paddingLeft: 10,
@@ -15,7 +15,7 @@ function getOptionStyle(option, available, complete){
   }
   else if (available.includes(option)){
     return {
-      borderLeftColor: 'rgb(250, 50, 220)',
+      borderLeftColor: 'rgb(250, 0, 115)',
       borderLeftWidth: 5,
       marginVertical: 10,
       paddingLeft: 10,
@@ -35,7 +35,10 @@ function Option(props){
   return(
     <TouchableOpacity
       style={getOptionStyle(props.id, props.available, props.complete)}
-      onPress={props.available.includes(props.id) ? () => props.navigation.navigate(props.id) : undefined}
+      onPress={props.available.includes(props.id) ? () => props.navigation.navigate(props.id, {
+        attributes: props.route.params.attributes,
+        navigation: props.navigation
+      }) : undefined}
     >
       <Text style={styles.optionText}>{props.text}</Text>
       {props.id == "Species" && props.route.params.species != '' &&
@@ -48,7 +51,7 @@ function Option(props){
           Con: {props.route.params.attributes.constitution.score},
           Wis: {props.route.params.attributes.wisdom.score},
           Int: {props.route.params.attributes.intelligence.score},
-          Inf: {props.route.params.attributes.influence.score}, 
+          Inf: {props.route.params.attributes.influence.score}
         </Text>
       }
     </TouchableOpacity>
@@ -86,7 +89,7 @@ class Builder extends Component {
       let available = [...this.state.available];
       let complete = [...this.state.complete];
       available.push("Feats");
-      complete.push("Attributes");
+      complete.push("Skills");
       this.setState({ available });
       this.setState({ complete });
     }
@@ -107,6 +110,9 @@ class Builder extends Component {
   componentDidUpdate(prevProps){
     if (prevProps.route.params != this.props.route.params){
       this.handleAvailability();
+      if (this.props.route.params.skills != null){
+        console.log("Athletics skill score: " + this.props.route.params.skills.athletics.score);
+      }
     }
   }
 

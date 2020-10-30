@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Button, Text, Picker, TouchableOpacity, TextInput, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
+import { View, Dimensions, Button, Modal, Text, Picker, TouchableOpacity, TextInput, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 /**
@@ -9,7 +9,7 @@ import { Colors } from 'react-native/Libraries/NewAppScreen';
 **/
 function Option(props){
   return(
-    <TouchableOpacity style={styles.option} onPress={() => props.navigation.navigate('Species Choice', {
+    <TouchableOpacity style={styles.option} onLongPress={() => props.setDetailsVisible(props.species)} onPress={() => props.navigation.navigate('Species Choice', {
         route: props.route,
         navigation: props.navigation,
         species: props.species,
@@ -41,6 +41,18 @@ const customStats = {speed: 5, resilience: 5, awareness: 5};
 
 
 class Species extends Component {
+  state = {
+    humanVisible: false,
+  }
+
+  setDetailsVisible = (species) => {
+    species = species.toLowerCase();
+    var speciesVisible = [species]+"Visible";
+    var visible = !this.state[speciesVisible];
+    console.log(speciesVisible);
+    this.setState({ [speciesVisible]: visible });
+  }
+
   render() { //TODO: Find an efficient way to incorporate species feats here.
      return (
        <>
@@ -49,20 +61,34 @@ class Species extends Component {
            <View style={styles.container}>
              <Text style={styles.title}>Choose a Species</Text>
               <View style={styles.column}>
-               <Option route={this.props.route}  navigation={this.props.navigation} species="Human" stats={humanStats} />
-               <Option route={this.props.route}  navigation={this.props.navigation} species="Grub Tub" stats={grubtubStats}/>
-               <Option route={this.props.route}  navigation={this.props.navigation} species="Giant" stats={giantStats}/>
-               <Option route={this.props.route}  navigation={this.props.navigation} species="Vermile" stats={vermileStats}/>
-               <Option route={this.props.route}  navigation={this.props.navigation} species="Capra" stats={capraStats}/>
-               <Option route={this.props.route}  navigation={this.props.navigation} species="Ogoloid" stats={ogoloidStats}/>
-               <Option route={this.props.route}  navigation={this.props.navigation} species="Arachnet" stats={arachnetStats}/>
-               <Option route={this.props.route}  navigation={this.props.navigation} species="Wheepe" stats={wheepeStats}/>
-               <Option route={this.props.route}  navigation={this.props.navigation} species="Construct" stats={constructStats}/>
-               <Option route={this.props.route}  navigation={this.props.navigation} species="Mod Human" stats={modhumanStats}/>
-               <Option route={this.props.route}  navigation={this.props.navigation} species="Energy Being" stats={energybeingStats}/>
-               <Option route={this.props.route}  navigation={this.props.navigation} species="Simian" stats={simianStats}/>
-               <Option route={this.props.route}  navigation={this.props.navigation} species="Orbiden" stats={orbidenStats}/>
-               <Option route={this.props.route}  navigation={this.props.navigation} species="Custom" stats={customStats}/>
+               <Option setDetailsVisible={this.setDetailsVisible} route={this.props.route}  navigation={this.props.navigation} species="Human" stats={humanStats} />
+               {this.state.humanVisible &&
+                 <Modal
+                    animationType="slide"
+                    transparent={true}
+                    visible={this.state.humanVisible}
+                    presentationStyle="fullscreen"
+                  >
+                    <View style={styles.centeredView}>
+                      <View style={styles.modalView}>
+                        <Text style={styles.modalText}>Hello World!</Text>
+                      </View>
+                    </View>
+                  </Modal>
+               }
+               <Option route={this.props.route}  navigation={this.props.navigation} species="Grub Tub" stats={grubtubStats} />
+               <Option route={this.props.route}  navigation={this.props.navigation} species="Giant" stats={giantStats} />
+               <Option route={this.props.route}  navigation={this.props.navigation} species="Vermile" stats={vermileStats} />
+               <Option route={this.props.route}  navigation={this.props.navigation} species="Capra" stats={capraStats} />
+               <Option route={this.props.route}  navigation={this.props.navigation} species="Ogoloid" stats={ogoloidStats} />
+               <Option route={this.props.route}  navigation={this.props.navigation} species="Arachnet" stats={arachnetStats} />
+               <Option route={this.props.route}  navigation={this.props.navigation} species="Wheepe" stats={wheepeStats} />
+               <Option route={this.props.route}  navigation={this.props.navigation} species="Construct" stats={constructStats} />
+               <Option route={this.props.route}  navigation={this.props.navigation} species="Mod Human" stats={modhumanStats} />
+               <Option route={this.props.route}  navigation={this.props.navigation} species="Energy Being" stats={energybeingStats} />
+               <Option route={this.props.route}  navigation={this.props.navigation} species="Simian" stats={simianStats} />
+               <Option route={this.props.route}  navigation={this.props.navigation} species="Orbiden" stats={orbidenStats} />
+               <Option route={this.props.route}  navigation={this.props.navigation} species="Custom" stats={customStats} />
              </View>
            </View>
          </ScrollView>
@@ -81,6 +107,26 @@ class Species extends Component {
      paddingTop: 10,
      backgroundColor: "black",
    },
+   centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 0
+  },
+  modalView: {
+    height: Dimensions.get('window').height-30,
+    width: Dimensions.get('window').width-10,
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    }
+  },
    column: {
      flex: 1,
      justifyContent: "space-evenly",

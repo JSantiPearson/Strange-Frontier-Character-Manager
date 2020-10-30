@@ -2,21 +2,7 @@ import React, { Component } from 'react'
 import { View, Button, Text, Picker, TouchableOpacity, TextInput, StyleSheet} from 'react-native'
 import Slider from '@react-native-community/slider'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-
-//TODO: Button position changes between single and double digits. Make the buttons and number between remain in a fixed position.
-function Attribute(props){
-  return(
-    <View style={styles.row}>
-      <TouchableOpacity onPress={() => props.changeAttribute(props.attributeName, false)}>
-        <Icon name="minus-circle" style={{paddingRight: 15}} size={22} color='rgb(250, 50, 220)' />
-      </TouchableOpacity>
-      <Text style={styles.text}>{props.attributeValue}</Text>
-      <TouchableOpacity onPress={() => props.changeAttribute(props.attributeName, true)}>
-        <Icon name="plus-circle" style={{paddingLeft: 15}} size={22} color='rgb(250, 50, 220)' />
-      </TouchableOpacity>
-    </View>
-  );
-}
+import NumberInput from '../Utilities/numberInput';
 
 class BuilderAttributes extends Component {
   state = {
@@ -58,7 +44,7 @@ class BuilderAttributes extends Component {
             attributes: this.state.attributes,
           })}
           title="Accept"
-          color='rgb(250, 50, 220)'
+          color='rgb(250, 0, 115)'
         >
           <Text style={styles.headerButton}>Accept</Text>
         </TouchableOpacity>
@@ -77,7 +63,7 @@ class BuilderAttributes extends Component {
               attributes: this.state.attributes,
             })}
             title="Accept"
-            color='rgb(250, 50, 220)'
+            color='rgb(250, 0, 115)'
           >
             <Text style={styles.headerButton}>Accept</Text>
           </TouchableOpacity>
@@ -133,32 +119,32 @@ class BuilderAttributes extends Component {
        <View style={styles.container}>
           <View style={styles.column}>
             <View style={styles.row}>
-              <Icon name="shield-account" style={{paddingLeft: 10}} size={20} color='rgb(250, 50, 220)' />
+              <Icon name="shield-account" style={{paddingLeft: 10}} size={20} color='rgb(250, 0, 115)' />
               <Text style={[styles.text, {paddingLeft: 20, }]}>Determine Attribute Scores</Text>
             </View>
             <View style={styles.attrRow}>
               {this._renderMod("Strength", this.state.attributes.strength)}
-              <Attribute attributeName={"strength"} attributeValue={this.state.attributes.strength.score} changeAttribute={this.changeAttribute} />
+              <NumberInput numberName={"strength"} numberValue={this.state.attributes.strength.score} changeNumber={this.changeAttribute} />
             </View>
             <View style={styles.attrRow}>
               {this._renderMod("Dexterity", this.state.attributes.dexterity)}
-              <Attribute attributeName={"dexterity"} attributeValue={this.state.attributes.dexterity.score} changeAttribute={this.changeAttribute} />
+              <NumberInput numberName={"dexterity"} numberValue={this.state.attributes.dexterity.score} changeNumber={this.changeAttribute} />
             </View>
             <View style={styles.attrRow}>
               {this._renderMod("Constitution", this.state.attributes.constitution)}
-              <Attribute attributeName={"constitution"} attributeValue={this.state.attributes.constitution.score} changeAttribute={this.changeAttribute} />
+              <NumberInput numberName={"constitution"} numberValue={this.state.attributes.constitution.score} changeNumber={this.changeAttribute} />
             </View>
             <View style={styles.attrRow}>
               {this._renderMod("Wisdom", this.state.attributes.wisdom)}
-              <Attribute attributeName={"wisdom"} attributeValue={this.state.attributes.wisdom.score} changeAttribute={this.changeAttribute} />
+              <NumberInput numberName={"wisdom"} numberValue={this.state.attributes.wisdom.score} changeNumber={this.changeAttribute} />
             </View>
             <View style={styles.attrRow}>
               {this._renderMod("Intelligence", this.state.attributes.intelligence)}
-              <Attribute attributeName={"intelligence"} attributeValue={this.state.attributes.intelligence.score} changeAttribute={this.changeAttribute} />
+              <NumberInput numberName={"intelligence"} numberValue={this.state.attributes.intelligence.score} changeNumber={this.changeAttribute} />
             </View>
             <View style={styles.attrRow}>
               {this._renderMod("Influence", this.state.attributes.influence)}
-              <Attribute attributeName={"influence"} attributeValue={this.state.attributes.influence.score} changeAttribute={this.changeAttribute} />
+              <NumberInput numberName={"influence"} numberValue={this.state.attributes.influence.score} changeNumber={this.changeAttribute} />
             </View>
           </View>
         </View>
@@ -186,7 +172,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     paddingTop: 5,
-    borderBottomColor: 'rgba(250, 50, 220, 0.5)',
+    borderBottomColor: 'rgba(250, 0, 115, 0.5)',
     borderBottomWidth: 1,
     marginLeft: 45,
     paddingLeft: 5,

@@ -86,13 +86,13 @@ function BuildScreen({ navigation, route }) {
       <Stack.Screen
         name="Character Builder"
         component={Builder}
-        initialParams={{species: '', skillsAvail: false, featsAvail: false, equipmentAvail: false }}
+        initialParams={{species: '', skills: null, skillsAvail: false, featsAvail: false, equipmentAvail: false }}
         options={{
           headerTitle: "",
           headerLeft: props => (
             <TouchableOpacity
               title="Cancel"
-              color='rgb(250, 50, 220)'
+              color='rgb(250, 0, 115)'
               onPress={() => navigation.goBack(null)}
             >
               <Text style={styles.headerButton}>Cancel</Text>
@@ -102,12 +102,12 @@ function BuildScreen({ navigation, route }) {
             <TouchableOpacity
               onPress={() => navigation.navigate('Create', { navigation })}
               title="Skip"
-              color='rgb(250, 50, 220)'
+              color='rgb(250, 0, 115)'
             >
               <Text style={styles.headerButton}>Skip</Text>
             </TouchableOpacity>
           ),
-          headerStyle: {backgroundColor: 'rgb(250, 50, 220)'},
+          headerStyle: {backgroundColor: 'rgb(250, 0, 115)'},
         }}
       />
 
@@ -119,13 +119,26 @@ function BuildScreen({ navigation, route }) {
           headerLeft: props => (
             <Icon {...props} name={"chevron-left"}  size={40} color="white" />
           ),
-          headerStyle: {backgroundColor: 'rgb(250, 50, 220)'},
+          headerStyle: {backgroundColor: 'rgb(250, 0, 115)'},
         }}
       />
 
       <Stack.Screen
         name="Skills"
         component={BuilderSkills}
+        options={{
+          headerTitle: "",
+          headerLeft: props => (
+            <TouchableOpacity
+              title="Cancel"
+              color='rgb(250, 0, 115)'
+              onPress={() => navigation.goBack(null)}
+            >
+              <Text style={styles.headerButton}>Cancel</Text>
+            </TouchableOpacity>
+          ),
+          headerStyle: {backgroundColor: 'rgb(250, 0, 115)'},
+        }}
       />
 
       <Stack.Screen
@@ -136,7 +149,7 @@ function BuildScreen({ navigation, route }) {
           headerLeft: props => (
             <Icon {...props} name={"chevron-left"}  size={40} color="white" />
           ),
-          headerStyle: {backgroundColor: 'rgb(250, 50, 220)'},
+          headerStyle: {backgroundColor: 'rgb(250, 0, 115)'},
         }}
       />
       <Stack.Screen
@@ -147,7 +160,7 @@ function BuildScreen({ navigation, route }) {
           headerLeft: props => (
             <Icon {...props} name={"chevron-left"}  size={40} color="white" />
           ),
-          headerStyle: {backgroundColor: 'rgb(250, 50, 220)'},
+          headerStyle: {backgroundColor: 'rgb(250, 0, 115)'},
         }}
       />
     </BuilderStack.Navigator>

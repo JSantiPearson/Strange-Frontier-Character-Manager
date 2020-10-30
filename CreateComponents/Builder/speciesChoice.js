@@ -2,20 +2,7 @@ import React, { Component } from 'react';
 import { View, Button, Text, Picker, TouchableOpacity, TextInput, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-
-function Stat(props){
-  return(
-    <View style={styles.row}>
-      <TouchableOpacity onPress={() => props.changeStat(props.statName, false)}>
-        <Icon name="minus-circle" style={{paddingRight: 15}} size={22} color='rgb(250, 50, 220)' />
-      </TouchableOpacity>
-      <Text style={styles.text}>{props.statValue}</Text>
-      <TouchableOpacity onPress={() => props.changeStat(props.statName, true)}>
-        <Icon name="plus-circle" style={{paddingLeft: 15}} size={22} color='rgb(250, 50, 220)' />
-      </TouchableOpacity>
-    </View>
-  );
-}
+import NumberInput from '../Utilities/numberInput';
 
 class SpeciesChoice extends Component {
   state = {
@@ -41,7 +28,7 @@ class SpeciesChoice extends Component {
             stats: this.state.stats
           })}
           title="Accept"
-          color='rgb(250, 50, 220)'
+          color='rgb(250, 0, 115)'
         >
           <Text style={styles.headerButton}>Accept</Text>
         </TouchableOpacity>
@@ -53,14 +40,14 @@ class SpeciesChoice extends Component {
   * Increment or decrement a stat and change the state to reflext this change
   **/
   changeStat = (stat, increase) => {
-    var statNum = this.state[stat];
+    var stats = this.state.stats;
     if (increase){
-      statNum++;
-      this.setState({[stat]: statNum});
+      stats[stat]++;
+      this.setState({ stats });
     }
     else {
-      statNum--;
-      this.setState({[stat]: statNum});
+      stats[stat]--;
+      this.setState({ stats });
     }
   }
   render() {
@@ -70,20 +57,32 @@ class SpeciesChoice extends Component {
            <Text style={styles.title}>{this.props.route.params.species} Species Traits</Text>
            <View style={styles.column}>
              <View style={styles.row}>
-               <Icon name="shield-account" style={{paddingLeft: 10}} size={20} color='rgb(250, 50, 220)' />
+               <Icon name="shield-account" style={{paddingLeft: 10}} size={20} color='rgb(250, 0, 115)' />
                <Text style={[styles.text, {paddingLeft: 20}]}>Base Combat Stats</Text>
              </View>
              <View style={styles.statRow}>
                <Text style={styles.text}>Speed: </Text>
-               <Stat statName={"speed"} statValue={this.state.stats.speed} changeStat={this.changeStat} />
+               <NumberInput
+                 numberName={"speed"}
+                 numberValue={this.state.stats.speed}
+                 changeNumber={this.changeStat}
+               />
              </View>
              <View style={styles.statRow}>
                <Text style={styles.text}>Resilience: </Text>
-               <Stat statName={"resilience"} statValue={this.state.stats.resilience} changeStat={this.changeStat} />
+               <NumberInput
+                 numberName={"resilience"}
+                 numberValue={this.state.stats.resilience}
+                 changeNumber={this.changeStat}
+               />
              </View>
              <View style={styles.statRow}>
                <Text style={styles.text}>Awareness: </Text>
-               <Stat statName={"awareness"} statValue={this.state.stats.awareness} changeStat={this.changeStat} />
+               <NumberInput
+                 numberName={"awareness"}
+                 numberValue={this.state.stats.awareness}
+                 changeNumber={this.changeStat}
+               />
              </View>
            </View>
          </View>
@@ -116,7 +115,7 @@ class SpeciesChoice extends Component {
      flexDirection: "row",
      justifyContent: "space-between",
      paddingTop: 5,
-     borderBottomColor: 'rgba(250, 50, 220, 0.5)',
+     borderBottomColor: 'rgba(250, 0, 115, 0.5)',
      borderBottomWidth: 1,
      marginLeft: 45,
      paddingLeft: 5,
