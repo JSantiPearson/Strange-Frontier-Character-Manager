@@ -125,8 +125,8 @@ class NarmatoArms extends Component {
               type={"gear"}
               itemCallback={this.addItem}
               price={20}
-              description={"A pair of goggles from the Sombrero galaxy. Often used by Mod Humans to protect their eyes. On a normal person they are very hard to see through, so are sometimes used as blindfolds."}
-              misc={"Non Mod Humans take a -5 penalty to perception when equipped."}
+              description={"A pair of goggles from the Sombrero galaxy. Often used by Mod-Humans to protect their eyes. On a normal person they are very hard to see through, so are sometimes used as blindfolds."}
+              misc={"Non Mod-Humans take a -5 penalty to perception when equipped."}
               category={"Light/Head"}
               stats={{
                 armor: 3,
