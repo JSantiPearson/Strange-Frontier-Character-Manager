@@ -13,7 +13,7 @@ function Option(props){
     <TouchableOpacity style={styles.option} onLongPress={() => props.setDetailsVisible(props.species)} onPress={() => props.navigation.navigate('Species Choice', {
         route: props.route,
         navigation: props.navigation,
-        species: props.species,
+        species: props.name,
         stats: props.stats
       })}>
       <View style={styles.column}>
