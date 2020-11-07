@@ -19,6 +19,7 @@ import CreateScreen from './CreateComponents/Screens/createScreen';
 
 import Builder from './CreateComponents/Builder/builder';
 import Species from './CreateComponents/Builder/speciesScreen';
+import Feats from './CreateComponents/Builder/featScreen';
 import SpeciesChoice from './CreateComponents/Builder/speciesChoice';
 import BuilderAttributes from './CreateComponents/Builder/builderAttributes';
 import BuilderSkills from './CreateComponents/Builder/builderSkills';
@@ -152,6 +153,19 @@ function BuildScreen({ navigation, route }) {
           headerStyle: {backgroundColor: 'rgb(250, 0, 115)'},
         }}
       />
+
+      <Stack.Screen
+        name="Feats"
+        component={Feats}
+        options={{
+          headerTitle: "",
+          headerLeft: props => (
+            <Icon {...props} name={"chevron-left"}  size={40} color="white" />
+          ),
+          headerStyle: {backgroundColor: 'rgb(250, 0, 115)'},
+        }}
+      />
+
       <Stack.Screen
         name="Species Choice"
         component={SpeciesChoice}

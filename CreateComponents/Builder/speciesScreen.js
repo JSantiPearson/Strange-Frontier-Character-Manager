@@ -14,7 +14,8 @@ function Option(props){
         route: props.route,
         navigation: props.navigation,
         species: props.name,
-        stats: props.stats
+        stats: props.stats,
+        traits: props.traits
       })}>
       <View style={styles.column}>
         <Text style={styles.species}>{props.name}</Text>
@@ -406,8 +407,7 @@ const orbidenTraits = [
 
 class Species extends Component {
   state = {
-    humanVisible: false,
-    grubtubVisible: false,
+
   }
 
   setDetailsVisible = (species) => {
@@ -417,7 +417,7 @@ class Species extends Component {
     this.setState({ [speciesVisible]: visible });
   }
 
-  render() { //TODO: Find an efficient way to incorporate species feats here.
+  render() {
      return (
        <>
        <SafeAreaView>
@@ -432,6 +432,7 @@ class Species extends Component {
                  species="human"
                  name="Human"
                  stats={humanStats}
+                 traits={humanTraits}
                />
                {this.state.humanVisible &&
                  <SpeciesModal
@@ -451,6 +452,7 @@ class Species extends Component {
                  species="grubtub"
                  name="Grub Tub"
                  stats={grubtubStats}
+                 traits={grubtubTraits}
                />
                {this.state.grubtubVisible &&
                  <SpeciesModal
@@ -470,6 +472,7 @@ class Species extends Component {
                  species="giant"
                  name="Giant"
                  stats={giantStats}
+                 traits={giantTraits}
                />
              {this.state.giantVisible &&
                  <SpeciesModal
@@ -489,6 +492,7 @@ class Species extends Component {
                  species="vermile"
                  name="Vermile"
                  stats={vermileStats}
+                 traits={vermileTraits}
                />
                {this.state.vermileVisible &&
                  <SpeciesModal
@@ -508,6 +512,7 @@ class Species extends Component {
                  species="capra"
                  name="Capra"
                  stats={capraStats}
+                 traits={capraTraits}
                />
                {this.state.capraVisible &&
                  <SpeciesModal
@@ -527,6 +532,7 @@ class Species extends Component {
                  species="ogoloid"
                  name="Ogoloid"
                  stats={ogoloidStats}
+                 traits={ogoloidTraits}
                />
                {this.state.ogoloidVisible &&
                  <SpeciesModal
@@ -546,6 +552,7 @@ class Species extends Component {
                  species="arachnet"
                  name="Arachnet"
                  stats={arachnetStats}
+                 traits={arachnetTraits}
                />
                {this.state.arachnetVisible &&
                  <SpeciesModal
@@ -565,6 +572,7 @@ class Species extends Component {
                  species="wheepe"
                  name="Wheepe"
                  stats={wheepeStats}
+                 traits={wheepeTraits}
                />
                {this.state.wheepeVisible &&
                  <SpeciesModal
@@ -580,10 +588,11 @@ class Species extends Component {
                <Option
                  setDetailsVisible={this.setDetailsVisible}
                  route={this.props.route}
-                 avigation={this.props.navigation}
+                 navigation={this.props.navigation}
                  species="construct"
                  name="Construct"
                  stats={constructStats}
+                 traits={constructTraits}
                />
                {this.state.constructVisible &&
                  <SpeciesModal
@@ -603,6 +612,7 @@ class Species extends Component {
                  species="modhuman"
                  name="Mod-Human"
                  stats={modhumanStats}
+                 traits={modhumanTraits}
                />
                {this.state.modhumanVisible &&
                  <SpeciesModal
@@ -622,6 +632,7 @@ class Species extends Component {
                  species="energybeing"
                  name="Energy Being"
                  stats={energybeingStats}
+                 traits={energybeingTraits}
                />
                {this.state.energybeingVisible &&
                  <SpeciesModal
@@ -641,6 +652,7 @@ class Species extends Component {
                  species="simian"
                  name="Simian"
                  stats={simianStats}
+                 traits={simianTraits}
                />
                {this.state.simianVisible &&
                  <SpeciesModal
@@ -660,6 +672,7 @@ class Species extends Component {
                  species="orbiden"
                  name="Orbiden"
                  stats={orbidenStats}
+                 traits={orbidenTraits}
                />
                {this.state.orbidenVisible &&
                  <SpeciesModal
@@ -679,6 +692,7 @@ class Species extends Component {
                  species="custom"
                  name="Custom"
                  stats={customStats}
+                 traits={[]}
                />
                {this.state.customVisible &&
                  <SpeciesModal

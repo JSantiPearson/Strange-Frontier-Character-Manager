@@ -53,39 +53,51 @@ class SpeciesChoice extends Component {
   render() {
      return (
        <>
-         <View style={styles.container}>
-           <Text style={styles.title}>{this.props.route.params.species} Species Traits</Text>
-           <View style={styles.column}>
-             <View style={styles.row}>
-               <Icon name="shield-account" style={{paddingLeft: 10}} size={20} color='rgb(250, 0, 115)' />
-               <Text style={[styles.text, {paddingLeft: 20}]}>Base Combat Stats</Text>
+       <SafeAreaView>
+         <ScrollView>
+             <View style={styles.container}>
+               <Text style={styles.title}>{this.props.route.params.species} Species Traits</Text>
+               <View style={styles.column}>
+                 <View style={styles.row}>
+                   <Icon name="shield-account" style={{paddingLeft: 10}} size={20} color='rgb(250, 0, 115)' />
+                   <Text style={[styles.text, {paddingLeft: 20}]}>Base Combat Stats</Text>
+                 </View>
+                 <View style={styles.statRow}>
+                   <Text style={styles.text}>Speed: </Text>
+                   <NumberInput
+                     numberName={"speed"}
+                     numberValue={this.state.stats.speed}
+                     changeNumber={this.changeStat}
+                   />
+                 </View>
+                 <View style={styles.statRow}>
+                   <Text style={styles.text}>Resilience: </Text>
+                   <NumberInput
+                     numberName={"resilience"}
+                     numberValue={this.state.stats.resilience}
+                     changeNumber={this.changeStat}
+                   />
+                 </View>
+                 <View style={[styles.statRow, {marginBottom: 10}]}>
+                   <Text style={styles.text}>Awareness: </Text>
+                   <NumberInput
+                     numberName={"awareness"}
+                     numberValue={this.state.stats.awareness}
+                     changeNumber={this.changeStat}
+                   />
+                 </View>
+                 {this.props.route.params.traits.map((trait) => {
+                   return (
+                     <>
+                       <Text style={styles.sectionTitle}>{trait.title}</Text>
+                       <Text style={styles.text}>{trait.description}</Text>
+                     </>
+                   );
+                 })}
+               </View>
              </View>
-             <View style={styles.statRow}>
-               <Text style={styles.text}>Speed: </Text>
-               <NumberInput
-                 numberName={"speed"}
-                 numberValue={this.state.stats.speed}
-                 changeNumber={this.changeStat}
-               />
-             </View>
-             <View style={styles.statRow}>
-               <Text style={styles.text}>Resilience: </Text>
-               <NumberInput
-                 numberName={"resilience"}
-                 numberValue={this.state.stats.resilience}
-                 changeNumber={this.changeStat}
-               />
-             </View>
-             <View style={styles.statRow}>
-               <Text style={styles.text}>Awareness: </Text>
-               <NumberInput
-                 numberName={"awareness"}
-                 numberValue={this.state.stats.awareness}
-                 changeNumber={this.changeStat}
-               />
-             </View>
-           </View>
-         </View>
+           </ScrollView>
+         </SafeAreaView>
        </>
      )
    }
@@ -99,6 +111,17 @@ class SpeciesChoice extends Component {
      paddingHorizontal: 5,
      paddingTop: 10,
      backgroundColor: "black",
+   },
+   sectionTitle: {
+     color: 'rgb(250, 0, 115)',
+     fontSize: 19,
+     fontFamily: 'CCWildWordsRoman',
+     paddingTop: 5,
+     paddingBottom: 5,
+     marginVertical: 10,
+     borderBottomColor: 'rgb(250, 0, 115)',
+     borderBottomWidth: 1,
+     lineHeight: 20,
    },
    column: {
      flexDirection: "column",
