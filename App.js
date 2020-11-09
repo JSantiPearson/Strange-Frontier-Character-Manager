@@ -40,6 +40,7 @@ import {
   Button,
   View,
   Text,
+  ImageBackground,
   TouchableOpacity,
   Image,
   StatusBar,
@@ -57,15 +58,19 @@ function HomeScreen({ navigation }) {
   return (
     <>
       <View style={styles.container}>
-        <View style={[styles.buttonContainer, {backgroundColor: 'black'}]}>
-          <TouchableOpacity style={styles.backgroundImage} onPress={() => navigation.navigate('Build', { navigation })}>
-            <Text style={styles.buttonText}>Create</Text>
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity style={styles.imageButton} onPress={() => navigation.navigate('Build', { navigation })}>
+            <ImageBackground source={require('./assets/img/Create.png')} resizeMode={"cover"} style={styles.backgroundImage}>
+              <Text style={styles.buttonText}>Create</Text>
+            </ImageBackground>
           </TouchableOpacity>
         </View>
-        <View style={[styles.buttonContainer, {backgroundColor: 'white'}]}>
-          <TouchableOpacity style={styles.backgroundImage} onPress={() => navigation.navigate('Play', { navigation })}>
-              <Text style={[styles.buttonText, {color: "black"}]}>Play</Text>
-              <Text style={[styles.buttonText, {fontSize: 25, color: "black"}]}>(Under Construction)</Text>
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity style={styles.imageButton} onPress={() => navigation.navigate('Play', { navigation })}>
+            <ImageBackground source={require('./assets/img/Play.png')} resizeMode={"cover"} style={styles.backgroundImage}>
+              <Text style={styles.buttonText}>Play</Text>
+              <Text style={[styles.buttonText, {fontSize: 20}]}>(Under Construction)</Text>
+            </ImageBackground>
           </TouchableOpacity>
         </View>
       </View>
@@ -263,7 +268,10 @@ const styles = StyleSheet.create({
     fontSize: 50,
     color: "white",
     fontFamily: 'CCWildWordsRoman',
-    textAlign: "center"
+    textAlign: "center",
+    textShadowColor: 'rgba(0, 0, 0, 1)',
+    textShadowOffset: {width: -2, height: 2},
+    textShadowRadius: 10
   },
   tabTitle: {
     fontSize: 12,
@@ -284,12 +292,16 @@ const styles = StyleSheet.create({
   body: {
     backgroundColor: Colors.white,
   },
-  backgroundImage: {
+  imageButton: {
     flex: 1,
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').width / 2,
+  },
+  backgroundImage: {
+    width: "100%",
+    height: "100%",
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   container: {
     flex: 1,

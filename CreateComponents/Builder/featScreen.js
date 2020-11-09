@@ -111,6 +111,15 @@ class Feats extends Component {
              <Feat
                feat={actionSurge}
              />
+             <Feat
+               feat={aerialCombat}
+             />
+             <Feat
+               feat={aerobatics}
+             />
+             <Feat
+               feat={aggressiveInitiate}
+             />
           </View>
        </>
      )
@@ -130,7 +139,8 @@ class Feats extends Component {
     color: "white",
   },
    title: {
-     fontSize: 24,
+     fontSize: 26,
      color: "white",
+     paddingBottom: 10,
    },
  });
