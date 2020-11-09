@@ -11,6 +11,8 @@ const SECTION = [
   }
 ];
 
+const glowingIndicator = "rgb(250, 0, 115)";
+
 function TierIndicators(props){
   console.log(props.tiers);
   return(
@@ -24,7 +26,7 @@ function TierIndicators(props){
       {props.feat.tierOne == undefined &&
         props.tiers > 0 &&
         <View style={styles.rowItem}>
-          <Icon name="circle-slice-8" size={20} color="white" />
+          <Icon name="circle-slice-8" size={20} color={glowingIndicator} />
         </View>
       }
       {props.feat.tierOne != undefined &&
@@ -36,7 +38,7 @@ function TierIndicators(props){
       {props.feat.tierOne != undefined &&
         props.tiers >= 1 &&
         <View style={styles.rowItem}>
-          <Icon name="numeric-1-circle" size={20} color="white" />
+          <Icon name="numeric-1-circle" size={20} color={glowingIndicator} />
         </View>
       }
       {props.feat.tierTwo != undefined &&
@@ -48,7 +50,7 @@ function TierIndicators(props){
       {props.feat.tierTwo != undefined &&
         props.tiers >= 2 &&
         <View style={styles.rowItem}>
-          <Icon name="numeric-2-circle" size={20} color="white" />
+          <Icon name="numeric-2-circle" size={20} color={glowingIndicator} />
         </View>
       }
       {props.feat.tierThree != undefined &&
@@ -60,7 +62,7 @@ function TierIndicators(props){
       {props.feat.tierThree != undefined &&
         props.tiers >= 3 &&
         <View style={styles.rowItem}>
-          <Icon name="numeric-3-circle" size={20} color="white" />
+          <Icon name="numeric-3-circle" size={20} color={glowingIndicator} />
         </View>
       }
       {props.feat.tierFour != undefined &&
@@ -72,7 +74,7 @@ function TierIndicators(props){
       {props.feat.tierFour != undefined &&
         props.tiers >= 4 &&
         <View style={styles.rowItem}>
-          <Icon name="numeric-4-circle" size={20} color="white" />
+          <Icon name="numeric-4-circle" size={20} color={glowingIndicator} />
         </View>
       }
       {props.feat.tierFive != undefined &&
@@ -84,7 +86,7 @@ function TierIndicators(props){
       {props.feat.tierFive != undefined &&
         props.tiers >= 5 &&
         <View style={styles.rowItem}>
-          <Icon name="numeric-5-circle" size={20} color="white" />
+          <Icon name="numeric-5-circle" size={20} color={glowingIndicator} />
         </View>
       }
     </>
@@ -92,25 +94,29 @@ function TierIndicators(props){
 }
 
 function FeatTier(props){
-  console.log(props.content);
   return (
     <>
       <View style={styles.tierRow}>
-        {props.tier == props.maxPurchased+1 &&
+        {props.tier == props.maxPurchased+1 && /* if this tier is exactly one above the highest tier purchased, then it is purchasable */
           <TouchableOpacity activeOpacity={0.6} style={styles.rowItem} onPress={() => props.changeFeatTiers(true)}>
             <View style={styles.tierCircle}>
               <Icon name="circle-outline" size={18} color="white" />
             </View>
           </TouchableOpacity>
         }
-        {props.tier <= props.maxPurchased &&
+        {props.tier < props.maxPurchased && /* If this tier has other higher tiers equipped on top of it, then it cannot be unequipped until the tiers above it have also been unequipped */
+          <View style={[styles.tierCircle, {paddingHorizontal: 6}]}>
+            <Icon name="circle-slice-8" size={18} color="white" />
+          </View>
+        }
+        {props.tier == props.maxPurchased && /* If this tier is the highest purchased tier, it can be unequipped. */
           <TouchableOpacity activeOpacity={0.6} style={styles.rowItem} onPress={() => props.changeFeatTiers(false)}>
             <View style={styles.tierCircle}>
               <Icon name="circle-slice-8" size={18} color="white" />
             </View>
           </TouchableOpacity>
         }
-        {props.tier > props.maxPurchased+1 &&
+        {props.tier > props.maxPurchased+1 && /* If this tier is higher than the current purchasable tier, then it is locked from purchase */
           <View style={[styles.tierCircle, {paddingLeft: 7}]}>
             <Icon name="lock" size={18} color="white" />
           </View>
@@ -162,7 +168,7 @@ class Feat extends Component {
     this.setState({ tiers });
   }
 
-  _renderContent = () => {
+  _renderContent = () => { //TODO: Currently, feats with a tier one and a description are not rendering the description. Create a case for this situation.
     return (
       <View style={styles.content}>
         {this.props.feat.tierOne == undefined &&
@@ -173,6 +179,15 @@ class Feat extends Component {
         }
         {this.props.feat.tierTwo != undefined &&
           <FeatTier tier={2} maxPurchased={this.state.tiers} content={this.props.feat.tierTwo} changeFeatTiers={this.changeFeatTiers} />
+        }
+        {this.props.feat.tierThree != undefined &&
+          <FeatTier tier={3} maxPurchased={this.state.tiers} content={this.props.feat.tierThree} changeFeatTiers={this.changeFeatTiers} />
+        }
+        {this.props.feat.tierFour != undefined &&
+          <FeatTier tier={4} maxPurchased={this.state.tiers} content={this.props.feat.tierFour} changeFeatTiers={this.changeFeatTiers} />
+        }
+        {this.props.feat.tierFive != undefined &&
+          <FeatTier tier={5} maxPurchased={this.state.tiers} content={this.props.feat.tierFive} changeFeatTiers={this.changeFeatTiers} />
         }
       </View>
     );
@@ -202,8 +217,8 @@ export default Feat;
 const styles = StyleSheet.create({
     row: {
       flexDirection: "row",
-      paddingBottom: 5,
-      marginBottom: 5,
+      paddingBottom: 7,
+      marginBottom: 7,
       borderBottomColor: 'rgb(250, 0, 115)',
       borderBottomWidth: 1
     },
