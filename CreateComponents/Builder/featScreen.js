@@ -276,7 +276,7 @@ const flinch = {
 const fullFortitude = {
   name: "Full Fortitude",
   pre: [["level", 10]],
-  description: "You may forgo your Reflex Save to double your Fortitude Save for the rest of an encounter. You may still only use your Fortitude Save to defend against one attack in a round."
+  description: "You can forgo your Dodge Defense to double your Block Defense for the rest of an encounter. You can still only use your Block Defense to defend against one attack in a round."
 }
 
 const focus = {
@@ -406,12 +406,12 @@ const martialArts = {
   name: "Martial Arts",
   description: "You have trained in a dangerous fighting style.",
   tierOne: "You are a novice. Add an additional die of damage to successful melee attacks.",
-  tierTwo: "You are proficient. Add two additional dice of damage to successful melee attacks."
+  tierTwo: "You are proficient. Add two additional dice of damage to successful melee attacks.",
   tierThree: "You are a master. Add three additional dice of damage to successful melee attacks."
 }
 
 const multiLimb = {
-  name: "Multi-limb",
+  name: "Multi-Limb",
   pre: [["level", 20], ["species", "construct", "energybeing"]],
   tierOne: "You have built or formed an additional limb, and can use it to equip or hold items.",
   tierTwo: "Your size increases by 1, and you gain another limb."
@@ -430,6 +430,231 @@ const nemesis = {
   definition: "You have a sworn enemy. If you take this feat, your enemy will obtain it as well. If you convert your nemesis to your side, or vice versa, this feat is replaced with the Companion feat at the same level. You can only ever declare one nemesis at a time.",
   tierOne: "You and your foe gain a +10 to all combat rolls while in the same initiative. You gain advantage on skills you have training in when nearby your enemy, unless your enemy is also trained in that skill.",
   tierTwo: "Neither you nor your foe can inflict stun on the other, and the +10 bonus doubles to +20 but now applies to your allies and all of the allies of your foe as well.]"
+}
+
+const noDice = {
+  name: "No-Dice",
+  pre: [["level", 10]],
+  tierOne: "If you are the target of an Attack of Opportunity and you successfully defend against it, you can hit your opponent with a counter attack if they are within range. This counterattack cannot chain or be reversed.",
+  tierTwo: "You can roll an additional attack on any other target within range."
+}
+
+const orientationMetro = {
+  name: "Orientation (Metro)",
+  description: "You have a natural intuition when navigating urban developments.",
+  tierOne: "You gain a +15 bonus to Navigation, Stealth, and Investigation checks in urban environments.",
+  tierTwo: "You gain a +25 bonus to Navigation, Stealth, and Investigation checks in urban environments."
+}
+
+const orientationWild = {
+  name: "Orientation (Wild)",
+  description: "You have a natural intuition when navigating rural developments.",
+  tierOne: "You gain a +15 bonus to Navigation, Stealth, and Investigation checks in rural environments.",
+  tierTwo: "You gain a +25 bonus to Navigation, Stealth, and Investigation checks in rural environments."
+}
+
+const paranoia = {
+  name: "Paranoia",
+  description: "You inflict a -20 to Persuasion and Bluff checks made against you. Only works once per person every long rest.",
+  pre: [["feat", "alert", 1]]
+}
+
+const parry = {
+  name: "Parry",
+  pre: [["level", 25], ["baseAttack", 25]],
+  description: "If your base attack drops during combat this feat will no longer function. You can make an attack roll against an incoming attack to derail it. A success damages your attacker for their own damage. A failure doubles the incoming damage."
+}
+
+const pathfinding = {
+  name: "Pathfinding",
+  tierTwoPre: [["level", 25]],
+  tierOne: "You can treat travel between scenes in the story as a short rest. You can also pass over objects that create partial cover or high ledges without any loss in movement.",
+  tierTwo: "You can cut through squares diagonally and treat it as only one movement point instead of two. You can also ignore any terrain or field effects if you end your movement action outside of it."
+}
+
+const pendelum = {
+  name: "Pendulum",
+  description: "You can make an Attack of Opportunity on any creature that hits you with knockback or throws you. This attack gets a +5 bonus for every square traveled but starts at a -20 penalty."
+}
+
+const pursuit = {
+  name: "Pursuit",
+  pre: [["feat", "martialArts", 2]],
+  description: "You can make an Attack of Opportunity on any creature that attempts to move away from a square adjacent to you. If you use this feat more than once in a single round, you are inflicted with a level of exhaustion for each use."
+}
+
+const plantWhisperer = {
+  name: "Plant Whisperer",
+  description: "You can use moves in the Bio genre."
+}
+
+const pose = {
+  name: "Pose",
+  description: "You can choose to spend a signature action and make a signature pose. You will receive 3 stars for this, and your next move will cost 3 less stars to use (excluding flashes).",
+  tierOne: "You can use use the Pose action 3 times every short rest.",
+  tierTwo: "You can use the Pose action 6 times every short rest."
+}
+
+const overpose = {
+  name: "Overpose",
+  pre: [["feat", "pose", 1], ["level", 25]], /* TODO: Distinguish between OR and AND cases when it comes to feat prerequistes */
+  description: "You can choose to spend a signature action and make an advanced and incredibly flamboyant signature pose.",
+  tierOne: "You regain 5 stars, and your next move will cost 5 less stars to use (excluding flashes).",
+  tierTwo: "You regain 10 stars, and your next move will cost 10 less stars to use (excluding flashes).",
+  tierThreePre: [["level", 60]],
+  tierThree: "You regain 15 stars, and your next move will cost 15 less stars to use (excluding flashes)."
+}
+
+const heroic = {
+  name: "Heroic",
+  pre: [["feat", "pose", 2], ["feat", "overpose", 1], ["level", 45]], /* TODO: Another OR case */
+  description: "You can spend 2 standard actions holding a powerful pose that will restore 50% of an ally’s max stars."
+}
+
+const villainousPose = {
+  name: "Villainous Pose",
+  pre: [["feat", "overpose", 2], ["level", 45]], /* TODO: Another OR case */
+  description: "You can spend 2 standard actions holding a powerful pose that will restore 50% of your max stars. This can only be used once per long rest, and provokes Attacks of Opportunity against you from any enemies in range."
+}
+
+const hyperArmorProficiency = {
+  name: "Hyper Armor Proficiency",
+  pre: [["level", 25], ["armorProficiency", "heavy"]], /* TODO: Prerequisite special case, armor proficiency */
+  description: "You can equip the most durable armors ever created. Gain +5 to your max armor stat."
+}
+
+const promise = {
+  name: "Promise",
+  pre: [["level", 10]],
+  description: "You have made a solemn vow, to yourself, your loved ones, or the world. You may double your Will Save vs Demotivation, unless all of your teammates have been defeated."
+}
+
+/* TODO: Add psychological analysis once it gets changed. */
+
+const quickDraw = {
+  name: "Quick Draw",
+  description: "You can ready a weapon or switch weapons as a reflexive action." /* TODO: Check for changes */
+}
+
+const rawReflex = {
+  name: "Raw Reflex",
+  pre: [["level", 10]],
+  description: "You can forgo your Block Defense to double your Dodge Defense for the rest of an encounter. You may still only use your Dodge Defense to defend against one attack in a round."
+}
+
+const savageStars = {
+  name: "Savage Stars",
+  description: "Any time you are inflicted with a check, you can make an Attack of Opportunity on whatever inflicted you with the check, so long as you are still conscious and alive."
+}
+
+const savoirFaire = {
+  name: "Savoir Faire",
+  description: "You can use your Influence bonus for initiative instead of your Dexterity bonus."
+}
+
+/* TODO: Add stunlock feat once dynamic feats are figured out. */
+
+const gigaShift = {
+  name: "Giga Shift",
+  pre: [["level", 20]],
+  description: "You undergo an intense transformation to empower yourself farther than before. Taking this feat will allow you to increase your shift's power to the GM's discretion."
+}
+
+const hyperShift = {
+  name: "Giga Shift",
+  pre: [["level", 35]],
+  description: "You undergo an incredible transformation to empower yourself to the absolute of your ability. Taking this feat will allow you to greatly increase your shift's power to the GM's discretion."
+}
+
+const shiftBurst = {
+  name: "Shift Burst",
+  description: "You can activate your shift as a reflexive action."
+}
+
+const sneakAttack = { /* TODO: This feat is dynamic, so wording may change */
+  name: "Sneak Attack",
+  description: "You can take advantage of a flat-footed enemy for bonus damage on an attack.",
+  tierOne: "Add 2d6 damage to your attack.",
+  tierTwo: "Add 3d6 damage to your attack.",
+  tierThree: "Add 4d6 damage to your attack."
+}
+
+const socialButterfly = {
+  name: "Social Butterfly",
+  tierOne: "You gain a +25 bonus to all influence checks when 10 or more people are nearby.",
+  tierTwo: "You can choose to have every Influence check made attract more people."
+}
+
+const suppressiveFire = {
+  name: "Suppressive Fire",
+  description: "You use projectiles to keep attackers at bay. You can create suppression on a single target, with non AOE projectile attacks."
+}
+
+const takedown = {
+  name: "Takedown",
+  description: "You can choose one target within melee range. They must make a Reflex Save against a DC of double your Strength bonus +15. This attack does not deal damage. If successful, the target is knocked prone."
+}
+
+const taunt = {
+  name: "Taunt",
+  tierOne: "You can choose one target and force them to make a Will Save at a DC of 20 + your Influence bonus. If the target fails, you can re-declare one of the target's standard actions for that round.",
+  tierTwo: "You can choose one target and force them to make a Will Save at a DC of 35 + your Influence bonus. If the target fails, you can re-declare two of the target's standard actions for that round or their movement action."
+}
+
+const teamPlayer = {
+  name: "Team Player",
+  description: "You are excellent at working in a group. You have the ability to combine your moves with teammates, or aid them in skill checks.",
+  tierOne: "You can attempt to assist in skill checks you have equal or greater skill in, and you can do combined moves with up to 1 other character who has Team Player.",
+  tierTwo: "You can attempt to assist with skill checks regardless of your skill in them, and you can do combo moves with any other character."
+}
+
+const triage = {
+  name: "Triage",
+  pre: [["level", 10], ["skill", "knowledgeAnatomy"]], /* TODO: Prerequisite special case: knowledge skill */
+  description: "Your understanding of medical equipment allows you to use healing items twice, and doubles their effectiveness."
+}
+
+const triangulate = {
+  name: "Triangulate",
+  pre: [["level", 25]],
+  description: "You instantly detect stealthed creatures your allies are aware of, or that attack you or your allies. You can ignore partial cover if an ally can also see the target."
+}
+
+const triggerFinger = {
+  name: "Trigger Finger",
+  description: "Your relevant stat bonus to initiative rolls (usually Dexterity) is doubled. You can attack twice during a surprise round, or attack once when being surprised."
+}
+
+const trueGrit = {
+  name: "True Grit",
+  description: "You use your pain to drive your spirit, and remind you why you fight. You can add 3 dice to the damage of an attack that just hit you, and you gain stars equivalent to the total dice of damage including the dice added by this feat. Additional damage from weapon material or proficiency isn’t included."
+}
+
+/* TODO: United feat needs rewrites */
+
+const undaunted = {
+  name: "Undaunted",
+  description: "You are adept at enduring extremely painful situations. You do not enter shock if stunned by a check.",
+  tierOne: "No penalty occurs if one check is inflicted.",
+  tierTwo: "No penalty occurs if two checks are inflicted."
+}
+
+const veteran = {
+  name: "Veteran",
+  description: "You can stay cool under fire. This feat drops non-Flash Suppression by one grade (full to partial, partial to none)."
+}
+
+const warHero = {
+  name: "War Hero",
+  pre: [["level", 20], ["feat", "veteran"]],
+  description: "You can stay calm and focused under fire. You are immune to suppression, except from flashes."
+}
+
+/* TODO: Weapon Proficiency is currently dynamic, may undergo changes. */
+
+const zeitgeistConduit = {
+  name: "Zeitgeist Conduit",
+  description: "You can use moves in the Energy genre, and can generate power based on emotional or philosophical charge."
 }
 
 class Feats extends Component {
@@ -459,6 +684,98 @@ class Feats extends Component {
              <Feat feat={blindSpot} />
              <Feat feat={bornSurvivor} />
              <Feat feat={bulk} />
+             <Feat feat={blitz} />
+             <Feat feat={brace} />
+             <Feat feat={comboKing} />
+             <Feat feat={collisionExpert} />
+             <Feat feat={companion} />
+             <Feat feat={confidentFighter} />
+             <Feat feat={cosmonaut} />
+             <Feat feat={counterWeight} />
+             <Feat feat={crushingCounter} />
+             <Feat feat={culturalChameleon} />
+             <Feat feat={deduction} />
+             <Feat feat={defang} />
+             <Feat feat={defensiveRush} />
+             <Feat feat={deflect} />
+             <Feat feat={delicateFighter} />
+             <Feat feat={dexterousDisarm} />
+             <Feat feat={dodgeCounter} />
+             <Feat feat={disguisedStrike} />
+             <Feat feat={environmentalAdaptation} />
+             <Feat feat={equilibrium} />
+             <Feat feat={escapeArtist} />
+             <Feat feat={exoticWeaponUser} />
+             <Feat feat={everyman} />
+             <Feat feat={expertInitiative} />
+             <Feat feat={fakeOut} />
+             <Feat feat={fastResponse} />
+             <Feat feat={fighter} />
+             <Feat feat={flak} />
+             <Feat feat={flinch} />
+             <Feat feat={fullFortitude} />
+             <Feat feat={focus} />
+             <Feat feat={guardCounter} />
+             <Feat feat={gentleFighter} />
+             <Feat feat={greaseMonkey} />
+             <Feat feat={grenadier} />
+             <Feat feat={guerilla} />
+             <Feat feat={headstrong} />
+             <Feat feat={hearty} />
+             <Feat feat={higherMind} />
+             <Feat feat={homeFieldAdvantage} />
+             <Feat feat={hook} />
+             <Feat feat={hopTo} />
+             <Feat feat={improvFighter} />
+             <Feat feat={intuition} />
+             <Feat feat={ironLung} />
+             <Feat feat={jitter} />
+             <Feat feat={killerInstinct} />
+             <Feat feat={leadArm} />
+             <Feat feat={liftKick} />
+             <Feat feat={loopHole} />
+             <Feat feat={lowCounter} />
+             <Feat feat={masochist} />
+             <Feat feat={martialArts} />
+             <Feat feat={multiLimb} />
+             <Feat feat={naturalLeader} />
+             <Feat feat={nemesis} />
+             <Feat feat={noDice} />
+             <Feat feat={orientationMetro} />
+             <Feat feat={orientationWild} />
+             <Feat feat={paranoia} />
+             <Feat feat={parry} />
+             <Feat feat={pathfinding} />
+             <Feat feat={pendelum} />
+             <Feat feat={pursuit} />
+             <Feat feat={plantWhisperer} />
+             <Feat feat={pose} />
+             <Feat feat={overpose} />
+             <Feat feat={heroic} />
+             <Feat feat={villainousPose} />
+             <Feat feat={hyperArmorProficiency} />
+             <Feat feat={promise} />
+             <Feat feat={quickDraw} />
+             <Feat feat={rawReflex} />
+             <Feat feat={savageStars} />
+             <Feat feat={savoirFaire} />
+             <Feat feat={gigaShift} />
+             <Feat feat={hyperShift} />
+             <Feat feat={shiftBurst} />
+             <Feat feat={sneakAttack} />
+             <Feat feat={socialButterfly} />
+             <Feat feat={suppressiveFire} />
+             <Feat feat={takedown} />
+             <Feat feat={taunt} />
+             <Feat feat={teamPlayer} />
+             <Feat feat={triage} />
+             <Feat feat={triangulate} />
+             <Feat feat={triggerFinger} />
+             <Feat feat={trueGrit} />
+             <Feat feat={undaunted} />
+             <Feat feat={veteran} />
+             <Feat feat={warHero} />
+             <Feat feat={zeitgeistConduit} />
             </View>
           </ScrollView>
         </SafeAreaView>
