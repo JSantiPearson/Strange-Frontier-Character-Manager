@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, PureComponent } from 'react'
 import { View, Button, Text, Picker, TouchableOpacity, LayoutAnimation, TextInput, StyleSheet, SafeAreaView, ScrollView} from 'react-native'
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -11,10 +11,9 @@ const SECTION = [
   }
 ];
 
-const glowingIndicator = "rgb(250, 0, 115)";
+const glowColor = "rgb(250, 0, 115)";
 
 function TierIndicators(props){
-  console.log(props.tiers);
   return(
     <>
       {props.feat.tierOne == undefined &&
@@ -26,7 +25,7 @@ function TierIndicators(props){
       {props.feat.tierOne == undefined &&
         props.tiers > 0 &&
         <View style={styles.rowItem}>
-          <Icon name="circle-slice-8" size={20} color={glowingIndicator} />
+          <Icon name="circle-slice-8" size={20} color={glowColor} />
         </View>
       }
       {props.feat.tierOne != undefined &&
@@ -38,7 +37,7 @@ function TierIndicators(props){
       {props.feat.tierOne != undefined &&
         props.tiers >= 1 &&
         <View style={styles.rowItem}>
-          <Icon name="numeric-1-circle" size={20} color={glowingIndicator} />
+          <Icon name="numeric-1-circle" size={20} color={glowColor} />
         </View>
       }
       {props.feat.tierTwo != undefined &&
@@ -50,7 +49,7 @@ function TierIndicators(props){
       {props.feat.tierTwo != undefined &&
         props.tiers >= 2 &&
         <View style={styles.rowItem}>
-          <Icon name="numeric-2-circle" size={20} color={glowingIndicator} />
+          <Icon name="numeric-2-circle" size={20} color={glowColor} />
         </View>
       }
       {props.feat.tierThree != undefined &&
@@ -62,7 +61,7 @@ function TierIndicators(props){
       {props.feat.tierThree != undefined &&
         props.tiers >= 3 &&
         <View style={styles.rowItem}>
-          <Icon name="numeric-3-circle" size={20} color={glowingIndicator} />
+          <Icon name="numeric-3-circle" size={20} color={glowColor} />
         </View>
       }
       {props.feat.tierFour != undefined &&
@@ -74,7 +73,7 @@ function TierIndicators(props){
       {props.feat.tierFour != undefined &&
         props.tiers >= 4 &&
         <View style={styles.rowItem}>
-          <Icon name="numeric-4-circle" size={20} color={glowingIndicator} />
+          <Icon name="numeric-4-circle" size={20} color={glowColor} />
         </View>
       }
       {props.feat.tierFive != undefined &&
@@ -86,7 +85,7 @@ function TierIndicators(props){
       {props.feat.tierFive != undefined &&
         props.tiers >= 5 &&
         <View style={styles.rowItem}>
-          <Icon name="numeric-5-circle" size={20} color={glowingIndicator} />
+          <Icon name="numeric-5-circle" size={20} color={glowColor} />
         </View>
       }
     </>
@@ -128,7 +127,7 @@ function FeatTier(props){
   );
 }
 
-class Feat extends Component {
+class Feat extends PureComponent {
   state = {
     active: [],
     tiers: 0,
@@ -142,6 +141,7 @@ class Feat extends Component {
             <TierIndicators feat={this.props.feat} tiers={this.state.tiers} />
             <Text style={styles.title}>{this.props.feat.name}</Text>
           </View>
+          <Text style={[styles.text, {fontSize: 14}]}></Text>
         </>
       );
     }
@@ -165,36 +165,67 @@ class Feat extends Component {
     else{
       tiers--;
     }
+    this.props.feat.tier = tiers;
     this.setState({ tiers });
+    this.props.addFeat(this.props.feat);
   }
 
   _renderContent = () => { //TODO: Currently, feats with a tier one and a description are not rendering the description. Create a case for this situation.
     return (
       <View style={styles.content}>
         {this.props.feat.tierOne == undefined &&
-          <FeatTier tier={1} maxPurchased={this.state.tiers} content={this.props.feat.description} changeFeatTiers={this.changeFeatTiers} />
+          <FeatTier
+            tier={1}
+            maxPurchased={this.state.tiers}
+            content={this.props.feat.description}
+            changeFeatTiers={this.changeFeatTiers}
+          />
         }
         {this.props.feat.tierOne != undefined &&
-          <FeatTier tier={1} maxPurchased={this.state.tiers} content={this.props.feat.tierOne} changeFeatTiers={this.changeFeatTiers} />
+          <FeatTier
+            tier={1}
+            maxPurchased={this.state.tiers}
+            content={this.props.feat.tierOne}
+            changeFeatTiers={this.changeFeatTiers}
+          />
         }
         {this.props.feat.tierTwo != undefined &&
-          <FeatTier tier={2} maxPurchased={this.state.tiers} content={this.props.feat.tierTwo} changeFeatTiers={this.changeFeatTiers} />
+          <FeatTier
+            tier={2}
+            maxPurchased={this.state.tiers}
+            content={this.props.feat.tierTwo}
+            changeFeatTiers={this.changeFeatTiers}
+          />
         }
         {this.props.feat.tierThree != undefined &&
-          <FeatTier tier={3} maxPurchased={this.state.tiers} content={this.props.feat.tierThree} changeFeatTiers={this.changeFeatTiers} />
+          <FeatTier
+            tier={3}
+            maxPurchased={this.state.tiers}
+            content={this.props.feat.tierThree}
+            changeFeatTiers={this.changeFeatTiers}
+          />
         }
         {this.props.feat.tierFour != undefined &&
-          <FeatTier tier={4} maxPurchased={this.state.tiers} content={this.props.feat.tierFour} changeFeatTiers={this.changeFeatTiers} />
+          <FeatTier
+            tier={4}
+            maxPurchased={this.state.tiers}
+            content={this.props.feat.tierFour}
+            changeFeatTiers={this.changeFeatTiers}
+          />
         }
         {this.props.feat.tierFive != undefined &&
-          <FeatTier tier={5} maxPurchased={this.state.tiers} content={this.props.feat.tierFive} changeFeatTiers={this.changeFeatTiers} />
+          <FeatTier
+            tier={5}
+            maxPurchased={this.state.tiers}
+            content={this.props.feat.tierFive}
+            changeFeatTiers={this.changeFeatTiers}
+          />
         }
       </View>
     );
   };
 
   _updateSections = active => {
-    console.log(active);
     this.setState({ active });
   };
 

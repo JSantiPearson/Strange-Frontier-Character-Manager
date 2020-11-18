@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent, Component } from 'react';
 import { View, Dimensions, Button, Modal, Text, Picker, TouchableOpacity, TextInput, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -657,125 +657,178 @@ const zeitgeistConduit = {
   description: "You can use moves in the Energy genre, and can generate power based on emotional or philosophical charge."
 }
 
-class Feats extends Component {
+class Feats extends PureComponent {
   state = {
+    feats: [],
+  }
 
+  componentDidMount(){
+    this.props.navigation.setOptions({
+       headerRight: props => (
+         <TouchableOpacity
+           onPress={() => this.props.navigation.navigate('Character Builder', {
+             navigation: this.props.navigation,
+             equipmentAvail: true,
+             feats: this.state,
+           })}
+           title="Accept"
+           color='rgb(250, 0, 115)'
+         >
+           <Text style={styles.headerButton}>Accept</Text>
+         </TouchableOpacity>
+       )
+     })
+   }
+
+   componentDidUpdate(prevState){
+    if (prevState != this.state){
+      this.props.navigation.setOptions({
+        headerRight: props => (
+          <TouchableOpacity
+            onPress={() => this.props.navigation.navigate('Character Builder', {
+              navigation: this.props.navigation,
+              equipmentAvail: true,
+              feats: this.state.feats,
+            })}
+            title="Accept"
+            color='rgb(250, 0, 115)'
+          >
+            <Text style={styles.headerButton}>Accept</Text>
+          </TouchableOpacity>
+        )
+      })
+    }
+  }
+
+  addFeat = feat => {
+    let feats = [...this.state.feats];
+      for (let i = 0; i < feats.length; i++) {
+        let item = feats[i];
+        if (feat.name == item.name){
+          feats.splice(i, 1);
+        }
+      }
+    if (feat.tier != 0){
+      feats.push(feat);
+    }
+    this.setState({ feats });
   }
 
   render() {
+    const props = this.props;
      return (
        <>
         <SafeAreaView>
           <ScrollView>
             <View style={styles.container}>
              <Text style={styles.title}>Choose Feats</Text>
-             <Feat feat={actionSurge} />
-             <Feat feat={aerialCombat} />
-             <Feat feat={aerobatics} />
-             <Feat feat={aggressiveInitiate} />
-             <Feat feat={aggressiveObservation} />
-             <Feat feat={akimboFighting} />
-             <Feat feat={alert} />
-             <Feat feat={ambulatoryExpert} />
-             <Feat feat={ampleAttack} />
-             <Feat feat={armorProficiency} />
-             <Feat feat={bastion} />
-             <Feat feat={battleRush} />
-             <Feat feat={blindSpot} />
-             <Feat feat={bornSurvivor} />
-             <Feat feat={bulk} />
-             <Feat feat={blitz} />
-             <Feat feat={brace} />
-             <Feat feat={comboKing} />
-             <Feat feat={collisionExpert} />
-             <Feat feat={companion} />
-             <Feat feat={confidentFighter} />
-             <Feat feat={cosmonaut} />
-             <Feat feat={counterWeight} />
-             <Feat feat={crushingCounter} />
-             <Feat feat={culturalChameleon} />
-             <Feat feat={deduction} />
-             <Feat feat={defang} />
-             <Feat feat={defensiveRush} />
-             <Feat feat={deflect} />
-             <Feat feat={delicateFighter} />
-             <Feat feat={dexterousDisarm} />
-             <Feat feat={dodgeCounter} />
-             <Feat feat={disguisedStrike} />
-             <Feat feat={environmentalAdaptation} />
-             <Feat feat={equilibrium} />
-             <Feat feat={escapeArtist} />
-             <Feat feat={exoticWeaponUser} />
-             <Feat feat={everyman} />
-             <Feat feat={expertInitiative} />
-             <Feat feat={fakeOut} />
-             <Feat feat={fastResponse} />
-             <Feat feat={fighter} />
-             <Feat feat={flak} />
-             <Feat feat={flinch} />
-             <Feat feat={fullFortitude} />
-             <Feat feat={focus} />
-             <Feat feat={guardCounter} />
-             <Feat feat={gentleFighter} />
-             <Feat feat={greaseMonkey} />
-             <Feat feat={grenadier} />
-             <Feat feat={guerilla} />
-             <Feat feat={headstrong} />
-             <Feat feat={hearty} />
-             <Feat feat={higherMind} />
-             <Feat feat={homeFieldAdvantage} />
-             <Feat feat={hook} />
-             <Feat feat={hopTo} />
-             <Feat feat={improvFighter} />
-             <Feat feat={intuition} />
-             <Feat feat={ironLung} />
-             <Feat feat={jitter} />
-             <Feat feat={killerInstinct} />
-             <Feat feat={leadArm} />
-             <Feat feat={liftKick} />
-             <Feat feat={loopHole} />
-             <Feat feat={lowCounter} />
-             <Feat feat={masochist} />
-             <Feat feat={martialArts} />
-             <Feat feat={multiLimb} />
-             <Feat feat={naturalLeader} />
-             <Feat feat={nemesis} />
-             <Feat feat={noDice} />
-             <Feat feat={orientationMetro} />
-             <Feat feat={orientationWild} />
-             <Feat feat={paranoia} />
-             <Feat feat={parry} />
-             <Feat feat={pathfinding} />
-             <Feat feat={pendelum} />
-             <Feat feat={pursuit} />
-             <Feat feat={plantWhisperer} />
-             <Feat feat={pose} />
-             <Feat feat={overpose} />
-             <Feat feat={heroic} />
-             <Feat feat={villainousPose} />
-             <Feat feat={hyperArmorProficiency} />
-             <Feat feat={promise} />
-             <Feat feat={quickDraw} />
-             <Feat feat={rawReflex} />
-             <Feat feat={savageStars} />
-             <Feat feat={savoirFaire} />
-             <Feat feat={gigaShift} />
-             <Feat feat={hyperShift} />
-             <Feat feat={shiftBurst} />
-             <Feat feat={sneakAttack} />
-             <Feat feat={socialButterfly} />
-             <Feat feat={suppressiveFire} />
-             <Feat feat={takedown} />
-             <Feat feat={taunt} />
-             <Feat feat={teamPlayer} />
-             <Feat feat={triage} />
-             <Feat feat={triangulate} />
-             <Feat feat={triggerFinger} />
-             <Feat feat={trueGrit} />
-             <Feat feat={undaunted} />
-             <Feat feat={veteran} />
-             <Feat feat={warHero} />
-             <Feat feat={zeitgeistConduit} />
+             <Feat {...props} addFeat={this.addFeat} feat={actionSurge} />
+             <Feat {...props} addFeat={this.addFeat} feat={aerialCombat} />
+             <Feat {...props} addFeat={this.addFeat} feat={aerobatics} />
+             <Feat {...props} addFeat={this.addFeat} feat={aggressiveInitiate} />
+             <Feat {...props} addFeat={this.addFeat} feat={aggressiveObservation} />
+             <Feat {...props} addFeat={this.addFeat} feat={akimboFighting} />
+             <Feat {...props} addFeat={this.addFeat} feat={alert} />
+             <Feat {...props} addFeat={this.addFeat} feat={ambulatoryExpert} />
+             <Feat {...props} addFeat={this.addFeat} feat={ampleAttack} />
+             <Feat {...props} addFeat={this.addFeat} feat={armorProficiency} />
+             <Feat {...props} addFeat={this.addFeat} feat={bastion} />
+             <Feat {...props} addFeat={this.addFeat} feat={battleRush} />
+             <Feat {...props} addFeat={this.addFeat} feat={blindSpot} />
+             <Feat {...props} addFeat={this.addFeat} feat={bornSurvivor} />
+             <Feat {...props} addFeat={this.addFeat} feat={bulk} />
+             <Feat {...props} addFeat={this.addFeat} feat={blitz} />
+             <Feat {...props} addFeat={this.addFeat} feat={brace} />
+             <Feat {...props} addFeat={this.addFeat} feat={comboKing} />
+             <Feat {...props} addFeat={this.addFeat} feat={collisionExpert} />
+             <Feat {...props} addFeat={this.addFeat} feat={companion} />
+             <Feat {...props} addFeat={this.addFeat} feat={confidentFighter} />
+             <Feat {...props} addFeat={this.addFeat} feat={cosmonaut} />
+             <Feat {...props} addFeat={this.addFeat} feat={counterWeight} />
+             <Feat {...props} addFeat={this.addFeat} feat={crushingCounter} />
+             <Feat {...props} addFeat={this.addFeat} feat={culturalChameleon} />
+             <Feat {...props} addFeat={this.addFeat} feat={deduction} />
+             <Feat {...props} addFeat={this.addFeat} feat={defang} />
+             <Feat {...props} addFeat={this.addFeat} feat={defensiveRush} />
+             <Feat {...props} addFeat={this.addFeat} feat={deflect} />
+             <Feat {...props} addFeat={this.addFeat} feat={delicateFighter} />
+             <Feat {...props} addFeat={this.addFeat} feat={dexterousDisarm} />
+             <Feat {...props} addFeat={this.addFeat} feat={dodgeCounter} />
+             <Feat {...props} addFeat={this.addFeat} feat={disguisedStrike} />
+             <Feat {...props} addFeat={this.addFeat} feat={environmentalAdaptation} />
+             <Feat {...props} addFeat={this.addFeat} feat={equilibrium} />
+             <Feat {...props} addFeat={this.addFeat} feat={escapeArtist} />
+             <Feat {...props} addFeat={this.addFeat} feat={exoticWeaponUser} />
+             <Feat {...props} addFeat={this.addFeat} feat={everyman} />
+             <Feat {...props} addFeat={this.addFeat} feat={expertInitiative} />
+             <Feat {...props} addFeat={this.addFeat} feat={fakeOut} />
+             <Feat {...props} addFeat={this.addFeat} feat={fastResponse} />
+             <Feat {...props} addFeat={this.addFeat} feat={fighter} />
+             <Feat {...props} addFeat={this.addFeat} feat={flak} />
+             <Feat {...props} addFeat={this.addFeat} feat={flinch} />
+             <Feat {...props} addFeat={this.addFeat} feat={fullFortitude} />
+             <Feat {...props} addFeat={this.addFeat} feat={focus} />
+             <Feat {...props} addFeat={this.addFeat} feat={guardCounter} />
+             <Feat {...props} addFeat={this.addFeat} feat={gentleFighter} />
+             <Feat {...props} addFeat={this.addFeat} feat={greaseMonkey} />
+             <Feat {...props} addFeat={this.addFeat} feat={grenadier} />
+             <Feat {...props} addFeat={this.addFeat} feat={guerilla} />
+             <Feat {...props} addFeat={this.addFeat} feat={headstrong} />
+             <Feat {...props} addFeat={this.addFeat} feat={hearty} />
+             <Feat {...props} addFeat={this.addFeat} feat={higherMind} />
+             <Feat {...props} addFeat={this.addFeat} feat={homeFieldAdvantage} />
+             <Feat {...props} addFeat={this.addFeat} feat={hook} />
+             <Feat {...props} addFeat={this.addFeat} feat={hopTo} />
+             <Feat {...props} addFeat={this.addFeat} feat={improvFighter} />
+             <Feat {...props} addFeat={this.addFeat} feat={intuition} />
+             <Feat {...props} addFeat={this.addFeat} feat={ironLung} />
+             <Feat {...props} addFeat={this.addFeat} feat={jitter} />
+             <Feat {...props} addFeat={this.addFeat} feat={killerInstinct} />
+             <Feat {...props} addFeat={this.addFeat} feat={leadArm} />
+             <Feat {...props} addFeat={this.addFeat} feat={liftKick} />
+             <Feat {...props} addFeat={this.addFeat} feat={loopHole} />
+             <Feat {...props} addFeat={this.addFeat} feat={lowCounter} />
+             <Feat {...props} addFeat={this.addFeat} feat={masochist} />
+             <Feat {...props} addFeat={this.addFeat} feat={martialArts} />
+             <Feat {...props} addFeat={this.addFeat} feat={multiLimb} />
+             <Feat {...props} addFeat={this.addFeat} feat={naturalLeader} />
+             <Feat {...props} addFeat={this.addFeat} feat={nemesis} />
+             <Feat {...props} addFeat={this.addFeat} feat={noDice} />
+             <Feat {...props} addFeat={this.addFeat} feat={orientationMetro} />
+             <Feat {...props} addFeat={this.addFeat} feat={orientationWild} />
+             <Feat {...props} addFeat={this.addFeat} feat={paranoia} />
+             <Feat {...props} addFeat={this.addFeat} feat={parry} />
+             <Feat {...props} addFeat={this.addFeat} feat={pathfinding} />
+             <Feat {...props} addFeat={this.addFeat} feat={pendelum} />
+             <Feat {...props} addFeat={this.addFeat} feat={pursuit} />
+             <Feat {...props} addFeat={this.addFeat} feat={plantWhisperer} />
+             <Feat {...props} addFeat={this.addFeat} feat={pose} />
+             <Feat {...props} addFeat={this.addFeat} feat={overpose} />
+             <Feat {...props} addFeat={this.addFeat} feat={heroic} />
+             <Feat {...props} addFeat={this.addFeat} feat={villainousPose} />
+             <Feat {...props} addFeat={this.addFeat} feat={hyperArmorProficiency} />
+             <Feat {...props} addFeat={this.addFeat} feat={promise} />
+             <Feat {...props} addFeat={this.addFeat} feat={quickDraw} />
+             <Feat {...props} addFeat={this.addFeat} feat={rawReflex} />
+             <Feat {...props} addFeat={this.addFeat} feat={savageStars} />
+             <Feat {...props} addFeat={this.addFeat} feat={savoirFaire} />
+             <Feat {...props} addFeat={this.addFeat} feat={gigaShift} />
+             <Feat {...props} addFeat={this.addFeat} feat={hyperShift} />
+             <Feat {...props} addFeat={this.addFeat} feat={shiftBurst} />
+             <Feat {...props} addFeat={this.addFeat} feat={sneakAttack} />
+             <Feat {...props} addFeat={this.addFeat} feat={socialButterfly} />
+             <Feat {...props} addFeat={this.addFeat} feat={suppressiveFire} />
+             <Feat {...props} addFeat={this.addFeat} feat={takedown} />
+             <Feat {...props} addFeat={this.addFeat} feat={taunt} />
+             <Feat {...props} addFeat={this.addFeat} feat={teamPlayer} />
+             <Feat {...props} addFeat={this.addFeat} feat={triage} />
+             <Feat {...props} addFeat={this.addFeat} feat={triangulate} />
+             <Feat {...props} addFeat={this.addFeat} feat={triggerFinger} />
+             <Feat {...props} addFeat={this.addFeat} feat={trueGrit} />
+             <Feat {...props} addFeat={this.addFeat} feat={undaunted} />
+             <Feat {...props} addFeat={this.addFeat} feat={veteran} />
+             <Feat {...props} addFeat={this.addFeat} feat={warHero} />
+             <Feat {...props} addFeat={this.addFeat} feat={zeitgeistConduit} />
             </View>
           </ScrollView>
         </SafeAreaView>
@@ -800,5 +853,10 @@ class Feats extends Component {
      fontSize: 26,
      color: "white",
      paddingBottom: 10,
+   },
+   headerButton: {
+     fontSize: 15,
+     paddingHorizontal: 20,
+     color: "white",
    },
  });

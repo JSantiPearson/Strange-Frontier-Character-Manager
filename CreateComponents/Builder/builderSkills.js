@@ -299,8 +299,8 @@ const styles = StyleSheet.create({
     backgroundColor: "black",
   },
   headerButton: {
-  fontSize: 15,
-  paddingHorizontal: 20,
-  color: "white",
-},
+    fontSize: 15,
+    paddingHorizontal: 20,
+    color: "white",
+  },
 });

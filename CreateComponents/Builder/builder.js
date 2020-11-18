@@ -101,6 +101,14 @@ class Builder extends Component {
       this.setState({ available });
       this.setState({ complete });
     }
+    if (this.props.route.params.movesAvail){
+      let available = [...this.state.available];
+      let complete = [...this.state.complete];
+      available.push("Moves");
+      complete.push("Equipment");
+      this.setState({ available });
+      this.setState({ complete });
+    }
   }
 
   componentDidMount() {
@@ -110,9 +118,6 @@ class Builder extends Component {
   componentDidUpdate(prevProps){
     if (prevProps.route.params != this.props.route.params){
       this.handleAvailability();
-      if (this.props.route.params.skills != null){
-        console.log("Athletics skill score: " + this.props.route.params.skills.athletics.score);
-      }
     }
   }
 
@@ -127,7 +132,7 @@ class Builder extends Component {
                  <Option text="Determine Attributes" id="Attributes" navigation={this.props.navigation} route={this.props.route} available={this.state.available} complete={this.state.complete} />
                  <Option text="Choose Skills" id="Skills" navigation={this.props.navigation} route={this.props.route} available={this.state.available} complete={this.state.complete} />
                  <Option text="Choose Feats" id="Feats" navigation={this.props.navigation} route={this.props.route} available={this.state.available} complete={this.state.complete} />
-                 <Option text="Choose Equipment" id="Catalogue" navigation={this.props.navigation} route={this.props.route} available={this.state.available} complete={this.state.complete} />
+                 <Option text="Choose Equipment" id="Equipment" navigation={this.props.navigation} route={this.props.route} available={this.state.available} complete={this.state.complete} />
                </View>
              </ScrollView>
            </SafeAreaView>
