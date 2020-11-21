@@ -3,6 +3,7 @@ import { View, Button, Text, Picker, TouchableOpacity, LayoutAnimation, TextInpu
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Accordion from 'react-native-collapsible/Accordion';
+import equal from 'fast-deep-equal';
 
 const SECTION = [
   {
@@ -17,73 +18,73 @@ function TierIndicators(props){
   return(
     <>
       {props.feat.tierOne == undefined &&
-        props.tiers < 1 &&
+        props.feat.tier < 1 &&
           <View style={styles.rowItem}>
             <Icon name="circle-outline" size={20} color="white" />
           </View>
       }
       {props.feat.tierOne == undefined &&
-        props.tiers > 0 &&
+        props.feat.tier > 0 &&
         <View style={styles.rowItem}>
           <Icon name="circle-slice-8" size={20} color={glowColor} />
         </View>
       }
       {props.feat.tierOne != undefined &&
-        props.tiers < 1 &&
+        props.feat.tier < 1 &&
           <View style={styles.rowItem}>
             <Icon name="numeric-1-circle-outline" size={20} color="white" />
           </View>
       }
       {props.feat.tierOne != undefined &&
-        props.tiers >= 1 &&
+        props.feat.tier >= 1 &&
         <View style={styles.rowItem}>
           <Icon name="numeric-1-circle" size={20} color={glowColor} />
         </View>
       }
       {props.feat.tierTwo != undefined &&
-        props.tiers < 2 &&
+        props.feat.tier < 2 &&
           <View style={styles.rowItem}>
             <Icon name="numeric-2-circle-outline" size={20} color="white" />
           </View>
       }
       {props.feat.tierTwo != undefined &&
-        props.tiers >= 2 &&
+        props.feat.tier >= 2 &&
         <View style={styles.rowItem}>
           <Icon name="numeric-2-circle" size={20} color={glowColor} />
         </View>
       }
       {props.feat.tierThree != undefined &&
-        props.tiers < 3 &&
+        props.feat.tier < 3 &&
           <View style={styles.rowItem}>
             <Icon name="numeric-3-circle-outline" size={20} color="white" />
           </View>
       }
       {props.feat.tierThree != undefined &&
-        props.tiers >= 3 &&
+        props.feat.tier >= 3 &&
         <View style={styles.rowItem}>
           <Icon name="numeric-3-circle" size={20} color={glowColor} />
         </View>
       }
       {props.feat.tierFour != undefined &&
-        props.tiers < 4 &&
+        props.feat.tier < 4 &&
           <View style={styles.rowItem}>
             <Icon name="numeric-4-circle-outline" size={20} color="white" />
           </View>
       }
       {props.feat.tierFour != undefined &&
-        props.tiers >= 4 &&
+        props.feat.tier >= 4 &&
         <View style={styles.rowItem}>
           <Icon name="numeric-4-circle" size={20} color={glowColor} />
         </View>
       }
       {props.feat.tierFive != undefined &&
-        props.tiers < 5 &&
+        props.feat.tier < 5 &&
           <View style={styles.rowItem}>
             <Icon name="numeric-5-circle-outline" size={20} color="white" />
           </View>
       }
       {props.feat.tierFive != undefined &&
-        props.tiers >= 5 &&
+        props.feat.tier >= 5 &&
         <View style={styles.rowItem}>
           <Icon name="numeric-5-circle" size={20} color={glowColor} />
         </View>
@@ -96,26 +97,27 @@ function FeatTier(props){
   return (
     <>
       <View style={styles.tierRow}>
-        {props.tier == props.maxPurchased+1 && /* if this tier is exactly one above the highest tier purchased, then it is purchasable */
+        {console.log("props.feat.tier: " + props.feat.tier + ", props.tier: " + props.tier)}
+        {props.tier == props.feat.tier+1 && /* if this tier is exactly one above the highest tier purchased, then it is purchasable */
           <TouchableOpacity activeOpacity={0.6} style={styles.rowItem} onPress={() => props.changeFeatTiers(true)}>
             <View style={styles.tierCircle}>
               <Icon name="circle-outline" size={18} color="white" />
             </View>
           </TouchableOpacity>
         }
-        {props.tier < props.maxPurchased && /* If this tier has other higher tiers equipped on top of it, then it cannot be unequipped until the tiers above it have also been unequipped */
+        {props.tier < props.feat.tier && /* If this tier has other higher tiers equipped on top of it, then it cannot be unequipped until the tiers above it have also been unequipped */
           <View style={[styles.tierCircle, {paddingHorizontal: 6}]}>
             <Icon name="circle-slice-8" size={18} color="white" />
           </View>
         }
-        {props.tier == props.maxPurchased && /* If this tier is the highest purchased tier, it can be unequipped. */
+        {props.tier == props.feat.tier && /* If this tier is the highest purchased tier, it can be unequipped. */
           <TouchableOpacity activeOpacity={0.6} style={styles.rowItem} onPress={() => props.changeFeatTiers(false)}>
             <View style={styles.tierCircle}>
               <Icon name="circle-slice-8" size={18} color="white" />
             </View>
           </TouchableOpacity>
         }
-        {props.tier > props.maxPurchased+1 && /* If this tier is higher than the current purchasable tier, then it is locked from purchase */
+        {props.tier > props.feat.tier+1 && /* If this tier is higher than the current purchasable tier, then it is locked from purchase */
           <View style={[styles.tierCircle, {paddingLeft: 7}]}>
             <Icon name="lock" size={18} color="white" />
           </View>
@@ -133,12 +135,16 @@ class Feat extends PureComponent {
     tiers: 0,
   }
 
+  componentDidMount(){ //TODO: Optimize this later by setting ID within the object itself
+    this.props.feat.id = this.formatName(this.props.feat.name);
+  }
+
   _renderHeader = () => {
     if (this.state.active[0] == 0){
       return (
         <>
           <View style={styles.row}>
-            <TierIndicators feat={this.props.feat} tiers={this.state.tiers} />
+            <TierIndicators feat={this.props.feat} tiers={this.props.feat.tier} />
             <Text style={styles.title}>{this.props.feat.name}</Text>
           </View>
           <Text style={[styles.text, {fontSize: 14}]}></Text>
@@ -149,7 +155,7 @@ class Feat extends PureComponent {
       return (
         <>
           <View style={styles.row}>
-            <TierIndicators feat={this.props.feat} tiers={this.state.tiers} />
+            <TierIndicators feat={this.props.feat} tiers={this.props.feat.tier} />
             <Text style={styles.title}>{this.props.feat.name}</Text>
           </View>
         </>
@@ -158,25 +164,28 @@ class Feat extends PureComponent {
   }
 
   changeFeatTiers = increase => {
-    let tiers = this.state.tiers;
+    let feat = this.props.feat;
+    let tier = feat.tier;
     if (increase){
-      tiers++;
+      tier++;
     }
     else{
-      tiers--;
+      tier--;
     }
-    this.props.feat.tier = tiers;
-    this.setState({ tiers });
-    this.props.addFeat(this.props.feat);
+    feat.tier = tier;
+    this.props.addFeat(feat);
+    this.setState({ tiers: tier });
   }
 
+  //TODO: Content is being rendered even when the accordion is not active. This needs to be optimized.
   _renderContent = () => { //TODO: Currently, feats with a tier one and a description are not rendering the description. Create a case for this situation.
     return (
       <View style={styles.content}>
         {this.props.feat.tierOne == undefined &&
           <FeatTier
             tier={1}
-            maxPurchased={this.state.tiers}
+            feat={this.props.feat}
+            maxPurchased={this.props.feat.tier}
             content={this.props.feat.description}
             changeFeatTiers={this.changeFeatTiers}
           />
@@ -184,7 +193,8 @@ class Feat extends PureComponent {
         {this.props.feat.tierOne != undefined &&
           <FeatTier
             tier={1}
-            maxPurchased={this.state.tiers}
+            feat={this.props.feat}
+            maxPurchased={this.props.feat.tier}
             content={this.props.feat.tierOne}
             changeFeatTiers={this.changeFeatTiers}
           />
@@ -192,7 +202,8 @@ class Feat extends PureComponent {
         {this.props.feat.tierTwo != undefined &&
           <FeatTier
             tier={2}
-            maxPurchased={this.state.tiers}
+            feat={this.props.feat}
+            maxPurchased={this.props.feat.tier}
             content={this.props.feat.tierTwo}
             changeFeatTiers={this.changeFeatTiers}
           />
@@ -200,7 +211,8 @@ class Feat extends PureComponent {
         {this.props.feat.tierThree != undefined &&
           <FeatTier
             tier={3}
-            maxPurchased={this.state.tiers}
+            feat={this.props.feat}
+            maxPurchased={this.props.feat.tier}
             content={this.props.feat.tierThree}
             changeFeatTiers={this.changeFeatTiers}
           />
@@ -208,7 +220,8 @@ class Feat extends PureComponent {
         {this.props.feat.tierFour != undefined &&
           <FeatTier
             tier={4}
-            maxPurchased={this.state.tiers}
+            feat={this.props.feat}
+            maxPurchased={this.props.feat.tier}
             content={this.props.feat.tierFour}
             changeFeatTiers={this.changeFeatTiers}
           />
@@ -216,7 +229,8 @@ class Feat extends PureComponent {
         {this.props.feat.tierFive != undefined &&
           <FeatTier
             tier={5}
-            maxPurchased={this.state.tiers}
+            feat={this.props.feat}
+            maxPurchased={this.props.feat.tier}
             content={this.props.feat.tierFive}
             changeFeatTiers={this.changeFeatTiers}
           />
@@ -228,6 +242,13 @@ class Feat extends PureComponent {
   _updateSections = active => {
     this.setState({ active });
   };
+
+  formatName = name => {
+    let id = name.split(" ").join("");
+    id = id.charAt(0).toLowerCase() + id.slice(1);
+    id = id.replace(/\W/g, '');
+    return id;
+  }
 
   render() {
     return (

@@ -37,6 +37,7 @@ function Option(props){
       style={getOptionStyle(props.id, props.available, props.complete)}
       onPress={props.available.includes(props.id) ? () => props.navigation.navigate(props.id, {
         attributes: props.route.params.attributes,
+        feats: props.route.params.feats,
         navigation: props.navigation
       }) : undefined}
     >
