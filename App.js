@@ -12,7 +12,7 @@ import Create from './CreateComponents/create';
 import ProfileScreen from './CreateComponents/Screens/profileScreen';
 import MoveScreen from './CreateComponents/Screens/moveScreen';
 import CombatScreen from './CreateComponents/Screens/combatScreen';
-import EquipmentScreen from './CreateComponents/Screens/equipmentScreen';
+import Equipment from './CreateComponents/Screens/equipmentScreen';
 import NoteScreen from './CreateComponents/Screens/noteScreen';
 
 import CreateScreen from './CreateComponents/Screens/createScreen';
@@ -135,13 +135,7 @@ function BuildScreen({ navigation, route }) {
         options={{
           headerTitle: "",
           headerLeft: props => (
-            <TouchableOpacity
-              title="Cancel"
-              color='rgb(250, 0, 115)'
-              onPress={() => navigation.goBack(null)}
-            >
-              <Text style={styles.headerButton}>Cancel</Text>
-            </TouchableOpacity>
+            <Icon {...props} name={"chevron-left"}  size={40} color="white" />
           ),
           headerStyle: {backgroundColor: 'rgb(250, 0, 115)'},
         }}
@@ -162,6 +156,18 @@ function BuildScreen({ navigation, route }) {
       <Stack.Screen
         name="Feats"
         component={Feats}
+        options={{
+          headerTitle: "",
+          headerLeft: props => (
+            <Icon {...props} name={"chevron-left"}  size={40} color="white" />
+          ),
+          headerStyle: {backgroundColor: 'rgb(250, 0, 115)'},
+        }}
+      />
+
+      <Stack.Screen
+        name="Equipment"
+        component={Equipment}
         options={{
           headerTitle: "",
           headerLeft: props => (

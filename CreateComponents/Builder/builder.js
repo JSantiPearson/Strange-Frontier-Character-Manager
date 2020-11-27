@@ -31,15 +31,20 @@ function getOptionStyle(option, available, complete){
   }
 }
 
+function navigateDebug(props){
+  console.log(props.id);
+  props.navigation.navigate(props.id, {
+    attributes: props.route.params.attributes,
+    feats: props.route.params.feats,
+    navigation: props.navigation
+  });
+}
+
 function Option(props){
   return(
     <TouchableOpacity
       style={getOptionStyle(props.id, props.available, props.complete)}
-      onPress={props.available.includes(props.id) ? () => props.navigation.navigate(props.id, {
-        attributes: props.route.params.attributes,
-        feats: props.route.params.feats,
-        navigation: props.navigation
-      }) : undefined}
+      onPress={props.available.includes(props.id) ? () => navigateDebug(props) : undefined}
     >
       <Text style={styles.optionText}>{props.text}</Text>
       {props.id == "Species" && props.route.params.species != '' &&

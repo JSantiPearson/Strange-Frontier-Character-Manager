@@ -7,7 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Dropdown } from "react-native-material-dropdown"
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import ProfileScreen from './Screens/profileScreen';
-import EquipmentScreen from './Screens/equipmentScreen';
+import Equipment from './Screens/equipmentScreen';
 import CombatScreen from './Screens/combatScreen';
 import MoveScreen from './Screens/moveScreenSwipes';
 import NoteScreen from './Screens/noteScreen';
@@ -126,7 +126,7 @@ class Create extends Component {
             />}
        </Tab.Screen>
        <Tab.Screen name="Equipment">
-          {props => <EquipmentScreen
+          {props => <Equipment
               {...props}
               attributes={this.state.attributes}
               statsCallback={this.setEquipmentStats}

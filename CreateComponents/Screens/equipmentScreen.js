@@ -4,7 +4,7 @@ import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { useNavigation } from '@react-navigation/native';
 import CheckBox from '@react-native-community/checkbox';
 
-class EquipmentScreen extends Component {
+class Equipment extends Component {
   state = {
     rangedEquipment: [],
     meleeEquipment: [],
@@ -211,14 +211,9 @@ class EquipmentScreen extends Component {
   render() {
      return (
        <>
+        <View style={styles.container}>
          <SafeAreaView>
            <ScrollView>
-             <View style={styles.sectionDescription}>
-               <Button
-                 title={'Browse Catalogues'}
-                 onPress={() => { this.props.navigation.navigate('Catalogues', { itemCallback: this.addItem })}}
-               />
-             </View>
              <View style={styles.sectionDescription}>
                <Text style={styles.sectionTitle}>Equipped:</Text>
                { this.equippedDisplay() }
@@ -243,26 +238,60 @@ class EquipmentScreen extends Component {
                <Text style={styles.sectionTitle}>Miscellaneous:</Text>
                { this.equipmentList(this.state.miscEquipment) }
              </View>
+             <View style={{alignItems: 'center'}}>
+               <TouchableOpacity
+                 style={styles.catalogueButton}
+                 onPress={() => { this.props.navigation.navigate('Catalogues', { itemCallback: this.addItem })}}
+               >
+                <Text style={styles.buttonText}>BROWSE CATALOGUES</Text>
+               </TouchableOpacity>
+             </View>
            </ScrollView>
          </SafeAreaView>
+        </View>
        </>
      )
    }
  }
 
- export default EquipmentScreen;
+ export default Equipment;
 
  const styles = StyleSheet.create({
+   container: {
+     flex: 1,
+     paddingHorizontal: 5,
+     paddingTop: 10,
+     backgroundColor: 'black',
+   },
+   headerButton: {
+     fontSize: 15,
+     paddingHorizontal: 20,
+     color: "white",
+   },
+   catalogueButton: {
+     flex: 1,
+     width: 170,
+     justifyContent: 'center',
+     backgroundColor: 'rgb(250, 0, 115)',
+     marginTop: 5,
+     paddingVertical: 5,
+   },
+   buttonText: {
+     color: 'white',
+     textAlign: 'center',
+     fontWeight: 'bold',
+   },
    sectionDescription: {
      padding: 10,
      fontSize: 18,
      fontWeight: '400',
      textAlign: 'center',
-     color: Colors.dark,
+     color:'white',
    },
    sectionTitle: {
      fontWeight: "bold",
-     paddingVertical: 5
+     paddingVertical: 5,
+     color: 'white',
    },
    row: {
      flexDirection: "row"

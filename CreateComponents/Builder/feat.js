@@ -97,7 +97,6 @@ function FeatTier(props){
   return (
     <>
       <View style={styles.tierRow}>
-        {console.log("props.feat.tier: " + props.feat.tier + ", props.tier: " + props.tier)}
         {props.tier == props.feat.tier+1 && /* if this tier is exactly one above the highest tier purchased, then it is purchasable */
           <TouchableOpacity activeOpacity={0.6} style={styles.rowItem} onPress={() => props.changeFeatTiers(true)}>
             <View style={styles.tierCircle}>
