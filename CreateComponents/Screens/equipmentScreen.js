@@ -3,6 +3,7 @@ import { View, Alert, Button, Text, Picker, TouchableOpacity, TextInput, StyleSh
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { useNavigation } from '@react-navigation/native';
 import CheckBox from '@react-native-community/checkbox';
+import Accordion from 'react-native-collapsible/Accordion';
 
 class Equipment extends Component {
   state = {
@@ -28,17 +29,17 @@ class Equipment extends Component {
   */
   addItem = data => {
     let equipment = [...this.state.miscEquipment];
-    switch(data.props.type){
-      case "ranged":
+    switch(data.type){
+      case "Ranged":
         equipment = [...this.state.rangedEquipment];
         break;
-      case "melee":
+      case "Melee":
         equipment = [...this.state.meleeEquipment];
         break;
-      case "armor":
+      case "Armor":
         equipment = [...this.state.armorEquipment];
         break;
-      case "gear":
+      case "Gear":
         equipment = [...this.state.gearEquipment];
         break;
       case "misc":
@@ -46,28 +47,28 @@ class Equipment extends Component {
         break;
       default:
         try {
-          throw new Error("Invalid item type " + data.props.type);
+          throw new Error("Invalid item type " + data.type);
         }
         catch {
-          Alert.alert("Invalid item type " + data.props.type);
+          Alert.alert("Invalid item type " + data.type);
         }
     }
 
     let item = {
-      key: data.props.name,
-      amount: 1,
+      key: data.name,
+      amount: data.amount,
       equipped: false,
-      name: data.props.name,
-      type: data.props.type,
-      price: data.props.price,
-      description: data.props.description,
-      misc: data.props.misc,
-      category: data.props.category,
-      range: data.props.range,
-      damage: data.props.damage,
-      durability: data.props.durability,
-      stats: data.props.stats,
-      special: data.props.special
+      name: data.name,
+      type: data.type,
+      price: data.price,
+      description: data.description,
+      misc: data.misc,
+      category: data.category,
+      range: data.range,
+      damage: data.damage,
+      durability: data.durability,
+      stats: data.stats,
+      special: data.special
     }
 
     const exists = equipment.some(i => (i.name === item.name)); //check if instance of item is in inventory. "exists" is a boolean.
@@ -75,34 +76,34 @@ class Equipment extends Component {
     if (!exists){ //if the item does not already exist, push the new item onto the array
       equipment.push(item);
     }
-    else { //if the item DOES already exist, find the item in the array and increase its amount by 1.
+    else { //if the item DOES already exist, find the item in the array and replace its old amount with the new amount.
       for (let i = 0; i < equipment.length; i++){ //TODO: This for loop seems unecessary/redundant with the earlier some() call. See if there's a way to simplify. (There were issues with return last time I tried)
         let currItem = equipment[i];
         if (currItem.name === item.name){//TODO: When creating the template for custom equipment, don't forget to disallow equipment with repeat names
-          currItem.amount++;
+          currItem.amount = item.amount;
           equipment[i] = currItem;
         }
       }
     }
 
-    switch(data.props.type){
-      case "ranged":
+    switch(data.type){
+      case "Ranged":
         let rangedEquipment = equipment;
-        console.log("Adding " + item.name + " to ranged equipment");
+        console.log("Adding " + item.name + " (x" + item.amount + ") to ranged equipment");
         this.setState({ rangedEquipment });
         break;
-      case "melee":
+      case "Melee":
         let meleeEquipment = equipment;
         console.log("Adding " + item.name + " to melee equipment");
         this.setState({ meleeEquipment });
         break;
-      case "armor":
+      case "Armor":
         let armorEquipment = equipment;
         console.log("Adding " + item.name + " to armor equipment");
         console.log(item.name + " has a " + item.stats.armor + " in armor.");
         this.setState({ armorEquipment });
         break;
-      case "gear":
+      case "Gear":
         let gearEquipment = equipment;
         console.log("Adding " + item.name + " to gear equipment");
         this.setState({ gearEquipment });
@@ -115,10 +116,10 @@ class Equipment extends Component {
       default:
         try {
           console.log("Should throw an error here"); //TODO: Remove this
-          throw new Error("Invalid item type " + data.props.type);
+          throw new Error("Invalid item type " + data.type);
         }
         catch(error) {
-          Alert.alert("Invalid item type " + data.props.type);
+          Alert.alert("Invalid item type " + data.type);
         }
     }
   }
@@ -173,9 +174,9 @@ class Equipment extends Component {
       return (
         <View style={styles.row}>
           <Text style={styles.rowItem}>
-            <Text>{item.name}</Text>
+            <Text style={styles.text}>{item.name}</Text>
             {item.amount > 1 &&
-              <Text> (x{item.amount})</Text>
+              <Text style={styles.text}> (x{item.amount})</Text>
             }
           </Text>
         </View>
@@ -191,9 +192,9 @@ class Equipment extends Component {
       return (
         <View style={styles.row}>
           <Text style={styles.rowItem}>
-            <Text>{item.name}</Text>
+            <Text style={styles.text}>{item.name}</Text>
             {item.amount > 1 &&
-              <Text> (x{item.amount})</Text>
+              <Text style={styles.text}> (x{item.amount})</Text>
             }
           </Text>
           <View style={styles.rowItem}>
@@ -209,13 +210,14 @@ class Equipment extends Component {
   }
 
   render() {
+    console.log("Ranged equipment array length: " + this.state.rangedEquipment.length);
      return (
        <>
         <View style={styles.container}>
          <SafeAreaView>
            <ScrollView>
              <View style={styles.sectionDescription}>
-               <Text style={styles.sectionTitle}>Equipped:</Text>
+               <Text style={styles.sectionTitle}>Active Equipment</Text>
                { this.equippedDisplay() }
              </View>
              <View style={styles.sectionDescription}>
@@ -241,7 +243,14 @@ class Equipment extends Component {
              <View style={{alignItems: 'center'}}>
                <TouchableOpacity
                  style={styles.catalogueButton}
-                 onPress={() => { this.props.navigation.navigate('Catalogues', { itemCallback: this.addItem })}}
+                 onPress={() => { this.props.navigation.navigate('Catalogues', {
+                   itemCallback: this.addItem,
+                   ranged: this.state.rangedEquipment,
+                   melee: this.state.meleeEquipment,
+                   armor: this.state.armorEquipment,
+                   gear: this.state.gearEquipment,
+                   misc: this.state.miscEquipment,
+                 })}}
                >
                 <Text style={styles.buttonText}>BROWSE CATALOGUES</Text>
                </TouchableOpacity>
@@ -275,6 +284,9 @@ class Equipment extends Component {
      backgroundColor: 'rgb(250, 0, 115)',
      marginTop: 5,
      paddingVertical: 5,
+   },
+   text: {
+     color: "white"
    },
    buttonText: {
      color: 'white',

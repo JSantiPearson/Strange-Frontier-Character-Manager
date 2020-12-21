@@ -3,6 +3,7 @@ import 'react-native-gesture-handler';
 import React from 'react';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { useRoute } from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import ProfileInputs from './CreateComponents/input.js';
@@ -31,6 +32,8 @@ import NarmatoArms from './CreateComponents/Catalogues/NarmatoArms';
 import LeparsBlackMarket from './CreateComponents/Catalogues/LeparsBlackMarket';
 
 import CreateMove from './CreateComponents/createmove';
+
+import FlashMessage from 'react-native-flash-message';
 
 import {
   SafeAreaView,
@@ -92,7 +95,7 @@ function BuildScreen({ navigation, route }) {
       <Stack.Screen
         name="Character Builder"
         component={Builder}
-        initialParams={{species: '', skills: null, skillsAvail: false, featsAvail: false, equipmentAvail: false }}
+        initialParams={{species: '', attributes: null, skills: null, skillsAvail: false, featsAvail: false, equipmentAvail: false }}
         options={{
           headerTitle: "",
           headerLeft: props => (
@@ -106,7 +109,7 @@ function BuildScreen({ navigation, route }) {
           ),
           headerRight: () => (
             <TouchableOpacity
-              onPress={() => navigation.navigate('Create', { navigation })}
+              onPress={() => navigation.navigate('Create', { navigation, attributes: route.params.attributes })}
               title="Skip"
               color='rgb(250, 0, 115)'
             >
@@ -217,6 +220,7 @@ class App extends React.Component {
        willpower: 0
      }
   }
+
   setAttributes = (attributes) => {
     console.log("Current strength: " + attributes.strength);
     this.setState({ attributes });
@@ -247,6 +251,7 @@ class App extends React.Component {
             />
             <Stack.Screen name="Create">
               {props => <CreateScreen
+                {...props}
                 attributeCallback={this.setAttributes}
                 speciesCallback={this.setSpecies}
                 statsCallback={this.setStats}
@@ -255,15 +260,71 @@ class App extends React.Component {
             </Stack.Screen>
             <Stack.Screen name="Build" component={BuildScreen} options={{ headerShown: false }} />
 
-            <Stack.Screen name="Catalogues" component={CatalogueScreen} />
-            <Stack.Screen name="Trinitaire" component={TrinitaireArms} />
-            <Stack.Screen name="Dodana" component={DodanaArmsEmporium} />
-            <Stack.Screen name="Narmato" component={NarmatoArms} />
-            <Stack.Screen name="Lepars" component={LeparsBlackMarket} />
+            <Stack.Screen
+              name="Catalogues"
+              component={CatalogueScreen}
+              options={{
+                headerTitle: "Catalogues",
+                headerLeft: props => (
+                  <Icon {...props} name={"chevron-left"}  size={40} color="white" />
+                ),
+                headerStyle: {backgroundColor: 'rgb(250, 0, 115)'},
+                headerTitleStyle: {color: "white"},
+              }}
+            />
+            <Stack.Screen
+              name="Trinitaire"
+              component={TrinitaireArms}
+              options={{
+                headerTitle: "Trinitaire Arms",
+                headerLeft: props => (
+                  <Icon {...props} name={"chevron-left"}  size={40} color="white" />
+                ),
+                headerStyle: {backgroundColor: 'rgb(250, 0, 115)'},
+                headerTitleStyle: {color: "white"},
+              }}
+            />
+            <Stack.Screen
+              name="Dodana"
+              component={DodanaArmsEmporium}
+              options={{
+                headerTitle: "Dodana Arms",
+                headerLeft: props => (
+                  <Icon {...props} name={"chevron-left"}  size={40} color="white" />
+                ),
+                headerStyle: {backgroundColor: 'rgb(250, 0, 115)'},
+                headerTitleStyle: {color: "white"},
+              }}
+            />
+            <Stack.Screen
+              name="Narmato"
+              component={NarmatoArms}
+              options={{
+                headerTitle: "Narmato Arms",
+                headerLeft: props => (
+                  <Icon {...props} name={"chevron-left"}  size={40} color="white" />
+                ),
+                headerStyle: {backgroundColor: 'rgb(250, 0, 115)'},
+                headerTitleStyle: {color: "white"},
+              }}
+            />
+            <Stack.Screen
+              name="Lepars"
+              component={LeparsBlackMarket}
+              options={{
+                headerTitle: "Lepar's Black Market",
+                headerLeft: props => (
+                  <Icon {...props} name={"chevron-left"}  size={40} color="white" />
+                ),
+                headerStyle: {backgroundColor: 'rgb(250, 0, 115)'},
+                headerTitleStyle: {color: "white"},
+              }}
+            />
 
             <Stack.Screen name="Create Move" component={CreateMove} />
           </Stack.Navigator>
         </NavigationContainer>
+        <FlashMessage position="bottom" />
       </>
     );
   }

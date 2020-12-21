@@ -13,10 +13,11 @@ class NarmatoArms extends Component {
       <>
       <SafeAreaView style={styles.container}>
         <ScrollView style={styles.scrollView}>
-          <Text>Armor and Wearables</Text>
+          <Text style={styles.text}>Armor and Wearables</Text>
             <Item
+							{...this.props}
               name={"Leather Jacket"}
-              type={"armor"}
+              type={"Armor"}
               itemCallback={this.addItem}
               price={60}
               description={"A basic leather jacket with the Narmato arms logo on the shoulder. It comes in a variety of colors."}
@@ -29,8 +30,9 @@ class NarmatoArms extends Component {
               }}
             />
             <Item
+							{...this.props}
               name={"Wheel-Heeled Boots"}
-              type={"armor"}
+              type={"Armor"}
               itemCallback={this.addItem}
               price={25}
               description={"A pair of standard boots with wheels in the heels for faster tansportation."}
@@ -43,8 +45,9 @@ class NarmatoArms extends Component {
               }}
             />
             <Item
+							{...this.props}
               name={"Jungle Suit"}
-              type={"armor"}
+              type={"Armor"}
               itemCallback={this.addItem}
               price={165}
               description={"A suit of padded Kevlar that resembles foliage."}
@@ -58,8 +61,9 @@ class NarmatoArms extends Component {
               }}
             />
             <Item
+							{...this.props}
               name={"Padded Armor"}
-              type={"armor"}
+              type={"Armor"}
               itemCallback={this.addItem}
               price={200}
               description={"A suit of padded kevlar and advanced ceramic plating that stops just about anything that hits it. It's an old style of armor from a Tech LV 8 civilization that evokes a classic vibe."}
@@ -73,8 +77,9 @@ class NarmatoArms extends Component {
             />
           {/*TODO: Add a antigrav special case, that doubles this items armor in zero G*/}
             <Item
+							{...this.props}
               name={"Vac Suit"}
-              type={"armor"}
+              type={"Armor"}
               itemCallback={this.addItem}
               price={250}
               description={"A pressure sealed suit that protects the wearer from the elements and the cold of space."}
@@ -88,8 +93,9 @@ class NarmatoArms extends Component {
               }}
             />
             <Item
+							{...this.props}
               name={"Captain's Vac Suit"}
-              type={"armor"}
+              type={"Armor"}
               itemCallback={this.addItem}
               price={655}
               description={"A more advanced Vac Suit that comes with every new starship purchase. Typically reserved for the captain of the vessel."}
@@ -104,8 +110,9 @@ class NarmatoArms extends Component {
             />
           {/*TODO: At some point I should standardize the naming convention for special cases*/}
             <Item
+							{...this.props}
               name={"Combat Skates"}
-              type={"armor"}
+              type={"Armor"}
               itemCallback={this.addItem}
               price={90}
               description={"A set of braced and padded skates that can pressure seal with a vac suit."}
@@ -121,8 +128,9 @@ class NarmatoArms extends Component {
             />
           {/*TODO: Look into making special cases that affect the player's skills.*/}
             <Item
+							{...this.props}
               name={"Reflector Goggles"}
-              type={"gear"}
+              type={"Gear"}
               itemCallback={this.addItem}
               price={20}
               description={"A pair of goggles from the Sombrero galaxy. Often used by Mod-Humans to protect their eyes. On a normal person they are very hard to see through, so are sometimes used as blindfolds."}
@@ -137,8 +145,9 @@ class NarmatoArms extends Component {
             />
           {/*TODO: How will players keep track of this? Look into making it clear where every piece of armor comes from, and what effects they each have. This will be displayed in the play mode UI.*/}
             <Item
+							{...this.props}
               name={"Gel Armor"}
-              type={"armor"}
+              type={"Armor"}
               itemCallback={this.addItem}
               price={300}
               description={"A suit of armor that is comprised of contact gel, which hardens the second a projectile makes contact against it. It is very succeptible to laser fire, however."}
@@ -152,8 +161,9 @@ class NarmatoArms extends Component {
               }}
             />
             <Item
+							{...this.props}
               name={"Reflector Armor"}
-              type={"armor"}
+              type={"Armor"}
               itemCallback={this.addItem}
               price={300}
               description={"A suit of armor built from advanced deflector lenses that renders laser weapons worthless."}
@@ -167,8 +177,9 @@ class NarmatoArms extends Component {
               }}
             />
             <Item
+							{...this.props}
               name={"Air Jets"}
-              type={"gear"}
+              type={"Gear"}
               itemCallback={this.addItem}
               price={130}
               description={"An armor upgrade that allows for normal movement in Zero G but at half the wearer's speed."}
@@ -181,8 +192,9 @@ class NarmatoArms extends Component {
               }}
             />
             <Item
+							{...this.props}
               name={"Rebreather"}
-              type={"gear"}
+              type={"Gear"}
               itemCallback={this.addItem}
               price={200}
               description={"A device that filters air and allows it to be breathed again. The wearer can breath safely for 2 hours."}
@@ -194,10 +206,11 @@ class NarmatoArms extends Component {
                 awareness: 0
               }}
             />
-          <Text>Equipment</Text>
+          <Text style={styles.text}>Equipment</Text>
             <Item
+							{...this.props}
               name={"Frag Grenade"}
-              type={"gear"}
+              type={"Gear"}
               itemCallback={this.addItem}
               price={210}
               description={"An explosive with a pin that controls its detonation. Effective at clearing out grouped up targets, or flushing targets out of hiding."}
@@ -221,8 +234,12 @@ export default NarmatoArms;
 
 const styles = StyleSheet.create({
    container: {
-     paddingHorizontal: 10,
-     paddingVertical: 20
+     paddingVertical: 20,
+     backgroundColor: "black",
+   },
+   text: {
+     color: "white",
+     fontSize: 20,
    },
    scrollView: {
      marginHorizontal: 5

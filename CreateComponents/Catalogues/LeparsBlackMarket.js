@@ -13,11 +13,12 @@ class LeparsBlackMarket extends Component {
       <>
       <SafeAreaView style={styles.container}>
         <ScrollView style={styles.scrollView}>
-          <Text>The Nightlife on Leanlo</Text>
+          <Text style={styles.text}>The Nightlife on Leanlo</Text>
             <Item
+						{...this.props}
             itemCallback={this.addItem}
             name={"Equalist Splinter Pistol"}
-            type={"ranged"}
+            type={"Ranged"}
             price={1000}
             range={"10/20/30/40"}
             damage={"2d8"}
@@ -28,12 +29,13 @@ class LeparsBlackMarket extends Component {
               speed: 0,
               awareness: 0
             }}
-            misc={"Strips 1d8 of armor from a target. Only works once per piece of gear. effect lasts until repaired."}
+            misc={"Strips 1d8 of armor from a target. Only works once per piece of gear. Effect lasts until repaired."}
             />
             <Item
+						{...this.props}
             itemCallback={this.addItem}
             name={"Equalist Splinter Rifle"}
-            type={"ranged"}
+            type={"Ranged"}
             price={2000}
             range={"10/25/45/70"}
             damage={"2d10"}
@@ -47,8 +49,9 @@ class LeparsBlackMarket extends Component {
             misc={"Strips 1d10 of armor from a target. Only works once per piece of gear, effect lasts until repaired."}
             />
             <Item
+						{...this.props}
               name={"Equalist Blazer"}
-              type={"armor"}
+              type={"Armor"}
               itemCallback={this.addItem}
               price={5000}
               description={"A highgrade fabric of unknown origin is woven into a denim jacket."}
@@ -62,8 +65,9 @@ class LeparsBlackMarket extends Component {
               }}
             />
             <Item
+						{...this.props}
               name={"Lobster Shell"}
-              type={"armor"}
+              type={"Armor"}
               itemCallback={this.addItem}
               price={6000}
               description={"A highgrade armor of unknown origin."}
@@ -76,12 +80,13 @@ class LeparsBlackMarket extends Component {
                 awareness: 0
               }}
             />
-          <Text>Chance and Happenstance</Text>
+          <Text style={styles.text}>Chance and Happenstance</Text>
               <Item
+						{...this.props}
               itemCallback={this.addItem}
               name={"Casino Chip"}
               description={"A large yo-yo with serated edges."}
-              type={"melee"}
+              type={"Melee"}
               price={5000}
               range={"10"}
               damage={"5d8"}
@@ -94,11 +99,12 @@ class LeparsBlackMarket extends Component {
               }}
               />
               <Item
+						{...this.props}
               itemCallback={this.addItem}
               name={"Black Jack"}
               description={"A decent melee weapon that features a discrete EMP used to high-jack vehicals."}
               misc={"+20 to vehicle hijacking rolls."}
-              type={"melee"}
+              type={"Melee"}
               price={4000}
               range={"10"}
               damage={"2d8"}
@@ -111,6 +117,7 @@ class LeparsBlackMarket extends Component {
               }}
               />
               <Item
+						{...this.props}
               itemCallback={this.addItem}
               name={"Roulette"}
               description={"An LMG that fires shotgun pellets using magnetic acceleration."}
@@ -127,8 +134,9 @@ class LeparsBlackMarket extends Component {
               }}
               />
               <Item
+						{...this.props}
                 name={"Casino Suit"}
-                type={"armor"}
+                type={"Armor"}
                 itemCallback={this.addItem}
                 description={"A beautifully sharp suit for the upper class."}
                 misc={"+15 to Influence rolls (+20 with shoes)"}
@@ -142,8 +150,9 @@ class LeparsBlackMarket extends Component {
                 }}
               />
               <Item
+						{...this.props}
                 name={"Casino Shoes"}
-                type={"armor"}
+                type={"Armor"}
                 itemCallback={this.addItem}
                 description={"A beautifully sharp pair of shoes for the upper class."}
                 misc={"+5 to Influence rolls (+10 with suit)"}
@@ -157,8 +166,9 @@ class LeparsBlackMarket extends Component {
                 }}
               />
               <Item
+						{...this.props}
                 name={"High Roller Suit"}
-                type={"armor"}
+                type={"Armor"}
                 itemCallback={this.addItem}
                 description={"Dangerously elegant - a challenge to fate itself."}
                 misc={"Roll a d100 every time you use a move. 90-100 will double its effect bonuses. (80-100 with shoes)"}
@@ -172,8 +182,9 @@ class LeparsBlackMarket extends Component {
                 }}
               />
               <Item
+						{...this.props}
                 name={"High Roller Shoes"}
-                type={"armor"}
+                type={"Armor"}
                 itemCallback={this.addItem}
                 description={"Crush fate underfoot with these stylish velvet shoes."}
                 misc={"Roll a d100 every time you use a move. 90-100 will restore the cost of your move instead of spending it. (80-100 with suit)"}
@@ -186,11 +197,12 @@ class LeparsBlackMarket extends Component {
                   awareness: 0
                 }}
               />
-            <Text>Walk in the Woods</Text>
+            <Text style={styles.text}>Walk in the Woods</Text>
             <Item
+						{...this.props}
               itemCallback={this.addItem}
               name={"Pine Goggles"}
-              type={"armor"}
+              type={"Armor"}
               price={1300}
               misc={"+4 awareness for Mod-Humans."}
               special={"pine goggles"}
@@ -203,10 +215,11 @@ class LeparsBlackMarket extends Component {
               description={"A pair of hardened mod-goggles that smell of pine."}
             />
             <Item
+						{...this.props}
             itemCallback={this.addItem}
             name={"Rough Rope"}
             description={"A densely wrapped natural rope."}
-            type={"melee"}
+            type={"Melee"}
             price={1000}
             range={"15"}
             damage={"5d6 Burn"}
@@ -219,10 +232,11 @@ class LeparsBlackMarket extends Component {
             }}
             />
             <Item
+						{...this.props}
             itemCallback={this.addItem}
             name={"Bow of the Path"}
             description={"An abandoned piece of early compass gear."}
-            type={"ranged"}
+            type={"Ranged"}
             price={1100}
             range={"10/30/70/110"}
             damage={"5d8"}
@@ -245,8 +259,12 @@ export default LeparsBlackMarket;
 
 const styles = StyleSheet.create({
    container: {
-     paddingHorizontal: 10,
-     paddingVertical: 20
+     paddingVertical: 20,
+     backgroundColor: "black",
+   },
+   text: {
+     color: "white",
+     fontSize: 20,
    },
    scrollView: {
      marginHorizontal: 5

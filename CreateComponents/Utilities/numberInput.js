@@ -1,8 +1,24 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { View, Button, Text, Picker, TouchableOpacity, TextInput, StyleSheet} from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-class NumberInput extends Component {
+class NumberInput extends PureComponent {
+  state = {
+    value: 0,
+  }
+
+  componentDidMount(){
+    let value = this.props.numberValue;
+    this.setState({ value });
+  }
+
+  componentDidUpdate(prevProps){
+    if (prevProps != this.props){
+      let value = this.props.numberValue;
+      this.setState({ value });
+    }
+  }
+
   render(){
     return (
       <View style={styles.row}>
@@ -14,7 +30,7 @@ class NumberInput extends Component {
         {this.props.numberValue <= 0 &&
           <Icon name="minus-circle" size={22} color='rgba(250, 0, 115, 0.5)' />
         }
-        <Text style={[styles.text, {textAlign: "center", width: 40}]}>{this.props.numberValue}</Text>
+        <Text style={[styles.text, {textAlign: "center", width: 40}]}>{this.state.value}</Text>
         <TouchableOpacity onPress={() => this.props.changeNumber(this.props.numberName, true)}>
           <Icon name="plus-circle" size={22} color='rgb(250, 0, 115)' />
         </TouchableOpacity>

@@ -17,28 +17,56 @@ class Catalogues extends Component {
         <ScrollView>
            <View style={styles.container}>
              <View style={styles.catalogue}>
-               <TouchableOpacity onPress={() => this.props.navigation.navigate('Trinitaire', { itemCallback: this.addItem })}>
+               <TouchableOpacity onPress={() => this.props.navigation.navigate('Trinitaire', {
+                   itemCallback: this.addItem,
+                   ranged: this.props.route.params.ranged,
+                   melee: this.props.route.params.melee,
+                   armor: this.props.route.params.armor,
+                   gear: this.props.route.params.gear,
+                   misc: this.props.route.params.misc,
+                 })}>
                 <ImageBackground style={styles.image} source={require('../../assets/img/blue.png')}>
                   <Text style={styles.text}>Trinitaire Arms</Text>
                 </ImageBackground>
                </TouchableOpacity>
              </View>
              <View style={styles.catalogue}>
-               <TouchableOpacity onPress={() => this.props.navigation.navigate('Lepars', { itemCallback: this.addItem })}>
+               <TouchableOpacity onPress={() => this.props.navigation.navigate('Lepars', {
+                 itemCallback: this.addItem,
+                 ranged: this.props.route.params.ranged,
+                 melee: this.props.route.params.melee,
+                 armor: this.props.route.params.armor,
+                 gear: this.props.route.params.gear,
+                 misc: this.props.route.params.misc,
+               })}>
                  <ImageBackground style={styles.image} source={require('../../assets/img/green.jpeg')}>
                    <Text style={styles.text}>Lepar's Black Market</Text>
                  </ImageBackground>
                </TouchableOpacity>
              </View>
              <View style={styles.catalogue}>
-               <TouchableOpacity onPress={() => this.props.navigation.navigate('Dodana', { itemCallback: this.addItem })}>
+               <TouchableOpacity onPress={() => this.props.navigation.navigate('Dodana', {
+                 itemCallback: this.addItem,
+                 ranged: this.props.route.params.ranged,
+                 melee: this.props.route.params.melee,
+                 armor: this.props.route.params.armor,
+                 gear: this.props.route.params.gear,
+                 misc: this.props.route.params.misc,
+               })}>
                  <ImageBackground style={styles.image} source={require('../../assets/img/pink.jpeg')}>
                    <Text style={styles.text}>Dodana Arms Emporium</Text>
                  </ImageBackground>
                </TouchableOpacity>
              </View>
              <View style={styles.catalogue}>
-               <TouchableOpacity onPress={() => this.props.navigation.navigate('Narmato', { itemCallback: this.addItem })}>
+               <TouchableOpacity onPress={() => this.props.navigation.navigate('Narmato', {
+                 itemCallback: this.addItem,
+                 ranged: this.props.route.params.ranged,
+                 melee: this.props.route.params.melee,
+                 armor: this.props.route.params.armor,
+                 gear: this.props.route.params.gear,
+                 misc: this.props.route.params.misc,
+               })}>
                  <ImageBackground style={styles.image} source={require('../../assets/img/crimson.jpg')}>
                    <Text style={styles.text}>Class D Narmato Arms</Text>
                  </ImageBackground>

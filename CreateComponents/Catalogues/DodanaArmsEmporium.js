@@ -13,11 +13,12 @@ class DodanaArmsEmporium extends Component {
       <>
       <SafeAreaView style={styles.container}>
         <ScrollView style={styles.scrollView}>
-          <Text>Ranged Weaponry</Text>
+          <Text style={styles.text}>Ranged Weaponry</Text>
             <Item
+						{...this.props}
             itemCallback={this.addItem}
             name={"Augmented Laser Rifle"}
-            type={"ranged"}
+            type={"Ranged"}
             price={750}
             range={"5/20/35/60"}
             damage={"6d8 at close range, 80% chance to stun. 4d8 for all other ranges"}
@@ -31,9 +32,10 @@ class DodanaArmsEmporium extends Component {
             description={"This class C model year laser rifle has a specialised scope and barrel lens, allowing it to make more precise shots at a closer minimum range."}
             />
             <Item
+						{...this.props}
             itemCallback={this.addItem}
             name={"Heated Ballistic Rifle"}
-            type={"ranged"}
+            type={"Ranged"}
             price={655}
             range={"5/15/30/45"}
             damage={"3d8 + 2d6 burn"}
@@ -47,9 +49,10 @@ class DodanaArmsEmporium extends Component {
             description={"A class C variant of a conventional kinetic rifle that super heats the bullet to add an extra punch to the damage. Comes with 42 class D standard rounds."}
             />
             <Item
+						{...this.props}
             itemCallback={this.addItem}
             name={"High Caliber 3 Shooter"}
-            type={"ranged"}
+            type={"Ranged"}
             price={865}
             range={"5/15/25/35"}
             damage={"3d10. 1d4+1 squares of knockback"}
@@ -63,9 +66,10 @@ class DodanaArmsEmporium extends Component {
             description={"A large revolver with a three round chamber."}
             />
             <Item
+						{...this.props}
             itemCallback={this.addItem}
             name={"Sharp Tongue"}
-            type={"ranged"}
+            type={"Ranged"}
             price={900}
             range={"5/10/20/40"}
             damage={"4d10 + half suppresion"}
@@ -79,9 +83,10 @@ class DodanaArmsEmporium extends Component {
             description={"A semi automatic laser pistol that fires in three round bursts."}
             />
             <Item
+						{...this.props}
             itemCallback={this.addItem}
             name={"Deck Sweeper"}
-            type={"ranged"}
+            type={"Ranged"}
             price={3000}
             range={"5/10/20/40"}
             damage={"9/6/5/4d6 conical AOE, 7 squares wide at far range and 3 squares at short range"}
@@ -95,9 +100,10 @@ class DodanaArmsEmporium extends Component {
             description={"A wide range shotgun with a duck billed barrel."}
             />
             <Item
+						{...this.props}
             itemCallback={this.addItem}
             name={"Sparkler Pistol"}
-            type={"ranged"}
+            type={"Ranged"}
             price={500}
             range={"5/10/15/20"}
             damage={"6d4, short and medium range homing, full suppression"}
@@ -111,9 +117,10 @@ class DodanaArmsEmporium extends Component {
             description={"A sparkler rifle main chamber modified to fit a smaller frame."}
             />
             <Item
+						{...this.props}
             itemCallback={this.addItem}
             name={"Contiguous Beam Rifle"}
-            type={"ranged"}
+            type={"Ranged"}
             price={725}
             range={"5/10/20/40"}
             damage={"3d8+1d8 each round. Max=8d8"}
@@ -127,9 +134,10 @@ class DodanaArmsEmporium extends Component {
             description={"A weapon that fires an increasingly damaging beam the longer you hold the trigger."}
             />
             <Item
+						{...this.props}
             itemCallback={this.addItem}
             name={"Contiguous Cooling Rifle"}
-            type={"ranged"}
+            type={"Ranged"}
             price={800}
             range={"5/10/20/40"}
             damage={"3d8 damage +2d10 TH damage per round of fire. Max Th Damage 6d10. -1 to targets speed stat each round"}
@@ -143,9 +151,10 @@ class DodanaArmsEmporium extends Component {
             description={"A weapon that fires an increasingly damaging Icebeam the longer you hold the trigger."}
             />
             <Item
+						{...this.props}
             itemCallback={this.addItem}
             name={"Ionizer Rifle"}
-            type={"ranged"}
+            type={"Ranged"}
             price={600}
             range={"5/10/15/20"}
             damage={"8d4 with a range scaling DC to inflict Stun 75%/65%/55%/45%"}
@@ -159,9 +168,10 @@ class DodanaArmsEmporium extends Component {
             description={"A suped up Sparkler Rifle, that can compete in more conventional combat."}
             />
             <Item
+						{...this.props}
             itemCallback={this.addItem}
             name={"High Speed Projecter Cannon"}
-            type={"ranged"}
+            type={"Ranged"}
             price={1400}
             range={"20/40/60/80"}
             damage={"10/8/6/4d10"}
@@ -175,9 +185,10 @@ class DodanaArmsEmporium extends Component {
             description={"A heavy single burst Ray gun that is fired from the shoulder."}
             />
             <Item
+						{...this.props}
             itemCallback={this.addItem}
             name={"Chemical Thrower"}
-            type={"ranged"}
+            type={"Ranged"}
             price={1500}
             range={"5/10/20/30"}
             damage={"12d4 burn damage"}
@@ -191,9 +202,10 @@ class DodanaArmsEmporium extends Component {
             description={"A massive two handed weapon that douses anything and everything in toxic extremely flamable chemicals that combust after mere seconds of oxygen exposure."}
             />
             <Item
+						{...this.props}
             itemCallback={this.addItem}
             name={"Rivet Rocket"}
-            type={"ranged"}
+            type={"Ranged"}
             price={2000}
             range={"15/25/35/45"}
             damage={"5d8 damage and a +10 to mechanics checks"}
@@ -207,9 +219,10 @@ class DodanaArmsEmporium extends Component {
             description={"An external Hull welder that can launch the fusion forks with imence amounts of pnumatic force."}
             />
             <Item
+						{...this.props}
             itemCallback={this.addItem}
             name={"Razor Fang"}
-            type={"ranged"}
+            type={"Ranged"}
             price={2750}
             range={"10/25/40/70"}
             damage={"3d8 melee damage, 4d8 ranged. inflicts minor laceration."}
@@ -223,9 +236,10 @@ class DodanaArmsEmporium extends Component {
             description={"A seated foldable cross bow."}
             />
             <Item
+						{...this.props}
             itemCallback={this.addItem}
             name={"Hydro Cutter Rifle"}
-            type={"ranged"}
+            type={"Ranged"}
             price={1375}
             range={"0/5/10/15"}
             damage={"6d10 TH damage"}
@@ -239,9 +253,10 @@ class DodanaArmsEmporium extends Component {
             description={"A pressure hose that can shred through soft tissue easily."}
             />
             <Item
+						{...this.props}
             itemCallback={this.addItem}
             name={"Atom 9000"}
-            type={"ranged"}
+            type={"Ranged"}
             price={1750}
             range={"0/10/20/30"}
             damage={"6/5/4/4d8"}
@@ -254,11 +269,12 @@ class DodanaArmsEmporium extends Component {
             }}
             description={"Though orginally a copyright infringing mock up of an atom weapon, its proliferation and demand through out the galaxy warrents its offical placement in this catalouge."}
             />
-          <Text>Melee Weaponry</Text>
+          <Text style={styles.text}>Melee Weaponry</Text>
             <Item
+						{...this.props}
             itemCallback={this.addItem}
             name={"Wave Saber"}
-            type={"melee"}
+            type={"Melee"}
             price={750}
             range={"5"}
             damage={"5d6"}
@@ -272,9 +288,10 @@ class DodanaArmsEmporium extends Component {
             description={"A steel reinforced wave glass cutter that can be modified with elemental components to change its damage type."}
             />
             <Item
+						{...this.props}
             itemCallback={this.addItem}
             name={"Rattlesnake"}
-            type={"melee"}
+            type={"Melee"}
             price={1400}
             range={"5/15/25/35"}
             damage={"4d8, inflicts minor laceration on a hit and a major laceration on a crit"}
@@ -288,9 +305,10 @@ class DodanaArmsEmporium extends Component {
             description={"A mesh fiber whip with a metal snake tail at the end."}
             />
             <Item
+						{...this.props}
             itemCallback={this.addItem}
             name={"Thief's Tail"}
-            type={"melee"}
+            type={"Melee"}
             price={1450}
             range={"5/10/20/30"}
             damage={"4d8. a dice roll of 80 or higher allows you to roll contested strength against the target, to disarm them"}
@@ -304,9 +322,10 @@ class DodanaArmsEmporium extends Component {
             description={"A three tailed whip designed to disarm your opponents."}
             />
             <Item
+						{...this.props}
             itemCallback={this.addItem}
             name={"Compact Hammer"}
-            type={"melee"}
+            type={"Melee"}
             price={1450}
             range={"5"}
             damage={"6d8 bludgeoning damage. A dice roll of 80 or higher has 75% to stun."}
@@ -320,9 +339,10 @@ class DodanaArmsEmporium extends Component {
             description={"a foldable hammer with a head made of strong wood reinforced by a metal inline."}
             />
             <Item
+						{...this.props}
             itemCallback={this.addItem}
             name={"Ionizer Mace"}
-            type={"melee"}
+            type={"Melee"}
             price={650}
             range={"5"}
             damage={"4d8 electrical damage"}
@@ -335,10 +355,11 @@ class DodanaArmsEmporium extends Component {
             }}
             description={"A light weight electric mace. It deals electrical damage ontop of it's standard metal impact."}
             />
-          <Text>Armor and Wearables</Text>
+          <Text style={styles.text}>Armor and Wearables</Text>
             <Item
+						{...this.props}
               name={"Pnuematic Skates"}
-              type={"armor"}
+              type={"Armor"}
               itemCallback={this.addItem}
               price={600}
               description={"A pair of knee high roller blades with an air compressor built in."}
@@ -351,8 +372,9 @@ class DodanaArmsEmporium extends Component {
               }}
             />
             <Item
+						{...this.props}
               name={"Hearing Amp"}
-              type={"armor"}
+              type={"Armor"}
               itemCallback={this.addItem}
               price={600}
               description={"A set of ear bud like hearing aids that improve the range of frequencies one can hear."}
@@ -365,8 +387,9 @@ class DodanaArmsEmporium extends Component {
               }}
             />
             <Item
+						{...this.props}
               name={"Audio Regulator Muffs"}
-              type={"armor"}
+              type={"Armor"}
               itemCallback={this.addItem}
               price={1200}
               description={"A pair of large ear muffs that control and regulate audio information you recieve."}
@@ -379,8 +402,9 @@ class DodanaArmsEmporium extends Component {
               }}
             />
             <Item
+						{...this.props}
               name={"Targeting Lens"}
-              type={"armor"}
+              type={"Armor"}
               itemCallback={this.addItem}
               price={1200}
               description={"A single lense similar to an eye patch that syncs up with the electronic scope of the users weapon and allows them to aim around corners and over ledges."}
@@ -394,8 +418,9 @@ class DodanaArmsEmporium extends Component {
               }}
             />
             <Item
+						{...this.props}
               name={"Pneumatic Thruster Suit"}
-              type={"armor"}
+              type={"Armor"}
               itemCallback={this.addItem}
               price={2000}
               description={"This tempered fiberglass plat armor, is equipped with a series of air powered rear thrusters. To say the wind is at your back, would be an understatement."}
@@ -408,8 +433,9 @@ class DodanaArmsEmporium extends Component {
               }}
             />
             <Item
+						{...this.props}
               name={"Light Weight Thruster Suit"}
-              type={"armor"}
+              type={"Armor"}
               itemCallback={this.addItem}
               price={4000}
               description={"A modified Pneumatic Thruster Suit that minimizes its armor to prioritize handling and speed, at double the cost."}
@@ -422,8 +448,9 @@ class DodanaArmsEmporium extends Component {
               }}
             />
             <Item
+						{...this.props}
               name={"RayTracer Visual Suite"}
-              type={"armor"}
+              type={"Armor"}
               itemCallback={this.addItem}
               price={1900}
               description={"A high spec intel suite, that fits into a fashionable helmet."}
@@ -436,8 +463,9 @@ class DodanaArmsEmporium extends Component {
               }}
             />
             <Item
+						{...this.props}
               name={"RayTracer Lens"}
-              type={"gear"}
+              type={"Gear"}
               itemCallback={this.addItem}
               price={1300}
               description={"All the intel and data of the Visual Suite processing without the armored helmet."}
@@ -451,8 +479,9 @@ class DodanaArmsEmporium extends Component {
             />
           {/*TODO: Maybe add a special case for the kevlar, since it's supposed to drop armor score by its size score...*/}
             <Item
+						{...this.props}
               name={"Compact Kevlar"}
-              type={"armor"}
+              type={"Armor"}
               itemCallback={this.addItem}
               price={3000}
               description={"A thin jumpsuit, often worn underneath other types of armor. It adds a layer of highly kinetic resistant fabric to fill the gaps in better gear."}
@@ -466,8 +495,9 @@ class DodanaArmsEmporium extends Component {
               }}
             />
             <Item
+						{...this.props}
               name={"High Density Vac Suit"}
-              type={"armor"}
+              type={"Armor"}
               itemCallback={this.addItem}
               price={1900}
               description={"A thick jumpsuit with a gel layer that meshes into the interior of other gear. This midigates chafing, plate displacement, and impact drift for the outer armor. It also expands to fill gaps, without costing a manueverability."}
@@ -483,8 +513,9 @@ class DodanaArmsEmporium extends Component {
             />
           {/*TODO: Special case that adds a die to base melee*/}
             <Item
+						{...this.props}
               name={"Manta-Blades"}
-              type={"armor"}
+              type={"Armor"}
               itemCallback={this.addItem}
               price={2000}
               description={"A pair of concealable gauntlets that pop large serated blades out of the end."}
@@ -498,8 +529,9 @@ class DodanaArmsEmporium extends Component {
               }}
             />
             <Item
+						{...this.props}
               name={"Concussion Suit"}
-              type={"armor"}
+              type={"Armor"}
               itemCallback={this.addItem}
               price={1600}
               description={"A medium grade armor with blast repulsors in the plating. Reacts to high speed and concusion with an exchange of force."}
@@ -513,8 +545,9 @@ class DodanaArmsEmporium extends Component {
               }}
             />
             <Item
+						{...this.props}
               name={"Razor Back"}
-              type={"armor"}
+              type={"Armor"}
               itemCallback={this.addItem}
               price={2300}
               description={"A slim curiass that pops large serated blades out of the back, like wings."}
@@ -528,8 +561,9 @@ class DodanaArmsEmporium extends Component {
               }}
             />
             <Item
+						{...this.props}
               name={"Concussion Bracers"}
-              type={"armor"}
+              type={"Armor"}
               itemCallback={this.addItem}
               price={1200}
               description={"A vanbrace with blast repulsors that reacts to high speed and concussion with equal force."}
@@ -542,11 +576,12 @@ class DodanaArmsEmporium extends Component {
                 awareness: 0
               }}
             />
-          <Text>Equipment</Text>
+          <Text style={styles.text}>Equipment</Text>
             <Item
+						{...this.props}
               itemCallback={this.addItem}
               name={"Blinding Grips"}
-              type={"gear"}
+              type={"Gear"}
               price={200}
               range={"40"}
               misc={"60% chance to inflict stun."}
@@ -560,9 +595,10 @@ class DodanaArmsEmporium extends Component {
               description={"A pair of gloves that emits an extremly bright light in a rapid strobe. Often used by law enforcement."}
             />
             <Item
+						{...this.props}
               itemCallback={this.addItem}
               name={"Ingnition Cable"}
-              type={"gear"}
+              type={"Gear"}
               price={1000}
               range={"40"}
               misc={"2d8 AOE to objects near explosion. Environmental objects connected to the cable take 1d10 capital damage."}
@@ -576,9 +612,10 @@ class DodanaArmsEmporium extends Component {
               description={"A highly flamable grapple cable that can be ignighted via a spark pluck in the launcher. Like a fuze it burns away from the handle and into the hook, which detonates on contact. Good for breaches."}
             />
             <Item
+						{...this.props}
               itemCallback={this.addItem}
               name={"Wocket Camera"}
-              type={"gear"}
+              type={"Gear"}
               price={3000}
               range={"1000"}
               misc={"Roll stealth +30 to sneak it around. you can count all targets it sees as \"within line of sight\"."}
@@ -592,9 +629,10 @@ class DodanaArmsEmporium extends Component {
               description={"Small portable camera the size of a centipede, that crawls around via a remote app, installable on any PDA."}
             />
             <Item
+						{...this.props}
               itemCallback={this.addItem}
               name={"Detector Ray"}
-              type={"gear"}
+              type={"Gear"}
               price={2300}
               range={"50"}
               misc={"Roll Stealth +20 to hide it. Produces light, sound or vibration to notify you that something has passed by the sensor."}
@@ -608,9 +646,10 @@ class DodanaArmsEmporium extends Component {
               description={"Two laser sensors and an accompaning pocket alarm that can be set for Siren, light, or vibration."}
             />
             <Item
+						{...this.props}
               itemCallback={this.addItem}
               name={"Proximity Sensor"}
-              type={"gear"}
+              type={"Gear"}
               price={2000}
               range={"Diameter: 25"}
               misc={"Roll Stealth +15 to hide it."}
@@ -624,9 +663,10 @@ class DodanaArmsEmporium extends Component {
               description={"Small ball shaped sensor that sticks magnetically, or using velcro. Sends a signal to the user regarding the proximity of any creatures."}
             />
             <Item
+						{...this.props}
               itemCallback={this.addItem}
               name={"Net Cable"}
-              type={"gear"}
+              type={"Gear"}
               price={800}
               durability={20}
               stats={{
@@ -638,9 +678,10 @@ class DodanaArmsEmporium extends Component {
               description={"Amunition for a Net Gun"}
             />
             <Item
+						{...this.props}
               itemCallback={this.addItem}
               name={"Net Gun"}
-              type={"gear"}
+              type={"Gear"}
               range={"20/40/80/160"}
               price={800}
               durability={90}
@@ -664,8 +705,12 @@ export default DodanaArmsEmporium;
 
 const styles = StyleSheet.create({
    container: {
-     paddingHorizontal: 10,
-     paddingVertical: 20
+     paddingVertical: 20,
+     backgroundColor: "black",
+   },
+   text: {
+     color: "white",
+     fontSize: 20,
    },
    scrollView: {
      marginHorizontal: 5
