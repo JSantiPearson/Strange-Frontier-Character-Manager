@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { View, Button, Text, Picker, TouchableOpacity, TextInput, StyleSheet, SafeAreaView, ScrollView } from 'react-native'
@@ -12,7 +12,7 @@ import CombatScreen from './Screens/combatScreen';
 import MoveScreen from './Screens/moveScreenSwipes';
 import NoteScreen from './Screens/noteScreen';
 
-const Tab = createMaterialTopTabNavigator();
+const Tab = createBottomTabNavigator();
 
 class Create extends Component {
   state = {
@@ -91,8 +91,10 @@ class Create extends Component {
              tabBarOptions={{
                showIcon: true,
                showLabel: false,
-               activeTintColor: 'black',
-               inactiveTintColor: 'gray',
+               activeBackgroundColor: 'black',
+               inactiveBackgroundColor: 'black',
+               activeTintColor: 'rgb(250, 0, 115)',
+               inactiveTintColor: 'rgba(250, 0, 115, 0.65)',
              }}
           >
           <Tab.Screen name="Profile">
