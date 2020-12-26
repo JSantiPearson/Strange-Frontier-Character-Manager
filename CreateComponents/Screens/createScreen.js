@@ -4,28 +4,16 @@ import { Colors } from 'react-native/Libraries/NewAppScreen';
 import Create from '../create';
 
 class CreateScreen extends Component {
-  sendAttributes = (attr) => {
-    this.props.attributeCallback(attr);
+
+  componentDidMount(){
+    
   }
-  sendSpecies = (species) => {
-    this.props.speciesCallback(species);
-  }
-  sendStats = (stats) => {
-    console.log("stats made it to CreateScreen");
-    this.props.statsCallback(stats);
-  }
-  sendSaves = (saves) => {
-    this.props.savesCallback(saves);
-  }
+
   render() {
-    console.log("Route exists?: " + this.props.route.params);
      return (
        <Create
          navigation={this.props.navigation}
-         attributeCallback={this.sendAttributes}
-         speciesCallback={this.sendSpecies}
-         statsCallback={this.sendStats}
-         savesCallback={this.sendSaves}
+         attributes={this.props.route.params.attributes}
        />
      )
    }

@@ -119,6 +119,28 @@ class Builder extends Component {
 
   componentDidMount() {
     this.handleAvailability();
+    this.props.navigation.setOptions({
+      headerTitle: "",
+      headerLeft: props => (
+        <TouchableOpacity
+          title="Cancel"
+          color='rgb(250, 0, 115)'
+          onPress={() => this.props.navigation.goBack(null)}
+        >
+          <Text style={styles.headerButton}>Cancel</Text>
+        </TouchableOpacity>
+      ),
+      headerRight: () => (
+        <TouchableOpacity
+          onPress={() => this.props.navigation.navigate('Create', { navigation: this.props.navigation, attributes: this.props.route.params.attributes })}
+          title="Skip"
+          color='rgb(250, 0, 115)'
+        >
+          <Text style={styles.headerButton}>Skip</Text>
+        </TouchableOpacity>
+      ),
+      headerStyle: {backgroundColor: 'rgb(250, 0, 115)'},
+    })
   }
 
   componentDidUpdate(prevProps){
@@ -160,5 +182,10 @@ const styles = StyleSheet.create({
    optionText: {
      fontSize: 16,
      color: "white",
-   }
+   },
+   headerButton: {
+     fontSize: 15,
+     paddingHorizontal: 20,
+     color: "white",
+   },
 })

@@ -22,6 +22,7 @@ class ProfileScreen extends Component {
   render() {
      return (
        <ProfileInputs
+         {...this.props}
          speciesCallback={this.setSpecies}
          attributeCallback={this.setAttributes}
          saveCallback={this.setSaves}

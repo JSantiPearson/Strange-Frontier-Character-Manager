@@ -101,7 +101,7 @@ class BuilderSkills extends Component { //TODO: Introduce a way to tell the play
    this.props.navigation.setOptions({
       headerRight: props => (
         <TouchableOpacity
-          onPress={() => this.props.navigation.navigate('Character Builder', {
+          onPress={() => this.props.navigation.navigate('Build', {
             navigation: this.props.navigation,
             featsAvail: true,
             skills: this.state,
@@ -120,7 +120,7 @@ class BuilderSkills extends Component { //TODO: Introduce a way to tell the play
     this.props.navigation.setOptions({
       headerRight: props => (
         <TouchableOpacity
-          onPress={() => this.props.navigation.navigate('Character Builder', {
+          onPress={() => this.props.navigation.navigate('Build', {
             navigation: this.props.navigation,
             featsAvail: true,
             skills: this.state,

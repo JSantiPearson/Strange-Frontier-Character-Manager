@@ -47,22 +47,15 @@ class Create extends Component {
       intelligence: attr.intelligence,
       influence: attr.influence
     };
-    this.props.attributeCallback(attributes);
     this.setState({ attributes });
   }
   setSpecies = (speciesValue) => {
-    this.props.speciesCallback(speciesValue);
     this.setState({ species: speciesValue });
-  }
-  sendStats = (stats) => {
-    console.log("stats going up from create component.");
-    this.props.statsCallback(stats);
   }
   setEquipmentStats = (equipmentStats) => {
     this.setState({ equipmentStats: equipmentStats });
   }
   setSaves = (saves) => {
-    this.props.savesCallback(saves);
     this.setState({ saves });
   }
   render() {
@@ -105,9 +98,6 @@ class Create extends Component {
           <Tab.Screen name="Profile">
              {props => <ProfileScreen
                  {...props}
-                 attributeCallback={this.setAttributes}
-                 speciesCallback={this.setSpecies}
-                 saveCallback={this.setSaves}
               />}
          </Tab.Screen>
          <Tab.Screen name="Moves">
@@ -122,14 +112,12 @@ class Create extends Component {
                species={this.state.species}
                equipmentStats={this.state.equipmentStats}
                saves={this.state.saves}
-               statsCallback={this.sendStats}
             />}
        </Tab.Screen>
        <Tab.Screen name="Equipment">
           {props => <Equipment
               {...props}
               attributes={this.state.attributes}
-              statsCallback={this.setEquipmentStats}
            />}
       </Tab.Screen>
       <Tab.Screen name="Notes">

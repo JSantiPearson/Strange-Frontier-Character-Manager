@@ -3,7 +3,6 @@ import 'react-native-gesture-handler';
 import React from 'react';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { useRoute } from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import ProfileInputs from './CreateComponents/input.js';
@@ -87,114 +86,6 @@ function CatalogueScreen({ navigation, route }) {
   )
 }
 
-const BuilderStack = createStackNavigator();
-
-function BuildScreen({ navigation, route }) {
-  return(
-    <BuilderStack.Navigator>
-      <Stack.Screen
-        name="Character Builder"
-        component={Builder}
-        initialParams={{species: '', attributes: null, skills: null, skillsAvail: false, featsAvail: false, equipmentAvail: false }}
-        options={{
-          headerTitle: "",
-          headerLeft: props => (
-            <TouchableOpacity
-              title="Cancel"
-              color='rgb(250, 0, 115)'
-              onPress={() => navigation.goBack(null)}
-            >
-              <Text style={styles.headerButton}>Cancel</Text>
-            </TouchableOpacity>
-          ),
-          headerRight: () => (
-            <TouchableOpacity
-              onPress={() => navigation.navigate('Create', { navigation, attributes: route.params.attributes })}
-              title="Skip"
-              color='rgb(250, 0, 115)'
-            >
-              <Text style={styles.headerButton}>Skip</Text>
-            </TouchableOpacity>
-          ),
-          headerStyle: {backgroundColor: 'rgb(250, 0, 115)'},
-        }}
-      />
-
-      <Stack.Screen
-        name="Attributes"
-        component={BuilderAttributes}
-        options={{
-          headerTitle: "",
-          headerLeft: props => (
-            <Icon {...props} name={"chevron-left"}  size={40} color="white" />
-          ),
-          headerStyle: {backgroundColor: 'rgb(250, 0, 115)'},
-        }}
-      />
-
-      <Stack.Screen
-        name="Skills"
-        component={BuilderSkills}
-        options={{
-          headerTitle: "",
-          headerLeft: props => (
-            <Icon {...props} name={"chevron-left"}  size={40} color="white" />
-          ),
-          headerStyle: {backgroundColor: 'rgb(250, 0, 115)'},
-        }}
-      />
-
-      <Stack.Screen
-        name="Species"
-        component={Species}
-        options={{
-          headerTitle: "",
-          headerLeft: props => (
-            <Icon {...props} name={"chevron-left"}  size={40} color="white" />
-          ),
-          headerStyle: {backgroundColor: 'rgb(250, 0, 115)'},
-        }}
-      />
-
-      <Stack.Screen
-        name="Feats"
-        component={Feats}
-        options={{
-          headerTitle: "",
-          headerLeft: props => (
-            <Icon {...props} name={"chevron-left"}  size={40} color="white" />
-          ),
-          headerStyle: {backgroundColor: 'rgb(250, 0, 115)'},
-        }}
-      />
-
-      <Stack.Screen
-        name="Equipment"
-        component={Equipment}
-        options={{
-          headerTitle: "",
-          headerLeft: props => (
-            <Icon {...props} name={"chevron-left"}  size={40} color="white" />
-          ),
-          headerStyle: {backgroundColor: 'rgb(250, 0, 115)'},
-        }}
-      />
-
-      <Stack.Screen
-        name="Species Choice"
-        component={SpeciesChoice}
-        options={{
-          headerTitle: "",
-          headerLeft: props => (
-            <Icon {...props} name={"chevron-left"}  size={40} color="white" />
-          ),
-          headerStyle: {backgroundColor: 'rgb(250, 0, 115)'},
-        }}
-      />
-    </BuilderStack.Navigator>
-  )
-}
-
 const Stack = createStackNavigator();
 
 class App extends React.Component {
@@ -220,7 +111,6 @@ class App extends React.Component {
        willpower: 0
      }
   }
-
   setAttributes = (attributes) => {
     console.log("Current strength: " + attributes.strength);
     this.setState({ attributes });
@@ -249,17 +139,10 @@ class App extends React.Component {
                 headerShown: false
               }}
             />
-            <Stack.Screen name="Create">
-              {props => <CreateScreen
-                {...props}
-                attributeCallback={this.setAttributes}
-                speciesCallback={this.setSpecies}
-                statsCallback={this.setStats}
-                savesCallback={this.setSaves}
-              />}
-            </Stack.Screen>
-            <Stack.Screen name="Build" component={BuildScreen} options={{ headerShown: false }} />
-
+            <Stack.Screen
+              name="Create"
+              component={CreateScreen}
+            />
             <Stack.Screen
               name="Catalogues"
               component={CatalogueScreen}
@@ -320,7 +203,83 @@ class App extends React.Component {
                 headerTitleStyle: {color: "white"},
               }}
             />
+            <Stack.Screen
+              name="Build"
+              component={Builder}
+              initialParams={{species: '', skills: null, skillsAvail: false, featsAvail: false, equipmentAvail: false }}
+            />
 
+            <Stack.Screen
+              name="Attributes"
+              component={BuilderAttributes}
+              options={{
+                headerTitle: "",
+                headerLeft: props => (
+                  <Icon {...props} name={"chevron-left"}  size={40} color="white" />
+                ),
+                headerStyle: {backgroundColor: 'rgb(250, 0, 115)'},
+              }}
+            />
+
+            <Stack.Screen
+              name="Skills"
+              component={BuilderSkills}
+              options={{
+                headerTitle: "",
+                headerLeft: props => (
+                  <Icon {...props} name={"chevron-left"}  size={40} color="white" />
+                ),
+                headerStyle: {backgroundColor: 'rgb(250, 0, 115)'},
+              }}
+            />
+
+            <Stack.Screen
+              name="Species"
+              component={Species}
+              options={{
+                headerTitle: "",
+                headerLeft: props => (
+                  <Icon {...props} name={"chevron-left"}  size={40} color="white" />
+                ),
+                headerStyle: {backgroundColor: 'rgb(250, 0, 115)'},
+              }}
+            />
+
+            <Stack.Screen
+              name="Feats"
+              component={Feats}
+              options={{
+                headerTitle: "",
+                headerLeft: props => (
+                  <Icon {...props} name={"chevron-left"}  size={40} color="white" />
+                ),
+                headerStyle: {backgroundColor: 'rgb(250, 0, 115)'},
+              }}
+            />
+
+            <Stack.Screen
+              name="Equipment"
+              component={Equipment}
+              options={{
+                headerTitle: "",
+                headerLeft: props => (
+                  <Icon {...props} name={"chevron-left"}  size={40} color="white" />
+                ),
+                headerStyle: {backgroundColor: 'rgb(250, 0, 115)'},
+              }}
+            />
+
+            <Stack.Screen
+              name="Species Choice"
+              component={SpeciesChoice}
+              options={{
+                headerTitle: "",
+                headerLeft: props => (
+                  <Icon {...props} name={"chevron-left"}  size={40} color="white" />
+                ),
+                headerStyle: {backgroundColor: 'rgb(250, 0, 115)'},
+              }}
+            />
             <Stack.Screen name="Create Move" component={CreateMove} />
           </Stack.Navigator>
         </NavigationContainer>

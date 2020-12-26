@@ -46,7 +46,7 @@ class ProfileInputs extends Component {
    }
 
    componentDidMount() {
-     this.props.speciesCallback(this.state.species);
+
    }
 
    /* Takes the bonuses of the two relevant attributes and averages them, returning the save value */
@@ -78,7 +78,6 @@ class ProfileInputs extends Component {
    }
    handleSpecies = (speciesValue) => {
     this.setState({ species: speciesValue });
-    this.props.speciesCallback(speciesValue);
    }
    setAttributes = (attr) => {
      let attributes = {
@@ -91,7 +90,6 @@ class ProfileInputs extends Component {
      }
      this.handleSavingThrows(attributes);
      this.setState({ attributes });
-     this.props.attributeCallback(attributes);
    }
    handleSkills = (skillsList) => {
      this.setState({ skills: skillsList})
@@ -104,58 +102,29 @@ class ProfileInputs extends Component {
         <>
           <SafeAreaView style={styles.container}>
             <ScrollView style={styles.scrollView}>
-              <View>
-                  <TextInput style = {styles.input}
-                     underlineColorAndroid = "transparent"
-                     placeholder = "Name"
-                     placeholderTextColor = "#9a73ef"
-                     autoCapitalize = "none"
-                     onChangeText = {this.handleName}/>
-                   <View style={styles.container}>
-                    <Picker
-                      selectedValue={this.state.species}
-                      style={{ backgroundColor: 'white', height: 50, width: 300 }}
-                      onValueChange={this.handleSpecies}
+              <View style={styles.container}>
+                <Text style={styles.title}>Profile</Text>
+                  <View style={styles.section}>
+                    <Text style={styles.text}>Name</Text>
+                    <TextInput style = {styles.input}
+                       underlineColorAndroid = "transparent"
+                       autoCapitalize = "none"
+                       onChangeText = {this.handleName}
+                    />
+                  </View>
+                  <Text style={styles.title}>Species</Text>
+                  <View style={styles.section}>
+                    <TouchableOpacity
+                      title="Species"
+                      onPress={() => this.props.navigation.navigate("Species")}
                     >
-                      <Picker.Item label="Human" value="human" />
-                      <Picker.Item label="Grub Tub" value="grubtub" />
-                      <Picker.Item label="Giant" value="giant" />
-                      <Picker.Item label="Vermile" value="vermile" />
-                      <Picker.Item label="Capra" value="capra" />
-                      <Picker.Item label="Ogoloid" value="ogoloid" />
-                      <Picker.Item label="Arachnet" value="arachnet" />
-                      <Picker.Item label="Wheepe" value="wheepe" />
-                      <Picker.Item label="Construct" value="construct" />
-                      <Picker.Item label="Mod-Human" value="modhuman" />
-                      <Picker.Item label="Energy Being" value="energybeing" />
-                      <Picker.Item label="Simian" value="simian" />
-                      <Picker.Item label="Orbiden" value="orbiden" />
-                      <Picker.Item label="Custom" value="custom" />
-                    </Picker>
+                      <Text style={styles.text}>Choose a Species</Text>
+                    </TouchableOpacity>
                   </View>
-
-                  <LifePoints />
-
-                  <DetermineAttributes
-                    attributeCallback={this.setAttributes}
-                    attributes={this.state.attributes}
-                  />
-
-                  <SavingThrows
-                    saves={this.state.saves}
-                  />
-
-                   <TextInput style = {styles.input}
-                     underlineColorAndroid = "transparent"
-                     placeholder = "Feats"
-                     placeholderTextColor = "#9a73ef"
-                     autoCapitalize = "none"
-                     onChangeText = {this.handleFeats}
-                   />
-                  </View>
-                </ScrollView>
-              </SafeAreaView>
-            </>
+                </View>
+              </ScrollView>
+            </SafeAreaView>
+          </>
        );
     }
  }
@@ -163,23 +132,38 @@ class ProfileInputs extends Component {
 export default ProfileInputs;
 
 const styles = StyleSheet.create({
-   container: {
-     paddingHorizontal: 5
-   },
-   input: {
-      margin: 15,
-      height: 40,
-      backgroundColor: 'white',
-      borderColor: '#7a42f4',
-      borderWidth: 1
-   },
-   submitButton: {
-      backgroundColor: '#7a42f4',
-      padding: 10,
-      margin: 15,
-      height: 40,
-   },
-   submitButtonText:{
-      color: 'white'
-   }
+  container: {
+    flex: 1,
+    paddingHorizontal: 5,
+    paddingTop: 10,
+    backgroundColor: "black",
+  },
+ input: {
+    margin: 15,
+    height: 40,
+    backgroundColor: 'white',
+    borderColor: '#7a42f4',
+    borderWidth: 1
+ },
+ section: {
+   backgroundColor: 'rgb(66, 66, 66)',
+   borderColor: 'rgb(165, 165, 165)',
+   borderWidth: 1,
+ },
+ title: {
+   fontSize: 16,
+   color: "white",
+ },
+ text: {
+   color: "white"
+ },
+ submitButton: {
+    backgroundColor: '#7a42f4',
+    padding: 10,
+    margin: 15,
+    height: 40,
+ },
+ submitButtonText:{
+    color: 'white'
+ }
 })

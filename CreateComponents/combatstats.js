@@ -37,7 +37,6 @@ class CombatStats extends Component {
 
   sendStats = (stats) => {
     console.log("Sending stats!");
-    this.props.statsCallback(stats);
   }
 
   /* calculates the bonus from a attribute score */

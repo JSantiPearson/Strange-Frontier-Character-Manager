@@ -38,7 +38,7 @@ class BuilderAttributes extends Component {
     this.props.navigation.setOptions({
       headerRight: props => (
         <TouchableOpacity
-          onPress={() => this.props.navigation.navigate('Character Builder', {
+          onPress={() => this.props.navigation.navigate('Build', {
             navigation: this.props.navigation,
             skillsAvail: true,
             attributes: this.state.attributes,
@@ -57,7 +57,7 @@ class BuilderAttributes extends Component {
       this.props.navigation.setOptions({
         headerRight: props => (
           <TouchableOpacity
-            onPress={() => this.props.navigation.navigate('Character Builder', {
+            onPress={() => this.props.navigation.navigate('Build', {
               navigation: this.props.navigation,
               skillsAvail: true,
               attributes: this.state.attributes,

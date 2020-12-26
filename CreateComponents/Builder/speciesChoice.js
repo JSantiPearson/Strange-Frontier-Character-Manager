@@ -21,7 +21,7 @@ class SpeciesChoice extends Component {
     this.props.navigation.setOptions({
       headerRight: props => (
         <TouchableOpacity
-          onPress={() => this.props.navigation.navigate('Character Builder', {
+          onPress={() => this.props.navigation.navigate('Build', {
             navigation: this.props.navigation,
             attributesAvail: true,
             species: this.props.route.params.species,
