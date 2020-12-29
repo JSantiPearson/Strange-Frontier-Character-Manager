@@ -89,44 +89,6 @@ function CatalogueScreen({ navigation, route }) {
 const Stack = createStackNavigator();
 
 class App extends React.Component {
-  state = {
-    attributes: {
-       strength: 10,
-       dexterity: 10,
-       constitution: 10,
-       wisdom: 10,
-       intelligence: 10,
-       influence: 10
-     },
-     species: '',
-     stats: {
-       armor: 0,
-       resilience: 0,
-       speed: 0,
-       awareness: 0
-     },
-     saves: {
-       fortitude: 0,
-       reflex: 0,
-       willpower: 0
-     }
-  }
-  setAttributes = (attributes) => {
-    console.log("Current strength: " + attributes.strength);
-    this.setState({ attributes });
-  }
-  setSpecies = (species) => {
-    console.log("Current species: " + species);
-    this.setState({ species });
-  }
-  setStats = (stats) => {
-    console.log("Current armor in App.js: " + stats.armor);
-    this.setState({ stats });
-  }
-  setSaves = (saves) => {
-    console.log("Current fortitude: " + saves.fortitude);
-    this.setState({ saves });
-  }
   render() {
     return(
       <>

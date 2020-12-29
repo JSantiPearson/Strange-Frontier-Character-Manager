@@ -47,16 +47,22 @@ class Create extends Component {
       intelligence: attr.intelligence,
       influence: attr.influence
     };
+    this.props.attributeCallback(attributes);
     this.setState({ attributes });
   }
   setSpecies = (speciesValue) => {
+    this.props.navigation.setParams({ species: speciesValue });
     this.setState({ species: speciesValue });
+  }
+  sendStats = (stats) => {
+    //this.props.navigation.setParams({ stats }); TODO: Not sure if this is necessary or not.
   }
   setEquipmentStats = (equipmentStats) => {
     this.setState({ equipmentStats: equipmentStats });
   }
   setSaves = (saves) => {
     this.setState({ saves });
+    this.props.navigation.setParams({ saves });
   }
   render() {
      return (

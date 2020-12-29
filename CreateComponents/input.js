@@ -46,7 +46,7 @@ class ProfileInputs extends Component {
    }
 
    componentDidMount() {
-
+     console.log(this.props.route.params.route.params.attributes.strength.score);
    }
 
    /* Takes the bonuses of the two relevant attributes and averages them, returning the save value */

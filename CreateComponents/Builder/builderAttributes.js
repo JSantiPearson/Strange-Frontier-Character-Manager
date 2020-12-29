@@ -35,13 +35,14 @@ class BuilderAttributes extends Component {
   }
 
   componentDidMount(){
+    let strengthScore = 10;
     this.props.navigation.setOptions({
       headerRight: props => (
         <TouchableOpacity
           onPress={() => this.props.navigation.navigate('Build', {
             navigation: this.props.navigation,
             skillsAvail: true,
-            attributes: this.state.attributes,
+            strength: strengthScore
           })}
           title="Accept"
           color='rgb(250, 0, 115)'
@@ -54,11 +55,11 @@ class BuilderAttributes extends Component {
 
   componentDidUpdate(prevState){
     if (prevState != this.state){
+      let navigation = this.props.route.params.navigation;
       this.props.navigation.setOptions({
         headerRight: props => (
           <TouchableOpacity
-            onPress={() => this.props.navigation.navigate('Build', {
-              navigation: this.props.navigation,
+            onPress={() => navigation.navigate('Build', {
               skillsAvail: true,
               attributes: this.state.attributes,
             })}

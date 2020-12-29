@@ -36,7 +36,8 @@ function navigateDebug(props){
   props.navigation.navigate(props.id, {
     attributes: props.route.params.attributes,
     feats: props.route.params.feats,
-    navigation: props.navigation
+    navigation: props.navigation,
+    route: props.route
   });
 }
 

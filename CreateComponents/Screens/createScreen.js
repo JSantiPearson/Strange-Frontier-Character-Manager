@@ -7,6 +7,7 @@ import Create from '../create';
 class CreateScreen extends Component {
 
   componentDidMount(){
+    console.log("Create Screen attributes: " + this.props.route.params.attributes);
     this.props.navigation.setOptions({
       headerTitle: "New Character",
       headerLeft: props => (
@@ -21,8 +22,8 @@ class CreateScreen extends Component {
   render() {
      return (
        <Create
-         navigation={this.props.navigation}
-         attributes={this.props.route.params.attributes}
+         {...this.props}
+         attributes={this.props.route.params.attributes.strength.score}
        />
      )
    }

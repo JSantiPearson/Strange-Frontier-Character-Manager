@@ -32,11 +32,9 @@ class CombatStats extends Component {
     if(prevProps.attributes !== this.props.attributes || prevProps.equipmentStats !== this.props.equipmentStats || prevProps.saves !== this.props.saves) //TODO: Seems like a gross solution to the infinite loop solution with statsCallback. Think about simplifying this.
     {
       this.handleStats();
+      var equipmentStats = this.state.equipmentStats;
+      this.props.navigation.setParams({ equipmentStats });
     }
-  }
-
-  sendStats = (stats) => {
-    console.log("Sending stats!");
   }
 
   /* calculates the bonus from a attribute score */
