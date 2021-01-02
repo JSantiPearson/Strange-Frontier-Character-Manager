@@ -40,9 +40,8 @@ class BuilderAttributes extends Component {
       headerRight: props => (
         <TouchableOpacity
           onPress={() => this.props.navigation.navigate('Build', {
-            navigation: this.props.navigation,
             skillsAvail: true,
-            strength: strengthScore
+            attributes: this.state.attributes
           })}
           title="Accept"
           color='rgb(250, 0, 115)'

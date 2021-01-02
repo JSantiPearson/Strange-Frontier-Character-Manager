@@ -16,13 +16,31 @@ const Tab = createBottomTabNavigator();
 
 class Create extends Component {
   state = {
-    attributes: {
-       strength: 10,
-       dexterity: 10,
-       constitution: 10,
-       wisdom: 10,
-       intelligence: 10,
-       influence: 10
+     attributes: {
+        strength: {
+          score: 10,
+          mod: 0
+        },
+        dexterity: {
+          score: 10,
+          mod: 0
+        },
+        constitution: {
+          score: 10,
+          mod: 0
+        },
+        wisdom: {
+          score: 10,
+          mod: 0
+        },
+        intelligence: {
+          score: 10,
+          mod: 0
+        },
+        influence: {
+          score: 10,
+          mod: 0
+        }
      },
      saves: {
        fortitude: 0,
@@ -38,6 +56,13 @@ class Create extends Component {
        special: [],
      }
   }
+  componentDidMount(){
+    if (this.props.attributes !== undefined){
+      let attributes = this.props.attributes;
+      this.setState({ attributes });
+    }
+  }
+
   setAttributes = (attr) => {
     let attributes = {
       strength: attr.strength,
@@ -47,7 +72,6 @@ class Create extends Component {
       intelligence: attr.intelligence,
       influence: attr.influence
     };
-    this.props.attributeCallback(attributes);
     this.setState({ attributes });
   }
   setSpecies = (speciesValue) => {
@@ -61,6 +85,7 @@ class Create extends Component {
     this.setState({ equipmentStats: equipmentStats });
   }
   setSaves = (saves) => {
+    console.log("Is this setSaves function being called for some reason?");
     this.setState({ saves });
     this.props.navigation.setParams({ saves });
   }
@@ -105,27 +130,29 @@ class Create extends Component {
           >
           <Tab.Screen name="Profile">
              {props => <ProfileScreen
-                 {...props}
+                 species={this.props.species}
+                 attributes={this.props.attributes}
+                 saves={this.props.saves}
               />}
          </Tab.Screen>
          <Tab.Screen name="Moves">
             {props => <MoveScreen
                 {...props}
-                attributes={this.state.attributes}
+                attributes={this.props.attributes}
              />}
         </Tab.Screen>
         <Tab.Screen name="Combat & Skills">
            {props => <CombatScreen
-               attributes={this.state.attributes}
-               species={this.state.species}
-               equipmentStats={this.state.equipmentStats}
-               saves={this.state.saves}
+               {...props}
+               attributes={this.props.attributes}
+               species={this.props.species}
+               saves={this.props.saves}
             />}
        </Tab.Screen>
        <Tab.Screen name="Equipment">
           {props => <Equipment
               {...props}
-              attributes={this.state.attributes}
+              attributes={this.props.attributes}
            />}
       </Tab.Screen>
       <Tab.Screen name="Notes">

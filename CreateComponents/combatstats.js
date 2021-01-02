@@ -3,6 +3,7 @@ import { View, Button, Text, Picker, TouchableOpacity, TextInput, StyleSheet, Sa
 
 class CombatStats extends Component {
   state = {
+    species: "human",
     baseAttack: 0,
     melee: 0,
     ranged: 0,
@@ -25,6 +26,10 @@ class CombatStats extends Component {
   }
 
   componentDidMount() {
+    if (this.props.species !== undefined){
+      let species = this.props.species;
+      this.setState({ species });
+    }
     this.handleStats();
   }
   //if props change, update corresponding stats.
@@ -43,8 +48,15 @@ class CombatStats extends Component {
     return bonus;
   }
 
+  handleEquipmentStats = () => {
+    let equipmentStats = this.props.equipmentStats;
+    console.log("handleEquipmentStats armor value: " + equipmentStats.armor);
+    this.setState({ equipmentStats })
+    return equipmentStats;
+  }
+
   handleStats = () => {
-    let stats = this.handleEquipmentStats();
+    let stats = this.state.equipmentStats;
     var armor = stats.armor;
     var resilience = this.handleResilience() + stats.resilience;
     var speed = this.handleSpeed() + stats.speed;
@@ -56,8 +68,6 @@ class CombatStats extends Component {
     resilience = stats.resilience;
     speed = stats.speed;
     awareness = stats.awareness;
-
-    this.sendStats(stats);
 
     this.handleAttack(speed, awareness); //attack state set with handleAttack
     this.handleDefense(armor, resilience); //defense state set with handleDefense
@@ -78,7 +88,7 @@ class CombatStats extends Component {
           speed = Math.floor(speed);
           break;
         case "pine goggles":
-          if (this.props.species == "modhuman"){
+          if (this.state.species == "modhuman"){
             awareness += 4;
           }
           break;
@@ -101,16 +111,10 @@ class CombatStats extends Component {
     return stats;
   }
 
-  handleEquipmentStats = () => {
-    let equipmentStats = this.props.equipmentStats;
-    this.setState({ equipmentStats })
-    return equipmentStats;
-  }
-
   /* Takes species, equipment and move buffs/debuffs into account to determine character speed */
   handleSpeed = () => {
-    var species = this.props.species;
-    var dexBonus = this.calculateBonus(this.props.attributes.dexterity);
+    var species = this.state.species;
+    var dexBonus = this.props.attributes.dexterity.mod*10;
     var speed = 0;
     if (species == 'giant' || species == 'ogoloid'){
       speed = 3;
@@ -131,12 +135,13 @@ class CombatStats extends Component {
       speed = 5;
     }
     speed += dexBonus;
+    console.log("speed after handling: " + speed);
     return speed;
   }
 
   handleResilience = () => {
-    var species = this.props.species;
-    var conBonus = this.calculateBonus(this.props.attributes.constitution);
+    var species = this.state.species;
+    var conBonus = this.props.attributes.constitution.mod*10;
     var resilience = 0;
     if (species == 'orbiden'){
       resilience = 2;
@@ -164,8 +169,8 @@ class CombatStats extends Component {
   }
 
   handleAwareness = () => {
-    var species = this.props.species;
-    var wisBonus = this.calculateBonus(this.props.attributes.wisdom);
+    var species = this.state.species;
+    var wisBonus = this.props.attributes.wisdom.mod*10;
     var awareness = 0;
     if (species == 'modhuman'){
       awareness = 3;

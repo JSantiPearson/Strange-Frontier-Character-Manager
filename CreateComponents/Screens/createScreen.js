@@ -7,14 +7,21 @@ import Create from '../create';
 class CreateScreen extends Component {
 
   componentDidMount(){
-    console.log("Create Screen attributes: " + this.props.route.params.attributes);
+    console.log("Create Screen saves: " + this.props.route.params.saves);
     this.props.navigation.setOptions({
       headerTitle: "New Character",
+      headerTitleAlign: "center",
+      headerStyle: {backgroundColor: 'rgb(250, 0, 115)'},
       headerLeft: props => (
           /* TODO: Add a confirmation alert since progress will be lost if the user presses this button. */
-          <Icon {...props} name={"chevron-left"} onPress={() => this.props.navigation.navigate("Home")} size={40} color="white" />
+          <TouchableOpacity
+            onPress={() => this.props.navigation.navigate('Home', {})}
+            title="Cancel"
+            color='rgb(250, 0, 115)'
+          >
+            <Text style={styles.headerButton}>Cancel</Text>
+          </TouchableOpacity>
       ),
-      headerStyle: {backgroundColor: 'rgb(250, 0, 115)'},
       headerTitleStyle: {color: "white"}
     })
   }
@@ -23,7 +30,9 @@ class CreateScreen extends Component {
      return (
        <Create
          {...this.props}
-         attributes={this.props.route.params.attributes.strength.score}
+         attributes={this.props.route.params.attributes}
+         species={this.props.route.params.species}
+         saves={this.props.route.params.saves}
        />
      )
    }
@@ -38,5 +47,10 @@ class CreateScreen extends Component {
      fontWeight: '400',
      textAlign: 'center',
      color: Colors.dark,
+   },
+   headerButton: {
+     fontSize: 15,
+     paddingHorizontal: 20,
+     color: "white",
    },
  });

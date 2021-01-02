@@ -197,9 +197,10 @@ class Equipment extends Component {
               <Text style={styles.text}> (x{item.amount})</Text>
             }
           </Text>
-          <View style={styles.rowItem}>
+          <View style={[styles.rowItem, {color: "white"}]}>
             <CheckBox
               disabled={false}
+              tintColors={{false: 'white', true: 'rgb(250, 0, 115)'}}
               value={item.equipped}
               onValueChange={(equipValue) => this.setToggleCheckbox(item, equipValue)}
             />

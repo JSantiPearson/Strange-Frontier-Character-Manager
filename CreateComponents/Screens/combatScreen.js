@@ -1,16 +1,12 @@
 import React, { Component } from 'react';
 import CombatStats from '../combatstats';
-import SkillCollection from '../SkillCollection';
+import SkillCollection from '../skillCollection';
 import { createStackNavigator } from '@react-navigation/stack';
 import { StyleSheet, SafeAreaView, ScrollView } from 'react-native';
 
 const Stack = createStackNavigator();
 
 class CombatScreen extends Component {
-  sendStats = (stats) => {
-    console.log("Current armor in combat screen: " + stats.armor);
-    this.props.statsCallback(stats);
-  }
   render() {
      return (
        <>
@@ -19,11 +15,10 @@ class CombatScreen extends Component {
              <CombatStats
                attributes={this.props.attributes}
                species={this.props.species}
-               equipmentStats={this.props.equipmentStats}
                saves={this.props.saves}
-               statsCallback={this.sendStats}
              />
             <SkillCollection
+               {...this.props}
                attributes={this.props.attributes}
             />
            </ScrollView>

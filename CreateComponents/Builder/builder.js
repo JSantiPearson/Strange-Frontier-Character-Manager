@@ -31,27 +31,23 @@ function getOptionStyle(option, available, complete){
   }
 }
 
-function navigateDebug(props){
-  console.log(props.id);
-  props.navigation.navigate(props.id, {
-    attributes: props.route.params.attributes,
-    feats: props.route.params.feats,
-    navigation: props.navigation,
-    route: props.route
-  });
-}
-
 function Option(props){
   return(
     <TouchableOpacity
       style={getOptionStyle(props.id, props.available, props.complete)}
-      onPress={props.available.includes(props.id) ? () => navigateDebug(props) : undefined}
+      onPress={props.available.includes(props.id) ? () => props.navigation.navigate(props.id, {
+        attributes: props.route.params.attributes,
+        species: props.route.params.species,
+        feats: props.route.params.feats,
+        navigation: props.navigation,
+        route: props.route
+      }) : undefined}
     >
       <Text style={styles.optionText}>{props.text}</Text>
-      {props.id == "Species" && props.route.params.species != '' &&
+      {props.id == "Species" && props.route.params.species != undefined &&
         <Text style={[styles.optionText, { fontSize: 14, fontStyle: "italic"} ]}>{props.route.params.species}</Text>
       }
-      {props.id == "Attributes" && props.route.params.attributes != undefined &&
+      {props.id == "Attributes" && props.route.params.skillsAvail == true &&
         <Text style={[styles.optionText, { fontSize: 14, fontStyle: "italic"} ]}>
           Str: {props.route.params.attributes.strength.score},
           Dex: {props.route.params.attributes.dexterity.score},
@@ -133,7 +129,13 @@ class Builder extends Component {
       ),
       headerRight: () => (
         <TouchableOpacity
-          onPress={() => this.props.navigation.navigate('Create', { navigation: this.props.navigation, attributes: this.props.route.params.attributes })}
+          onPress={() => this.props.navigation.navigate('Create', {
+            navigation: this.props.navigation,
+            attributes: this.props.route.params.attributes,
+            species: this.props.route.params.species,
+            saves: this.props.route.params.saves,
+            feats: this.props.route.params.feats
+          })}
           title="Skip"
           color='rgb(250, 0, 115)'
         >
