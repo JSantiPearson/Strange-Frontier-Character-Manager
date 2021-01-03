@@ -132,7 +132,6 @@ class ProfileInputs extends Component {
        reflex: reflex,
        willpower: willpower
      }
-     this.props.navigation.setParams({ saves });
      this.setState({ saves });
    }
 

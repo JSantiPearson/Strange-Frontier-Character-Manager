@@ -52,77 +52,77 @@ class Equipment extends Component {
         catch {
           Alert.alert("Invalid item type " + data.type);
         }
-    }
+      }
 
-    let item = {
-      key: data.name,
-      amount: data.amount,
-      equipped: false,
-      name: data.name,
-      type: data.type,
-      price: data.price,
-      description: data.description,
-      misc: data.misc,
-      category: data.category,
-      range: data.range,
-      damage: data.damage,
-      durability: data.durability,
-      stats: data.stats,
-      special: data.special
-    }
+      let item = {
+        key: data.name,
+        amount: data.amount,
+        equipped: false,
+        name: data.name,
+        type: data.type,
+        price: data.price,
+        description: data.description,
+        misc: data.misc,
+        category: data.category,
+        range: data.range,
+        damage: data.damage,
+        durability: data.durability,
+        stats: data.stats,
+        special: data.special
+      }
 
-    const exists = equipment.some(i => (i.name === item.name)); //check if instance of item is in inventory. "exists" is a boolean.
+      const exists = equipment.some(i => (i.name === item.name)); //check if instance of item is in inventory. "exists" is a boolean.
 
-    if (!exists){ //if the item does not already exist, push the new item onto the array
-      equipment.push(item);
-    }
-    else { //if the item DOES already exist, find the item in the array and replace its old amount with the new amount.
-      for (let i = 0; i < equipment.length; i++){ //TODO: This for loop seems unecessary/redundant with the earlier some() call. See if there's a way to simplify. (There were issues with return last time I tried)
-        let currItem = equipment[i];
-        if (currItem.name === item.name){//TODO: When creating the template for custom equipment, don't forget to disallow equipment with repeat names
-          currItem.amount = item.amount;
-          equipment[i] = currItem;
+      if (!exists){ //if the item does not already exist, push the new item onto the array
+        equipment.push(item);
+      }
+      else { //if the item DOES already exist, find the item in the array and replace its old amount with the new amount.
+        for (let i = 0; i < equipment.length; i++){ //TODO: This for loop seems unecessary/redundant with the earlier some() call. See if there's a way to simplify. (There were issues with return last time I tried)
+          let currItem = equipment[i];
+          if (currItem.name === item.name){//TODO: When creating the template for custom equipment, don't forget to disallow equipment with repeat names
+            currItem.amount = item.amount;
+            equipment[i] = currItem;
+          }
         }
       }
-    }
 
-    switch(data.type){
-      case "Ranged":
-        let rangedEquipment = equipment;
-        console.log("Adding " + item.name + " (x" + item.amount + ") to ranged equipment");
-        this.setState({ rangedEquipment });
-        break;
-      case "Melee":
-        let meleeEquipment = equipment;
-        console.log("Adding " + item.name + " to melee equipment");
-        this.setState({ meleeEquipment });
-        break;
-      case "Armor":
-        let armorEquipment = equipment;
-        console.log("Adding " + item.name + " to armor equipment");
-        console.log(item.name + " has a " + item.stats.armor + " in armor.");
-        this.setState({ armorEquipment });
-        break;
-      case "Gear":
-        let gearEquipment = equipment;
-        console.log("Adding " + item.name + " to gear equipment");
-        this.setState({ gearEquipment });
-        break;
-      case "misc":
-        let miscEquipment = equipment;
-        console.log("Adding " + item.name + " to misc equipment");
-        this.setState({ miscEquipment });
-        break;
-      default:
-        try {
-          console.log("Should throw an error here"); //TODO: Remove this
-          throw new Error("Invalid item type " + data.type);
-        }
-        catch(error) {
-          Alert.alert("Invalid item type " + data.type);
-        }
+      switch(data.type){
+        case "Ranged":
+          let rangedEquipment = equipment;
+          console.log("Adding " + item.name + " (x" + item.amount + ") to ranged equipment");
+          this.setState({ rangedEquipment });
+          break;
+        case "Melee":
+          let meleeEquipment = equipment;
+          console.log("Adding " + item.name + " to melee equipment");
+          this.setState({ meleeEquipment });
+          break;
+        case "Armor":
+          let armorEquipment = equipment;
+          console.log("Adding " + item.name + " to armor equipment");
+          console.log(item.name + " has a " + item.stats.armor + " in armor.");
+          this.setState({ armorEquipment });
+          break;
+        case "Gear":
+          let gearEquipment = equipment;
+          console.log("Adding " + item.name + " to gear equipment");
+          this.setState({ gearEquipment });
+          break;
+        case "misc":
+          let miscEquipment = equipment;
+          console.log("Adding " + item.name + " to misc equipment");
+          this.setState({ miscEquipment });
+          break;
+        default:
+          try {
+            console.log("Should throw an error here"); //TODO: Remove this
+            throw new Error("Invalid item type " + data.type);
+          }
+          catch(error) {
+            Alert.alert("Invalid item type " + data.type);
+          }
+      }
     }
-  }
 
   //TODO: Eventually replace the checkbox for a component that better
   // handles multiple of one item. Allow user to equip a specific amount of the same item.
@@ -162,7 +162,7 @@ class Equipment extends Component {
     }
     this.setState({ equipped });
     this.setState({ stats });
-    this.props.statsCallback(stats);
+    this.props.equipmentStatsCallback(stats);
   }
 
   /**
@@ -211,7 +211,6 @@ class Equipment extends Component {
   }
 
   render() {
-    console.log("Ranged equipment array length: " + this.state.rangedEquipment.length);
      return (
        <>
         <View style={styles.container}>

@@ -134,7 +134,7 @@ class Builder extends Component {
             attributes: this.props.route.params.attributes,
             species: this.props.route.params.species,
             saves: this.props.route.params.saves,
-            feats: this.props.route.params.feats
+            feats: this.props.route.params.feats,
           })}
           title="Skip"
           color='rgb(250, 0, 115)'

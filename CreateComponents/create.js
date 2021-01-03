@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -14,7 +14,7 @@ import NoteScreen from './Screens/noteScreen';
 
 const Tab = createBottomTabNavigator();
 
-class Create extends Component {
+class Create extends PureComponent {
   state = {
      attributes: {
         strength: {
@@ -62,7 +62,6 @@ class Create extends Component {
       this.setState({ attributes });
     }
   }
-
   setAttributes = (attr) => {
     let attributes = {
       strength: attr.strength,
@@ -78,18 +77,15 @@ class Create extends Component {
     this.props.navigation.setParams({ species: speciesValue });
     this.setState({ species: speciesValue });
   }
-  sendStats = (stats) => {
-    //this.props.navigation.setParams({ stats }); TODO: Not sure if this is necessary or not.
-  }
   setEquipmentStats = (equipmentStats) => {
-    this.setState({ equipmentStats: equipmentStats });
+    this.setState({ equipmentStats });
   }
   setSaves = (saves) => {
-    console.log("Is this setSaves function being called for some reason?");
     this.setState({ saves });
     this.props.navigation.setParams({ saves });
   }
   render() {
+    console.log("Rendered create component. Current state armor: " + this.state.equipmentStats.armor);
      return (
        <>
          <Tab.Navigator
@@ -147,12 +143,14 @@ class Create extends Component {
                attributes={this.props.attributes}
                species={this.props.species}
                saves={this.props.saves}
+               equipmentStats={this.state.equipmentStats}
             />}
        </Tab.Screen>
        <Tab.Screen name="Equipment">
           {props => <Equipment
               {...props}
               attributes={this.props.attributes}
+              equipmentStatsCallback={this.setEquipmentStats}
            />}
       </Tab.Screen>
       <Tab.Screen name="Notes">

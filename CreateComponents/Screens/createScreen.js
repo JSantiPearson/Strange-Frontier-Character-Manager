@@ -7,7 +7,6 @@ import Create from '../create';
 class CreateScreen extends Component {
 
   componentDidMount(){
-    console.log("Create Screen saves: " + this.props.route.params.saves);
     this.props.navigation.setOptions({
       headerTitle: "New Character",
       headerTitleAlign: "center",

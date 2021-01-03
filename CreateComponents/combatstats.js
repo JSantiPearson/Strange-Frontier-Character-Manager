@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { View, Button, Text, Picker, TouchableOpacity, TextInput, StyleSheet, SafeAreaView, ScrollView} from 'react-native'
 
-class CombatStats extends Component {
+class CombatStats extends PureComponent {
   state = {
     species: "human",
     baseAttack: 0,
@@ -33,12 +33,11 @@ class CombatStats extends Component {
     this.handleStats();
   }
   //if props change, update corresponding stats.
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps, prevState) {
     if(prevProps.attributes !== this.props.attributes || prevProps.equipmentStats !== this.props.equipmentStats || prevProps.saves !== this.props.saves) //TODO: Seems like a gross solution to the infinite loop solution with statsCallback. Think about simplifying this.
     {
+      console.log("Combat stats component updated! Current Equipment armor is " + this.props.equipmentStats.armor);
       this.handleStats();
-      var equipmentStats = this.state.equipmentStats;
-      this.props.navigation.setParams({ equipmentStats });
     }
   }
 
@@ -50,13 +49,12 @@ class CombatStats extends Component {
 
   handleEquipmentStats = () => {
     let equipmentStats = this.props.equipmentStats;
-    console.log("handleEquipmentStats armor value: " + equipmentStats.armor);
     this.setState({ equipmentStats })
     return equipmentStats;
   }
 
   handleStats = () => {
-    let stats = this.state.equipmentStats;
+    let stats = this.props.equipmentStats;
     var armor = stats.armor;
     var resilience = this.handleResilience() + stats.resilience;
     var speed = this.handleSpeed() + stats.speed;
@@ -74,7 +72,7 @@ class CombatStats extends Component {
   }
 
   handleSpecial = (armor, resilience, speed, awareness) => {
-    let special = this.state.equipmentStats.special;
+    let special = this.props.equipmentStats.special;
     for (let i = 0; i < special.length; i++){
       switch(special[i]) { //switch statement for special cases, such as armor doubling equipment.
         case "double armor":
@@ -96,6 +94,7 @@ class CombatStats extends Component {
           break;
       }
     }
+    console.log("Set state of armor to: " + armor);
     this.setState({ armor });
     this.setState({ resilience });
     this.setState({ speed });
@@ -135,7 +134,6 @@ class CombatStats extends Component {
       speed = 5;
     }
     speed += dexBonus;
-    console.log("speed after handling: " + speed);
     return speed;
   }
 
@@ -220,7 +218,7 @@ class CombatStats extends Component {
     this.setState({ will });
   }
 
-  render() {
+  render(prevProps) {
      return (
        <>
          <SafeAreaView style={styles.container}>
