@@ -13,6 +13,14 @@ class SpeciesChoice extends Component {
     }
   }
 
+  goBack(){
+    const { navigation, route } = this.props;
+    navigation.pop(2);
+    route.params.onSelect({ attributesAvail: true });
+    route.params.onSelect({ species: this.props.route.params.species });
+    route.params.onSelect({ stats: this.state.stats });
+  }
+
   /**
   * When the component is mounted, add an option to the screen that will send species name and stats data back to builder Screen
   * when the user hits the header accept button
@@ -21,12 +29,7 @@ class SpeciesChoice extends Component {
     this.props.navigation.setOptions({
       headerRight: props => (
         <TouchableOpacity
-          onPress={() => this.props.navigation.navigate('Build', {
-            navigation: this.props.navigation,
-            attributesAvail: true,
-            species: this.props.route.params.species,
-            stats: this.state.stats
-          })}
+          onPress={() => this.goBack()}
           title="Accept"
           color='rgb(250, 0, 115)'
         >

@@ -34,15 +34,18 @@ class BuilderAttributes extends Component {
     }
   }
 
+  goBack(){
+    const { navigation, route } = this.props;
+    navigation.goBack();
+    route.params.onSelect({ skillsAvail: true });
+    route.params.onSelect({ attributes: this.state.attributes});
+  }
+
   componentDidMount(){
-    let strengthScore = 10;
     this.props.navigation.setOptions({
       headerRight: props => (
         <TouchableOpacity
-          onPress={() => this.props.navigation.navigate('Build', {
-            skillsAvail: true,
-            attributes: this.state.attributes
-          })}
+          onPress={() => this.goBack()}
           title="Accept"
           color='rgb(250, 0, 115)'
         >
@@ -58,10 +61,7 @@ class BuilderAttributes extends Component {
       this.props.navigation.setOptions({
         headerRight: props => (
           <TouchableOpacity
-            onPress={() => navigation.navigate('Build', {
-              skillsAvail: true,
-              attributes: this.state.attributes,
-            })}
+            onPress={() => this.goBack()}
             title="Accept"
             color='rgb(250, 0, 115)'
           >

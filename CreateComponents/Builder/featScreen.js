@@ -769,10 +769,11 @@ class Feats extends PureComponent {
     }
   }
 
-  componentDidUpdate(prevState){
-    if (!equal(prevState, this.state)){
-      console.log("Component updated, tier " + this.state.feats.actionSurge.tier);
-    }
+  goBack(){
+    const { navigation, route } = this.props;
+    navigation.goBack();
+    route.params.onSelect({ equipmentAvail: true });
+    route.params.onSelect({ feats: this.state.feats });
   }
 
   componentDidMount(){
@@ -783,11 +784,7 @@ class Feats extends PureComponent {
       this.props.navigation.setOptions({
          headerRight: props => (
            <TouchableOpacity
-             onPress={() => this.props.navigation.navigate('Build', {
-               navigation: this.props.navigation,
-               equipmentAvail: true,
-               feats: this.state.feats,
-             })}
+             onPress={() => this.goBack()}
              title="Accept"
              color='rgb(250, 0, 115)'
            >
@@ -801,11 +798,7 @@ class Feats extends PureComponent {
       this.props.navigation.setOptions({
          headerRight: props => (
            <TouchableOpacity
-             onPress={() => this.props.navigation.navigate('Build', {
-               navigation: this.props.navigation,
-               equipmentAvail: true,
-               feats: this.state.feats,
-             })}
+             onPress={() => this.goBack()}
              title="Accept"
              color='rgb(250, 0, 115)'
            >

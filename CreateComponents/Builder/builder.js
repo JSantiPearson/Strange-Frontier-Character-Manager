@@ -34,27 +34,28 @@ function getOptionStyle(option, available, complete){
 function Option(props){
   return(
     <TouchableOpacity
-      style={getOptionStyle(props.id, props.available, props.complete)}
-      onPress={props.available.includes(props.id) ? () => props.navigation.navigate(props.id, {
-        attributes: props.route.params.attributes,
-        species: props.route.params.species,
-        feats: props.route.params.feats,
+      style={getOptionStyle(props.id, props.state.available, props.state.complete)}
+      onPress={props.state.available.includes(props.id) ? () => props.navigation.navigate(props.id, {
+        attributes: props.state.attributes,
+        species: props.state.species,
+        feats: props.state.feats,
         navigation: props.navigation,
-        route: props.route
+        route: props.route,
+        onSelect: props.onSelect
       }) : undefined}
     >
       <Text style={styles.optionText}>{props.text}</Text>
-      {props.id == "Species" && props.route.params.species != undefined &&
-        <Text style={[styles.optionText, { fontSize: 14, fontStyle: "italic"} ]}>{props.route.params.species}</Text>
+      {props.id == "Species" && props.state.species != undefined &&
+        <Text style={[styles.optionText, { fontSize: 14, fontStyle: "italic"} ]}>{props.state.species}</Text>
       }
-      {props.id == "Attributes" && props.route.params.skillsAvail == true &&
+      {props.id == "Attributes" && props.state.available.includes("Attributes") == true && props.state.attributes != undefined &&
         <Text style={[styles.optionText, { fontSize: 14, fontStyle: "italic"} ]}>
-          Str: {props.route.params.attributes.strength.score},
-          Dex: {props.route.params.attributes.dexterity.score},
-          Con: {props.route.params.attributes.constitution.score},
-          Wis: {props.route.params.attributes.wisdom.score},
-          Int: {props.route.params.attributes.intelligence.score},
-          Inf: {props.route.params.attributes.influence.score}
+          Str: {props.state.attributes.strength.score},
+          Dex: {props.state.attributes.dexterity.score},
+          Con: {props.state.attributes.constitution.score},
+          Wis: {props.state.attributes.wisdom.score},
+          Int: {props.state.attributes.intelligence.score},
+          Inf: {props.state.attributes.influence.score}
         </Text>
       }
     </TouchableOpacity>
@@ -67,12 +68,18 @@ class Builder extends Component {
     complete: [], //options that have been completed will appear here. This takes priority over the available array.
   }
 
+  onSelect = (data) => {
+    this.setState(data, () => {
+      this.handleAvailability();
+    });
+  }
+
   /**
   * If availability for a character builder section has opened, change state to reflect this.
   * TODO: Could do some optimizing here, maybe pushing onto a stack. Either way, this logic is spaghetti code, on top of being pretty ugly.
   **/
   handleAvailability = () => {
-    if (this.props.route.params.attributesAvail){
+    if (this.state.attributesAvail){
       let available = [...this.state.available];
       let complete = [...this.state.complete];
       available.push("Attributes");
@@ -80,7 +87,7 @@ class Builder extends Component {
       this.setState({ available });
       this.setState({ complete });
     }
-    if (this.props.route.params.skillsAvail){
+    if (this.state.skillsAvail){
       let available = [...this.state.available];
       let complete = [...this.state.complete];
       available.push("Skills");
@@ -88,7 +95,7 @@ class Builder extends Component {
       this.setState({ available });
       this.setState({ complete });
     }
-    if (this.props.route.params.featsAvail){
+    if (this.state.featsAvail){
       let available = [...this.state.available];
       let complete = [...this.state.complete];
       available.push("Feats");
@@ -96,7 +103,7 @@ class Builder extends Component {
       this.setState({ available });
       this.setState({ complete });
     }
-    if (this.props.route.params.equipmentAvail){
+    if (this.state.equipmentAvail){
       let available = [...this.state.available];
       let complete = [...this.state.complete];
       available.push("Equipment");
@@ -104,7 +111,7 @@ class Builder extends Component {
       this.setState({ available });
       this.setState({ complete });
     }
-    if (this.props.route.params.movesAvail){
+    if (this.state.movesAvail){
       let available = [...this.state.available];
       let complete = [...this.state.complete];
       available.push("Moves");
@@ -131,10 +138,10 @@ class Builder extends Component {
         <TouchableOpacity
           onPress={() => this.props.navigation.navigate('Create', {
             navigation: this.props.navigation,
-            attributes: this.props.route.params.attributes,
-            species: this.props.route.params.species,
-            saves: this.props.route.params.saves,
-            feats: this.props.route.params.feats,
+            attributes: this.state.attributes,
+            species: this.state.species,
+            saves: this.state.saves,
+            feats: this.state.feats
           })}
           title="Skip"
           color='rgb(250, 0, 115)'
@@ -146,12 +153,6 @@ class Builder extends Component {
     })
   }
 
-  componentDidUpdate(prevProps){
-    if (prevProps.route.params != this.props.route.params){
-      this.handleAvailability();
-    }
-  }
-
   render() {
      return (
        <>
@@ -159,11 +160,46 @@ class Builder extends Component {
            <SafeAreaView>
              <ScrollView style={styles.scrollView}>
                <View>
-                 <Option text="Choose a Species" id="Species" navigation={this.props.navigation} route={this.props.route} available={this.state.available} complete={this.state.complete} />
-                 <Option text="Determine Attributes" id="Attributes" navigation={this.props.navigation} route={this.props.route} available={this.state.available} complete={this.state.complete} />
-                 <Option text="Choose Skills" id="Skills" navigation={this.props.navigation} route={this.props.route} available={this.state.available} complete={this.state.complete} />
-                 <Option text="Choose Feats" id="Feats" navigation={this.props.navigation} route={this.props.route} available={this.state.available} complete={this.state.complete} />
-                 <Option text="Choose Equipment" id="Equipment" navigation={this.props.navigation} route={this.props.route} available={this.state.available} complete={this.state.complete} />
+                <Option
+									text="Choose a Species"
+									id="Species"
+                  onSelect={this.onSelect}
+									navigation={this.props.navigation}
+									route={this.props.route}
+									state={this.state}
+                />
+                <Option
+									text="Determine Attributes"
+									id="Attributes"
+                  onSelect={this.onSelect}
+									navigation={this.props.navigation}
+									route={this.props.route}
+									state={this.state}
+                />
+                <Option
+									text="Choose Skills"
+									id="Skills"
+                  onSelect={this.onSelect}
+									navigation={this.props.navigation}
+									route={this.props.route}
+									state={this.state}
+                />
+                <Option
+									text="Choose Feats"
+									id="Feats"
+                  onSelect={this.onSelect}
+									navigation={this.props.navigation}
+									route={this.props.route}
+									state={this.state}
+                />
+                <Option
+									text="Choose Equipment"
+									id="Equipment"
+                  onSelect={this.onSelect}
+									navigation={this.props.navigation}
+									route={this.props.route}
+									state={this.state}
+                />
                </View>
              </ScrollView>
            </SafeAreaView>

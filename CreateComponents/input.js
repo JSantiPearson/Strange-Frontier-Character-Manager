@@ -201,8 +201,8 @@ class ProfileInputs extends Component {
      )
    }
    //TODO: Fix navigation here... it currently takes the user back to the builder screen even though they selected 'skip'
-   _renderSpeciesSection = () => {
-     if (this.props.species === undefined){
+   _renderSpeciesSection = (props) => {
+     if (props.species === undefined){
        return(
          <>
            <Text style={styles.title}>Species</Text>
@@ -210,7 +210,7 @@ class ProfileInputs extends Component {
              <TouchableOpacity
                title="Species"
                activeOpacity={0.5}
-               onPress={() => this.props.navigation.navigate("Species")}
+               onPress={() => props.navigation.navigate("Species")}
              >
                <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
                  <View style={{flexDirection: 'row', alignItems: 'center'}}>
@@ -248,7 +248,7 @@ class ProfileInputs extends Component {
              <TouchableOpacity
                title="Species"
                activeOpacity={0.5}
-               onPress={() => this.props.navigation.navigate("Species")}
+               onPress={() => props.navigation.navigate("Species")}
              >
                <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
                  <View style={{flexDirection: 'row', alignItems: 'center'}}>
@@ -260,7 +260,7 @@ class ProfileInputs extends Component {
                        paddingLeft: 10
                      }}
                    />
-                 <Text style={styles.text}>{this.props.species}</Text>
+                 <Text style={styles.text}>{props.species}</Text>
                  </View>
                  <View style={{paddingRight: 10}}>
                    <Icon
@@ -407,7 +407,7 @@ class ProfileInputs extends Component {
             <ScrollView style={styles.scrollView}>
               <View style={styles.container}>
                 {this._renderProfileSection()}
-                {this._renderSpeciesSection()}
+                {this._renderSpeciesSection(this.props)}
                 {this._renderAttributes()}
                 {this._renderHealth()}
                 {this._renderFeats()}

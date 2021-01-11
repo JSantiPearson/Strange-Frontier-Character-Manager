@@ -16,32 +16,6 @@ const Tab = createBottomTabNavigator();
 
 class Create extends PureComponent {
   state = {
-     attributes: {
-        strength: {
-          score: 10,
-          mod: 0
-        },
-        dexterity: {
-          score: 10,
-          mod: 0
-        },
-        constitution: {
-          score: 10,
-          mod: 0
-        },
-        wisdom: {
-          score: 10,
-          mod: 0
-        },
-        intelligence: {
-          score: 10,
-          mod: 0
-        },
-        influence: {
-          score: 10,
-          mod: 0
-        }
-     },
      saves: {
        fortitude: 0,
        reflex: 0,
@@ -55,12 +29,6 @@ class Create extends PureComponent {
        awareness: 0,
        special: [],
      }
-  }
-  componentDidMount(){
-    if (this.props.attributes !== undefined){
-      let attributes = this.props.attributes;
-      this.setState({ attributes });
-    }
   }
   setAttributes = (attr) => {
     let attributes = {
@@ -126,6 +94,7 @@ class Create extends PureComponent {
           >
           <Tab.Screen name="Profile">
              {props => <ProfileScreen
+                 navigation={this.props.navigation}
                  species={this.props.species}
                  attributes={this.props.attributes}
                  saves={this.props.saves}

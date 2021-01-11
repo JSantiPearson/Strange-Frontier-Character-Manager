@@ -15,7 +15,8 @@ function Option(props){
         navigation: props.navigation,
         species: props.name,
         stats: props.stats,
-        traits: props.traits
+        traits: props.traits,
+        onSelect: props.onSelect
       })}>
       <View style={styles.column}>
         <Text style={styles.species}>{props.name}</Text>
@@ -83,7 +84,7 @@ const vermileLore = "The vermile went down two rather different evolutionary pat
 const capraLore = "The capra are a race of goat-like people who have a vibrant culture, and along with the Giants, a multi system spanning empire. The Capra have exceptionally flexible limbs making them great at acrobatics and aerial combat. Capra are fast and durable if not on the dumber side, but what they lack in technical knowledge, they make up for in wisdom.";
 const ogoloidLore = "The ogoloids are a nomadic bipedal slug race, with a culture that values justice. The ogoloids are, in some ways, the only force of law in the wild crazy fringe that is the Sombrero Galaxy. Ogoloids are stoic and tend to be very orderly, and will go out of their way to create order where none exists. Ogoloids are strong and durable, but not very fast. They have pretty average intellect overall.";
 const arachnetLore = "The arachnet are a species of spider-like humanoids with four arms. Much like spiders, they can fire webs from their hands and thoracic cavity. Arachnet tend to be polite and are rather open minded about other cultures, but their society's priority is to unflinchingly serve their own monarchs. Arachnet communicate telepathically, and as a result can automatically translate conversations with other species without the use of a galactic translator.";
-const wheepeLore = "Wheepes are a species of sentient plants. They have a thin layer of plant fiber covering their hard outer shell. These fibers closely resemble wheat. The wheepes are a gentle farming race that doesn't tend to fight. Wheepes aren't particularly strong or fast, but they're durable and wise.";
+const wheepeLore = "Wheepes are a species of sentient plants. They have a thin layer of plant fiber covering their hard outer shell. These fibers closely resemble wheat. The majority of wheepes are gentle farmers that don't tend to fight. Wheepes aren't particularly strong or fast, but they're durable and wise.";
 const constructLore = "Construct is the blanket intergalactic term for robots that have been given, or have achieved sentience. Because they are robots, they don't need to eat, sleep, or show mercy. They can be a walking kitchen or an unstoppable weapon of conquest and war - it all depends on who is inside of that sometimes remorseless robot heart. Constructs have physical characteristics that range based on their model, but generally they’re intelligent and durable.";
 const modhumanLore = "Long ago, in humanity's hay day, they sold genetic samples of their species to aliens in exchange for technology. These aliens retreated back to their homes in the Sombrero Galaxy where they bred special humans designed to be the perfect slave miners. These humans are called mod-humans. Mod-Humans have since spread all over the Sombrero Galaxy, having no particular place to call home. Mod-Humans are durable, strong and fast.";
 const energybeingLore = "Energy Beings are by far the most bizarre species in the whole supercluster. At the heart of an energy being is a battery. Not like a double A, but rather a conduit of abstract energy flowing throughout the universe. These batteries gain charge from sources of their conduit, such as emotions or philosophies. The energy absorbed forms a living consciousness, and as it ages, a tangible body of light will grow.";
@@ -429,6 +430,7 @@ class Species extends Component {
                  setDetailsVisible={this.setDetailsVisible}
                  route={this.props.route}
                  navigation={this.props.navigation}
+								 onSelect={this.props.route.params.onSelect}
                  species="human"
                  name="Human"
                  stats={humanStats}
@@ -449,6 +451,7 @@ class Species extends Component {
                  setDetailsVisible={this.setDetailsVisible}
                  route={this.props.route}
                  navigation={this.props.navigation}
+								 onSelect={this.props.route.params.onSelect}
                  species="grubtub"
                  name="Grub Tub"
                  stats={grubtubStats}
@@ -469,6 +472,7 @@ class Species extends Component {
                  setDetailsVisible={this.setDetailsVisible}
                  route={this.props.route}
                  navigation={this.props.navigation}
+								 onSelect={this.props.route.params.onSelect}
                  species="giant"
                  name="Giant"
                  stats={giantStats}
@@ -489,6 +493,7 @@ class Species extends Component {
                  setDetailsVisible={this.setDetailsVisible}
                  route={this.props.route}
                  navigation={this.props.navigation}
+								 onSelect={this.props.route.params.onSelect}
                  species="vermile"
                  name="Vermile"
                  stats={vermileStats}
@@ -509,6 +514,7 @@ class Species extends Component {
                  setDetailsVisible={this.setDetailsVisible}
                  route={this.props.route}
                  navigation={this.props.navigation}
+								 onSelect={this.props.route.params.onSelect}
                  species="capra"
                  name="Capra"
                  stats={capraStats}
@@ -529,6 +535,7 @@ class Species extends Component {
                  setDetailsVisible={this.setDetailsVisible}
                  route={this.props.route}
                  navigation={this.props.navigation}
+								 onSelect={this.props.route.params.onSelect}
                  species="ogoloid"
                  name="Ogoloid"
                  stats={ogoloidStats}
@@ -549,6 +556,7 @@ class Species extends Component {
                  setDetailsVisible={this.setDetailsVisible}
                  route={this.props.route}
                  navigation={this.props.navigation}
+								 onSelect={this.props.route.params.onSelect}
                  species="arachnet"
                  name="Arachnet"
                  stats={arachnetStats}
@@ -569,6 +577,7 @@ class Species extends Component {
                  setDetailsVisible={this.setDetailsVisible}
                  route={this.props.route}
                  navigation={this.props.navigation}
+								 onSelect={this.props.route.params.onSelect}
                  species="wheepe"
                  name="Wheepe"
                  stats={wheepeStats}
@@ -589,6 +598,7 @@ class Species extends Component {
                  setDetailsVisible={this.setDetailsVisible}
                  route={this.props.route}
                  navigation={this.props.navigation}
+								 onSelect={this.props.route.params.onSelect}
                  species="construct"
                  name="Construct"
                  stats={constructStats}
@@ -609,6 +619,7 @@ class Species extends Component {
                  setDetailsVisible={this.setDetailsVisible}
                  route={this.props.route}
                  navigation={this.props.navigation}
+								 onSelect={this.props.route.params.onSelect}
                  species="modhuman"
                  name="Mod-Human"
                  stats={modhumanStats}
@@ -629,6 +640,7 @@ class Species extends Component {
                  setDetailsVisible={this.setDetailsVisible}
                  route={this.props.route}
                  navigation={this.props.navigation}
+								 onSelect={this.props.route.params.onSelect}
                  species="energybeing"
                  name="Energy Being"
                  stats={energybeingStats}
@@ -649,6 +661,7 @@ class Species extends Component {
                  setDetailsVisible={this.setDetailsVisible}
                  route={this.props.route}
                  navigation={this.props.navigation}
+								 onSelect={this.props.route.params.onSelect}
                  species="simian"
                  name="Simian"
                  stats={simianStats}
@@ -669,6 +682,7 @@ class Species extends Component {
                  setDetailsVisible={this.setDetailsVisible}
                  route={this.props.route}
                  navigation={this.props.navigation}
+								 onSelect={this.props.route.params.onSelect}
                  species="orbiden"
                  name="Orbiden"
                  stats={orbidenStats}
@@ -689,6 +703,7 @@ class Species extends Component {
                  setDetailsVisible={this.setDetailsVisible}
                  route={this.props.route}
                  navigation={this.props.navigation}
+								 onSelect={this.props.route.params.onSelect}
                  species="custom"
                  name="Custom"
                  stats={customStats}

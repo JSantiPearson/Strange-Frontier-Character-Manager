@@ -91,6 +91,13 @@ class BuilderSkills extends Component { //TODO: Introduce a way to tell the play
    }
  }
 
+ goBack(){
+   const { navigation, route } = this.props;
+   navigation.goBack();
+   route.params.onSelect({ featsAvail: true });
+   route.params.onSelect({ skills: this.state });
+ }
+
  /* Sets the relevant skill's score */
  setSkill = (name, trainLvl, score) =>{
    var skill = [trainLvl, score];
@@ -101,11 +108,7 @@ class BuilderSkills extends Component { //TODO: Introduce a way to tell the play
    this.props.navigation.setOptions({
       headerRight: props => (
         <TouchableOpacity
-          onPress={() => this.props.navigation.navigate('Build', {
-            navigation: this.props.navigation,
-            featsAvail: true,
-            skills: this.state,
-          })}
+          onPress={() => this.goBack()}
           title="Accept"
           color='rgb(250, 0, 115)'
         >
@@ -120,11 +123,7 @@ class BuilderSkills extends Component { //TODO: Introduce a way to tell the play
     this.props.navigation.setOptions({
       headerRight: props => (
         <TouchableOpacity
-          onPress={() => this.props.navigation.navigate('Build', {
-            navigation: this.props.navigation,
-            featsAvail: true,
-            skills: this.state,
-          })}
+          onPress={() => this.goBack()}
           title="Accept"
           color='rgb(250, 0, 115)'
         >
