@@ -108,6 +108,7 @@ class ProfileInputs extends Component {
    componentDidMount() {
      let attributes = this.props.attributes;
      this.setState({ attributes });
+     console.log("Mounted strength score: " + attributes.strength.score);
    }
 
    /* Takes the bonuses of the two relevant attributes and averages them, returning the save value */
@@ -176,7 +177,9 @@ class ProfileInputs extends Component {
        console.log("Invalid attribute type.");
      }
      this.handleSavingThrows(attributes);
-     this.setState({ attributes });
+     this.props.route.params.navigation.setParams({attributes});
+     this.setState({});
+     console.log("profile strength score: " + this.props.route.params.attributes.strength.score);
    }
    handleSkills = (skillsList) => {
      this.setState({ skills: skillsList})

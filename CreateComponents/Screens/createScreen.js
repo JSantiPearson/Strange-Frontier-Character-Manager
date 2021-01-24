@@ -33,29 +33,6 @@ class CreateScreen extends PureComponent {
        }
     },
   }
-
-  componentDidMount(){
-    this.props.navigation.setOptions({
-      headerTitle: "New Character",
-      headerTitleAlign: "center",
-      headerStyle: {backgroundColor: 'rgb(250, 0, 115)'},
-      headerLeft: props => (
-          /* TODO: Add a confirmation alert since progress will be lost if the user presses this button. */
-          <TouchableOpacity
-            onPress={() => this.props.navigation.navigate('Home', {})}
-            title="Cancel"
-            color='rgb(250, 0, 115)'
-          >
-            <Text style={styles.headerButton}>Cancel</Text>
-          </TouchableOpacity>
-      ),
-      headerTitleStyle: {color: "white"}
-    });
-    if (this.props.route.params.attributes !== undefined){
-      let attributes = this.props.route.params.attributes;
-      this.setState({ attributes });
-    }
-  }
   render() {
      return (
        <Create
@@ -71,16 +48,4 @@ class CreateScreen extends PureComponent {
  export default CreateScreen;
 
  const styles = StyleSheet.create({
-   sectionDescription: {
-     marginTop: 8,
-     fontSize: 18,
-     fontWeight: '400',
-     textAlign: 'center',
-     color: Colors.dark,
-   },
-   headerButton: {
-     fontSize: 15,
-     paddingHorizontal: 20,
-     color: "white",
-   },
  });

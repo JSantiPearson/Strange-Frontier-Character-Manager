@@ -777,7 +777,6 @@ class Feats extends PureComponent {
   }
 
   componentDidMount(){
-    console.log("Mounted feats screen");
     let feats = this.props.route.params.feats;
     if (feats != undefined){
       this.setState({ feats }, () =>

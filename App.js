@@ -103,7 +103,7 @@ class App extends React.Component {
             />
             <Stack.Screen
               name="Create"
-              component={CreateScreen}
+              component={Create}
             />
             <Stack.Screen
               name="Catalogues"
@@ -168,38 +168,11 @@ class App extends React.Component {
             <Stack.Screen
               name="Build"
               component={Builder}
-              initialParams={{attributes: {
-                strength: {
-                  score: 10,
-                  mod: 0
-                },
-                dexterity: {
-                  score: 10,
-                  mod: 0
-                },
-                constitution: {
-                  score: 10,
-                  mod: 0
-                },
-                wisdom: {
-                  score: 10,
-                  mod: 0
-                },
-                intelligence: {
-                  score: 10,
-                  mod: 0
-                },
-                influence: {
-                  score: 10,
-                  mod: 0
-                }
-              },
-              saves: {
-                fortitude: 0,
-                reflex: 0,
-                willpower: 0
-              },
-              skillsAvail: false, featsAvail: false, equipmentAvail: false }}
+              initialParams={{
+                skillsAvail: false, 
+                featsAvail: false,
+                equipmentAvail: false
+              }}
             />
 
             <Stack.Screen

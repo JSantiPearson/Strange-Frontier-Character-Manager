@@ -13,10 +13,12 @@ class CombatScreen extends Component {
       resilience: 0,
       speed: 0,
       awareness: 0,
-    }
-  }
-  componentDidMount(){
-
+    },
+    saves: {
+      fortitude: 0,
+      reflex: 0,
+      willpower: 0
+    },
   }
   componentDidUpdate(prevProps){
     if (prevProps.equipmentStats !== this.props.equipmentStats){

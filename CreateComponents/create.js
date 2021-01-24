@@ -30,6 +30,24 @@ class Create extends PureComponent {
        special: [],
      }
   }
+  componentDidMount(){
+    this.props.navigation.setOptions({
+      headerTitle: "New Character",
+      headerTitleAlign: "center",
+      headerStyle: {backgroundColor: 'rgb(250, 0, 115)'},
+      headerLeft: props => (
+          /* TODO: Add a confirmation alert since progress will be lost if the user presses this button. */
+          <TouchableOpacity
+            onPress={() => this.props.navigation.navigate('Home', {})}
+            title="Cancel"
+            color='rgb(250, 0, 115)'
+          >
+            <Text style={styles.headerButton}>Cancel</Text>
+          </TouchableOpacity>
+      ),
+      headerTitleStyle: {color: "white"}
+    });
+  }
   setAttributes = (attr) => {
     let attributes = {
       strength: attr.strength,
@@ -42,7 +60,7 @@ class Create extends PureComponent {
     this.setState({ attributes });
   }
   setSpecies = (speciesValue) => {
-    this.props.navigation.setParams({ species: speciesValue });
+    this.props.route.params.navigation.setParams({ species: speciesValue });
     this.setState({ species: speciesValue });
   }
   setEquipmentStats = (equipmentStats) => {
@@ -50,10 +68,9 @@ class Create extends PureComponent {
   }
   setSaves = (saves) => {
     this.setState({ saves });
-    this.props.navigation.setParams({ saves });
+    this.props.route.params.navigation.setParams({ saves });
   }
   render() {
-    console.log("Rendered create component. Current state armor: " + this.state.equipmentStats.armor);
      return (
        <>
          <Tab.Navigator
@@ -94,31 +111,32 @@ class Create extends PureComponent {
           >
           <Tab.Screen name="Profile">
              {props => <ProfileScreen
-                 navigation={this.props.navigation}
-                 species={this.props.species}
-                 attributes={this.props.attributes}
-                 saves={this.props.saves}
+                 navigation={this.props.route.params.navigation}
+                 route={this.props.route}
+                 species={this.props.route.params.species}
+                 attributes={this.props.route.params.attributes}
+                 saves={this.props.route.params.saves}
               />}
          </Tab.Screen>
          <Tab.Screen name="Moves">
             {props => <MoveScreen
                 {...props}
-                attributes={this.props.attributes}
+                attributes={this.props.route.params.attributes}
              />}
         </Tab.Screen>
         <Tab.Screen name="Combat & Skills">
            {props => <CombatScreen
-               {...props}
-               attributes={this.props.attributes}
-               species={this.props.species}
-               saves={this.props.saves}
+               navigation={this.props.route.params.navigation}
+               attributes={this.props.route.params.attributes}
+               species={this.props.route.params.species}
+               saves={this.props.route.params.saves}
                equipmentStats={this.state.equipmentStats}
             />}
        </Tab.Screen>
        <Tab.Screen name="Equipment">
           {props => <Equipment
               {...props}
-              attributes={this.props.attributes}
+              attributes={this.props.route.params.attributes}
               equipmentStatsCallback={this.setEquipmentStats}
            />}
       </Tab.Screen>
@@ -165,6 +183,11 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     textAlign: 'center',
     color: Colors.dark,
+  },
+  headerButton: {
+    fontSize: 15,
+    paddingHorizontal: 20,
+    color: "white",
   },
   highlight: {
     fontWeight: '700',

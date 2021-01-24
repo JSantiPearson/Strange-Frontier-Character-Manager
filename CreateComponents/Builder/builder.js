@@ -66,6 +66,37 @@ class Builder extends Component {
   state = {
     available: ["Species"], //we will add options to this list once certain steps have been completed.
     complete: [], //options that have been completed will appear here. This takes priority over the available array.
+    attributes: {
+      strength: {
+        score: 18,
+        mod: 0
+      },
+      dexterity: {
+        score: 10,
+        mod: 0
+      },
+      constitution: {
+        score: 10,
+        mod: 0
+      },
+      wisdom: {
+        score: 10,
+        mod: 0
+      },
+      intelligence: {
+        score: 10,
+        mod: 0
+      },
+      influence: {
+        score: 10,
+        mod: 0
+      }
+    },
+    saves: {
+      fortitude: 0,
+      reflex: 0,
+      willpower: 0
+    },
   }
 
   onSelect = (data) => {
