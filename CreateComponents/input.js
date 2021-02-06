@@ -13,7 +13,7 @@ function GoToButton({ screenName }) {
   return (
     <View style={styles.sectionContainer}>
       <Button
-        title={`${screenName}`}
+        title={'${screenName}'}
         onPress={() => navigation.navigate(screenName)}
       />
     </View>
@@ -70,7 +70,6 @@ function AttributePicker(props) {
 class ProfileInputs extends Component {
    state = {
       name: '',
-      species: "human",
       attributes: {
         strength: {
           score: 10,
@@ -107,8 +106,14 @@ class ProfileInputs extends Component {
 
    componentDidMount() {
      let attributes = this.props.attributes;
+     let species = this.props.species;
+     this.setState({ species });
      this.setState({ attributes });
      console.log("Mounted strength score: " + attributes.strength.score);
+   }
+
+   onSelect = (data) => {
+     this.setState(data);
    }
 
    /* Takes the bonuses of the two relevant attributes and averages them, returning the save value */
@@ -205,7 +210,7 @@ class ProfileInputs extends Component {
    }
    //TODO: Fix navigation here... it currently takes the user back to the builder screen even though they selected 'skip'
    _renderSpeciesSection = (props) => {
-     if (props.species === undefined){
+     if (this.state.species === undefined){
        return(
          <>
            <Text style={styles.title}>Species</Text>
@@ -213,7 +218,7 @@ class ProfileInputs extends Component {
              <TouchableOpacity
                title="Species"
                activeOpacity={0.5}
-               onPress={() => props.navigation.navigate("Species")}
+               onPress={() => props.navigation.navigate("Species", {onSelect: this.onSelect})}
              >
                <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
                  <View style={{flexDirection: 'row', alignItems: 'center'}}>
@@ -251,7 +256,7 @@ class ProfileInputs extends Component {
              <TouchableOpacity
                title="Species"
                activeOpacity={0.5}
-               onPress={() => props.navigation.navigate("Species")}
+               onPress={() => props.navigation.navigate("Species", {onSelect: this.onSelect})}
              >
                <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
                  <View style={{flexDirection: 'row', alignItems: 'center'}}>
@@ -263,7 +268,7 @@ class ProfileInputs extends Component {
                        paddingLeft: 10
                      }}
                    />
-                 <Text style={styles.text}>{props.species}</Text>
+                 <Text style={styles.text}>{this.state.species}</Text>
                  </View>
                  <View style={{paddingRight: 10}}>
                    <Icon
