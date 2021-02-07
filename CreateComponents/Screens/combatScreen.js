@@ -57,7 +57,8 @@ class CombatScreen extends Component {
  const styles = StyleSheet.create({
     container: {
       paddingHorizontal: 10,
-      paddingVertical: 20
+      paddingVertical: 20,
+      backgroundColor: "black",
     },
     scrollView: {
       marginHorizontal: 5
@@ -68,8 +69,8 @@ class CombatScreen extends Component {
     },
     inputWrap: {
      flex: 1,
-     borderColor: "#cccccc",
-     borderBottomWidth: 1,
+     borderColor: 'rgb(250, 0, 115)',
+     borderBottomWidth: StyleSheet.hairlineWidth,
      marginBottom: 10,
      paddingHorizontal: 10
     },

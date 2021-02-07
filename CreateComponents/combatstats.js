@@ -225,50 +225,50 @@ class CombatStats extends PureComponent {
            <ScrollView style={styles.scrollView}>
              <View style={styles.row}>
                <View style={styles.item}>
-                 <Text>Speed: {this.state.speed}</Text>
+                 <Text style={styles.text}>Speed: {this.state.speed}</Text>
                </View>
                <View style={styles.item}>
-                 <Text>Armor: {this.state.armor}</Text>
-               </View>
-             </View>
-             <View style={styles.row}>
-               <View style={styles.item}>
-                 <Text>Awareness: {this.state.awareness}</Text>
-               </View>
-               <View style={styles.item}>
-                 <Text>Resilience: {this.state.resilience}</Text>
+                 <Text style={styles.text}>Armor: {this.state.armor}</Text>
                </View>
              </View>
              <View style={styles.row}>
                <View style={styles.item}>
-                 <Text>Base Attack: {this.state.baseAttack}</Text>
+                 <Text style={styles.text}>Awareness: {this.state.awareness}</Text>
                </View>
                <View style={styles.item}>
-                 <Text>Base Defense: {this.state.baseDefense}</Text>
-               </View>
-             </View>
-             <View style={styles.row}>
-               <View style={styles.item}>
-                 <Text>Melee Attack: {this.state.melee}</Text>
-               </View>
-               <View style={styles.item}>
-                 <Text>Block: {this.state.block}</Text>
+                 <Text style={styles.text}>Resilience: {this.state.resilience}</Text>
                </View>
              </View>
              <View style={styles.row}>
                <View style={styles.item}>
-                 <Text>Ranged Attack: {this.state.ranged}</Text>
+                 <Text style={styles.text}>Base Attack: {this.state.baseAttack}</Text>
                </View>
                <View style={styles.item}>
-                 <Text>Dodge: {this.state.dodge}</Text>
+                 <Text style={styles.text}>Base Defense: {this.state.baseDefense}</Text>
                </View>
              </View>
              <View style={styles.row}>
                <View style={styles.item}>
-                 <Text>Psionic Attack: {this.state.psionic}</Text>
+                 <Text style={styles.text}>Melee Attack: {this.state.melee}</Text>
                </View>
                <View style={styles.item}>
-                 <Text>Will Defense: {this.state.will}</Text>
+                 <Text style={styles.text}>Block: {this.state.block}</Text>
+               </View>
+             </View>
+             <View style={styles.row}>
+               <View style={styles.item}>
+                 <Text style={styles.text}>Ranged Attack: {this.state.ranged}</Text>
+               </View>
+               <View style={styles.item}>
+                 <Text style={styles.text}>Dodge: {this.state.dodge}</Text>
+               </View>
+             </View>
+             <View style={styles.row}>
+               <View style={styles.item}>
+                 <Text style={styles.text}>Psionic Attack: {this.state.psionic}</Text>
+               </View>
+               <View style={styles.item}>
+                 <Text style={styles.text}>Will Defense: {this.state.will}</Text>
                </View>
              </View>
            </ScrollView>
@@ -283,7 +283,7 @@ class CombatStats extends PureComponent {
  const styles = StyleSheet.create({
     container: {
       paddingHorizontal: 10,
-      paddingVertical: 20
+      paddingVertical: 20,
     },
     scrollView: {
       marginHorizontal: 5
@@ -292,17 +292,18 @@ class CombatStats extends PureComponent {
       justifyContent: 'space-evenly',
       flexDirection: "row"
     },
+    text: {
+      color: "white"
+    },
     item: {
      flex: 1,
-     borderColor: "#cccccc",
-     borderBottomWidth: 1,
+     borderColor: 'rgb(250, 0, 115)',
+     borderBottomWidth: StyleSheet.hairlineWidth,
      marginBottom: 10,
      paddingHorizontal: 10
    },
     score: {
      flex: 1,
-     borderColor: "#cccccc",
-     borderBottomWidth: 1,
      marginBottom: 10,
      paddingHorizontal: 40
     }

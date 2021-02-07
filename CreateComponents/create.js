@@ -78,6 +78,7 @@ class Create extends PureComponent {
              tabBarOptions={{
                showIcon: true,
                showLabel: false,
+               style: {borderTopColor: 'rgb(250, 0, 115)'},
                activeBackgroundColor: 'black',
                inactiveBackgroundColor: 'black',
                activeTintColor: 'rgb(250, 0, 115)',

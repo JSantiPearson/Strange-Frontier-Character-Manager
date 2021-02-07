@@ -15,8 +15,6 @@ import CombatScreen from './CreateComponents/Screens/combatScreen';
 import Equipment from './CreateComponents/Screens/equipmentScreen';
 import NoteScreen from './CreateComponents/Screens/noteScreen';
 
-import CreateScreen from './CreateComponents/Screens/createScreen';
-
 import Builder from './CreateComponents/Builder/builder';
 import Species from './CreateComponents/Builder/speciesScreen';
 import Feats from './CreateComponents/Builder/featScreen';
@@ -169,7 +167,7 @@ class App extends React.Component {
               name="Build"
               component={Builder}
               initialParams={{
-                skillsAvail: false, 
+                skillsAvail: false,
                 featsAvail: false,
                 equipmentAvail: false
               }}
