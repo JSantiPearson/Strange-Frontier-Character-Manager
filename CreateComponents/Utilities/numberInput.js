@@ -20,6 +20,7 @@ class NumberInput extends PureComponent {
   }
 
   render(){
+    console.log(this.state.value < this.props.maxValue);
     return (
       <View style={styles.row}>
         {this.props.numberValue > 0 &&
@@ -31,9 +32,14 @@ class NumberInput extends PureComponent {
           <Icon name="minus-circle" size={22} color='rgba(250, 0, 115, 0.5)' />
         }
         <Text style={[styles.text, {textAlign: "center", width: 40}]}>{this.state.value}</Text>
-        <TouchableOpacity onPress={() => this.props.changeNumber(this.props.numberName, true)}>
-          <Icon name="plus-circle" size={22} color='rgb(250, 0, 115)' />
-        </TouchableOpacity>
+        {(this.state.value < this.props.maxValue || this.props.maxValue === undefined) &&
+          <TouchableOpacity onPress={() => this.props.changeNumber(this.props.numberName, true)}>
+            <Icon name="plus-circle" size={22} color='rgb(250, 0, 115)' />
+          </TouchableOpacity>
+        }
+        {this.state.value >= this.props.maxValue &&
+          <Icon name="plus-circle" size={22} color='rgba(250, 0, 115, 0.5)' />
+        }
       </View>
     )
   }

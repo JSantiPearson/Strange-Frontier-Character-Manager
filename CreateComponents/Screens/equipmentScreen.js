@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Alert, Button, Text, Picker, TouchableOpacity, TextInput, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { useNavigation } from '@react-navigation/native';
+import Purchased from '../Catalogues/purchased';
 import CheckBox from '@react-native-community/checkbox';
 import Accordion from 'react-native-collapsible/Accordion';
 
@@ -55,7 +56,6 @@ class Equipment extends Component {
       }
 
       let item = {
-        key: data.name,
         amount: data.amount,
         equipped: false,
         name: data.name,
@@ -82,6 +82,7 @@ class Equipment extends Component {
           if (currItem.name === item.name){//TODO: When creating the template for custom equipment, don't forget to disallow equipment with repeat names
             currItem.amount = item.amount;
             equipment[i] = currItem;
+            break;
           }
         }
       }
@@ -124,45 +125,74 @@ class Equipment extends Component {
       }
     }
 
-  //TODO: Eventually replace the checkbox for a component that better
-  // handles multiple of one item. Allow user to equip a specific amount of the same item.
-  setToggleCheckbox = (item, equipValue) => {
-    let equipped = [...this.state.equipped];
-    let stats = this.state.stats;
-    item.equipped = equipValue; //swap equip status based on checkbox
-
-    if (equipValue){ //item is being equipped
-      equipped.push(item);
-      stats.armor += item.stats.armor;
-      stats.resilience += item.stats.resilience;
-      stats.speed += item.stats.speed;
-      stats.awareness += item.stats.awareness;
-      stats.special.push(item.special);
+  equipItem = (data, amount) => {
+    let equipment = [...this.state.miscEquipment];
+    let equipType = "miscEquipment";
+    switch(data.type){
+      case "Ranged":
+        equipment = [...this.state.rangedEquipment];
+        equipType = "rangedEquipment";
+        break;
+      case "Melee":
+        equipment = [...this.state.meleeEquipment];
+        equipType = "meleeEquipment";
+        break;
+      case "Armor":
+        equipment = [...this.state.armorEquipment];
+        equipType = "armorEquipment";
+        break;
+      case "Gear":
+        equipment = [...this.state.gearEquipment];
+        equipType = "gearEquipment";
+        break;
+      case "misc":
+        equipment = [...this.state.miscEquipment];
+        equipType = "miscEquipment";
+        break;
+      default:
+        try {
+          throw new Error("Invalid item type " + data.type);
+        }
+        catch {
+          Alert.alert("Invalid item type " + data.type);
+        }
     }
-    else { //item is being unequipped
-      for (let i = 0; i < equipped.length; i++){ //TODO: This next section is extremely messy and can likely be optimized
-        let currItem = equipped[i];
-        if (currItem.name === item.name){
-          equipped.splice(i, 1);
-          stats.armor -= item.stats.armor;
-          stats.resilience -= item.stats.resilience;
-          stats.speed -= item.stats.speed;
-          stats.awareness -= item.stats.awareness;
-          if (currItem.special != null){
-            let special = [...this.state.stats.special];
-            for (let j = 0; j < special.length; j++){
-              if (currItem.special === special[j]){
-                special.splice(j, 1);
-                stats.special = special;
-              }
-            }
-          }
+    let item = {
+      amount: data.amount,
+      equipped: data.equipped,
+      name: data.name,
+      type: data.type,
+      price: data.price,
+      description: data.description,
+      misc: data.misc,
+      category: data.category,
+      range: data.range,
+      damage: data.damage,
+      durability: data.durability,
+      stats: data.stats,
+      special: data.special
+    }
+    let equipped = [...this.state.equipped];
+    //Add amount of items desired to equipped array
+    for (let i = 0; i < amount; i++){
+      equipped.push(item);
+    }
+    for (let i = 0; i < equipment.length; i++){
+      let currItem = equipment[i];
+      if (currItem.name === item.name){
+        currItem.amount -= amount;
+        if (currItem.amount === 0){
+          equipment.splice(i, 1);
+          break;
+        }
+        else {
+          equipment.splice(i, 1, currItem);
+          break;
         }
       }
     }
+    this.setState({[equipType]: equipment});
     this.setState({ equipped });
-    this.setState({ stats });
-    this.props.equipmentStatsCallback(stats);
   }
 
   /**
@@ -172,14 +202,22 @@ class Equipment extends Component {
     let equipped = this.state.equipped;
     return equipped.map((item) => {
       return (
-        <View style={styles.row}>
-          <Text style={styles.rowItem}>
-            <Text style={styles.text}>{item.name}</Text>
-            {item.amount > 1 &&
-              <Text style={styles.text}> (x{item.amount})</Text>
-            }
-          </Text>
-        </View>
+        <Purchased
+          itemCallback={this.equipItem}
+          amount={item.amount}
+          equipped={item.equipped}
+          name={item.name}
+          type={item.type}
+          price={item.price}
+          description={item.description}
+          misc={item.misc}
+          category={item.category}
+          range={item.range}
+          damage={item.damage}
+          durability={item.durability}
+          stats={item.stats}
+          special={item.special}
+        />
       )
     })
   }
@@ -190,22 +228,22 @@ class Equipment extends Component {
   equipmentList = (equipment) => {
     return equipment.map((item) => {
       return (
-        <View style={styles.row}>
-          <Text style={styles.rowItem}>
-            <Text style={styles.text}>{item.name}</Text>
-            {item.amount > 1 &&
-              <Text style={styles.text}> (x{item.amount})</Text>
-            }
-          </Text>
-          <View style={[styles.rowItem, {color: "white"}]}>
-            <CheckBox
-              disabled={false}
-              tintColors={{false: 'white', true: 'rgb(250, 0, 115)'}}
-              value={item.equipped}
-              onValueChange={(equipValue) => this.setToggleCheckbox(item, equipValue)}
-            />
-          </View>
-        </View>
+        <Purchased
+          itemCallback={this.equipItem}
+          amount={item.amount}
+          equipped={item.equipped}
+          name={item.name}
+          type={item.type}
+          price={item.price}
+          description={item.description}
+          misc={item.misc}
+          category={item.category}
+          range={item.range}
+          damage={item.damage}
+          durability={item.durability}
+          stats={item.stats}
+          special={item.special}
+        />
       )
     })
   }

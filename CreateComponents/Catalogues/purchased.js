@@ -3,7 +3,6 @@ import { View, Button, Text, Picker, TouchableOpacity, LayoutAnimation, TextInpu
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import Accordion from 'react-native-collapsible/Accordion';
 import NumberInput from '../Utilities/numberInput';
-import { showMessage, hideMessage }from 'react-native-flash-message';
 
 const SECTION = [
   {
@@ -12,7 +11,7 @@ const SECTION = [
   }
 ];
 
-class Item extends Component {
+class Purchased extends Component {
   state = {
     active: [],
     item: {
@@ -31,42 +30,14 @@ class Item extends Component {
       stats: this.props.stats,
       special: this.props.special
     },
-    cart: 0,
-  }
-
-  componentDidMount(){
-    let amount = 0;
-    if (this.props.type == "Ranged"){
-      amount = this.getEquipmentAmount("ranged");
-    }
-    else if (this.props.type == "Melee"){
-      amount = this.getEquipmentAmount("melee");
-    }
-    else if (this.props.type == "Armor"){
-      amount = this.getEquipmentAmount("armor");
-    }
-    else if (this.props.type == "Gear"){
-      amount = this.getEquipmentAmount("gear");
-    }
-    else if (this.props.type == "Misc"){
-      amount = this.getEquipmentAmount("misc");
-    }
-    let item = this.state.item;
-    item.amount = amount;
-    this.setState({ item });
-  }
-
-  componentDidUpdate(prevState){
-    if (prevState != this.state && this.props.name == "Galaggir's Auto Rifle"){
-      console.log("Galaggir's Auto Rifle amount: " + this.state.item.amount);
-    }
+    equip: 1
   }
 
   _renderHeader = () => {
     return (
-      <View style={styles.row}>
+      <View style={{flexDirection: "column"}}>
         <Text style={[styles.title, styles.font]}>{this.props.name}</Text>
-        <Text style={styles.text}>${this.props.price}</Text>
+        <Text style={[styles.optionText, { fontSize: 11, fontStyle: "italic", color: "lightgray"} ]}>{this.props.type}, {this.props.category}</Text>
       </View>
     )
   }
@@ -85,30 +56,24 @@ class Item extends Component {
 
   addItem = () => {
     let item = this.state.item;
+    let equip = this.state.equip;
     let active = [];
-    var buyMessage = "Purchased " + this.state.cart + " " + item.name + ".";
-    item.amount += this.state.cart;
+    item.amount -= this.state.equip;
     this.setState({ item });
     this.setState({ active });
-    this.setState({ cart: 0});
-    showMessage({
-      message: buyMessage,
-      floating: true,
-      style: {backgroundColor: 'rgba(250, 0, 115, 0.9)', color: "white"}
-    });
-
-    this.props.itemCallback(item);
+    this.setState({ equip: 1});
+    this.props.itemCallback(item, equip);
   }
 
   changeAmount = (amount, increase) => {
-    let cart = this.state.cart;
+    let equip = this.state.equip;
     if (increase){
-      cart++;
+      equip++;
     }
     else{
-      cart--;
+      equip--;
     }
-    this.setState({ cart });
+    this.setState({ equip });
   }
 
   _renderContent = section => {
@@ -174,24 +139,39 @@ class Item extends Component {
         {this.props.stats.awareness != 0 &&
           <Text style={styles.statText}>{this.props.stats.awareness} Awareness</Text>
         }
-        <View style={styles.row}>
-          <View style={{flex: 1, justifyContent: "center", alignItems: "center"}}>
-            <Text style={[styles.text, {paddingTop: 2, marginBottom: 4}]}>Amount to add:</Text>
-            <NumberInput
-              numberName={"cart"}
-              numberValue={this.state.cart}
-              changeNumber={this.changeAmount}
-            />
+        {this.props.amount <= 1 && this.props.equipped === false &&
+          <View style={styles.row}>
+            <View style={{flex: 1, justifyContent: "flex-end", alignItems: "center"}}>
+              <TouchableOpacity
+                style={styles.catalogueButton}
+                onPress={this.addItem}
+              >
+                <Text style={[styles.text, {textAlign: "center"}]}>Equip</Text>
+              </TouchableOpacity>
+            </View>
           </View>
-          <View style={{flex: 1, justifyContent: "flex-end", alignItems: "center"}}>
-            <TouchableOpacity
-              style={styles.catalogueButton}
-              onPress={this.addItem}
-            >
-            <Text style={[styles.text, {textAlign: "center"}]}>Buy</Text>
-            </TouchableOpacity>
+        }
+        {this.props.amount > 1 && this.props.equipped === false &&
+          <View style={styles.row}>
+            <View style={{flex: 1, justifyContent: "center", alignItems: "center"}}>
+              <Text style={[styles.text, {paddingTop: 2, marginBottom: 4}]}>Amount to equip:</Text>
+              <NumberInput
+                numberName={"equip"}
+                numberValue={this.state.equip}
+                maxValue={this.props.amount}
+                changeNumber={this.changeAmount}
+              />
+            </View>
+            <View style={{flex: 1, justifyContent: "flex-end", alignItems: "center"}}>
+              <TouchableOpacity
+                style={styles.catalogueButton}
+                onPress={this.addItem}
+              >
+              <Text style={[styles.text, {textAlign: "center"}]}>Equip</Text>
+              </TouchableOpacity>
+            </View>
           </View>
-        </View>
+        }
       </View>
     );
   };
@@ -215,7 +195,7 @@ class Item extends Component {
   }
 }
 
-export default Item;
+export default Purchased;
 
 const styles = StyleSheet.create({
     title: {

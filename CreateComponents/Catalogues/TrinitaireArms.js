@@ -24,6 +24,7 @@ class TrinitaireArms extends Component {
             range={"10-30-50"}
             damage={"7d10"}
             durability={100}
+            category={"Weapon"}
             stats={{
               armor: 0,
               resilience: 0,
@@ -42,6 +43,7 @@ class TrinitaireArms extends Component {
             range={"5-10-15"}
             damage={"5d10+20 AOE"}
             durability={90}
+            category={"Weapon"}
             stats={{
               armor: 0,
               resilience: 0,
@@ -60,6 +62,7 @@ class TrinitaireArms extends Component {
             range={"20-40-60"}
             damage={"3d10+30"}
             durability={90}
+            category={"Weapon"}
             stats={{
               armor: 0,
               resilience: 0,
@@ -78,6 +81,7 @@ class TrinitaireArms extends Component {
             range={"15-25-35"}
             damage={"7d8+10"}
             durability={85}
+            category={"Weapon"}
             stats={{
               armor: 0,
               resilience: 0,
@@ -96,6 +100,7 @@ class TrinitaireArms extends Component {
             range={"40"}
             damage={"5d12"}
             durability={85}
+            category={"Weapon"}
             stats={{
               armor: 0,
               resilience: 0,
@@ -114,6 +119,7 @@ class TrinitaireArms extends Component {
             range={"40"}
             damage={"5d10+10 AOE"}
             durability={90}
+            category={"Weapon"}
             stats={{
               armor: 0,
               resilience: 0,
@@ -132,6 +138,7 @@ class TrinitaireArms extends Component {
             range={"30-50-80"}
             damage={"(5d10, 6d10, 7d10)+20"}
             durability={95}
+            category={"Weapon"}
             stats={{
               armor: 0,
               resilience: 0,
@@ -150,6 +157,7 @@ class TrinitaireArms extends Component {
             range={"4-12-16"}
             damage={"7d10, 6d10, 5d10"}
             durability={100}
+            category={"Weapon"}
             stats={{
               armor: 0,
               resilience: 0,
@@ -168,6 +176,7 @@ class TrinitaireArms extends Component {
             range={"8-16-24"}
             damage={"4d10 + Ammunition Damage"}
             durability={100}
+            category={"Weapon"}
             stats={{
               armor: 0,
               resilience: 0,
@@ -186,6 +195,7 @@ class TrinitaireArms extends Component {
             range={"30-50-70"}
             damage={"5d12 + Ammunition Damage (If N/A add + 20)"}
             durability={100}
+            category={"Weapon"}
             stats={{
               armor: 0,
               resilience: 0,
@@ -204,6 +214,7 @@ class TrinitaireArms extends Component {
             range={"15-25-35"}
             damage={"7d12, 6d12, 5d12"}
             durability={80}
+            category={"Weapon"}
             stats={{
               armor: 0,
               resilience: 0,
@@ -222,6 +233,7 @@ class TrinitaireArms extends Component {
             range={"15-25-35"}
             damage={"6d12, 1d4 knockback"}
             durability={90}
+            category={"Weapon"}
             stats={{
               armor: 0,
               resilience: 0,
@@ -241,6 +253,7 @@ class TrinitaireArms extends Component {
             range={"20-40-60"}
             damage={"8d8"}
             durability={80}
+            category={"Weapon"}
             stats={{
               armor: 0,
               resilience: 0,
@@ -259,6 +272,7 @@ class TrinitaireArms extends Component {
             range={"15-25-35"}
             damage={"5d12"}
             durability={85}
+            category={"Weapon"}
             stats={{
               armor: 0,
               resilience: 0,
@@ -277,6 +291,7 @@ class TrinitaireArms extends Component {
             range={"15-25-35"}
             damage={"7d10 + 50% AOE explosive damage on adjacent squares"}
             durability={90}
+            category={"Weapon"}
             stats={{
               armor: 0,
               resilience: 0,
@@ -295,6 +310,7 @@ class TrinitaireArms extends Component {
             range={"15-25-35"}
             damage={"4d8, 6d8 if target is armored"}
             durability={100}
+            category={"Weapon"}
             stats={{
               armor: 0,
               resilience: 0,
@@ -313,6 +329,7 @@ class TrinitaireArms extends Component {
             range={"10-15-20"}
             damage={"7d10, 6d10, 5d10"}
             durability={90}
+            category={"Weapon"}
             stats={{
               armor: 0,
               resilience: 0,
@@ -332,6 +349,7 @@ class TrinitaireArms extends Component {
             range={"1"}
             damage={"4d10 + (3d10 if target is non-biological)"}
             durability={90}
+            category={"Weapon"}
             stats={{
               armor: 0,
               resilience: 0,
@@ -350,6 +368,7 @@ class TrinitaireArms extends Component {
             range={"5"}
             damage={"9d8"}
             durability={95}
+            category={"Weapon"}
             stats={{
               armor: 0,
               resilience: 0,
@@ -368,6 +387,7 @@ class TrinitaireArms extends Component {
             range={"1"}
             damage={"9d8 Slashing Damage"}
             durability={100}
+            category={"Weapon"}
             stats={{
               armor: 0,
               resilience: 0,
@@ -386,6 +406,7 @@ class TrinitaireArms extends Component {
             range={"1"}
             damage={"6d10, no penalty to attacks on limbs. (Still penalty for vitals)"}
             durability={95}
+            category={"Weapon"}
             stats={{
               armor: 0,
               resilience: 0,
@@ -404,6 +425,7 @@ class TrinitaireArms extends Component {
             range={"2"}
             damage={"8d8 + 10"}
             durability={100}
+            category={"Weapon"}
             stats={{
               armor: 0,
               resilience: 0,
@@ -422,6 +444,7 @@ class TrinitaireArms extends Component {
             range={"1"}
             damage={"6d10 Slashing Damage"}
             durability={80}
+            category={"Weapon"}
             stats={{
               armor: 0,
               resilience: 0,
@@ -440,6 +463,7 @@ class TrinitaireArms extends Component {
             range={"1"}
             damage={"5d8 for each blade"}
             durability={60}
+            category={"Weapon"}
             stats={{
               armor: 0,
               resilience: 0,
@@ -616,7 +640,7 @@ class TrinitaireArms extends Component {
               itemCallback={this.addItem}
               price={800}
               description={"A sealed ballistic suit usable for EVA and combat. Standard for most infantry."}
-              category={"Light/Gear"}
+              category={"Light/Torso"}
               stats={{
                 armor: 4,
                 resilience: 0,
