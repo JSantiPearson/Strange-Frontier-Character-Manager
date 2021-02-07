@@ -38,6 +38,7 @@ function Option(props){
       onPress={props.state.available.includes(props.id) ? () => props.navigation.navigate(props.id, {
         attributes: props.state.attributes,
         species: props.state.species,
+        saves: props.state.saves,
         feats: props.state.feats,
         navigation: props.navigation,
         route: props.route,
@@ -48,7 +49,7 @@ function Option(props){
       {props.id == "Species" && props.state.species != undefined &&
         <Text style={[styles.optionText, { fontSize: 14, fontStyle: "italic"} ]}>{props.state.species}</Text>
       }
-      {props.id == "Attributes" && props.state.available.includes("Attributes") == true && props.state.attributes != undefined &&
+      {props.id == "Attributes" && props.state.available.includes("Attributes") == true && props.state.available.includes("Skills") &&
         <Text style={[styles.optionText, { fontSize: 14, fontStyle: "italic"} ]}>
           Str: {props.state.attributes.strength.score},
           Dex: {props.state.attributes.dexterity.score},
@@ -66,6 +67,32 @@ class Builder extends Component {
   state = {
     available: ["Species"], //we will add options to this list once certain steps have been completed.
     complete: [], //options that have been completed will appear here. This takes priority over the available array.
+    attributes: {
+      strength: {
+        score: 10,
+        mod: 0
+      },
+      dexterity: {
+        score: 10,
+        mod: 0
+      },
+      constitution: {
+        score: 10,
+        mod: 0
+      },
+      wisdom: {
+        score: 10,
+        mod: 0
+      },
+      intelligence: {
+        score: 10,
+        mod: 0
+      },
+      influence: {
+        score: 10,
+        mod: 0
+      }
+    },
     saves: {
       fortitude: 0,
       reflex: 0,
@@ -77,6 +104,27 @@ class Builder extends Component {
     this.setState(data, () => {
       this.handleAvailability();
     });
+  }
+
+  calculateSave = (attr1, attr2) => {
+    var save = 0;
+    var firstBonus = attr1.mod*10;
+    var secondBonus = attr2.mod*10;
+    save = Math.floor((firstBonus + secondBonus)/2)+10;
+    return save;
+  }
+
+  handleSavingThrows = (attributes) => {
+    let fortitude = this.calculateSave(attributes.strength, attributes.constitution);
+    let reflex = this.calculateSave(attributes.dexterity, attributes.intelligence);
+    let willpower = this.calculateSave(attributes.wisdom, attributes.influence);
+
+    let saves = {
+      fortitude: fortitude,
+      reflex: reflex,
+      willpower: willpower
+    }
+    this.setState({ saves });
   }
 
   /**
@@ -95,8 +143,10 @@ class Builder extends Component {
     if (this.state.skillsAvail){
       let available = [...this.state.available];
       let complete = [...this.state.complete];
+      let attributes = this.state.attributes;
       available.push("Skills");
       complete.push("Attributes");
+      this.handleSavingThrows(attributes);
       this.setState({ available });
       this.setState({ complete });
     }

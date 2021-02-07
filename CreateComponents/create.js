@@ -16,12 +16,6 @@ const Tab = createBottomTabNavigator();
 
 class Create extends PureComponent {
   state = {
-     saves: {
-       fortitude: 0,
-       reflex: 0,
-       willpower: 0
-     },
-     species: '',
      equipmentStats: {
        armor: 0,
        resilience: 0,
@@ -48,27 +42,8 @@ class Create extends PureComponent {
       headerTitleStyle: {color: "white"}
     });
   }
-  setAttributes = (attr) => {
-    let attributes = {
-      strength: attr.strength,
-      dexterity: attr.dexterity,
-      constitution: attr.constitution,
-      wisdom: attr.wisdom,
-      intelligence: attr.intelligence,
-      influence: attr.influence
-    };
-    this.setState({ attributes });
-  }
-  setSpecies = (speciesValue) => {
-    this.props.route.params.navigation.setParams({ species: speciesValue });
-    this.setState({ species: speciesValue });
-  }
   setEquipmentStats = (equipmentStats) => {
     this.setState({ equipmentStats });
-  }
-  setSaves = (saves) => {
-    this.setState({ saves });
-    this.props.route.params.navigation.setParams({ saves });
   }
   render() {
      return (
