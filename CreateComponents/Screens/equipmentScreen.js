@@ -86,32 +86,26 @@ class Equipment extends Component {
           }
         }
       }
-
+      //Update the state of the specified category of item.
       switch(data.type){
         case "Ranged":
           let rangedEquipment = equipment;
-          console.log("Adding " + item.name + " (x" + item.amount + ") to ranged equipment");
           this.setState({ rangedEquipment });
           break;
         case "Melee":
           let meleeEquipment = equipment;
-          console.log("Adding " + item.name + " to melee equipment");
           this.setState({ meleeEquipment });
           break;
         case "Armor":
           let armorEquipment = equipment;
-          console.log("Adding " + item.name + " to armor equipment");
-          console.log(item.name + " has a " + item.stats.armor + " in armor.");
           this.setState({ armorEquipment });
           break;
         case "Gear":
           let gearEquipment = equipment;
-          console.log("Adding " + item.name + " to gear equipment");
           this.setState({ gearEquipment });
           break;
         case "misc":
           let miscEquipment = equipment;
-          console.log("Adding " + item.name + " to misc equipment");
           this.setState({ miscEquipment });
           break;
         default:
@@ -125,128 +119,145 @@ class Equipment extends Component {
       }
     }
 
-  equipItem = (data, amount) => {
-    let equipment = [...this.state.miscEquipment];
-    let equipType = "miscEquipment";
-    switch(data.type){
-      case "Ranged":
-        equipment = [...this.state.rangedEquipment];
-        equipType = "rangedEquipment";
-        break;
-      case "Melee":
-        equipment = [...this.state.meleeEquipment];
-        equipType = "meleeEquipment";
-        break;
-      case "Armor":
-        equipment = [...this.state.armorEquipment];
-        equipType = "armorEquipment";
-        break;
-      case "Gear":
-        equipment = [...this.state.gearEquipment];
-        equipType = "gearEquipment";
-        break;
-      case "misc":
-        equipment = [...this.state.miscEquipment];
-        equipType = "miscEquipment";
-        break;
-      default:
-        try {
-          throw new Error("Invalid item type " + data.type);
-        }
-        catch {
-          Alert.alert("Invalid item type " + data.type);
-        }
-    }
-    let item = {
-      amount: data.amount,
-      equipped: data.equipped,
-      name: data.name,
-      type: data.type,
-      price: data.price,
-      description: data.description,
-      misc: data.misc,
-      category: data.category,
-      range: data.range,
-      damage: data.damage,
-      durability: data.durability,
-      stats: data.stats,
-      special: data.special
-    }
-    let equipped = [...this.state.equipped];
-    //Add amount of items desired to equipped array
-    for (let i = 0; i < amount; i++){
-      equipped.push(item);
-    }
-    for (let i = 0; i < equipment.length; i++){
-      let currItem = equipment[i];
-      if (currItem.name === item.name){
-        currItem.amount -= amount;
-        if (currItem.amount === 0){
-          equipment.splice(i, 1);
+    handleEquip = (data, amount) => {
+      let equipment = [...this.state.miscEquipment];
+      let equipType = "miscEquipment";
+      switch(data.type){
+        case "Ranged":
+          equipment = [...this.state.rangedEquipment];
+          equipType = "rangedEquipment";
           break;
+        case "Melee":
+          equipment = [...this.state.meleeEquipment];
+          equipType = "meleeEquipment";
+          break;
+        case "Armor":
+          equipment = [...this.state.armorEquipment];
+          equipType = "armorEquipment";
+          break;
+        case "Gear":
+          equipment = [...this.state.gearEquipment];
+          equipType = "gearEquipment";
+          break;
+        case "misc":
+          equipment = [...this.state.miscEquipment];
+          equipType = "miscEquipment";
+          break;
+        default:
+          try {
+            throw new Error("Invalid item type " + data.type);
+          }
+          catch {
+            Alert.alert("Invalid item type " + data.type);
+          }
+        }
+        let item = {
+          amount: data.amount,
+          equipped: data.equipped,
+          name: data.name,
+          type: data.type,
+          price: data.price,
+          description: data.description,
+          misc: data.misc,
+          category: data.category,
+          range: data.range,
+          damage: data.damage,
+          durability: data.durability,
+          stats: data.stats,
+          special: data.special
+        }
+        let equipped = [...this.state.equipped];
+        if (item.equipped){
+          console.log("run unequipItem");
+          this.unequipItem(item, equipType, equipped, equipment);
         }
         else {
-          equipment.splice(i, 1, currItem);
-          break;
+          console.log("run equipItem");
+          this.equipItem(item, amount, equipType, equipped, equipment);
+        }
+    }
+
+    unequipItem = (item, equipType, equipped, equipment) => {
+
+    }
+
+    equipItem = (item, amount, equipType, equipped, equipment) => {
+      //if the item is not currently equipped, perform equip operations.
+      //TODO: Implement unique keys for each item added. Using names could get messy with custom items.
+      //Add amount of items desired to equipped array
+      for (let i = 0; i < amount; i++){
+        equipped.push(item);
+      }
+      for (let i = 0; i < equipment.length; i++){
+        let currItem = equipment[i];
+        if (currItem.name === item.name){
+          currItem.amount -= amount;
+          if (currItem.amount === 0){
+            equipment.splice(i, 1);
+            break;
+          }
+          else {
+            equipment.splice(i, 1, currItem);
+            break;
+          }
         }
       }
+      this.setState({[equipType]: equipment});
+      this.setState({ equipped });
     }
-    this.setState({[equipType]: equipment});
-    this.setState({ equipped });
-  }
 
-  /**
-  * Displays every item that is equipped.
-  */
-  equippedDisplay = () => {
-    let equipped = this.state.equipped;
-    return equipped.map((item) => {
-      return (
-        <Purchased
-          itemCallback={this.equipItem}
-          amount={item.amount}
-          equipped={item.equipped}
-          name={item.name}
-          type={item.type}
-          price={item.price}
-          description={item.description}
-          misc={item.misc}
-          category={item.category}
-          range={item.range}
-          damage={item.damage}
-          durability={item.durability}
-          stats={item.stats}
-          special={item.special}
-        />
-      )
-    })
-  }
+    /**
+    * Displays every item that is equipped.
+    */
+    equippedDisplay = () => {
+      let equipped = this.state.equipped;
+      return equipped.map((item) => {
+        return (
+          <Purchased
+            itemCallback={this.handleEquip}
+            amount={item.amount}
+            equipped={true}
+            name={item.name}
+            type={item.type}
+            price={item.price}
+            description={item.description}
+            misc={item.misc}
+            category={item.category}
+            range={item.range}
+            damage={item.damage}
+            durability={item.durability}
+            stats={item.stats}
+            special={item.special}
+          />
+        )
+      })
+    }
 
-  /**
-  * Repeatedly returns text displays of every item and its amount in the array until none remain
-  */
-  equipmentList = (equipment) => {
-    return equipment.map((item) => {
-      return (
-        <Purchased
-          itemCallback={this.equipItem}
-          amount={item.amount}
-          equipped={item.equipped}
-          name={item.name}
-          type={item.type}
-          price={item.price}
-          description={item.description}
-          misc={item.misc}
-          category={item.category}
-          range={item.range}
-          damage={item.damage}
-          durability={item.durability}
-          stats={item.stats}
-          special={item.special}
-        />
-      )
-    })
-  }
+    /**
+    * Repeatedly returns text displays of every item and its amount in the array until none remain
+    */
+    equipmentList = (equipment) => {
+      return equipment.map((item) => {
+        return (
+          <Purchased
+            itemCallback={this.handleEquip}
+            amount={item.amount}
+            equipped={false}
+            name={item.name}
+            type={item.type}
+            price={item.price}
+            description={item.description}
+            misc={item.misc}
+            category={item.category}
+            range={item.range}
+            damage={item.damage}
+            durability={item.durability}
+            stats={item.stats}
+            special={item.special}
+          />
+        )
+      })
+    }
 
   render() {
      return (

@@ -17,7 +17,7 @@ class Purchased extends Component {
     item: {
       amount: this.props.amount,
       key: this.props.name,
-      equipped: false,
+      equipped: this.props.equipped,
       name: this.props.name,
       type: this.props.type,
       price: this.props.price,
@@ -62,6 +62,7 @@ class Purchased extends Component {
     this.setState({ item });
     this.setState({ active });
     this.setState({ equip: 1});
+    console.log("Equip state on callback: " + item.equipped);
     this.props.itemCallback(item, equip);
   }
 
@@ -91,8 +92,11 @@ class Purchased extends Component {
               <Text style={[styles.text, {fontStyle: "italic"}]}>{this.props.category}</Text>
             }
           </Text>
-          {this.state.item.amount != undefined && this.state.item.amount != 0 &&
-            <Text style={styles.contentText}>Amount owned: {this.state.item.amount}</Text>
+          {this.props.amount != undefined && this.props.amount != 0 && !this.props.equipped &&
+            <Text style={styles.contentText}>Amount owned: {this.props.amount}</Text>
+          }
+          {this.props.equipped &&
+            <Text style={styles.contentText}>Equipped</Text>
           }
         </View>
         {this.props.description != undefined &&
@@ -147,6 +151,18 @@ class Purchased extends Component {
                 onPress={this.addItem}
               >
                 <Text style={[styles.text, {textAlign: "center"}]}>Equip</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        }
+        {this.props.amount <= 1 && this.props.equipped === true &&
+          <View style={styles.row}>
+            <View style={{flex: 1, justifyContent: "flex-end", alignItems: "center"}}>
+              <TouchableOpacity
+                style={styles.catalogueButton}
+                onPress={this.addItem}
+              >
+                <Text style={[styles.text, {textAlign: "center"}]}>Unequip</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -227,7 +243,7 @@ const styles = StyleSheet.create({
       paddingVertical: 10,
     },
     catalogueButton: {
-      width: 50,
+      paddingHorizontal: 10,
       justifyContent: 'center',
       backgroundColor: 'rgb(250, 0, 115)',
       marginTop: 5,
