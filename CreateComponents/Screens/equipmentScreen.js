@@ -119,6 +119,9 @@ class Equipment extends Component {
       }
     }
 
+    /**
+    * handleEquip takes the data sent by the Purchased component and either runs equip or unequip depending on the item's state.
+    **/
     handleEquip = (data, amount) => {
       let equipment = [...this.state.miscEquipment];
       let equipType = "miscEquipment";
@@ -168,45 +171,53 @@ class Equipment extends Component {
         }
         let equipped = [...this.state.equipped];
         if (item.equipped){
-          console.log("run unequipItem");
           this.unequipItem(item, equipType, equipped, equipment);
         }
         else {
-          console.log("run equipItem");
           this.equipItem(item, amount, equipType, equipped, equipment);
         }
     }
 
-    unequipItem = (item, equipType, equipped, equipment) => {
+    /**
+    * unequipItem takes the item to be unequipped, the type of equipment, the equipped items array, and the equipment array the item is stored in.
+    * An instance of the item is removed from the equipped array, and if an instance of the item is found in unequipped equipment array its amount is incremented by 1.
+    * If no instance is found, a new one is added to the inventory equipment array.
+    **/
+    unequipItem = (item, equipType, equipped, equipment) => { //TODO: Implement item keys to use here instead of names.
       for (let i = 0; i < equipped.length; i++){
         let currItem = equipped[i];
         if (item.name === currItem.name){
-          equipped.splice(i, 1);
+          equipped.splice(i, 1); //if an instance of the item is found, remove it from the equipped array.
           break;
         }
       }
       for (let i = 0; i < equipment.length; i++){
         let currItem = equipment[i];
-        if (item.name === currItem.name){
+        if (item.name === currItem.name){ //if an instance of the item is found then increment its amount by one, set the state, and return.
           ++currItem.amount;
           equipment.splice(i, 1, currItem);
-          break;
+          this.setState({[equipType]: equipment});
+          this.setState({ equipped });
+          return;
         }
       }
+      item.amount = 1;
+      equipment.push(item); //no instance of the item was found, so we add a new one with amount 1.
       this.setState({[equipType]: equipment});
       this.setState({ equipped });
     }
 
+    /**
+    * equipItem adds the desired amount of items to the equipped array and reduces the amount owned (but not equipped) by the amount equipped.
+    **/
     equipItem = (item, amount, equipType, equipped, equipment) => {
-      //if the item is not currently equipped, perform equip operations.
-      //TODO: Implement unique keys for each item added. Using names could get messy with custom items.
       //Add amount of items desired to equipped array
       for (let i = 0; i < amount; i++){
         equipped.push(item);
       }
       for (let i = 0; i < equipment.length; i++){
         let currItem = equipment[i];
-        if (currItem.name === item.name){
+        if (currItem.name === item.name){   //TODO: Implement unique keys for each item added. Using names could get messy with custom items.
           currItem.amount -= amount;
           if (currItem.amount === 0){
             equipment.splice(i, 1);

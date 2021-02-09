@@ -93,7 +93,7 @@ class Purchased extends Component {
             }
           </Text>
           {this.props.amount != undefined && this.props.amount != 0 && !this.props.equipped &&
-            <Text style={styles.contentText}>Amount owned: {this.props.amount}</Text>
+            <Text style={styles.contentText}>Amount in inventory: {this.props.amount}</Text>
           }
           {this.props.equipped &&
             <Text style={styles.contentText}>Equipped</Text>
