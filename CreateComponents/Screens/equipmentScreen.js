@@ -178,7 +178,23 @@ class Equipment extends Component {
     }
 
     unequipItem = (item, equipType, equipped, equipment) => {
-
+      for (let i = 0; i < equipped.length; i++){
+        let currItem = equipped[i];
+        if (item.name === currItem.name){
+          equipped.splice(i, 1);
+          break;
+        }
+      }
+      for (let i = 0; i < equipment.length; i++){
+        let currItem = equipment[i];
+        if (item.name === currItem.name){
+          ++currItem.amount;
+          equipment.splice(i, 1, currItem);
+          break;
+        }
+      }
+      this.setState({[equipType]: equipment});
+      this.setState({ equipped });
     }
 
     equipItem = (item, amount, equipType, equipped, equipment) => {
