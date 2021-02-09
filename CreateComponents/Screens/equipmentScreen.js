@@ -240,22 +240,24 @@ class Equipment extends Component {
       let equipped = this.state.equipped;
       return equipped.map((item) => {
         return (
-          <Purchased
-            itemCallback={this.handleEquip}
-            amount={item.amount}
-            equipped={true}
-            name={item.name}
-            type={item.type}
-            price={item.price}
-            description={item.description}
-            misc={item.misc}
-            category={item.category}
-            range={item.range}
-            damage={item.damage}
-            durability={item.durability}
-            stats={item.stats}
-            special={item.special}
-          />
+          <View style={{marginBottom: 5}}>
+            <Purchased
+              itemCallback={this.handleEquip}
+              amount={item.amount}
+              equipped={true}
+              name={item.name}
+              type={item.type}
+              price={item.price}
+              description={item.description}
+              misc={item.misc}
+              category={item.category}
+              range={item.range}
+              damage={item.damage}
+              durability={item.durability}
+              stats={item.stats}
+              special={item.special}
+            />
+        </View>
         )
       })
     }
@@ -266,22 +268,24 @@ class Equipment extends Component {
     equipmentList = (equipment) => {
       return equipment.map((item) => {
         return (
-          <Purchased
-            itemCallback={this.handleEquip}
-            amount={item.amount}
-            equipped={false}
-            name={item.name}
-            type={item.type}
-            price={item.price}
-            description={item.description}
-            misc={item.misc}
-            category={item.category}
-            range={item.range}
-            damage={item.damage}
-            durability={item.durability}
-            stats={item.stats}
-            special={item.special}
-          />
+          <View style={{marginVertical: 10}}>
+            <Purchased
+              itemCallback={this.handleEquip}
+              amount={item.amount}
+              equipped={false}
+              name={item.name}
+              type={item.type}
+              price={item.price}
+              description={item.description}
+              misc={item.misc}
+              category={item.category}
+              range={item.range}
+              damage={item.damage}
+              durability={item.durability}
+              stats={item.stats}
+              special={item.special}
+            />
+          </View>
         )
       })
     }
@@ -297,26 +301,26 @@ class Equipment extends Component {
                { this.equippedDisplay() }
              </View>
              <View style={styles.sectionDescription}>
-               <Text style={styles.sectionTitle}>Ranged Weaponry:</Text>
+               <Text style={styles.sectionTitle}>Ranged Weaponry</Text>
                { this.equipmentList(this.state.rangedEquipment) }
              </View>
              <View style={styles.sectionDescription}>
-               <Text style={styles.sectionTitle}>Melee Weaponry:</Text>
+               <Text style={styles.sectionTitle}>Melee Weaponry</Text>
                { this.equipmentList(this.state.meleeEquipment) }
              </View>
              <View style={styles.sectionDescription}>
-               <Text style={styles.sectionTitle}>Armor and Wearables:</Text>
+               <Text style={styles.sectionTitle}>Armor and Wearables</Text>
                { this.equipmentList(this.state.armorEquipment) }
              </View>
              <View style={styles.sectionDescription}>
-               <Text style={styles.sectionTitle}>Gear and Utility:</Text>
+               <Text style={styles.sectionTitle}>Gear and Utility</Text>
                { this.equipmentList(this.state.gearEquipment) }
              </View>
              <View style={styles.sectionDescription}>
-               <Text style={styles.sectionTitle}>Miscellaneous:</Text>
+               <Text style={styles.sectionTitle}>Miscellaneous</Text>
                { this.equipmentList(this.state.miscEquipment) }
              </View>
-             <View style={{alignItems: 'center'}}>
+             <View style={{alignItems: 'center', marginTop: 40}}>
                <TouchableOpacity
                  style={styles.catalogueButton}
                  onPress={() => { this.props.navigation.navigate('Catalogues', {
@@ -379,7 +383,10 @@ class Equipment extends Component {
    sectionTitle: {
      fontWeight: "bold",
      paddingVertical: 5,
+     marginBottom: 10,
      color: 'white',
+     borderBottomColor: 'rgb(250, 0, 115)',
+     borderBottomWidth: StyleSheet.hairlineWidth,
    },
    row: {
      flexDirection: "row"
