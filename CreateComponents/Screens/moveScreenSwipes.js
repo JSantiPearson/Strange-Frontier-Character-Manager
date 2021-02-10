@@ -117,22 +117,19 @@ function MoveItem(props) {
   //TODO: Bring over all needed props to this function in a tidy way.
   return (
     <Swipeable
-      leftContent={(
-        <View style={[styles.leftSwipeItem, {color: 'white', backgroundColor: 'rgb(250, 0, 115)'}]}>
-          <Text>Info</Text>
-        </View>
-      )}
       rightButtons={[
         <TouchableOpacity onPress={() => props.navigation.navigate('Create Move', { moveCallback: props.handleMove, move: props.move})} style={[styles.rightSwipeItem, {color: 'white', backgroundColor: 'rgb(250, 0, 115)'}]}>
-          <Text>Edit</Text>
+          <Text style={{color: "white"}}>Info</Text>
         </TouchableOpacity>,
       ]}
       onRightButtonsOpenRelease={props.onOpen}
       onRightButtonsCloseRelease={props.onClose}
     >
+    <TouchableOpacity onPress={() => props.navigation.navigate('Create Move', { moveCallback: props.handleMove, move: props.move})}>
       <View style={styles.listItem}>
         <Text style={{color: 'white'}}>{props.move.name}</Text>
       </View>
+    </TouchableOpacity>
     </Swipeable>
   );
 }

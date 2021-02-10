@@ -10,7 +10,7 @@ import CombatStats from './CreateComponents/combatstats';
 import Create from './CreateComponents/create';
 
 import ProfileScreen from './CreateComponents/Screens/profileScreen';
-import MoveScreen from './CreateComponents/Screens/moveScreen';
+import MoveScreen from './CreateComponents/Screens/moveScreenSwipes';
 import CombatScreen from './CreateComponents/Screens/combatScreen';
 import Equipment from './CreateComponents/Screens/equipmentScreen';
 import NoteScreen from './CreateComponents/Screens/noteScreen';
