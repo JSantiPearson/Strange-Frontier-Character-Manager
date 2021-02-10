@@ -244,7 +244,10 @@ class App extends React.Component {
                 headerStyle: {backgroundColor: 'rgb(250, 0, 115)'},
               }}
             />
-            <Stack.Screen name="Create Move" component={CreateMove} />
+            <Stack.Screen
+              name="Create Move"
+              component={CreateMove} 
+            />
           </Stack.Navigator>
         </NavigationContainer>
         <FlashMessage position="bottom" />

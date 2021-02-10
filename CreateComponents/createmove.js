@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { View, Button, Text, Picker, TouchableOpacity, TextInput, StyleSheet, SafeAreaView, ScrollView} from 'react-native'
-import NumericInput from 'react-native-numeric-input'
+import NumberInput from './Utilities/numberInput'
 
 class CreateMove extends Component {
   state = {
@@ -11,6 +11,30 @@ class CreateMove extends Component {
   }
 
   componentDidMount() {
+    this.props.navigation.setOptions({
+      headerTitle: "Create Move",
+      headerLeft: props => (
+        <TouchableOpacity
+          title="Cancel"
+          color='rgb(250, 0, 115)'
+          onPress={() => this.props.navigation.goBack(null)}
+        >
+          <Text style={styles.headerButton}>Cancel</Text>
+        </TouchableOpacity>
+      ),
+      headerRight: () => (
+        <TouchableOpacity
+          onPress={() => this.props.navigation.goBack(null)}
+          title="Accept"
+          color='rgb(250, 0, 115)'
+        >
+          <Text style={styles.headerButton}>Accept</Text>
+        </TouchableOpacity>
+      ),
+      headerTitleAlign: "center",
+      headerTitleStyle: {color: "white"},
+      headerStyle: {backgroundColor: 'rgb(250, 0, 115)'}
+    })
     this.handleName(this.props.route.params.move.name);
     this.handleDescription(this.props.route.params.move.description);
     this.handleID();
@@ -39,60 +63,61 @@ class CreateMove extends Component {
     this.setState({description: input})
   }
 
-  handleCost = cost => {
-    console.log("Cost: " + cost);
+  handleCost = (move, increase) => {
+    let cost = this.state.cost;
+    if (increase){
+      cost++;
+    }
+    else {
+      cost--;
+    }
     this.setState({ cost });
   }
 
   _renderName = () => {
     if (this.props.route.params.move.name != "EMPTY"){
       return(
-        <TextInput style = {styles.nameInput}
-           underlineColorAndroid = "transparent"
-           placeholder = {this.props.route.params.move.name}
-           defaultValue = {this.props.route.params.move.name}
-           placeholderTextColor = "#9a73ef"
-           autoCapitalize = "none"
-           maxLength = {40}
-           onChangeText = {this.handleName}
-        />
+        <View style={styles.section}>
+          <Text style={styles.inputTitle}>Name</Text>
+          <TextInput style = {styles.nameInput}
+             underlineColorAndroid = "transparent"
+             autoCapitalize = "none"
+             placeholder = {this.props.route.params.move.name}
+             defaultValue = {this.props.route.params.move.name}
+             placeholderTextColor = 'rgb(250, 0, 115)'
+             onChangeText = {this.handleName}
+             maxLength = {40}
+             multiline = {false}
+          />
+        </View>
       )
     }
     else {
       return(
-        <TextInput style = {styles.nameInput}
-           underlineColorAndroid = "transparent"
-           placeholder = "Move Name"
-           placeholderTextColor = "#9a73ef"
-           autoCapitalize = "none"
-           maxLength = {40}
-           onChangeText = {this.handleName}
-        />
+        <View style={styles.section}>
+          <Text style={styles.inputTitle}>Name</Text>
+          <TextInput style = {styles.nameInput}
+             underlineColorAndroid = "transparent"
+             autoCapitalize = "none"
+             onChangeText = {this.handleName}
+             maxLength = {40}
+             multiline = {false}
+          />
+        </View>
       )
     }
   }
 
-  _renderCost = () => {
-    if (this.props.route.params.move.cost != 0){
-      return(
-        <NumericInput
-          type='plus-minus'
-          minValue={1}
-          value={this.props.route.params.move.cost}
-          onChange={cost => this.handleCost(cost)}
-        />
-      )
-    }
-    else {
-      return(
-        <NumericInput
-          type='plus-minus'
-          minValue={1}
-          value={1}
-          onChange={cost => this.handleCost(cost)}
-        />
-      )
-    }
+  _renderCost = () => { //TODO: Set state on mount if move has already been created, implement default value prop for number input
+    return(
+      <NumberInput
+        minValue={1}
+        maxValue={10}
+        numberName={this.state.name}
+        numberValue={this.state.cost}
+        changeNumber={this.handleCost}
+      />
+    )
   }
 
   _renderDescription = () => {
@@ -127,11 +152,13 @@ class CreateMove extends Component {
 
   render() {
      return (
-       <>
-        {this._renderName()}
-        {this._renderDescription()}
-        {this._renderCost()}
-       </>
+      <>
+        <View style={styles.container}>
+          {this._renderName()}
+          {this._renderDescription()}
+          {this._renderCost()}
+        </View>
+      </>
      )
    }
 }
@@ -139,18 +166,36 @@ class CreateMove extends Component {
 export default CreateMove;
 
 const styles = StyleSheet.create({
-   nameInput: {
-      margin: 15,
-      height: 40,
-      backgroundColor: 'white',
-      borderColor: '#7a42f4',
-      borderWidth: 1
-   },
-   descriptionInput: {
-      margin: 15,
-      height: 80,
-      backgroundColor: 'white',
-      borderColor: '#7a42f4',
-      borderWidth: 1
-   },
+  container: {
+    flex: 1,
+    paddingHorizontal: 5,
+    paddingTop: 10,
+    backgroundColor: "black",
+  },
+  inputTitle: {
+    color: 'rgb(200, 200, 200)',
+    fontSize: 11,
+    paddingHorizontal: 10,
+    paddingTop: 5,
+    justifyContent: 'flex-start'
+  },
+  section: {
+    backgroundColor: 'rgb(33, 33, 33)',
+    borderColor: 'rgb(165, 165, 165)',
+    borderWidth: StyleSheet.hairlineWidth,
+    marginBottom: 10,
+    justifyContent: 'center'
+  },
+  headerButton: {
+    fontSize: 15,
+    paddingHorizontal: 20,
+    color: "white",
+  },
+  descriptionInput: {
+    margin: 15,
+    height: 80,
+    backgroundColor: 'white',
+    borderColor: '#7a42f4',
+    borderWidth: 1
+  },
 })
