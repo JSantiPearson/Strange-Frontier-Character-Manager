@@ -246,7 +246,7 @@ class App extends React.Component {
             />
             <Stack.Screen
               name="Create Move"
-              component={CreateMove} 
+              component={CreateMove}
             />
           </Stack.Navigator>
         </NavigationContainer>

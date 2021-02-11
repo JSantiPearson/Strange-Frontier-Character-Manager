@@ -79,7 +79,7 @@ class CreateMove extends Component {
       return(
         <View style={styles.section}>
           <Text style={styles.inputTitle}>Name</Text>
-          <TextInput style = {styles.nameInput}
+          <TextInput style = {styles.input}
              underlineColorAndroid = "transparent"
              autoCapitalize = "none"
              placeholder = {this.props.route.params.move.name}
@@ -96,7 +96,7 @@ class CreateMove extends Component {
       return(
         <View style={styles.section}>
           <Text style={styles.inputTitle}>Name</Text>
-          <TextInput style = {styles.nameInput}
+          <TextInput style = {styles.input}
              underlineColorAndroid = "transparent"
              autoCapitalize = "none"
              onChangeText = {this.handleName}
@@ -190,6 +190,12 @@ const styles = StyleSheet.create({
     fontSize: 15,
     paddingHorizontal: 20,
     color: "white",
+  },
+  input: {
+    color: "white",
+    textAlignVertical: 'top',
+    paddingVertical: 0,
+    paddingHorizontal: 10,
   },
   descriptionInput: {
     margin: 15,
