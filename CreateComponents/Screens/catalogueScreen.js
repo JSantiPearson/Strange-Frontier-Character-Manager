@@ -5,20 +5,20 @@ import TrinitaireArms from '../Catalogues/TrinitaireArms'
 import DodanaArmsEmporium from '../Catalogues/DodanaArmsEmporium'
 import NarmatoArms from '../Catalogues/NarmatoArms'
 
-function Catalogue(route, navigation, addItem, screenName, name, type){
+function Catalogue(props){
   return(
     <>
-      <TouchableOpacity onPress={() => navigation.navigate(screenName, {
-          itemCallback: addItem,
-          ranged: route.params.ranged,
-          melee: route.params.melee,
-          armor: route.params.armor,
-          gear: route.params.gear,
-          misc: route.params.misc,
+      <TouchableOpacity style={styles.catalogue} onPress={() => props.navigation.navigate(props.screenName, {
+          itemCallback: props.addItem,
+          ranged: props.route.params.ranged,
+          melee: props.route.params.melee,
+          armor: props.route.params.armor,
+          gear: props.route.params.gear,
+          misc: props.route.params.misc,
         })}>
         <View style={styles.column}>
-          <Text style={styles.catalogueName}>{name}</Text>
-          <Text style={styles.class}>{type}</Text>
+          <Text style={styles.catalogueName}>{props.name}</Text>
+          <Text style={styles.class}>{props.type}</Text>
         </View>
       </TouchableOpacity>
     </>
@@ -32,7 +32,6 @@ class Catalogues extends Component {
   }
 
   render() {
-    console.log("Catalogue ranged param: " + this.props.route.params.ranged);
      return (
       <>
       <SafeAreaView>
@@ -82,25 +81,19 @@ class Catalogues extends Component {
 
  const styles = StyleSheet.create({
    container: {
-     flexDirection: 'column',
+     flex: 1,
      backgroundColor: 'black',
-   },
-   option: {
-     paddingHorizontal: 10,
-     paddingVertical: 5,
-     marginBottom: 2,
-     borderBottomColor: 'rgb(250, 0, 115)',
-     borderBottomWidth: 1,
    },
    column: {
      flex: 1,
      justifyContent: "space-evenly",
    },
    catalogue: {
-     flex: 1,
-     justifyContent: 'center',
-     alignContent: 'stretch',
-     alignItems: 'center',
+     paddingHorizontal: 10,
+     paddingVertical: 5,
+     marginBottom: 2,
+     borderBottomColor: 'rgb(250, 0, 115)',
+     borderBottomWidth: StyleSheet.hairlineWidth,
    },
    catalogueName: {
      flex: 1,
