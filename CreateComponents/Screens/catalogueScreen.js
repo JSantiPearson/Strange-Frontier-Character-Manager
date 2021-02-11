@@ -34,44 +34,44 @@ class Catalogues extends Component {
   render() {
      return (
       <>
-      <SafeAreaView>
-        <ScrollView>
-         <View style={styles.container}>
-           <Catalogue
-             route={this.props.route}
-             navigation={this.props.navigation}
-             addItem={this.addItem}
-             screenName={'Trinitaire'}
-             name={'Trinitaire Arms'}
-             type={'Class D & C'}
-           />
-           <Catalogue
-             route={this.props.route}
-             navigation={this.props.navigation}
-             addItem={this.addItem}
-             screenName={'Lepars'}
-             name={'Lepars\' Black Market'}
-             type={'Class D & C'}
-           />
-           <Catalogue
-             route={this.props.route}
-             navigation={this.props.navigation}
-             addItem={this.addItem}
-             screenName={'Dodana'}
-             name={'Dodana Arms'}
-             type={'Class C'}
-           />
-           <Catalogue
-             route={this.props.route}
-             navigation={this.props.navigation}
-             addItem={this.addItem}
-             screenName={'Narmato'}
-             name={'Narmato Arms'}
-             type={'Class D'}
-           />
-          </View>
-         </ScrollView>
-       </SafeAreaView>
+      <View style={styles.container}>
+        <SafeAreaView>
+          <ScrollView>
+             <Catalogue
+               route={this.props.route}
+               navigation={this.props.navigation}
+               addItem={this.addItem}
+               screenName={'Trinitaire'}
+               name={'Trinitaire Arms'}
+               type={'Class D & C'}
+             />
+             <Catalogue
+               route={this.props.route}
+               navigation={this.props.navigation}
+               addItem={this.addItem}
+               screenName={'Lepars'}
+               name={'Lepars\' Black Market'}
+               type={'Class D & C'}
+             />
+             <Catalogue
+               route={this.props.route}
+               navigation={this.props.navigation}
+               addItem={this.addItem}
+               screenName={'Dodana'}
+               name={'Dodana Arms'}
+               type={'Class C'}
+             />
+             <Catalogue
+               route={this.props.route}
+               navigation={this.props.navigation}
+               addItem={this.addItem}
+               screenName={'Narmato'}
+               name={'Narmato Arms'}
+               type={'Class D'}
+             />
+           </ScrollView>
+         </SafeAreaView>
+        </View>
       </>
      )
    }
@@ -85,7 +85,6 @@ class Catalogues extends Component {
      backgroundColor: 'black',
    },
    column: {
-     flex: 1,
      justifyContent: "space-evenly",
    },
    catalogue: {
@@ -96,13 +95,11 @@ class Catalogues extends Component {
      borderBottomWidth: StyleSheet.hairlineWidth,
    },
    catalogueName: {
-     flex: 1,
      fontSize: 16,
      paddingTop: 5,
      color: "white",
    },
    class: {
-     flex: 1,
      fontSize: 12,
      paddingTop: 5,
      fontStyle: "italic",
