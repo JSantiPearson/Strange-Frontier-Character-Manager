@@ -79,7 +79,7 @@ class CreateMove extends Component {
       return(
         <View style={styles.section}>
           <Text style={styles.inputTitle}>Name</Text>
-          <TextInput style = {styles.input}
+          <TextInput style = {styles.nameInput}
              underlineColorAndroid = "transparent"
              autoCapitalize = "none"
              placeholder = {this.props.route.params.move.name}
@@ -96,7 +96,7 @@ class CreateMove extends Component {
       return(
         <View style={styles.section}>
           <Text style={styles.inputTitle}>Name</Text>
-          <TextInput style = {styles.input}
+          <TextInput style = {styles.nameInput}
              underlineColorAndroid = "transparent"
              autoCapitalize = "none"
              onChangeText = {this.handleName}
@@ -123,29 +123,36 @@ class CreateMove extends Component {
   _renderDescription = () => {
     if (this.props.route.params.move.description != ""){
       return(
-        <TextInput style = {styles.descriptionInput}
-           underlineColorAndroid = "transparent"
-           multiline = {true}
-           textAlignVertical = 'top'
-           placeholder = {this.props.route.params.move.description}
-           defaultValue = {this.props.route.params.move.description}
-           placeholderTextColor = "#9a73ef"
-           autoCapitalize = "none"
-           onChangeText = {this.handleDescription}
-        />
+        <View style={styles.section}>
+          <Text style={styles.inputTitle}>Description</Text>
+          <TextInput style = {styles.descInput}
+             underlineColorAndroid = "transparent"
+             autoCapitalize = "none"
+             textAlignVertical = 'top'
+             placeholder = {this.props.route.params.move.description}
+             defaultValue = {this.props.route.params.move.description}
+             placeholderTextColor = 'rgb(250, 0, 115)'
+             onChangeText = {this.handleDescription}
+             maxLength = {300}
+             multiline = {true}
+          />
+        </View>
       )
     }
     else {
       return(
-        <TextInput style = {styles.descriptionInput}
-           underlineColorAndroid = "transparent"
-           multiline = {true}
-           textAlignVertical = 'top'
-           placeholder = "Move Description"
-           placeholderTextColor = "#9a73ef"
-           autoCapitalize = "none"
-           onChangeText = {this.handleDescription}
-        />
+        <View style={styles.section}>
+          <Text style={styles.inputTitle}>Description</Text>
+          <TextInput style = {styles.descInput}
+             underlineColorAndroid = "transparent"
+             autoCapitalize = "none"
+             textAlignVertical = 'top'
+             placeholderTextColor = 'rgb(250, 0, 115)'
+             onChangeText = {this.handleDescription}
+             maxLength = {300}
+             multiline = {true}
+          />
+        </View>
       )
     }
   }
@@ -191,11 +198,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     color: "white",
   },
-  input: {
+  nameInput: {
     color: "white",
     textAlignVertical: 'top',
     paddingVertical: 0,
-    paddingHorizontal: 10,
+  },
+  descInput: {
+    color: "white",
+    textAlignVertical: 'top',
+    paddingVertical: 20,
   },
   descriptionInput: {
     margin: 15,
