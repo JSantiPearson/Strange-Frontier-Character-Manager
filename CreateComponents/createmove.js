@@ -206,7 +206,7 @@ const styles = StyleSheet.create({
   descInput: {
     color: "white",
     textAlignVertical: 'top',
-    paddingVertical: 20,
+    height: 80,
   },
   descriptionInput: {
     margin: 15,
