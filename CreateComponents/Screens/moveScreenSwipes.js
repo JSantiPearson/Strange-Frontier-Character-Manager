@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import Swipeable from 'react-native-swipeable-row';
+import Swipeable from 'react-native-swipeable';
 
 class MoveScreen extends Component {
 
