@@ -59,7 +59,7 @@ function HomeScreen({ navigation }) {
     <>
       <View style={styles.container}>
         <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.imageButton} onPress={() => navigation.navigate('Build', { navigation })}>
+          <TouchableOpacity style={styles.imageButton} onPress={() => navigation.navigate('Build')}>
             <ImageBackground source={require('./assets/img/Create.png')} resizeMode={"cover"} style={styles.backgroundImage}>
               <Text style={styles.buttonText}>Create</Text>
             </ImageBackground>
