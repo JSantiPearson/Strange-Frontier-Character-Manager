@@ -97,44 +97,6 @@ class SkillCollection extends Component { //TODO: Introduce a way to tell the pl
    this.setState({ [name]: skill });
  }
 
- componentDidMount(){
-   this.props.navigation.setOptions({
-      headerRight: props => (
-        <TouchableOpacity
-          onPress={() => this.props.navigation.navigate('Build', {
-            navigation: this.props.navigation,
-            featsAvail: true,
-            skills: this.state,
-          })}
-          title="Accept"
-          color='rgb(250, 0, 115)'
-        >
-          <Text style={styles.headerButton}>Accept</Text>
-        </TouchableOpacity>
-      )
-    })
-  }
-
- componentDidUpdate(prevState){
-  if (prevState != this.state){
-    this.props.navigation.setOptions({
-      headerRight: props => (
-        <TouchableOpacity
-          onPress={() => this.props.navigation.navigate('Build', {
-            navigation: this.props.navigation,
-            featsAvail: true,
-            skills: this.state,
-          })}
-          title="Accept"
-          color='rgb(250, 0, 115)'
-        >
-          <Text style={styles.headerButton}>Accept</Text>
-        </TouchableOpacity>
-      )
-    })
-  }
-}
-
  render() {
     return (
       <>

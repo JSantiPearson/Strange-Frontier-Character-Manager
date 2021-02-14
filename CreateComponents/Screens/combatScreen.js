@@ -42,7 +42,7 @@ class CombatScreen extends Component {
                statsCallback={this.handleStats}
              />
             <SkillCollection
-               {...this.props}
+               navigation={this.props.navigation}
                attributes={this.props.attributes}
             />
            </ScrollView>
