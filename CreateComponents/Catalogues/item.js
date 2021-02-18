@@ -175,6 +175,7 @@ class Item extends Component {
               numberName={"cart"}
               numberValue={this.state.cart}
               changeNumber={this.changeAmount}
+              minValue={1}
             />
           </View>
           <View style={{flex: 1, justifyContent: "flex-end", alignItems: "center"}}>

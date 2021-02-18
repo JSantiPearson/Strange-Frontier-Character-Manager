@@ -79,6 +79,7 @@ class Skill extends Component {
            numberName={this.props.skill}
            numberValue={this.state.trainLevel}
            changeNumber={this.handleChange}
+           minValue={0}
          />
        </View>
      )

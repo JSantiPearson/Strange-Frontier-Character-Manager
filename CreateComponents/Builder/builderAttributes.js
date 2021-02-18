@@ -124,27 +124,57 @@ class BuilderAttributes extends Component {
             </View>
             <View style={styles.attrRow}>
               {this._renderMod("Strength", this.state.attributes.strength)}
-              <NumberInput numberName={"strength"} numberValue={this.state.attributes.strength.score} changeNumber={this.changeAttribute} />
+              <NumberInput
+                numberName={"strength"}
+                numberValue={this.state.attributes.strength.score}
+                changeNumber={this.changeAttribute}
+                minValue={1}
+              />
             </View>
             <View style={styles.attrRow}>
               {this._renderMod("Dexterity", this.state.attributes.dexterity)}
-              <NumberInput numberName={"dexterity"} numberValue={this.state.attributes.dexterity.score} changeNumber={this.changeAttribute} />
+              <NumberInput
+                numberName={"dexterity"}
+                numberValue={this.state.attributes.dexterity.score}
+                changeNumber={this.changeAttribute}
+                minValue={1}
+              />
             </View>
             <View style={styles.attrRow}>
               {this._renderMod("Constitution", this.state.attributes.constitution)}
-              <NumberInput numberName={"constitution"} numberValue={this.state.attributes.constitution.score} changeNumber={this.changeAttribute} />
+              <NumberInput
+                numberName={"constitution"}
+                numberValue={this.state.attributes.constitution.score}
+                changeNumber={this.changeAttribute}
+                minValue={1}
+              />
             </View>
             <View style={styles.attrRow}>
               {this._renderMod("Wisdom", this.state.attributes.wisdom)}
-              <NumberInput numberName={"wisdom"} numberValue={this.state.attributes.wisdom.score} changeNumber={this.changeAttribute} />
+              <NumberInput
+                numberName={"wisdom"}
+                numberValue={this.state.attributes.wisdom.score}
+                changeNumber={this.changeAttribute}
+                minValue={1}
+              />
             </View>
             <View style={styles.attrRow}>
               {this._renderMod("Intelligence", this.state.attributes.intelligence)}
-              <NumberInput numberName={"intelligence"} numberValue={this.state.attributes.intelligence.score} changeNumber={this.changeAttribute} />
+              <NumberInput
+                numberName={"intelligence"}
+                numberValue={this.state.attributes.intelligence.score}
+                changeNumber={this.changeAttribute}
+                minValue={1}
+              />
             </View>
             <View style={styles.attrRow}>
               {this._renderMod("Influence", this.state.attributes.influence)}
-              <NumberInput numberName={"influence"} numberValue={this.state.attributes.influence.score} changeNumber={this.changeAttribute} />
+              <NumberInput
+                numberName={"influence"}
+                numberValue={this.state.attributes.influence.score}
+                changeNumber={this.changeAttribute}
+                minValue={1}
+              />
             </View>
           </View>
         </View>

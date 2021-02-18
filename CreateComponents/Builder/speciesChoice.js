@@ -71,6 +71,7 @@ class SpeciesChoice extends Component {
                      numberName={"speed"}
                      numberValue={this.state.stats.speed}
                      changeNumber={this.changeStat}
+                     minValue={0}
                    />
                  </View>
                  <View style={styles.statRow}>
@@ -79,6 +80,7 @@ class SpeciesChoice extends Component {
                      numberName={"resilience"}
                      numberValue={this.state.stats.resilience}
                      changeNumber={this.changeStat}
+                     minValue={0}
                    />
                  </View>
                  <View style={[styles.statRow, {marginBottom: 10}]}>
@@ -87,6 +89,7 @@ class SpeciesChoice extends Component {
                      numberName={"awareness"}
                      numberValue={this.state.stats.awareness}
                      changeNumber={this.changeStat}
+                     minValue={0}
                    />
                  </View>
                  {this.props.route.params.traits.map((trait) => {

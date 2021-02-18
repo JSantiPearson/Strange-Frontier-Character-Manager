@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Button, Text, Picker, TouchableOpacity, TextInput, StyleSheet, SafeAreaView, ScrollView} from 'react-native'
+import { View, Button, Text, TouchableOpacity, TextInput, StyleSheet, SafeAreaView, ScrollView} from 'react-native'
 import NumberInput from './Utilities/numberInput'
 
 class CreateMove extends Component {
@@ -69,8 +69,6 @@ class CreateMove extends Component {
       cost++;
     }
     else if (increase != undefined){ //TODO: This is messy. Checking if increase is undefined because otherwise it decreases the value. This may affect other components using numberInput.
-      console.log("Increase value: " + increase);
-      console.log("Decreased cost from " + cost + " to " + (cost-1));
       cost--;
     }
     this.setState({ cost });
@@ -161,6 +159,8 @@ class CreateMove extends Component {
       )
     }
   }
+
+  //TODO: Eventually add functionality that manipulates stats with moves
 
   render() {
      return (

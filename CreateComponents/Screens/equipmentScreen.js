@@ -256,7 +256,7 @@ class Equipment extends Component {
               stats={item.stats}
               special={item.special}
             />
-        </View>
+          </View>
         )
       })
     }
@@ -265,28 +265,29 @@ class Equipment extends Component {
     * Repeatedly returns text displays of every item and its amount in the array until none remain
     */
     equipmentList = (equipment) => {
-      return equipment.map((purchItem) => {
+      for (let i = 0; i < equipment.length; i++){
+        let item = equipment[i];
         return (
           <View style={{marginVertical: 10}}>
             <Purchased
               itemCallback={this.handleEquip}
-              amount={purchItem.amount}
+              amount={item.amount}
               equipped={false}
-              name={purchItem.name}
-              type={purchItem.type}
-              price={purchItem.price}
-              description={purchItem.description}
-              misc={purchItem.misc}
-              category={purchItem.category}
-              range={purchItem.range}
-              damage={purchItem.damage}
-              durability={purchItem.durability}
-              stats={purchItem.stats}
-              special={purchItem.special}
+              name={item.name}
+              type={item.type}
+              price={item.price}
+              description={item.description}
+              misc={item.misc}
+              category={item.category}
+              range={item.range}
+              damage={item.damage}
+              durability={item.durability}
+              stats={item.stats}
+              special={item.special}
             />
           </View>
         )
-      })
+      }
     }
 
   render() {

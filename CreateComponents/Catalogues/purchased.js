@@ -174,6 +174,7 @@ class Purchased extends Component {
                 numberName={"equip"}
                 numberValue={this.state.equip}
                 maxValue={this.props.amount}
+                minValue={1}
                 changeNumber={this.changeAmount}
               />
             </View>
