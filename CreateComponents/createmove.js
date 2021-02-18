@@ -68,7 +68,9 @@ class CreateMove extends Component {
     if (increase){
       cost++;
     }
-    else {
+    else if (increase != undefined){ //TODO: This is messy. Checking if increase is undefined because otherwise it decreases the value. This may affect other components using numberInput.
+      console.log("Increase value: " + increase);
+      console.log("Decreased cost from " + cost + " to " + (cost-1));
       cost--;
     }
     this.setState({ cost });
@@ -110,14 +112,17 @@ class CreateMove extends Component {
 
   _renderCost = () => { //TODO: Set state on mount if move has already been created, implement default value prop for number input
     return(
-      <NumberInput
-        minValue={1}
-        maxValue={10}
-        numberName={this.state.name}
-        numberValue={this.state.cost}
-        changeNumber={this.handleCost}
-      />
-    )
+      <View style={styles.row}>
+        <Text style={styles.text}>Cost: </Text>
+          <NumberInput
+            minValue={1}
+            maxValue={10}
+            numberName={this.state.name}
+            numberValue={this.state.cost}
+            changeNumber={this.handleCost}
+          />
+      </View>
+    );
   }
 
   _renderDescription = () => {
@@ -186,6 +191,17 @@ const styles = StyleSheet.create({
     paddingTop: 5,
     justifyContent: 'flex-start'
   },
+  row: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingTop: 5,
+    borderBottomColor: 'rgba(250, 0, 115, 0.5)',
+    borderBottomWidth: 1,
+    marginLeft: 20,
+    paddingLeft: 5,
+    marginRight: 20,
+    paddingRight: 5,
+  },
   section: {
     backgroundColor: 'rgb(33, 33, 33)',
     borderColor: 'rgb(165, 165, 165)',
@@ -214,5 +230,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderColor: '#7a42f4',
     borderWidth: 1
+  },
+  text: {
+    fontSize: 16,
+    marginBottom: 5,
+    color: "white",
+    textAlign: "left",
   },
 })

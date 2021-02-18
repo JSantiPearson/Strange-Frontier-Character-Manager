@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 class NumberInput extends PureComponent {
   state = {
-    value: 0,
+    value: this.props.numberValue,
   }
 
   componentDidMount(){
@@ -22,12 +22,12 @@ class NumberInput extends PureComponent {
   render(){
     return (
       <View style={styles.row}>
-        {this.props.numberValue > 0 &&
+        {(this.props.minValue == undefined && this.props.numberValue > 0) || this.props.numberValue > this.props.minValue &&
           <TouchableOpacity onPress={() => this.props.changeNumber(this.props.numberName, false)}>
             <Icon name="minus-circle" size={22} color='rgb(250, 0, 115)' />
           </TouchableOpacity>
         }
-        {this.props.numberValue <= 0 &&
+        {(this.props.minValue == undefined && this.props.numberValue <= 0) || this.props.numberValue <= this.props.minValue &&
           <Icon name="minus-circle" size={22} color='rgba(250, 0, 115, 0.5)' />
         }
         <Text style={[styles.text, {textAlign: "center", width: 40}]}>{this.state.value}</Text>

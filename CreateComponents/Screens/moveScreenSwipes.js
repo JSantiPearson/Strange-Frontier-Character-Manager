@@ -10,61 +10,61 @@ class MoveScreen extends Component {
       name: "EMPTY",
 			description: "",
       id: "move1",
-      cost: null
+      cost: 1
     },
     move2: {
       name: "EMPTY",
 			description: "",
       id: "move2",
-      cost: null
+      cost: 1
     },
     move3: {
       name: "EMPTY",
 			description: "",
       id: "move3",
-      cost: null
+      cost: 1
     },
     move4: {
       name: "EMPTY",
 			description: "",
       id: "move4",
-      cost: null
+      cost: 1
     },
     move5: {
       name: "EMPTY",
 			description: "",
       id: "move5",
-      cost: null
+      cost: 1
     },
     shift: {
       name: "EMPTY",
 			description: "",
       id: "shift",
-      cost: null
+      cost: 1
     },
     exotic1: {
       name: "EMPTY",
 			description: "",
       id: "exotic1",
-      cost: null
+      cost: 1
     },
     exotic2: {
       name: "EMPTY",
 			description: "",
       id: "exotic2",
-      cost: null
+      cost: 1
     },
     exotic3: {
       name: "EMPTY",
 			description: "",
       id: "exotic3",
-      cost: null
+      cost: 1
     },
     flash: {
       name: "EMPTY",
 			description: "",
       id: "flash",
-      cost: null
+      cost: 1
     }
   };
 
@@ -115,6 +115,7 @@ class MoveScreen extends Component {
 
 function MoveItem(props) {
   //TODO: Bring over all needed props to this function in a tidy way.
+  console.log("Passing move cost: " + props.move.cost);
   return (
     <Swipeable
       rightButtons={[
