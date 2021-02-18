@@ -56,12 +56,6 @@ class Item extends Component {
     this.setState({ item });
   }
 
-  componentDidUpdate(prevState){
-    if (prevState != this.state && this.props.name == "Galaggir's Auto Rifle"){
-      console.log("Galaggir's Auto Rifle amount: " + this.state.item.amount);
-    }
-  }
-
   _renderHeader = () => {
     return (
       <View style={styles.row}>

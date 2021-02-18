@@ -181,10 +181,8 @@ class ProfileInputs extends Component {
      else {
        console.log("Invalid attribute type.");
      }
+     this.setState({attributes});
      this.handleSavingThrows(attributes);
-     this.props.route.params.navigation.setParams({attributes});
-     this.setState({});
-     console.log("profile strength score: " + this.props.route.params.attributes.strength.score);
    }
    handleSkills = (skillsList) => {
      this.setState({ skills: skillsList})

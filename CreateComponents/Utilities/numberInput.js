@@ -20,7 +20,6 @@ class NumberInput extends PureComponent {
   }
 
   render(){
-    console.log(this.state.value < this.props.maxValue);
     return (
       <View style={styles.row}>
         {this.props.numberValue > 0 &&

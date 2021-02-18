@@ -62,7 +62,6 @@ class Purchased extends Component {
     this.setState({ item });
     this.setState({ active });
     this.setState({ equip: 1});
-    console.log("Equip state on callback: " + item.equipped);
     this.props.itemCallback(item, equip);
   }
 

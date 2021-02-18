@@ -192,6 +192,7 @@ class Builder extends Component {
       headerRight: () => (
         <TouchableOpacity
           onPress={() => this.props.navigation.navigate('Create', {
+            navigation: this.props.navigation,
             attributes: this.state.attributes,
             species: this.state.species,
             saves: this.state.saves,
