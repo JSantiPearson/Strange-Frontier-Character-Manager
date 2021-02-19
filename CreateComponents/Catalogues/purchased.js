@@ -54,15 +54,14 @@ class Purchased extends Component {
     return amount;
   }
 
-  addItem = () => {
+  handleEquip = () => {
     let item = this.state.item;
     let equip = this.state.equip;
     let active = [];
-    item.amount -= this.state.equip;
+    this.props.itemCallback(item, equip);
     this.setState({ item });
     this.setState({ active });
     this.setState({ equip: 1});
-    this.props.itemCallback(item, equip);
   }
 
   changeAmount = (amount, increase) => {
@@ -147,7 +146,7 @@ class Purchased extends Component {
             <View style={{flex: 1, justifyContent: "flex-end", alignItems: "center"}}>
               <TouchableOpacity
                 style={styles.catalogueButton}
-                onPress={this.addItem}
+                onPress={this.handleEquip}
               >
                 <Text style={[styles.text, {textAlign: "center"}]}>Equip</Text>
               </TouchableOpacity>
@@ -159,7 +158,7 @@ class Purchased extends Component {
             <View style={{flex: 1, justifyContent: "flex-end", alignItems: "center"}}>
               <TouchableOpacity
                 style={styles.catalogueButton}
-                onPress={this.addItem}
+                onPress={this.handleEquip}
               >
                 <Text style={[styles.text, {textAlign: "center"}]}>Unequip</Text>
               </TouchableOpacity>
@@ -181,7 +180,7 @@ class Purchased extends Component {
             <View style={{flex: 1, justifyContent: "flex-end", alignItems: "center"}}>
               <TouchableOpacity
                 style={styles.catalogueButton}
-                onPress={this.addItem}
+                onPress={this.handleEquip}
               >
               <Text style={[styles.text, {textAlign: "center"}]}>Equip</Text>
               </TouchableOpacity>

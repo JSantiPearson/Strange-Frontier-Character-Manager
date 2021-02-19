@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { View, Alert, Button, Text, Picker, TouchableOpacity, TextInput, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { useNavigation } from '@react-navigation/native';
@@ -6,7 +6,7 @@ import Purchased from '../Catalogues/purchased';
 import CheckBox from '@react-native-community/checkbox';
 import Accordion from 'react-native-collapsible/Accordion';
 
-class Equipment extends Component {
+class Equipment extends PureComponent {
   state = {
     rangedEquipment: [],
     meleeEquipment: [],
@@ -173,6 +173,7 @@ class Equipment extends Component {
           this.unequipItem(item, equipType, equipped, equipment);
         }
         else {
+          console.log("Equipping " + item.name);
           this.equipItem(item, amount, equipType, equipped, equipment);
         }
     }
@@ -236,58 +237,60 @@ class Equipment extends Component {
     * Displays every item that is equipped.
     */
     equippedDisplay = () => {
-      let equipped = this.state.equipped;
-      return equipped.map((item) => {
-        return (
-          <View style={{marginVertical: 10}}>
-            <Purchased
-              itemCallback={this.handleEquip}
-              amount={item.amount}
-              equipped={true}
-              name={item.name}
-              type={item.type}
-              price={item.price}
-              description={item.description}
-              misc={item.misc}
-              category={item.category}
-              range={item.range}
-              damage={item.damage}
-              durability={item.durability}
-              stats={item.stats}
-              special={item.special}
-            />
-          </View>
-        )
-      })
+      return(
+        this.state.equipped.map((item) => {
+          return (
+            <View style={{marginVertical: 10}}>
+              <Purchased
+                itemCallback={this.handleEquip}
+                amount={item.amount}
+                equipped={true}
+                name={item.name}
+                type={item.type}
+                price={item.price}
+                description={item.description}
+                misc={item.misc}
+                category={item.category}
+                range={item.range}
+                damage={item.damage}
+                durability={item.durability}
+                stats={item.stats}
+                special={item.special}
+              />
+            </View>
+          )
+        })
+      )
     }
 
     /**
     * Repeatedly returns text displays of every item and its amount in the array until none remain
     */
     equipmentList = (equipment) => {
-      for (let i = 0; i < equipment.length; i++){
-        let item = equipment[i];
-        return (
-          <View style={{marginVertical: 10}}>
-            <Purchased
-              itemCallback={this.handleEquip}
-              amount={item.amount}
-              equipped={false}
-              name={item.name}
-              type={item.type}
-              price={item.price}
-              description={item.description}
-              misc={item.misc}
-              category={item.category}
-              range={item.range}
-              damage={item.damage}
-              durability={item.durability}
-              stats={item.stats}
-              special={item.special}
-            />
-          </View>
-        )
-      }
+      return(
+        equipment.map((item) => {
+          return (
+            <View style={{marginVertical: 10}}>
+              <Purchased
+                itemCallback={this.handleEquip}
+                amount={item.amount}
+                equipped={false}
+                name={item.name}
+                type={item.type}
+                price={item.price}
+                description={item.description}
+                misc={item.misc}
+                category={item.category}
+                range={item.range}
+                damage={item.damage}
+                durability={item.durability}
+                stats={item.stats}
+                special={item.special}
+              />
+            </View>
+          )
+        })
+      )
     }
 
   render() {
