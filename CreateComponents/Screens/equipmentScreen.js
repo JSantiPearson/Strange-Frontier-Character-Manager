@@ -240,7 +240,7 @@ class Equipment extends PureComponent {
       return(
         this.state.equipped.map((item) => {
           return (
-            <View style={{marginVertical: 10}}>
+            <View style={{marginVertical: 10, marginLeft: 10}}>
               <Purchased
                 itemCallback={this.handleEquip}
                 amount={item.amount}
@@ -270,7 +270,7 @@ class Equipment extends PureComponent {
       return(
         equipment.map((item) => {
           return (
-            <View style={{marginVertical: 10}}>
+            <View style={{marginVertical: 10, marginLeft: 10}}>
               <Purchased
                 itemCallback={this.handleEquip}
                 amount={item.amount}
@@ -377,7 +377,7 @@ class Equipment extends PureComponent {
      fontWeight: 'bold',
    },
    sectionDescription: {
-     padding: 10,
+     paddingVertical: 10,
      fontSize: 18,
      fontWeight: '400',
      textAlign: 'center',
@@ -387,6 +387,7 @@ class Equipment extends PureComponent {
      fontWeight: "bold",
      paddingVertical: 5,
      marginBottom: 10,
+     marginRight: 5,
      color: 'white',
      borderBottomColor: 'rgb(250, 0, 115)',
      borderBottomWidth: StyleSheet.hairlineWidth,

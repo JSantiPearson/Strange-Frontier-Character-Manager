@@ -35,7 +35,7 @@ class Item extends Component {
   }
 
   componentDidMount(){
-    let amount = 0;
+    let amount = 1;
     if (this.props.type == "Ranged"){
       amount = this.getEquipmentAmount("ranged");
     }
