@@ -871,7 +871,9 @@ const DATA = [
 
 class Feats extends PureComponent {
   state = {
+    feats: {
 
+    }
   }
 
   goBack(){
@@ -915,8 +917,7 @@ class Feats extends PureComponent {
 
   addFeat = feat => {
     let feats = this.state.feats;
-    console.log("Add feat with tier " + feat.tier);
-    feats[feat.id].tier = feat.tier;
+    feats[feat.id] = feat;
     this.setState({ feats });
   }
 

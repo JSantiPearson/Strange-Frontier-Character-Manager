@@ -384,6 +384,7 @@ class Equipment extends PureComponent {
      color:'white',
    },
    sectionTitle: {
+     fontSize: 16,
      fontWeight: "bold",
      paddingVertical: 5,
      marginBottom: 10,

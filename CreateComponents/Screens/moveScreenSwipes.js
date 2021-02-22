@@ -128,7 +128,8 @@ function MoveItem(props) {
     >
     <TouchableOpacity onPress={() => props.navigation.navigate('Create Move', { moveCallback: props.handleMove, move: props.move})}>
       <View style={styles.listItem}>
-        <Text style={{color: 'white'}}>{props.move.name}</Text>
+        <Text style={styles.name}>{props.move.name}</Text>
+        <Text style={styles.cost}>{props.move.cost}</Text>
       </View>
     </TouchableOpacity>
     </Swipeable>
@@ -148,6 +149,14 @@ const styles = StyleSheet.create({
     fontSize: 20,
     paddingLeft: 10,
     paddingBottom: 10
+  },
+  name: {
+    color: "white"
+  },
+  cost: {
+    color: "white",
+    fontSize: 12,
+    fontStyle: "italic"
   },
   listItem: {
     height: 75,

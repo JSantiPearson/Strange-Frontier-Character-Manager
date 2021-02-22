@@ -68,7 +68,7 @@ class Item extends Component {
   getEquipmentAmount = type => {
     let amount = 0;
     let equipment = this.props.route.params[type];
-    for (let i = 0; i < equipment.length; i++){ //TODO: This next section is extremely messy and can likely be optimized
+    for (let i = 0; i < equipment.length; i++){
       let currItem = equipment[i];
       if (currItem.name === this.props.name){
         amount = currItem.amount;
