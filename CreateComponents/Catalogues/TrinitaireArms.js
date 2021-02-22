@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { View, Button, Text, Picker, TouchableOpacity, TextInput, StyleSheet, ScrollView, SafeAreaView, SectionList} from 'react-native'
-import Item from './item'
+import Catalogue from './Catalogue'
 
 const DATA = [
   {
@@ -524,7 +524,7 @@ const DATA = [
         	awareness: 0
       	},
       	category: "Medium",
-      	description: "A 6\' explosive shiphead with metal tube to launch mortar shells at a distance.",
+      	description: "A 6\' explosive shiphead with a mortar used to launch shells at a distance.",
       },
       {
       	amount: 1,
@@ -891,50 +891,9 @@ const DATA = [
 ];
 
 class TrinitaireArms extends Component {
-
-  addItem = (item) => {
-    this.props.route.params.itemCallback(item);
-  }
-
-  renderItem = ( item ) => {
-    return(
-      <View style={styles.section}>
-        <Item
-          {...this.props}
-          key={item.name}
-          amount={item.amount}
-          itemCallback={this.addItem}
-          name={item.name}
-          type={item.type}
-          price={item.price}
-          range={item.range}
-          damage={item.damage}
-          durability={item.durability}
-          category={item.category}
-          stats={item.stats}
-          description={item.description}
-          misc={item.misc}
-          special={item.special}
-        />
-      </View>
-    )
-  }
-
   render() {
     return (
-      <>
-        <SafeAreaView style={styles.container}>
-          <SectionList
-            sections={DATA}
-            removeClippedSubviews={false}
-            renderItem={({item}) => this.renderItem(item)}
-            keyExtractor={(item, index) => item + index}
-            renderSectionHeader={({ section: { title } }) => (
-              <Text style={styles.title}>{title}</Text>
-            )}
-          />
-        </SafeAreaView>
-      </>
+      <Catalogue {...this.props} DATA={DATA}/>
     )
   }
 }
