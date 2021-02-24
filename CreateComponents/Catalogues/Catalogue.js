@@ -69,6 +69,9 @@ const styles = StyleSheet.create({
    section: {
      marginLeft: 20,
      marginRight: 15,
+     paddingVertical: 5,
+     borderBottomColor: 'rgb(250, 0, 115)',
+     borderBottomWidth: StyleSheet.hairlineWidth,
    }
  }
 );
