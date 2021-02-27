@@ -176,7 +176,6 @@ class Equipment extends PureComponent {
           this.unequipItem(item, equipIndex, equipped, equipment);
         }
         else {
-          console.log("Equipping " + item.name);
           this.equipItem(item, amount, equipIndex, equipped, equipment);
         }
     }
@@ -199,6 +198,7 @@ class Equipment extends PureComponent {
         let currItem = equipment[i];
         if (item.name === currItem.name){ //if an instance of the item is found then increment its amount by one, set the state, and return.
           currItem.amount++;
+          currItem.equipped = false;
           equipment.splice(i, 1, currItem);
           inventory[equipIndex].data = equipment;
           inventory[0].data = equipped;
@@ -207,6 +207,7 @@ class Equipment extends PureComponent {
         }
       }
       item.amount = 1;
+      item.equipped = false;
       equipment.push(item); //no instance of the item was found, so we add a new one with amount 1.
       inventory[equipIndex].data = equipment;
       inventory[0].data = equipped;
@@ -218,12 +219,13 @@ class Equipment extends PureComponent {
     **/
     equipItem = (item, amount, equipIndex, equipped, equipment) => {
       //Add amount of items desired to equipped array
+      item.equipped = true;
       for (let i = 0; i < amount; i++){
         equipped.push(item);
       }
       for (let i = 0; i < equipment.length; i++){
         let currItem = equipment[i];
-        if (currItem.name === item.name){   //TODO: Implement unique keys for each item added. Using names could get messy with custom items.
+        if (currItem.name === item.name){
           currItem.amount -= amount;
           if (currItem.amount === 0){
             equipment.splice(i, 1);
@@ -248,6 +250,7 @@ class Equipment extends PureComponent {
             itemCallback={this.handleEquip}
             amount={item.amount}
             name={item.name}
+            equipped={item.equipped}
             type={item.type}
             price={item.price}
             description={item.description}
@@ -340,8 +343,7 @@ class Equipment extends PureComponent {
      fontSize: 22,
      marginLeft: 5,
      paddingRight: 10,
-     paddingBottom: 7,
-     marginBottom: 20,
+     paddingVertical: 7,
      borderBottomColor: 'rgb(250, 0, 115)',
      borderBottomWidth: 1,
    },
@@ -349,8 +351,6 @@ class Equipment extends PureComponent {
      marginLeft: 20,
      marginRight: 15,
      paddingVertical: 5,
-     borderBottomColor: 'rgb(250, 0, 115)',
-     borderBottomWidth: StyleSheet.hairlineWidth,
    },
    sectionDescription: {
      paddingVertical: 10,
