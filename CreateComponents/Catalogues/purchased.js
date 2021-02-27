@@ -14,22 +14,6 @@ const SECTION = [
 class Purchased extends Component {
   state = {
     active: [],
-    item: {
-      amount: this.props.amount,
-      key: this.props.name,
-      equipped: this.props.equipped,
-      name: this.props.name,
-      type: this.props.type,
-      price: this.props.price,
-      description: this.props.description,
-      misc: this.props.misc,
-      category: this.props.category,
-      range: this.props.range,
-      damage: this.props.damage,
-      durability: this.props.durability,
-      stats: this.props.stats,
-      special: this.props.special
-    },
     equip: 1
   }
 
@@ -55,7 +39,22 @@ class Purchased extends Component {
   }
 
   handleEquip = () => {
-    let item = this.state.item;
+    console.log("Handling equip of " + this.props.name);
+    let item = {
+      amount: this.props.amount,
+      equipped: this.props.equipped,
+      name: this.props.name,
+      type: this.props.type,
+      price: this.props.price,
+      description: this.props.description,
+      misc: this.props.misc,
+      category: this.props.category,
+      range: this.props.range,
+      damage: this.props.damage,
+      durability: this.props.durability,
+      stats: this.props.stats,
+      special: this.props.special
+    };
     let equip = this.state.equip;
     let active = [];
     this.props.itemCallback(item, equip);
