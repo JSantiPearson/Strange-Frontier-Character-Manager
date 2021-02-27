@@ -1,19 +1,44 @@
 import React, { PureComponent } from 'react';
-import { View, Alert, Button, Text, Picker, TouchableOpacity, TextInput, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
+import { View, Alert, Button, Text, Picker, TouchableOpacity, TextInput, StyleSheet, SafeAreaView, SectionList } from 'react-native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { useNavigation } from '@react-navigation/native';
 import Purchased from '../Catalogues/purchased';
-import CheckBox from '@react-native-community/checkbox';
 import Accordion from 'react-native-collapsible/Accordion';
 
 class Equipment extends PureComponent {
   state = {
-    rangedEquipment: [],
-    meleeEquipment: [],
-    armorEquipment: [],
-    gearEquipment: [],
-    miscEquipment: [],
-    equipped: [],
+    inventory: [
+      { //index 0
+        key: "Active Equipment",
+        title: "Active Equipment",
+        data: []
+      },
+      { //index 1
+        key: "Ranged Weaponry",
+        title: "Ranged Weaponry",
+        data: []
+      },
+      { //index 2
+        key: "Melee Weaponry",
+        title: "Melee Weaponry",
+        data: []
+      },
+      { //index 3
+        key: "Armor & Equipment",
+        title: "Armor & Equipment",
+        data: []
+      },
+      { //index 4
+        key: "Gear & Utility",
+        title: "Gear & Tools",
+        data: []
+      },
+      { //index 5
+        key: "Miscellaneous",
+        title: "Miscellaneous",
+        data: []
+      },
+    ],
     stats: {
       armor: 0,
       resilience: 0,
@@ -29,22 +54,27 @@ class Equipment extends PureComponent {
   * and then increases its amount or adds a new instance.
   */
   addItem = data => {
-    let equipment = [...this.state.miscEquipment];
+    let equipment = [...this.state.inventory[5].data];
+    let equipIndex = 1;
     switch(data.type){
       case "Ranged":
-        equipment = [...this.state.rangedEquipment];
+        equipment = [...this.state.inventory[1].data];
         break;
       case "Melee":
-        equipment = [...this.state.meleeEquipment];
+        equipIndex = 2;
+        equipment = [...this.state.inventory[2].data];
         break;
       case "Armor":
-        equipment = [...this.state.armorEquipment];
+        equipIndex = 3;
+        equipment = [...this.state.inventory[3].data];
         break;
       case "Gear":
-        equipment = [...this.state.gearEquipment];
+        equipIndex = 4;
+        equipment = [...this.state.inventory[4].data];
         break;
-      case "misc":
-        equipment = [...this.state.miscEquipment];
+      case "Misc":
+        equipIndex = 5;
+        equipment = [...this.state.inventory[5].data];
         break;
       default:
         try {
@@ -86,64 +116,37 @@ class Equipment extends PureComponent {
           }
         }
       }
+      let inventory = [...this.state.inventory];
       //Update the state of the specified category of item.
-      switch(data.type){
-        case "Ranged":
-          let rangedEquipment = equipment;
-          this.setState({ rangedEquipment });
-          break;
-        case "Melee":
-          let meleeEquipment = equipment;
-          this.setState({ meleeEquipment });
-          break;
-        case "Armor":
-          let armorEquipment = equipment;
-          this.setState({ armorEquipment });
-          break;
-        case "Gear":
-          let gearEquipment = equipment;
-          this.setState({ gearEquipment });
-          break;
-        case "misc":
-          let miscEquipment = equipment;
-          this.setState({ miscEquipment });
-          break;
-        default:
-          try {
-            throw new Error("Invalid item type " + data.type);
-          }
-          catch(error) {
-            Alert.alert("Invalid item type " + data.type);
-          }
-      }
+      inventory[equipIndex].data = equipment;
+      this.setState({ inventory });
     }
 
     /**
     * handleEquip takes the data sent by the Purchased component and either runs equip or unequip depending on the item's state.
     **/
     handleEquip = (data, amount) => {
-      let equipment = [...this.state.miscEquipment];
-      let equipType = "miscEquipment";
+      let equipment = [...this.state.inventory[5].data];
+      let equipIndex = 1;
       switch(data.type){
         case "Ranged":
-          equipment = [...this.state.rangedEquipment];
-          equipType = "rangedEquipment";
+          equipment = [...this.state.inventory[1].data];
           break;
         case "Melee":
-          equipment = [...this.state.meleeEquipment];
-          equipType = "meleeEquipment";
+          equipIndex = 2;
+          equipment = [...this.state.inventory[2].data];
           break;
         case "Armor":
-          equipment = [...this.state.armorEquipment];
-          equipType = "armorEquipment";
+          equipIndex = 3;
+          equipment = [...this.state.inventory[3].data];
           break;
         case "Gear":
-          equipment = [...this.state.gearEquipment];
-          equipType = "gearEquipment";
+          equipIndex = 4;
+          equipment = [...this.state.inventory[4].data];
           break;
-        case "misc":
-          equipment = [...this.state.miscEquipment];
-          equipType = "miscEquipment";
+        case "Misc":
+          equipIndex = 5;
+          equipment = [...this.state.inventory[5].data];
           break;
         default:
           try {
@@ -168,13 +171,13 @@ class Equipment extends PureComponent {
           stats: data.stats,
           special: data.special
         }
-        let equipped = [...this.state.equipped];
+        let equipped = [...this.state.inventory[0].data];
         if (item.equipped){
-          this.unequipItem(item, equipType, equipped, equipment);
+          this.unequipItem(item, equipIndex, equipped, equipment);
         }
         else {
           console.log("Equipping " + item.name);
-          this.equipItem(item, amount, equipType, equipped, equipment);
+          this.equipItem(item, amount, equipIndex, equipped, equipment);
         }
     }
 
@@ -183,7 +186,8 @@ class Equipment extends PureComponent {
     * An instance of the item is removed from the equipped array, and if an instance of the item is found in unequipped equipment array its amount is incremented by 1.
     * If no instance is found, a new one is added to the inventory equipment array.
     **/
-    unequipItem = (item, equipType, equipped, equipment) => { //TODO: Implement item keys to use here instead of names.
+    unequipItem = (item, equipIndex, equipped, equipment) => { //TODO: Implement item keys to use here instead of names.
+      let inventory = [...this.state.inventory];
       for (let i = 0; i < equipped.length; i++){
         let currItem = equipped[i];
         if (item.name === currItem.name){
@@ -194,23 +198,25 @@ class Equipment extends PureComponent {
       for (let i = 0; i < equipment.length; i++){
         let currItem = equipment[i];
         if (item.name === currItem.name){ //if an instance of the item is found then increment its amount by one, set the state, and return.
-          ++currItem.amount;
+          currItem.amount++;
           equipment.splice(i, 1, currItem);
-          this.setState({[equipType]: equipment});
-          this.setState({ equipped });
+          inventory[equipIndex].data = equipment;
+          inventory[0].data = equipped;
+          this.setState({inventory});
           return;
         }
       }
       item.amount = 1;
       equipment.push(item); //no instance of the item was found, so we add a new one with amount 1.
-      this.setState({[equipType]: equipment});
+      inventory[equipIndex].data = equipment;
+      inventory[0].data = equipped;
       this.setState({ equipped });
     }
 
     /**
     * equipItem adds the desired amount of items to the equipped array and reduces the amount owned (but not equipped) by the amount equipped.
     **/
-    equipItem = (item, amount, equipType, equipped, equipment) => {
+    equipItem = (item, amount, equipIndex, equipped, equipment) => {
       //Add amount of items desired to equipped array
       for (let i = 0; i < amount; i++){
         equipped.push(item);
@@ -229,67 +235,45 @@ class Equipment extends PureComponent {
           }
         }
       }
-      this.setState({[equipType]: equipment});
+      let inventory = [...this.state.inventory];
+      inventory[equipIndex].data = equipment;
+      inventory[0].data = equipped;
       this.setState({ equipped });
     }
 
-    /**
-    * Displays every item that is equipped.
-    */
-    equippedDisplay = () => {
+    renderItem = ( item ) => {
       return(
-        this.state.equipped.map((item) => {
-          return (
-            <View style={{marginVertical: 10, marginLeft: 10}}>
-              <Purchased
-                itemCallback={this.handleEquip}
-                amount={item.amount}
-                equipped={true}
-                name={item.name}
-                type={item.type}
-                price={item.price}
-                description={item.description}
-                misc={item.misc}
-                category={item.category}
-                range={item.range}
-                damage={item.damage}
-                durability={item.durability}
-                stats={item.stats}
-                special={item.special}
-              />
-            </View>
-          )
-        })
+        <View style={styles.section}>
+          <Purchased
+            itemCallback={this.handleEquip}
+            amount={item.amount}
+            name={item.name}
+            type={item.type}
+            price={item.price}
+            description={item.description}
+            misc={item.misc}
+            category={item.category}
+            range={item.range}
+            damage={item.damage}
+            durability={item.durability}
+            stats={item.stats}
+            special={item.special}
+          />
+        </View>
       )
     }
 
-    /**
-    * Repeatedly returns text displays of every item and its amount in the array until none remain
-    */
-    equipmentList = (equipment) => {
+    renderEquipment = () => {
       return(
-        equipment.map((item) => {
-          return (
-            <View style={{marginVertical: 10, marginLeft: 10}}>
-              <Purchased
-                itemCallback={this.handleEquip}
-                amount={item.amount}
-                equipped={false}
-                name={item.name}
-                type={item.type}
-                price={item.price}
-                description={item.description}
-                misc={item.misc}
-                category={item.category}
-                range={item.range}
-                damage={item.damage}
-                durability={item.durability}
-                stats={item.stats}
-                special={item.special}
-              />
-            </View>
-          )
-        })
+        <SectionList
+          sections={this.state.inventory}
+          removeClippedSubviews={false}
+          renderItem={({item}) => this.renderItem(item)}
+          keyExtractor={(item, index) => item + index}
+          renderSectionHeader={({ section: { title } }) => (
+            <Text style={styles.title}>{title}</Text>
+          )}
+        />
       )
     }
 
@@ -298,47 +282,22 @@ class Equipment extends PureComponent {
        <>
         <View style={styles.container}>
          <SafeAreaView>
-           <ScrollView>
-             <View style={styles.sectionDescription}>
-               <Text style={styles.sectionTitle}>Active Equipment</Text>
-               { this.equippedDisplay() }
-             </View>
-             <View style={styles.sectionDescription}>
-               <Text style={styles.sectionTitle}>Ranged Weaponry</Text>
-               { this.equipmentList(this.state.rangedEquipment) }
-             </View>
-             <View style={styles.sectionDescription}>
-               <Text style={styles.sectionTitle}>Melee Weaponry</Text>
-               { this.equipmentList(this.state.meleeEquipment) }
-             </View>
-             <View style={styles.sectionDescription}>
-               <Text style={styles.sectionTitle}>Armor and Wearables</Text>
-               { this.equipmentList(this.state.armorEquipment) }
-             </View>
-             <View style={styles.sectionDescription}>
-               <Text style={styles.sectionTitle}>Gear and Utility</Text>
-               { this.equipmentList(this.state.gearEquipment) }
-             </View>
-             <View style={styles.sectionDescription}>
-               <Text style={styles.sectionTitle}>Miscellaneous</Text>
-               { this.equipmentList(this.state.miscEquipment) }
-             </View>
-             <View style={{alignItems: 'center', marginTop: 40}}>
-               <TouchableOpacity
-                 style={styles.catalogueButton}
-                 onPress={() => { this.props.navigation.navigate('Catalogues', {
-                   itemCallback: this.addItem,
-                   ranged: this.state.rangedEquipment,
-                   melee: this.state.meleeEquipment,
-                   armor: this.state.armorEquipment,
-                   gear: this.state.gearEquipment,
-                   misc: this.state.miscEquipment,
-                 })}}
-               >
-                <Text style={styles.buttonText}>BROWSE CATALOGUES</Text>
-               </TouchableOpacity>
-             </View>
-           </ScrollView>
+           {this.renderEquipment()}
+           <View style={{alignItems: 'center', marginTop: 40}}>
+             <TouchableOpacity
+               style={styles.catalogueButton}
+               onPress={() => { this.props.navigation.navigate('Catalogues', {
+                 itemCallback: this.addItem,
+                 ranged: this.state.inventory[1].data,
+                 melee: this.state.inventory[2].data,
+                 armor: this.state.inventory[3].data,
+                 gear: this.state.inventory[4].data,
+                 misc: this.state.inventory[5].data,
+               })}}
+             >
+              <Text style={styles.buttonText}>BROWSE CATALOGUES</Text>
+             </TouchableOpacity>
+           </View>
          </SafeAreaView>
         </View>
        </>
@@ -366,7 +325,7 @@ class Equipment extends PureComponent {
      justifyContent: 'center',
      backgroundColor: 'rgb(250, 0, 115)',
      marginTop: 5,
-     paddingVertical: 5,
+     paddingVertical: 17,
    },
    text: {
      color: "white"
@@ -375,6 +334,23 @@ class Equipment extends PureComponent {
      color: 'white',
      textAlign: 'center',
      fontWeight: 'bold',
+   },
+   title: {
+     color: "white",
+     fontSize: 22,
+     marginLeft: 5,
+     paddingRight: 10,
+     paddingBottom: 7,
+     marginBottom: 20,
+     borderBottomColor: 'rgb(250, 0, 115)',
+     borderBottomWidth: 1,
+   },
+   section: {
+     marginLeft: 20,
+     marginRight: 15,
+     paddingVertical: 5,
+     borderBottomColor: 'rgb(250, 0, 115)',
+     borderBottomWidth: StyleSheet.hairlineWidth,
    },
    sectionDescription: {
      paddingVertical: 10,
