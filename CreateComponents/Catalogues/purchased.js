@@ -16,6 +16,7 @@ class Purchased extends Component {
   state = {
     active: [],
     equip: 1,
+    delete: 0,
     modalVisible: false,
     modalItem: {
       amount: this.props.amount,
@@ -34,14 +35,46 @@ class Purchased extends Component {
     }
   }
 
-  deleteItem = (item, amount) => {
+  deleteItem = (amount) => {
     this.handleDelete();
-    this.props.deleteCallback(this.state.modalItem, 1);
+    this.setState({ delete: 0 }); //reset amount to be deleted to 0 now that deletion has been confirmed
+    this.props.deleteCallback(this.state.modalItem, amount);
   }
 
   _renderModal = () => {
     let visible;
-    if (this.state.modalItem.amount == 1){
+    if (this.state.modalItem.amount > 1){
+      return (
+        <Modal
+           animationType="fade"
+           transparent={true}
+           visible={this.state.modalVisible}
+         >
+           <View style={styles.centeredView}>
+             <View style={styles.modalView}>
+               <Text style={[styles.title, {textAlign: "center", fontSize: 20}]}>Delete</Text>
+               <Text style={[styles.title, {textAlign: "center", fontSize: 20, paddingBottom: 15}]}>{this.state.modalItem.name}?</Text>
+               <View style={{flexDirection: "row", justifyContent: "space-evenly"}}>
+                 <NumberInput
+                   numberName={"delete"}
+                   numberValue={this.state.delete}
+                   maxValue={this.props.amount}
+                   minValue={0}
+                   changeNumber={this.changeDelete}
+                 />
+                 <TouchableOpacity
+                   style={styles.confirmButton}
+                   onPress={() => this.deleteItem(this.state.delete)}
+                 >
+                 <Text style={[styles.text, {textAlign: "center"}]}>Delete</Text>
+                 </TouchableOpacity>
+               </View>
+             </View>
+           </View>
+         </Modal>
+      );
+    }
+    else {
       return (
         <Modal
            animationType="fade"
@@ -55,13 +88,13 @@ class Purchased extends Component {
                <View style={{flexDirection: "row", justifyContent: "space-evenly"}}>
                  <TouchableOpacity
                    style={styles.confirmButton}
-                   onPress={() => this.deleteItem(this.state.modalItem, 1)}
+                   onPress={() => this.deleteItem(1)}
                  >
                  <Text style={[styles.text, {textAlign: "center"}]}>Yes</Text>
                  </TouchableOpacity>
                  <TouchableOpacity
                    style={styles.confirmButton}
-                   onPress={this.handleEquip}
+                   onPress={this.handleDelete}
                  >
                  <Text style={[styles.text, {textAlign: "center"}]}>No</Text>
                  </TouchableOpacity>
@@ -156,6 +189,19 @@ class Purchased extends Component {
       equip--;
     }
     this.setState({ equip });
+  }
+
+  changeDelete = (amount, increase) => {
+    let deleteAmount = this.state.delete;
+    if (increase){
+      deleteAmount++;
+      console.log("Change delete amount from " + (deleteAmount-1) + " to " + deleteAmount);
+    }
+    else{
+      deleteAmount--;
+      console.log("Change delete amount from " + (deleteAmount+1) + " to " + deleteAmount);
+    }
+    this.setState({ delete: deleteAmount });
   }
 
   _renderContent = section => {
@@ -279,6 +325,7 @@ class Purchased extends Component {
   };
 
   render() {
+    console.log("Delete state on render: " + this.state.delete);
     return (
       <>
         <Accordion
