@@ -1,8 +1,9 @@
-import React, { Component } from 'react'
-import { View, Button, Text, Picker, TouchableOpacity, LayoutAnimation, TextInput, StyleSheet, SafeAreaView, ScrollView} from 'react-native'
+import React, { Component } from 'react';
+import { View, Button, Dimensions, Modal, Text, Picker, TouchableOpacity, LayoutAnimation, TextInput, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import Accordion from 'react-native-collapsible/Accordion';
 import NumberInput from '../Utilities/numberInput';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const SECTION = [
   {
@@ -14,15 +15,50 @@ const SECTION = [
 class Purchased extends Component {
   state = {
     active: [],
-    equip: 1
+    equip: 1,
+    modalVisible: false,
+    modalName: ""
+  }
+
+  _renderModal = (name) => {
+    let visible;
+    return (
+      <Modal
+         animationType="fade"
+         transparent={true}
+         visible={this.state.modalVisible}
+       >
+         <View style={styles.centeredView}>
+           <View style={styles.modalView}>
+             <TouchableOpacity onPress={() => this.handleDelete(this.state.modalName)}>
+               <Icon name="close-circle" style={{paddingBottom: 20}} size={25} color='rgb(250, 0, 115)' />
+             </TouchableOpacity>
+             <Text style={styles.title}>Delete {this.state.modalName}</Text>
+           </View>
+         </View>
+       </Modal>
+    );
+  }
+
+  handleDelete = (name) => {
+    var visible = !this.state.modalVisible;
+    this.setState({ modalName: name });
+    this.setState({ modalVisible: visible });
   }
 
   _renderHeader = () => {
     return (
-      <View style={{flexDirection: "column"}}>
-        <Text style={[styles.title, styles.font]}>{this.props.name}</Text>
-        <Text style={[styles.optionText, { fontSize: 11, fontStyle: "italic", color: "lightgray"} ]}>{this.props.type}, {this.props.category}</Text>
-      </View>
+      <View style={{flexDirection: "row"}}>
+        <View style={{flexDirection: "column", marginRight: 15}}>
+          <Text style={[styles.title, styles.font]}>{this.props.name}</Text>
+          <Text style={[styles.optionText, { fontSize: 11, fontStyle: "italic", color: "lightgray"} ]}>{this.props.type}, {this.props.category}</Text>
+        </View>
+        <TouchableOpacity
+          onPress= {() => this.handleDelete(this.props.name)}
+        >
+          <Icon name="delete" size={20} color="white" />
+        </TouchableOpacity>
+    </View>
     )
   }
 
@@ -196,15 +232,18 @@ class Purchased extends Component {
 
   render() {
     return (
-      <Accordion
-        key={this.props.name}
-        sections={SECTION}
-        activeSections={this.state.active}
-        renderHeader={this._renderHeader}
-        renderContent={this._renderContent}
-        onChange={this._updateSections}
-        underlayColor={Colors.LIGHTGRAY}
-      />
+      <>
+        <Accordion
+          key={this.props.name}
+          sections={SECTION}
+          activeSections={this.state.active}
+          renderHeader={this._renderHeader}
+          renderContent={this._renderContent}
+          onChange={this._updateSections}
+          underlayColor={Colors.LIGHTGRAY}
+        />
+        {this._renderModal()}
+      </>
     )
   }
 }
@@ -229,10 +268,6 @@ const styles = StyleSheet.create({
       borderBottomColor: 'rgba(250, 0, 115, 0.6)',
       borderBottomWidth: 1,
       paddingVertical: 4,
-    },
-    container:{
-      flexDirection: 'column',
-      flex: 1
     },
     row:{
       flexDirection: 'row',
@@ -262,5 +297,28 @@ const styles = StyleSheet.create({
       backgroundColor:'#fff',
       borderRadius:50,
       alignSelf: 'flex-end',
-    }
+    },
+    centeredView: {
+     flex: 1,
+     justifyContent: "center",
+     alignItems: "center",
+     marginTop: 0
+   },
+   modalView: {
+     height: Dimensions.get('window').height-35,
+     width: Dimensions.get('window').width-15,
+     margin: 20,
+     backgroundColor: "black",
+     borderRadius: 20,
+     padding: 25,
+     alignContent: "flex-start",
+     shadowColor: "#FFF",
+     shadowOffset: {
+       width: 2,
+       height: 2
+     },
+     shadowOpacity: 1,
+     shadowRadius: 3.84,
+     elevation: 5
+   },
 });
