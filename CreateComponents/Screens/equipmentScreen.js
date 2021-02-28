@@ -247,13 +247,14 @@ class Equipment extends PureComponent {
           }
       }
       if (item.equipped){
+        console.log("Deleting item that is equipped");
         equipment = [...this.state.inventory[0].data];
         equipIndex = 0;
       }
       for (let i = 0; i < equipment.length; i++){
         let currItem = equipment[i];
         if (currItem.name === item.name){
-          if (item.amount <= amount){
+          if (item.amount <= amount || item.equipped){
             equipment.splice(i, 1);
             break;
           }

@@ -43,7 +43,37 @@ class Purchased extends Component {
 
   _renderModal = () => {
     let visible;
-    if (this.state.modalItem.amount > 1){
+    if (this.state.modalItem.amount == 1 || this.state.modalItem.equipped){
+      return (
+        <Modal
+           animationType="fade"
+           transparent={true}
+           visible={this.state.modalVisible}
+         >
+           <View style={styles.centeredView}>
+             <View style={styles.modalView}>
+               <Text style={[styles.title, {textAlign: "center", fontSize: 20}]}>Delete</Text>
+               <Text style={[styles.title, {textAlign: "center", fontSize: 20, paddingBottom: 15}]}>{this.state.modalItem.name}?</Text>
+               <View style={{flexDirection: "row", justifyContent: "space-evenly"}}>
+                 <TouchableOpacity
+                   style={styles.confirmButton}
+                   onPress={() => this.deleteItem(1)}
+                 >
+                 <Text style={[styles.text, {textAlign: "center"}]}>Yes</Text>
+                 </TouchableOpacity>
+                 <TouchableOpacity
+                   style={styles.confirmButton}
+                   onPress={this.handleDelete}
+                 >
+                 <Text style={[styles.text, {textAlign: "center"}]}>No</Text>
+                 </TouchableOpacity>
+               </View>
+             </View>
+           </View>
+         </Modal>
+      );
+    }
+    else {
       return (
         <Modal
            animationType="fade"
@@ -67,36 +97,6 @@ class Purchased extends Component {
                    onPress={() => this.deleteItem(this.state.delete)}
                  >
                  <Text style={[styles.text, {textAlign: "center"}]}>Delete</Text>
-                 </TouchableOpacity>
-               </View>
-             </View>
-           </View>
-         </Modal>
-      );
-    }
-    else {
-      return (
-        <Modal
-           animationType="fade"
-           transparent={true}
-           visible={this.state.modalVisible}
-         >
-           <View style={styles.centeredView}>
-             <View style={styles.modalView}>
-               <Text style={[styles.title, {textAlign: "center", fontSize: 20}]}>Delete</Text>
-               <Text style={[styles.title, {textAlign: "center", fontSize: 20, paddingBottom: 15}]}>{this.state.modalItem.name}?</Text>
-               <View style={{flexDirection: "row", justifyContent: "space-evenly"}}>
-                 <TouchableOpacity
-                   style={styles.confirmButton}
-                   onPress={() => this.deleteItem(1)}
-                 >
-                 <Text style={[styles.text, {textAlign: "center"}]}>Yes</Text>
-                 </TouchableOpacity>
-                 <TouchableOpacity
-                   style={styles.confirmButton}
-                   onPress={this.handleDelete}
-                 >
-                 <Text style={[styles.text, {textAlign: "center"}]}>No</Text>
                  </TouchableOpacity>
                </View>
              </View>
