@@ -245,6 +245,10 @@ class Equipment extends PureComponent {
             Alert.alert("Invalid item type " + item.type);
           }
       }
+      if (item.equipped){
+        equipment = [...this.state.inventory[0].data];
+        equipIndex = 0;
+      }
       for (let i = 0; i < equipment.length; i++){
         let currItem = equipment[i];
         if (currItem.name === item.name){
@@ -258,9 +262,11 @@ class Equipment extends PureComponent {
             break;
           }
         }
+        else {
+
+        }
       }
       let inventory = [...this.state.inventory];
-      console.log("equipment length: " + equipment.length);
       inventory[equipIndex].data = equipment;
       this.setState({ inventory });
     }
