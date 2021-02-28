@@ -214,6 +214,57 @@ class Equipment extends PureComponent {
       this.setState({ equipped });
     }
 
+    deleteItem = (item, amount) => {
+      let equipment = [...this.state.inventory[5].data];
+      let equipIndex = 1;
+      switch(item.type){
+        case "Ranged":
+          equipment = [...this.state.inventory[1].data];
+          break;
+        case "Melee":
+          equipIndex = 2;
+          equipment = [...this.state.inventory[2].data];
+          break;
+        case "Armor":
+          equipIndex = 3;
+          equipment = [...this.state.inventory[3].data];
+          break;
+        case "Gear":
+          equipIndex = 4;
+          equipment = [...this.state.inventory[4].data];
+          break;
+        case "Misc":
+          equipIndex = 5;
+          equipment = [...this.state.inventory[5].data];
+          break;
+        default:
+          try {
+            throw new Error("Invalid item type " + item.type);
+          }
+          catch {
+            Alert.alert("Invalid item type " + item.type);
+          }
+      }
+      for (let i = 0; i < equipment.length; i++){
+        let currItem = equipment[i];
+        if (currItem.name === item.name){
+          if (item.amount <= amount){
+            equipment.splice(i, 1);
+            break;
+          }
+          else {
+            item.amount -= amount;
+            equipment.splice(i, 1, item);
+            break;
+          }
+        }
+      }
+      let inventory = [...this.state.inventory];
+      console.log("equipment length: " + equipment.length);
+      inventory[equipIndex].data = equipment;
+      this.setState({ inventory });
+    }
+
     /**
     * equipItem adds the desired amount of items to the equipped array and reduces the amount owned (but not equipped) by the amount equipped.
     **/
@@ -240,7 +291,7 @@ class Equipment extends PureComponent {
       let inventory = [...this.state.inventory];
       inventory[equipIndex].data = equipment;
       inventory[0].data = equipped;
-      this.setState({ equipped });
+      this.setState({ inventory });
     }
 
     renderItem = ( item ) => {
@@ -248,6 +299,7 @@ class Equipment extends PureComponent {
         <View style={styles.section}>
           <Purchased
             itemCallback={this.handleEquip}
+            deleteCallback={this.deleteItem}
             amount={item.amount}
             name={item.name}
             equipped={item.equipped}
@@ -325,6 +377,7 @@ class Equipment extends PureComponent {
    catalogueButton: {
      flex: 1,
      width: 170,
+     borderRadius: 3,
      justifyContent: 'center',
      backgroundColor: 'rgb(250, 0, 115)',
      marginTop: 5,

@@ -747,6 +747,8 @@ class Species extends Component {
   modalView: {
     height: Dimensions.get('window').height-35,
     width: Dimensions.get('window').width-15,
+    borderColor: 'rgb(250, 0, 115)',
+    borderWidth: 1,
     margin: 20,
     backgroundColor: "black",
     borderRadius: 20,

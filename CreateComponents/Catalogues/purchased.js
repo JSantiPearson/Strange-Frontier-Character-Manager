@@ -17,32 +17,80 @@ class Purchased extends Component {
     active: [],
     equip: 1,
     modalVisible: false,
-    modalName: ""
+    modalItem: {
+      amount: this.props.amount,
+      equipped: this.props.equipped,
+      name: this.props.name,
+      type: this.props.type,
+      price: this.props.price,
+      description: this.props.description,
+      misc: this.props.misc,
+      category: this.props.category,
+      range: this.props.range,
+      damage: this.props.damage,
+      durability: this.props.durability,
+      stats: this.props.stats,
+      special: this.props.special
+    }
   }
 
-  _renderModal = (name) => {
+  deleteItem = (item, amount) => {
+    this.handleDelete();
+    this.props.deleteCallback(this.state.modalItem, 1);
+  }
+
+  _renderModal = () => {
     let visible;
-    return (
-      <Modal
-         animationType="fade"
-         transparent={true}
-         visible={this.state.modalVisible}
-       >
-         <View style={styles.centeredView}>
-           <View style={styles.modalView}>
-             <TouchableOpacity onPress={() => this.handleDelete(this.state.modalName)}>
-               <Icon name="close-circle" style={{paddingBottom: 20}} size={25} color='rgb(250, 0, 115)' />
-             </TouchableOpacity>
-             <Text style={styles.title}>Delete {this.state.modalName}</Text>
+    if (this.state.modalItem.amount == 1){
+      return (
+        <Modal
+           animationType="fade"
+           transparent={true}
+           visible={this.state.modalVisible}
+         >
+           <View style={styles.centeredView}>
+             <View style={styles.modalView}>
+               <Text style={[styles.title, {textAlign: "center", fontSize: 20}]}>Delete</Text>
+               <Text style={[styles.title, {textAlign: "center", fontSize: 20, paddingBottom: 15}]}>{this.state.modalItem.name}?</Text>
+               <View style={{flexDirection: "row", justifyContent: "space-evenly"}}>
+                 <TouchableOpacity
+                   style={styles.confirmButton}
+                   onPress={() => this.deleteItem(this.state.modalItem, 1)}
+                 >
+                 <Text style={[styles.text, {textAlign: "center"}]}>Yes</Text>
+                 </TouchableOpacity>
+                 <TouchableOpacity
+                   style={styles.confirmButton}
+                   onPress={this.handleEquip}
+                 >
+                 <Text style={[styles.text, {textAlign: "center"}]}>No</Text>
+                 </TouchableOpacity>
+               </View>
+             </View>
            </View>
-         </View>
-       </Modal>
-    );
+         </Modal>
+      );
+    }
   }
 
-  handleDelete = (name) => {
+  handleDelete = () => {
     var visible = !this.state.modalVisible;
-    this.setState({ modalName: name });
+    let item = {
+      amount: this.props.amount,
+      equipped: this.props.equipped,
+      name: this.props.name,
+      type: this.props.type,
+      price: this.props.price,
+      description: this.props.description,
+      misc: this.props.misc,
+      category: this.props.category,
+      range: this.props.range,
+      damage: this.props.damage,
+      durability: this.props.durability,
+      stats: this.props.stats,
+      special: this.props.special
+    };
+    this.setState({ modalItem: item });
     this.setState({ modalVisible: visible });
   }
 
@@ -277,6 +325,15 @@ const styles = StyleSheet.create({
     },
     catalogueButton: {
       paddingHorizontal: 10,
+      borderRadius: 3,
+      justifyContent: 'center',
+      backgroundColor: 'rgb(250, 0, 115)',
+      marginTop: 5,
+      paddingVertical: 5,
+    },
+    confirmButton: {
+      width: 40,
+      borderRadius: 3,
       justifyContent: 'center',
       backgroundColor: 'rgb(250, 0, 115)',
       marginTop: 5,
@@ -287,17 +344,6 @@ const styles = StyleSheet.create({
       paddingHorizontal: 10,
       paddingVertical: 4,
     },
-    purchaseButton:{
-      borderWidth:5,
-      borderColor:'rgba(0,0,0,0.2)',
-      alignItems:'center',
-      justifyContent:'center',
-      width:80,
-      height:80,
-      backgroundColor:'#fff',
-      borderRadius:50,
-      alignSelf: 'flex-end',
-    },
     centeredView: {
      flex: 1,
      justifyContent: "center",
@@ -305,10 +351,12 @@ const styles = StyleSheet.create({
      marginTop: 0
    },
    modalView: {
-     height: Dimensions.get('window').height-35,
-     width: Dimensions.get('window').width-15,
+     height: Dimensions.get('window').height/3,
+     width: Dimensions.get('window').width/1.5,
      margin: 20,
-     backgroundColor: "black",
+     borderColor: 'rgb(250, 0, 115)',
+     borderWidth: 1,
+     backgroundColor: 'rgba(0,0,0,0.95)',
      borderRadius: 20,
      padding: 25,
      alignContent: "flex-start",
