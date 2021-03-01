@@ -93,7 +93,7 @@ class Purchased extends Component {
                    changeNumber={this.changeDelete}
                  />
                  <TouchableOpacity
-                   style={styles.confirmButton}
+                   style={[styles.confirmButton, {width: 50}]}
                    onPress={() => this.deleteItem(this.state.delete)}
                  >
                  <Text style={[styles.text, {textAlign: "center"}]}>Delete</Text>
@@ -130,14 +130,15 @@ class Purchased extends Component {
   _renderHeader = () => {
     return (
       <View style={{flexDirection: "row"}}>
-        <View style={{flexDirection: "column", marginRight: 15}}>
+        <View style={{flexDirection: "column", marginRight: 10}}>
           <Text style={[styles.title, styles.font]}>{this.props.name}</Text>
           <Text style={[styles.optionText, { fontSize: 11, fontStyle: "italic", color: "lightgray"} ]}>{this.props.type}, {this.props.category}</Text>
         </View>
+        <Text style={[styles.text, {marginRight: 10}]}>x{this.props.amount}</Text>
         <TouchableOpacity
           onPress= {() => this.handleDelete(this.props.name)}
         >
-          <Icon name="delete" size={20} color="white" />
+          <Icon name="delete" size={18} color="white" />
         </TouchableOpacity>
     </View>
     )
@@ -156,28 +157,29 @@ class Purchased extends Component {
   }
 
   handleEquip = () => {
-    console.log("Handling equip of " + this.props.name);
-    let item = {
-      amount: this.props.amount,
-      equipped: this.props.equipped,
-      name: this.props.name,
-      type: this.props.type,
-      price: this.props.price,
-      description: this.props.description,
-      misc: this.props.misc,
-      category: this.props.category,
-      range: this.props.range,
-      damage: this.props.damage,
-      durability: this.props.durability,
-      stats: this.props.stats,
-      special: this.props.special
-    };
-    let equip = this.state.equip;
     let active = [];
-    this.props.itemCallback(item, equip);
-    this.setState({ item });
     this.setState({ active });
-    this.setState({ equip: 0});
+    if (this.state.equip > 0){
+      let item = {
+        amount: this.props.amount,
+        equipped: this.props.equipped,
+        name: this.props.name,
+        type: this.props.type,
+        price: this.props.price,
+        description: this.props.description,
+        misc: this.props.misc,
+        category: this.props.category,
+        range: this.props.range,
+        damage: this.props.damage,
+        durability: this.props.durability,
+        stats: this.props.stats,
+        special: this.props.special
+      };
+      let equip = this.state.equip;
+      this.props.itemCallback(item, equip);
+      this.setState({ item });
+      this.setState({ equip: 0});
+    }
   }
 
   changeAmount = (amount, increase) => {
@@ -302,7 +304,7 @@ class Purchased extends Component {
                 numberName={"equip"}
                 numberValue={this.state.equip}
                 maxValue={this.props.amount}
-                minValue={1}
+                minValue={0}
                 changeNumber={this.changeAmount}
               />
             </View>
