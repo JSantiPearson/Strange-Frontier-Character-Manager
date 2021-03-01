@@ -78,20 +78,21 @@ class Item extends Component {
   }
 
   addItem = () => {
-    let item = this.state.item;
     let active = [];
-    var buyMessage = "Purchased " + this.state.cart + " " + item.name + ".";
-    item.amount += this.state.cart;
-    this.setState({ item });
     this.setState({ active });
-    this.setState({ cart: 0});
-    showMessage({
-      message: buyMessage,
-      floating: true,
-      style: {backgroundColor: 'rgba(250, 0, 115, 0.9)', color: "white"}
-    });
-
-    this.props.itemCallback(item);
+    if (this.state.cart > 0){
+      let item = this.state.item;
+      var buyMessage = "Purchased " + this.state.cart + " " + item.name + ".";
+      item.amount += this.state.cart;
+      this.setState({ item });
+      this.setState({ cart: 0});
+      showMessage({
+        message: buyMessage,
+        floating: true,
+        style: {backgroundColor: 'rgba(250, 0, 115, 0.9)', color: "white"}
+      });
+      this.props.itemCallback(item);
+    }
   }
 
   changeAmount = (amount, increase) => {
@@ -175,7 +176,7 @@ class Item extends Component {
               numberName={"cart"}
               numberValue={this.state.cart}
               changeNumber={this.changeAmount}
-              minValue={1}
+              minValue={0}
             />
           </View>
           <View style={{flex: 1, justifyContent: "flex-end", alignItems: "center"}}>

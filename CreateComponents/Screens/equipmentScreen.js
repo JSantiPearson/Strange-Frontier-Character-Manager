@@ -215,7 +215,6 @@ class Equipment extends PureComponent {
     }
 
     deleteItem = (item, amount) => {
-      console.log("Deleting " + amount + " of item.");
       let equipment = [...this.state.inventory[5].data];
       let equipIndex = 1;
       switch(item.type){
@@ -247,7 +246,6 @@ class Equipment extends PureComponent {
           }
       }
       if (item.equipped){
-        console.log("Deleting item that is equipped");
         equipment = [...this.state.inventory[0].data];
         equipIndex = 0;
       }

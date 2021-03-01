@@ -15,7 +15,7 @@ const SECTION = [
 class Purchased extends Component {
   state = {
     active: [],
-    equip: 1,
+    equip: 0,
     delete: 0,
     modalVisible: false,
     modalItem: {
@@ -177,7 +177,7 @@ class Purchased extends Component {
     this.props.itemCallback(item, equip);
     this.setState({ item });
     this.setState({ active });
-    this.setState({ equip: 1});
+    this.setState({ equip: 0});
   }
 
   changeAmount = (amount, increase) => {
