@@ -204,6 +204,7 @@ class Equipment extends PureComponent {
       equipment.push(item); //no instance of the item was found, so we add a new one with amount 1.
       inventory[equipIndex].data = equipment;
       inventory[0].data = equipped;
+      this.inventoryCallback(inventory);
       this.setState({ inventory });
     }
 

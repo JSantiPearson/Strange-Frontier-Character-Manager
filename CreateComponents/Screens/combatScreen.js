@@ -20,16 +20,10 @@ class CombatScreen extends Component {
       willpower: 0
     },
   }
-  componentDidUpdate(prevProps){
-    if (prevProps.equipmentStats !== this.props.equipmentStats){
-      console.log("Equipment stats armor: " + this.props.equipmentStats.armor);
-    }
-  }
   handleStats = stats => {
     this.setState({ stats });
   }
   render() {
-    console.log("Rerendered Combat Screen. Armor is " + this.props.equipmentStats.armor);
      return (
        <>
          <SafeAreaView style={styles.container}>
@@ -38,7 +32,7 @@ class CombatScreen extends Component {
                attributes={this.props.attributes}
                species={this.props.species}
                saves={this.props.saves}
-               equipmentStats={this.props.equipmentStats}
+               inventory={this.props.inventory}
                statsCallback={this.handleStats}
              />
             <SkillCollection

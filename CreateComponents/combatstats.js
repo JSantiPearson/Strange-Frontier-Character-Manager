@@ -16,13 +16,6 @@ class CombatStats extends PureComponent {
     armor: 0,
     awareness: 0,
     resilience: 0,
-    equipmentStats: {
-      armor: 0,
-      resilience: 0,
-      speed: 0,
-      awareness: 0,
-      special: []
-    },
   }
 
   componentDidMount() {
@@ -34,9 +27,9 @@ class CombatStats extends PureComponent {
   }
   //if props change, update corresponding stats.
   componentDidUpdate(prevProps, prevState) {
-    if(prevProps.attributes !== this.props.attributes || prevProps.equipmentStats !== this.props.equipmentStats || prevProps.saves !== this.props.saves) //TODO: Seems like a gross solution to the infinite loop solution with statsCallback. Think about simplifying this.
+    if(prevProps.attributes !== this.props.attributes || JSON.stringify(prevProps.inventory[0].data) !== JSON.stringify(this.props.inventory[0].data)) //TODO: Seems like a gross solution to the infinite loop solution with statsCallback. Think about simplifying this.
     {
-      console.log("Combat stats component updated! Current Equipment armor is " + this.props.equipmentStats.armor);
+      console.log("Combat Stats component did update");
       this.handleStats();
     }
   }
@@ -53,14 +46,39 @@ class CombatStats extends PureComponent {
     return equipmentStats;
   }
 
+  getEquippedStats = () => {
+    let equipped = [...this.props.inventory[0].data];
+    let stats = {
+      armor: 0,
+      resilience: 0,
+      speed: 0,
+      awareness: 0,
+      special: []
+    };
+    for (let i = 0; i < equipped.length; i++){ //TODO: This next section is extremely messy and can likely be optimized
+      let item = equipped[i];
+      stats.armor += item.stats.armor;
+      stats.resilience += item.stats.resilience;
+      stats.speed += item.stats.speed;
+      stats.awareness += item.stats.awareness;
+      if (item.special != undefined){
+        let special = item.special;
+        for (let j = 0; j < special.length; j++){
+          stats.special.push(item.special[j]);
+        }
+      }
+    }
+    return stats;
+  }
+
   handleStats = () => {
-    let stats = this.props.equipmentStats;
+    let stats = this.getEquippedStats();
     var armor = stats.armor;
     var resilience = this.handleResilience() + stats.resilience;
     var speed = this.handleSpeed() + stats.speed;
     var awareness = this.handleAwareness() + stats.awareness;
 
-    stats = this.handleSpecial(armor, resilience, speed, awareness); //stats state is set with handleSpecial
+    stats = this.handleSpecial(stats); //stats state is set with handleSpecial
 
     armor = stats.armor;
     resilience = stats.resilience;
@@ -71,42 +89,36 @@ class CombatStats extends PureComponent {
     this.handleDefense(armor, resilience); //defense state set with handleDefense
   }
 
-  handleSpecial = (armor, resilience, speed, awareness) => {
-    let special = this.props.equipmentStats.special;
+  handleSpecial = (stats) => {
+    let special = stats.special;
     for (let i = 0; i < special.length; i++){
       switch(special[i]) { //switch statement for special cases, such as armor doubling equipment.
         case "double armor":
-          armor *= 2;
+          stats.armor *= 2;
           break;
         case "double speed":
-          speed *= 2;
+          stats.speed *= 2;
           break;
         case "speed 150%":
-          speed *= 1.5;
-          speed = Math.floor(speed);
+          stats.speed *= 1.5;
+          stats.speed = Math.floor(speed);
           break;
         case "pine goggles":
           if (this.state.species == "modhuman"){
-            awareness += 4;
+            stats.awareness += 4;
           }
           break;
         default:
           break;
       }
     }
-    console.log("Set state of armor to: " + armor);
-    this.setState({ armor });
-    this.setState({ resilience });
-    this.setState({ speed });
-    this.setState({ awareness });
-
-    let stats = {
-      armor: armor,
-      resilience: resilience,
-      speed: speed,
-      awareness: awareness
+    stats = {
+      armor: stats.armor,
+      resilience: stats.resilience,
+      speed: stats.speed,
+      awareness: stats.awareness,
+      special: stats.special
     }
-
     return stats;
   }
 

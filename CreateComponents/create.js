@@ -40,6 +40,7 @@ class Create extends PureComponent {
     this.setState({ inventory });
   }
   render() {
+    console.log("New inventory instance!");
      return (
        <>
          <Tab.Navigator
