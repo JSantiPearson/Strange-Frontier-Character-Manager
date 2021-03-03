@@ -16,13 +16,7 @@ const Tab = createBottomTabNavigator();
 
 class Create extends PureComponent {
   state = {
-     equipmentStats: {
-       armor: 0,
-       resilience: 0,
-       speed: 0,
-       awareness: 0,
-       special: [],
-     }
+    inventory: [],
   }
   componentDidMount(){
     this.props.navigation.setOptions({
@@ -42,8 +36,8 @@ class Create extends PureComponent {
       headerTitleStyle: {color: "white"}
     });
   }
-  setEquipmentStats = (equipmentStats) => {
-    this.setState({ equipmentStats });
+  setInventory = inventory => {
+    this.setState({ inventory });
   }
   render() {
      return (
@@ -106,14 +100,14 @@ class Create extends PureComponent {
                attributes={this.props.route.params.attributes}
                species={this.props.route.params.species}
                saves={this.props.route.params.saves}
-               equipmentStats={this.state.equipmentStats}
+               inventory={this.state.inventory}
             />}
        </Tab.Screen>
        <Tab.Screen name="Equipment">
           {props => <Equipment
               {...props}
               attributes={this.props.route.params.attributes}
-              equipmentStatsCallback={this.setEquipmentStats}
+              inventoryCallback={this.setInventory}
            />}
       </Tab.Screen>
       <Tab.Screen name="Notes">

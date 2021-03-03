@@ -38,14 +38,7 @@ class Equipment extends PureComponent {
         title: "Miscellaneous",
         data: []
       },
-    ],
-    stats: {
-      armor: 0,
-      resilience: 0,
-      speed: 0,
-      awareness: 0,
-      special: []
-    }
+    ]
   }
 
   /**
@@ -211,7 +204,7 @@ class Equipment extends PureComponent {
       equipment.push(item); //no instance of the item was found, so we add a new one with amount 1.
       inventory[equipIndex].data = equipment;
       inventory[0].data = equipped;
-      this.setState({ equipped });
+      this.setState({ inventory });
     }
 
     deleteItem = (item, amount) => {
@@ -265,6 +258,7 @@ class Equipment extends PureComponent {
       }
       let inventory = [...this.state.inventory];
       inventory[equipIndex].data = equipment;
+      this.props.inventoryCallback(inventory);
       this.setState({ inventory });
     }
 
@@ -294,6 +288,7 @@ class Equipment extends PureComponent {
       let inventory = [...this.state.inventory];
       inventory[equipIndex].data = equipment;
       inventory[0].data = equipped;
+      this.props.inventoryCallback(inventory);
       this.setState({ inventory });
     }
 

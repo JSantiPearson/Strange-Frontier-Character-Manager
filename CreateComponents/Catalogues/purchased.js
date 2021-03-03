@@ -15,7 +15,7 @@ const SECTION = [
 class Purchased extends Component {
   state = {
     active: [],
-    equip: 0,
+    equip: 1,
     delete: 0,
     modalVisible: false,
     modalItem: {
@@ -159,27 +159,25 @@ class Purchased extends Component {
   handleEquip = () => {
     let active = [];
     this.setState({ active });
-    if (this.state.equip > 0){
-      let item = {
-        amount: this.props.amount,
-        equipped: this.props.equipped,
-        name: this.props.name,
-        type: this.props.type,
-        price: this.props.price,
-        description: this.props.description,
-        misc: this.props.misc,
-        category: this.props.category,
-        range: this.props.range,
-        damage: this.props.damage,
-        durability: this.props.durability,
-        stats: this.props.stats,
-        special: this.props.special
-      };
-      let equip = this.state.equip;
-      this.props.itemCallback(item, equip);
-      this.setState({ item });
-      this.setState({ equip: 0});
-    }
+    let item = {
+      amount: this.props.amount,
+      equipped: this.props.equipped,
+      name: this.props.name,
+      type: this.props.type,
+      price: this.props.price,
+      description: this.props.description,
+      misc: this.props.misc,
+      category: this.props.category,
+      range: this.props.range,
+      damage: this.props.damage,
+      durability: this.props.durability,
+      stats: this.props.stats,
+      special: this.props.special
+    };
+    let equip = this.state.equip;
+    this.props.itemCallback(item, equip);
+    this.setState({ item });
+    this.setState({ equip: 0});
   }
 
   changeAmount = (amount, increase) => {
@@ -327,7 +325,6 @@ class Purchased extends Component {
   };
 
   render() {
-    console.log("Delete state on render: " + this.state.delete);
     return (
       <>
         <Accordion
