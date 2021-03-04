@@ -15,8 +15,8 @@ import NoteScreen from './Screens/noteScreen';
 const Tab = createBottomTabNavigator();
 
 class Create extends PureComponent {
-  state = {
-    inventory: [],
+  state={
+    inventory: null,
   }
   componentDidMount(){
     this.props.navigation.setOptions({
@@ -40,7 +40,7 @@ class Create extends PureComponent {
     this.setState({ inventory });
   }
   render() {
-    console.log("New inventory instance!");
+     console.log("Strength attribute: " + this.props.route.params.attributes.strength.score);
      return (
        <>
          <Tab.Navigator

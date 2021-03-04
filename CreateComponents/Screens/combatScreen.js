@@ -20,9 +20,38 @@ class CombatScreen extends Component {
       willpower: 0
     },
   }
+
   handleStats = stats => {
     this.setState({ stats });
   }
+
+  getEquippedStats = () => {
+    let stats = {
+      armor: 0,
+      resilience: 0,
+      speed: 0,
+      awareness: 0,
+      special: []
+    };
+    if (this.props.inventory !== null){
+      let equipped = [...this.props.inventory[0].data];
+      for (let i = 0; i < equipped.length; i++){ //TODO: This next section is extremely messy and can likely be optimized
+        let item = equipped[i];
+        stats.armor += item.stats.armor;
+        stats.resilience += item.stats.resilience;
+        stats.speed += item.stats.speed;
+        stats.awareness += item.stats.awareness;
+        if (item.special != undefined){
+          let special = item.special;
+          for (let j = 0; j < special.length; j++){
+            stats.special.push(item.special[j]);
+          }
+        }
+      }
+    }
+    return stats;
+  }
+
   render() {
      return (
        <>
@@ -32,7 +61,7 @@ class CombatScreen extends Component {
                attributes={this.props.attributes}
                species={this.props.species}
                saves={this.props.saves}
-               inventory={this.props.inventory}
+               equipmentStats={this.getEquippedStats()}
                statsCallback={this.handleStats}
              />
             <SkillCollection

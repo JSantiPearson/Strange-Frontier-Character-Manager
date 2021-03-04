@@ -25,11 +25,19 @@ class CombatStats extends PureComponent {
     }
     this.handleStats();
   }
+
+  isEquipmentDifferent = (oldStats, newStats) => {
+    return (oldStats.armor !== newStats.armor ||
+      oldStats.speed !== newStats.speed ||
+      oldStats.awareness !== newStats.awareness ||
+      oldStats.resilience !== newStats.resilience ||
+      oldStats.special.length !== newStats.special.length); /* TODO: This may cause a bug in some edge cases where a new special case is added and a seperate one removed. Fix this later. */
+  }
+
   //if props change, update corresponding stats.
-  componentDidUpdate(prevProps, prevState) {
-    if(prevProps.attributes !== this.props.attributes || JSON.stringify(prevProps.inventory[0].data) !== JSON.stringify(this.props.inventory[0].data)) //TODO: Seems like a gross solution to the infinite loop solution with statsCallback. Think about simplifying this.
+  componentDidUpdate(prevProps) {
+    if(prevProps.attributes !== this.props.attributes || prevProps.species !== this.props.species || this.isEquipmentDifferent(prevProps.equipmentStats, this.props.equipmentStats)) //TODO: Seems like a gross solution to the infinite loop solution with statsCallback. Think about simplifying this.
     {
-      console.log("Combat Stats component did update");
       this.handleStats();
     }
   }
@@ -40,56 +48,25 @@ class CombatStats extends PureComponent {
     return bonus;
   }
 
-  handleEquipmentStats = () => {
-    let equipmentStats = this.props.equipmentStats;
-    this.setState({ equipmentStats })
-    return equipmentStats;
-  }
-
-  getEquippedStats = () => {
-    let equipped = [...this.props.inventory[0].data];
-    let stats = {
-      armor: 0,
-      resilience: 0,
-      speed: 0,
-      awareness: 0,
-      special: []
-    };
-    for (let i = 0; i < equipped.length; i++){ //TODO: This next section is extremely messy and can likely be optimized
-      let item = equipped[i];
-      stats.armor += item.stats.armor;
-      stats.resilience += item.stats.resilience;
-      stats.speed += item.stats.speed;
-      stats.awareness += item.stats.awareness;
-      if (item.special != undefined){
-        let special = item.special;
-        for (let j = 0; j < special.length; j++){
-          stats.special.push(item.special[j]);
-        }
-      }
-    }
-    return stats;
-  }
-
   handleStats = () => {
-    let stats = this.getEquippedStats();
-    var armor = stats.armor;
-    var resilience = this.handleResilience() + stats.resilience;
-    var speed = this.handleSpeed() + stats.speed;
-    var awareness = this.handleAwareness() + stats.awareness;
+    let stats = this.props.equipmentStats;
+    stats.resilience += this.handleResilience();
+    stats.speed += this.handleSpeed();
+    stats.awareness += this.handleAwareness();
 
     stats = this.handleSpecial(stats); //stats state is set with handleSpecial
 
-    armor = stats.armor;
-    resilience = stats.resilience;
-    speed = stats.speed;
-    awareness = stats.awareness;
+    this.setState({ armor: stats.armor });
+    this.setState({ speed: stats.speed });
+    this.setState({ resilience: stats.resilience });
+    this.setState({ awareness: stats.awareness });
 
-    this.handleAttack(speed, awareness); //attack state set with handleAttack
-    this.handleDefense(armor, resilience); //defense state set with handleDefense
+    this.handleAttack(stats.speed, stats.awareness); //attack state set with handleAttack
+    this.handleDefense(stats.armor, stats.resilience); //defense state set with handleDefense
   }
 
   handleSpecial = (stats) => {
+    console.log("Resilience at special: " + stats.resilience);
     let special = stats.special;
     for (let i = 0; i < special.length; i++){
       switch(special[i]) { //switch statement for special cases, such as armor doubling equipment.
