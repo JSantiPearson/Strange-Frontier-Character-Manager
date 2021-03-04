@@ -38,6 +38,7 @@ function Option(props){
       onPress={props.state.available.includes(props.id) ? () => props.navigation.navigate(props.id, {
         attributes: props.state.attributes,
         species: props.state.species,
+        speciesStats: props.state.speciesStats,
         saves: props.state.saves,
         feats: props.state.feats,
         navigation: props.navigation,

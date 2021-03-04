@@ -60,6 +60,7 @@ class CombatScreen extends Component {
              <CombatStats
                attributes={this.props.attributes}
                species={this.props.species}
+               speciesStats={this.props.speciesStats}
                saves={this.props.saves}
                equipmentStats={this.getEquippedStats()}
                statsCallback={this.handleStats}

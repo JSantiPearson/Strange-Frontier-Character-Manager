@@ -112,8 +112,8 @@ class ProfileInputs extends Component {
    }
 
    onSelect = (data) => {
-     if (data.species !== undefined){
-       this.props.speciesCallback(data.species);
+     if (data.species !== undefined && data.speciesStats !== undefined){
+       this.props.speciesCallback(data.species, data.speciesStats);
      }
      this.setState(data);
    }

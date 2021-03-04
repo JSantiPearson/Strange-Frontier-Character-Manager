@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import ProfileInputs from '../input.js';
 
 class ProfileScreen extends Component {
-  sendSpecies = (species) => {
-    this.props.speciesCallback(species);
+  sendSpecies = (species, speciesStats) => {
+    this.props.speciesCallback(species, speciesStats);
   }
   render() {
      return (

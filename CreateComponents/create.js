@@ -17,6 +17,7 @@ const Tab = createBottomTabNavigator();
 class Create extends PureComponent {
   state={
     inventory: null,
+    speciesStats: this.props.route.params.speciesStats,
     species: this.props.route.params.species,
 
   }
@@ -41,8 +42,9 @@ class Create extends PureComponent {
   setInventory = inventory => {
     this.setState({ inventory });
   }
-  setSpecies = species => {
+  setSpecies = (species, speciesStats) => {
     this.setState({ species });
+    this.setState({ speciesStats });
   }
   render() {
      return (
@@ -105,6 +107,7 @@ class Create extends PureComponent {
                navigation={this.props.route.params.navigation}
                attributes={this.props.route.params.attributes}
                species={this.state.species}
+               speciesStats={this.state.speciesStats}
                saves={this.props.route.params.saves}
                inventory={this.state.inventory}
             />}

@@ -44,6 +44,15 @@ class CombatStats extends PureComponent {
   }
 
   handleStats = () => {
+    let speciesStats = {
+      speed: 5,
+      awareness: 5,
+      resilience: 5
+    }
+    if (this.props.speciesStats !== undefined){
+      speciesStats = this.props.speciesStats;
+    }
+    console.log("Species resilience: " + speciesStats.resilience);
     let stats = this.props.equipmentStats;
     stats.resilience += this.handleResilience();
     stats.speed += this.handleSpeed();
