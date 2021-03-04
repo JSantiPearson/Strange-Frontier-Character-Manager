@@ -109,10 +109,12 @@ class ProfileInputs extends Component {
      let species = this.props.species;
      this.setState({ species });
      this.setState({ attributes });
-     console.log("Mounted strength score: " + attributes.strength.score);
    }
 
    onSelect = (data) => {
+     if (data.species !== undefined){
+       this.props.speciesCallback(data.species);
+     }
      this.setState(data);
    }
 
@@ -147,9 +149,6 @@ class ProfileInputs extends Component {
    handleHealth = (health) => {
      health = parseInt(health);
      this.setState({ health });
-   }
-   handleSpecies = (speciesValue) => {
-    this.setState({ species: speciesValue });
    }
    setAttributes = (attribute, score) => {
      let attributes = this.state.attributes;

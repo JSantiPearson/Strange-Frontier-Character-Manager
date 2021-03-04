@@ -3,7 +3,6 @@ import { View, Button, Text, Picker, TouchableOpacity, TextInput, StyleSheet, Sa
 
 class CombatStats extends PureComponent {
   state = {
-    species: "human",
     baseAttack: 0,
     melee: 0,
     ranged: 0,
@@ -19,10 +18,6 @@ class CombatStats extends PureComponent {
   }
 
   componentDidMount() {
-    if (this.props.species !== undefined){
-      let species = this.props.species;
-      this.setState({ species });
-    }
     this.handleStats();
   }
 
@@ -66,7 +61,6 @@ class CombatStats extends PureComponent {
   }
 
   handleSpecial = (stats) => {
-    console.log("Resilience at special: " + stats.resilience);
     let special = stats.special;
     for (let i = 0; i < special.length; i++){
       switch(special[i]) { //switch statement for special cases, such as armor doubling equipment.
@@ -81,7 +75,7 @@ class CombatStats extends PureComponent {
           stats.speed = Math.floor(speed);
           break;
         case "pine goggles":
-          if (this.state.species == "modhuman"){
+          if (this.props.species == "modhuman"){
             stats.awareness += 4;
           }
           break;
@@ -101,10 +95,11 @@ class CombatStats extends PureComponent {
 
   /* Takes species, equipment and move buffs/debuffs into account to determine character speed */
   handleSpeed = () => {
-    var species = this.state.species;
+    var species = this.props.species;
+    console.log("Species in handleSpeed: " + species);
     var dexBonus = this.props.attributes.dexterity.mod*10;
     var speed = 0;
-    if (species == 'giant' || species == 'ogoloid'){
+    if (species == 'Giant' || species == 'ogoloid'){
       speed = 3;
     }
     else if (species == 'wheepe' || species == 'construct'){
@@ -127,7 +122,7 @@ class CombatStats extends PureComponent {
   }
 
   handleResilience = () => {
-    var species = this.state.species;
+    var species = this.props.species;
     var conBonus = this.props.attributes.constitution.mod*10;
     var resilience = 0;
     if (species == 'orbiden'){
@@ -145,7 +140,7 @@ class CombatStats extends PureComponent {
     else if (species == 'capra' || species == 'wheepe' || species == 'construct' || species == 'modhuman'){
       resilience = 6;
     }
-    else if (species == 'giant'){
+    else if (species == 'Giant'){
       resilience = 7;
     }
     else {
@@ -156,7 +151,7 @@ class CombatStats extends PureComponent {
   }
 
   handleAwareness = () => {
-    var species = this.state.species;
+    var species = this.props.species;
     var wisBonus = this.props.attributes.wisdom.mod*10;
     var awareness = 0;
     if (species == 'modhuman'){
@@ -165,7 +160,7 @@ class CombatStats extends PureComponent {
     else if (species == 'energybeing' || species == 'vermile' || species == 'capra'){
       awareness = 4;
     }
-    else if (species == 'human' || species == 'simian' || species == 'gloom' || species == 'grubtub' || species == 'giant' || species == 'wheepe' || species == 'construct'){
+    else if (species == 'human' || species == 'simian' || species == 'gloom' || species == 'grubtub' || species == 'Giant' || species == 'wheepe' || species == 'construct'){
       awareness = 5;
     }
     else if (species == 'arachnet'){

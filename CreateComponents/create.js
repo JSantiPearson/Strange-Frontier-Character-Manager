@@ -17,6 +17,8 @@ const Tab = createBottomTabNavigator();
 class Create extends PureComponent {
   state={
     inventory: null,
+    species: this.props.route.params.species,
+
   }
   componentDidMount(){
     this.props.navigation.setOptions({
@@ -39,8 +41,10 @@ class Create extends PureComponent {
   setInventory = inventory => {
     this.setState({ inventory });
   }
+  setSpecies = species => {
+    this.setState({ species });
+  }
   render() {
-     console.log("Strength attribute: " + this.props.route.params.attributes.strength.score);
      return (
        <>
          <Tab.Navigator
@@ -84,7 +88,8 @@ class Create extends PureComponent {
              {props => <ProfileScreen
                  navigation={this.props.route.params.navigation}
                  route={this.props.route}
-                 species={this.props.route.params.species}
+                 species={this.state.species}
+                 speciesCallback={this.setSpecies}
                  attributes={this.props.route.params.attributes}
                  saves={this.props.route.params.saves}
               />}
@@ -99,7 +104,7 @@ class Create extends PureComponent {
            {props => <CombatScreen
                navigation={this.props.route.params.navigation}
                attributes={this.props.route.params.attributes}
-               species={this.props.route.params.species}
+               species={this.state.species}
                saves={this.props.route.params.saves}
                inventory={this.state.inventory}
             />}

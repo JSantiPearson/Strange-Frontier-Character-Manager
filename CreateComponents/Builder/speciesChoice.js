@@ -18,7 +18,7 @@ class SpeciesChoice extends Component {
     navigation.pop(2);
     route.params.onSelect({ attributesAvail: true });
     route.params.onSelect({ species: this.props.route.params.species });
-    route.params.onSelect({ stats: this.state.stats });
+    route.params.onSelect({ speciesStats: this.state.stats });
   }
 
   /**
