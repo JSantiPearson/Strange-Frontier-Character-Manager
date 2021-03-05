@@ -43,6 +43,17 @@ class CombatStats extends PureComponent {
     return bonus;
   }
 
+  handleSpeciesStats = (stats, speciesStats) => {
+    var dexBonus = this.props.attributes.dexterity.mod;
+    var conBonus = this.props.attributes.constitution.mod;
+    var wisBonus = this.props.attributes.wisdom.mod;
+
+    stats.speed = speciesStats.speed + dexBonus;
+    stats.awareness = speciesStats.awareness + wisBonus;
+    stats.resilience = speciesStats.resilience + conBonus;
+    return stats;
+  }
+
   handleStats = () => {
     let speciesStats = {
       speed: 5,
@@ -52,11 +63,9 @@ class CombatStats extends PureComponent {
     if (this.props.speciesStats !== undefined){
       speciesStats = this.props.speciesStats;
     }
-    console.log("Species resilience: " + speciesStats.resilience);
     let stats = this.props.equipmentStats;
-    stats.resilience += this.handleResilience();
-    stats.speed += this.handleSpeed();
-    stats.awareness += this.handleAwareness();
+
+    stats = this.handleSpeciesStats(stats, speciesStats);
 
     stats = this.handleSpecial(stats); //stats state is set with handleSpecial
 
@@ -161,7 +170,6 @@ class CombatStats extends PureComponent {
 
   handleAwareness = () => {
     var species = this.props.species;
-    var wisBonus = this.props.attributes.wisdom.mod*10;
     var awareness = 0;
     if (species == 'modhuman'){
       awareness = 3;

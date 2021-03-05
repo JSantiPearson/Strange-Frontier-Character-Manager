@@ -42,8 +42,10 @@ class Create extends PureComponent {
   setInventory = inventory => {
     this.setState({ inventory });
   }
-  setSpecies = (species, speciesStats) => {
+  setSpecies = (species) => {
     this.setState({ species });
+  }
+  setSpeciesStats = (speciesStats) => {
     this.setState({ speciesStats });
   }
   render() {
@@ -92,6 +94,7 @@ class Create extends PureComponent {
                  route={this.props.route}
                  species={this.state.species}
                  speciesCallback={this.setSpecies}
+                 speciesStatsCallback={this.setSpeciesStats}
                  attributes={this.props.route.params.attributes}
                  saves={this.props.route.params.saves}
               />}
