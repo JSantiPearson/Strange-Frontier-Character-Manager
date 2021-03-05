@@ -145,14 +145,13 @@ class ProfileInputs extends Component {
      }
      this.setState({ saves });
    }
-
    handleName = (event) => {
     console.log("Name: " + event.nativeEvent.text);
     this.setState({ name: event.nativeEvent.text });
     this.props.nameCallback(event.nativeEvent.text);
    }
-   handleHealth = (health) => {
-     health = parseInt(health);
+   handleHealth = (event) => {
+     let health = parseInt(event.nativeEvent.health);
      this.setState({ health });
    }
    setAttributes = (attribute, score) => {
@@ -364,7 +363,7 @@ class ProfileInputs extends Component {
                    autoCapitalize = "none"
                    keyboardType="numeric"
                    maxLength={5}
-                   onChangeText = {this.handleHealth}
+                   onSubmitEditing = {this.handleHealth}
                    multiline = {false}
                 />
           </View>
