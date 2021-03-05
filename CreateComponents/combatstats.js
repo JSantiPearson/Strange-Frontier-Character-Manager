@@ -111,88 +111,6 @@ class CombatStats extends PureComponent {
     return stats;
   }
 
-  /* Takes species, equipment and move buffs/debuffs into account to determine character speed */
-  handleSpeed = () => {
-    var species = this.props.species;
-    console.log("Species in handleSpeed: " + species);
-    var dexBonus = this.props.attributes.dexterity.mod*10;
-    var speed = 0;
-    if (species == 'Giant' || species == 'ogoloid'){
-      speed = 3;
-    }
-    else if (species == 'wheepe' || species == 'construct'){
-      speed = 4;
-    }
-    else if (species == 'human' || species == 'simian' || species == 'gloom' || species == 'capra'){
-      speed = 5;
-    }
-    else if (species == 'grubtub' || species == 'vermile' || species == 'arachnet' || species == 'modhuman' || species == 'orbiden'){
-      speed = 6;
-    }
-    else if (species == 'energybeing'){
-      speed = 8;
-    }
-    else {
-      speed = 5;
-    }
-    speed += dexBonus;
-    return speed;
-  }
-
-  handleResilience = () => {
-    var species = this.props.species;
-    var conBonus = this.props.attributes.constitution.mod*10;
-    var resilience = 0;
-    if (species == 'orbiden'){
-      resilience = 2;
-    }
-    else if (species == 'energybeing' || species == 'arachnet'){
-      resilience = 3;
-    }
-    else if (species == 'grubtub'){
-      resilience = 4;
-    }
-    else if (species == 'human' || species == 'simian' || species == 'gloom' || species == 'vermile' || species == 'ogoloid'){
-      resilience = 5;
-    }
-    else if (species == 'capra' || species == 'wheepe' || species == 'construct' || species == 'modhuman'){
-      resilience = 6;
-    }
-    else if (species == 'Giant'){
-      resilience = 7;
-    }
-    else {
-      resilience = 5;
-    }
-    resilience += conBonus;
-    return resilience;
-  }
-
-  handleAwareness = () => {
-    var species = this.props.species;
-    var awareness = 0;
-    if (species == 'modhuman'){
-      awareness = 3;
-    }
-    else if (species == 'energybeing' || species == 'vermile' || species == 'capra'){
-      awareness = 4;
-    }
-    else if (species == 'human' || species == 'simian' || species == 'gloom' || species == 'grubtub' || species == 'Giant' || species == 'wheepe' || species == 'construct'){
-      awareness = 5;
-    }
-    else if (species == 'arachnet'){
-      awareness = 6;
-    }
-    else if (species == 'ogoloid' || species == 'orbiden'){
-      awareness = 7;
-    }
-    else {
-      awareness = 5;
-    }
-    awareness += wisBonus;
-    return awareness;
-  }
-
   handleAttack = (speed, awareness) => {
     var baseAttack = speed + awareness;
 
@@ -219,7 +137,7 @@ class CombatStats extends PureComponent {
     this.setState({ will });
   }
 
-  render(prevProps) {
+  render() {
      return (
        <>
          <SafeAreaView style={styles.container}>
