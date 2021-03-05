@@ -48,9 +48,9 @@ class CombatStats extends PureComponent {
     var conBonus = this.props.attributes.constitution.mod;
     var wisBonus = this.props.attributes.wisdom.mod;
 
-    stats.speed = speciesStats.speed + dexBonus;
-    stats.awareness = speciesStats.awareness + wisBonus;
-    stats.resilience = speciesStats.resilience + conBonus;
+    stats.speed += speciesStats.speed + dexBonus;
+    stats.awareness += speciesStats.awareness + wisBonus;
+    stats.resilience += speciesStats.resilience + conBonus;
     return stats;
   }
 
@@ -64,6 +64,8 @@ class CombatStats extends PureComponent {
       speciesStats = this.props.speciesStats;
     }
     let stats = this.props.equipmentStats;
+
+    console.log("equipment speed: " + stats.speed);
 
     stats = this.handleSpeciesStats(stats, speciesStats);
 
