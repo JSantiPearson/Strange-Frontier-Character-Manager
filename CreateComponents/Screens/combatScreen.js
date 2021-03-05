@@ -7,24 +7,9 @@ import { StyleSheet, SafeAreaView, ScrollView } from 'react-native';
 const Stack = createStackNavigator();
 
 class CombatScreen extends Component {
-  state={
-    stats: {
-      armor: 0,
-      resilience: 0,
-      speed: 0,
-      awareness: 0,
-    },
-    saves: {
-      fortitude: 0,
-      reflex: 0,
-      willpower: 0
-    },
-  }
-
   handleStats = stats => {
-    this.setState({ stats });
+    this.props.statsCallback(stats);
   }
-
   getEquippedStats = () => {
     let stats = {
       armor: 0,

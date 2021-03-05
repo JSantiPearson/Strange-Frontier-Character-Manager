@@ -8,6 +8,9 @@ class ProfileScreen extends Component {
   sendSpeciesStats = (speciesStats) => {
     this.props.speciesStatsCallback(speciesStats);
   }
+  sendName = (name) => {
+    this.props.nameCallback(name);
+  }
   render() {
      return (
        <ProfileInputs

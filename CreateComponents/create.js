@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { View, Button, Text, Picker, TouchableOpacity, TextInput, StyleSheet, SafeAreaView, ScrollView } from 'react-native'
+import { Alert, View, Button, Text, Picker, TouchableOpacity, TextInput, StyleSheet, SafeAreaView, ScrollView } from 'react-native'
 import { useNavigation } from '@react-navigation/native';
 import { Dropdown } from "react-native-material-dropdown"
 import { Colors } from 'react-native/Libraries/NewAppScreen';
@@ -19,7 +19,30 @@ class Create extends PureComponent {
     inventory: null,
     speciesStats: this.props.route.params.speciesStats,
     species: this.props.route.params.species,
+  }
+  onAccept = () => {
+    if (this.state.name === undefined){
+      Alert.alert(
+     "Character Incomplete",
+     "Enter a name for your character!",
+     [
+       { text: "OK" }
+     ],
+     { cancelable: true }
+   );
+    }
+    else if (this.state.speciesStats === undefined){
 
+    }
+    else if (this.state.stats === undefined){
+
+    }
+    else {
+      this.props.navigation.navigate('Home', {});
+      this.props.route.params.onSelect({ name: this.state.name });
+      this.props.route.params.onSelect({ species: this.props.route.params.species });
+      this.props.route.params.onSelect({ speciesStats: this.state.stats });
+    }
   }
   componentDidMount(){
     this.props.navigation.setOptions({
@@ -36,6 +59,16 @@ class Create extends PureComponent {
             <Text style={styles.headerButton}>Cancel</Text>
           </TouchableOpacity>
       ),
+      headerRight: props => (
+          /* TODO: Add a confirmation alert since progress will be lost if the user presses this button. */
+          <TouchableOpacity
+            onPress={() => this.onAccept()}
+            title="Accept"
+            color='rgb(250, 0, 115)'
+          >
+            <Text style={styles.headerButton}>Accept</Text>
+          </TouchableOpacity>
+      ),
       headerTitleStyle: {color: "white"}
     });
   }
@@ -47,6 +80,12 @@ class Create extends PureComponent {
   }
   setSpeciesStats = (speciesStats) => {
     this.setState({ speciesStats });
+  }
+  setStats = stats => {
+    this.setState({ stats });
+  }
+  setName = name => {
+    this.setState({ name });
   }
   render() {
      return (
@@ -93,6 +132,7 @@ class Create extends PureComponent {
                  navigation={this.props.route.params.navigation}
                  route={this.props.route}
                  species={this.state.species}
+                 nameCallback={this.setName}
                  speciesCallback={this.setSpecies}
                  speciesStatsCallback={this.setSpeciesStats}
                  attributes={this.props.route.params.attributes}
@@ -111,6 +151,7 @@ class Create extends PureComponent {
                attributes={this.props.route.params.attributes}
                species={this.state.species}
                speciesStats={this.state.speciesStats}
+               statsCallback={this.setStats}
                saves={this.props.route.params.saves}
                inventory={this.state.inventory}
             />}

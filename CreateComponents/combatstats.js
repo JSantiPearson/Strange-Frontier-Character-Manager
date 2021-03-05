@@ -76,6 +76,7 @@ class CombatStats extends PureComponent {
     stats = this.handleAttack(stats); //attack state set with handleAttack
     stats = this.handleDefense(stats); //defense state set with handleDefense
 
+    this.props.statsCallback(stats);
     this.setState({ stats });
   }
 

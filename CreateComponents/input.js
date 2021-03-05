@@ -146,8 +146,10 @@ class ProfileInputs extends Component {
      this.setState({ saves });
    }
 
-   handleName = (text) => {
-    this.setState({ name: text });
+   handleName = (event) => {
+    console.log("Name: " + event.nativeEvent.text);
+    this.setState({ name: event.nativeEvent.text });
+    this.props.nameCallback(event.nativeEvent.text);
    }
    handleHealth = (health) => {
      health = parseInt(health);
@@ -201,7 +203,7 @@ class ProfileInputs extends Component {
            <TextInput style = {styles.input}
               underlineColorAndroid = "transparent"
               autoCapitalize = "none"
-              onChangeText = {this.handleName}
+              onSubmitEditing = {this.handleName}
               multiline = {false}
            />
          </View>
