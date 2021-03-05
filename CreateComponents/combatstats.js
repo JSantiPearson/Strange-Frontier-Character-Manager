@@ -3,18 +3,20 @@ import { View, Button, Text, Picker, TouchableOpacity, TextInput, StyleSheet, Sa
 
 class CombatStats extends PureComponent {
   state = {
-    baseAttack: 0,
-    melee: 0,
-    ranged: 0,
-    psionic: 0,
-    baseDefense: 0,
-    dodge: 0,
-    block: 0,
-    will: 0,
-    speed: 0,
-    armor: 0,
-    awareness: 0,
-    resilience: 0,
+    stats: {
+      baseAttack: 0,
+      melee: 0,
+      ranged: 0,
+      psionic: 0,
+      baseDefense: 0,
+      dodge: 0,
+      block: 0,
+      will: 0,
+      speed: 0,
+      armor: 0,
+      awareness: 0,
+      resilience: 0
+    }
   }
 
   componentDidMount() {
@@ -71,13 +73,10 @@ class CombatStats extends PureComponent {
 
     stats = this.handleSpecial(stats); //stats state is set with handleSpecial
 
-    this.setState({ armor: stats.armor });
-    this.setState({ speed: stats.speed });
-    this.setState({ resilience: stats.resilience });
-    this.setState({ awareness: stats.awareness });
+    stats = this.handleAttack(stats); //attack state set with handleAttack
+    stats = this.handleDefense(stats); //defense state set with handleDefense
 
-    this.handleAttack(stats.speed, stats.awareness); //attack state set with handleAttack
-    this.handleDefense(stats.armor, stats.resilience); //defense state set with handleDefense
+    this.setState({ stats });
   }
 
   handleSpecial = (stats) => {
@@ -108,35 +107,38 @@ class CombatStats extends PureComponent {
       resilience: stats.resilience,
       speed: stats.speed,
       awareness: stats.awareness,
-      special: stats.special
     }
     return stats;
   }
 
-  handleAttack = (speed, awareness) => {
-    var baseAttack = speed + awareness;
+  handleAttack = (stats) => {
+    var baseAttack = stats.speed + stats.awareness;
 
     var melee = this.props.saves.fortitude + baseAttack;
     var ranged = this.props.saves.reflex + baseAttack;
     var psionic = this.props.saves.willpower + baseAttack;
 
-    this.setState({ baseAttack });
-    this.setState({ melee });
-    this.setState({ ranged });
-    this.setState({ psionic });
+    stats.baseAttack = baseAttack;
+    stats.melee = melee;
+    stats.ranged = ranged;
+    stats.psionic = psionic;
+
+    return stats;
   }
 
-  handleDefense = (armor, resilience) => {
-    var baseDefense = armor + resilience;
+  handleDefense = (stats) => {
+    var baseDefense = stats.armor + stats.resilience;
 
     var block = this.props.saves.fortitude + baseDefense;
     var dodge = this.props.saves.reflex + baseDefense;
     var will = this.props.saves.willpower + baseDefense;
 
-    this.setState({ baseDefense });
-    this.setState({ block });
-    this.setState({ dodge });
-    this.setState({ will });
+    stats.baseDefense = baseDefense;
+    stats.block = block;
+    stats.dodge = dodge;
+    stats.will = will;
+
+    return stats;
   }
 
   render() {
@@ -146,50 +148,50 @@ class CombatStats extends PureComponent {
            <ScrollView style={styles.scrollView}>
              <View style={styles.row}>
                <View style={styles.item}>
-                 <Text style={styles.text}>Speed: {this.state.speed}</Text>
+                 <Text style={styles.text}>Speed: {this.state.stats.speed}</Text>
                </View>
                <View style={styles.item}>
-                 <Text style={styles.text}>Armor: {this.state.armor}</Text>
-               </View>
-             </View>
-             <View style={styles.row}>
-               <View style={styles.item}>
-                 <Text style={styles.text}>Awareness: {this.state.awareness}</Text>
-               </View>
-               <View style={styles.item}>
-                 <Text style={styles.text}>Resilience: {this.state.resilience}</Text>
+                 <Text style={styles.text}>Armor: {this.state.stats.armor}</Text>
                </View>
              </View>
              <View style={styles.row}>
                <View style={styles.item}>
-                 <Text style={styles.text}>Base Attack: {this.state.baseAttack}</Text>
+                 <Text style={styles.text}>Awareness: {this.state.stats.awareness}</Text>
                </View>
                <View style={styles.item}>
-                 <Text style={styles.text}>Base Defense: {this.state.baseDefense}</Text>
-               </View>
-             </View>
-             <View style={styles.row}>
-               <View style={styles.item}>
-                 <Text style={styles.text}>Melee Attack: {this.state.melee}</Text>
-               </View>
-               <View style={styles.item}>
-                 <Text style={styles.text}>Block: {this.state.block}</Text>
+                 <Text style={styles.text}>Resilience: {this.state.stats.resilience}</Text>
                </View>
              </View>
              <View style={styles.row}>
                <View style={styles.item}>
-                 <Text style={styles.text}>Ranged Attack: {this.state.ranged}</Text>
+                 <Text style={styles.text}>Base Attack: {this.state.stats.baseAttack}</Text>
                </View>
                <View style={styles.item}>
-                 <Text style={styles.text}>Dodge: {this.state.dodge}</Text>
+                 <Text style={styles.text}>Base Defense: {this.state.stats.baseDefense}</Text>
                </View>
              </View>
              <View style={styles.row}>
                <View style={styles.item}>
-                 <Text style={styles.text}>Psionic Attack: {this.state.psionic}</Text>
+                 <Text style={styles.text}>Melee Attack: {this.state.stats.melee}</Text>
                </View>
                <View style={styles.item}>
-                 <Text style={styles.text}>Will Defense: {this.state.will}</Text>
+                 <Text style={styles.text}>Block: {this.state.stats.block}</Text>
+               </View>
+             </View>
+             <View style={styles.row}>
+               <View style={styles.item}>
+                 <Text style={styles.text}>Ranged Attack: {this.state.stats.ranged}</Text>
+               </View>
+               <View style={styles.item}>
+                 <Text style={styles.text}>Dodge: {this.state.stats.dodge}</Text>
+               </View>
+             </View>
+             <View style={styles.row}>
+               <View style={styles.item}>
+                 <Text style={styles.text}>Psionic Attack: {this.state.stats.psionic}</Text>
+               </View>
+               <View style={styles.item}>
+                 <Text style={styles.text}>Will Defense: {this.state.stats.will}</Text>
                </View>
              </View>
            </ScrollView>
