@@ -16,23 +16,62 @@ const Tab = createBottomTabNavigator();
 
 class Create extends PureComponent {
   state={
-    inventory: null,
+    inventory: [
+      { //index 0
+        key: "Active Equipment",
+        title: "Active Equipment",
+        data: []
+      },
+      { //index 1
+        key: "Ranged Weaponry",
+        title: "Ranged Weaponry",
+        data: []
+      },
+      { //index 2
+        key: "Melee Weaponry",
+        title: "Melee Weaponry",
+        data: []
+      },
+      { //index 3
+        key: "Armor & Equipment",
+        title: "Armor & Equipment",
+        data: []
+      },
+      { //index 4
+        key: "Gear & Utility",
+        title: "Gear & Tools",
+        data: []
+      },
+      { //index 5
+        key: "Miscellaneous",
+        title: "Miscellaneous",
+        data: []
+      },
+    ],
     speciesStats: this.props.route.params.speciesStats,
     species: this.props.route.params.species,
+    stats: {}
   }
   onAccept = () => {
     if (this.state.name === undefined){
       Alert.alert(
-     "Character Incomplete",
-     "Enter a name for your character!",
-     [
-       { text: "OK" }
-     ],
-     { cancelable: true }
-   );
+       "Character Incomplete",
+       "Enter a name for your character!",
+       [
+         { text: "OK" }
+       ],
+       { cancelable: true }
+     );
     }
-    else if (this.state.speciesStats === undefined){
-
+    else if (this.state.speciesStats === undefined || this.state.species === undefined){
+      Alert.alert(
+       "Character Incomplete",
+       "Choose your character's species!",
+       [
+         { text: "OK" }
+       ],
+       { cancelable: true }
+     );
     }
     else if (this.state.stats === undefined){
 
@@ -44,6 +83,38 @@ class Create extends PureComponent {
       this.props.route.params.onSelect({ speciesStats: this.state.stats });
     }
   }
+
+  componentDidUpdate(prevState){
+    if (prevState.name !== this.state.name){
+      this.props.navigation.setOptions({
+        headerTitle: this.state.name,
+        headerTitleAlign: "center",
+        headerStyle: {backgroundColor: 'rgb(250, 0, 115)'},
+        headerLeft: props => (
+            /* TODO: Add a confirmation alert since progress will be lost if the user presses this button. */
+            <TouchableOpacity
+              onPress={() => this.props.navigation.navigate('Home', {})}
+              title="Cancel"
+              color='rgb(250, 0, 115)'
+            >
+              <Text style={styles.headerButton}>Cancel</Text>
+            </TouchableOpacity>
+        ),
+        headerRight: props => (
+            /* TODO: Add a confirmation alert since progress will be lost if the user presses this button. */
+            <TouchableOpacity
+              onPress={() => this.onAccept()}
+              title="Accept"
+              color='rgb(250, 0, 115)'
+            >
+              <Text style={styles.headerButton}>Accept</Text>
+            </TouchableOpacity>
+        ),
+        headerTitleStyle: {color: "white"}
+      });
+    }
+  }
+
   componentDidMount(){
     this.props.navigation.setOptions({
       headerTitle: "New Character",

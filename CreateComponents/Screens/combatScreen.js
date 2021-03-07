@@ -22,7 +22,6 @@ class CombatScreen extends Component {
       let equipped = [...this.props.inventory[0].data];
       for (let i = 0; i < equipped.length; i++){ //TODO: This next section is extremely messy and can likely be optimized
         let item = equipped[i];
-        console.log("Adding " + item.stats.speed + " speed from " + item.name);
         stats.armor += item.stats.armor;
         stats.resilience += item.stats.resilience;
         stats.speed += item.stats.speed;
@@ -35,7 +34,6 @@ class CombatScreen extends Component {
         }
       }
     }
-    console.log("Ended with " + stats.speed + " speed.");
     return stats;
   }
 

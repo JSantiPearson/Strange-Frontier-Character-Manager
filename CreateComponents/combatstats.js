@@ -24,11 +24,28 @@ class CombatStats extends PureComponent {
   }
 
   isEquipmentDifferent = (oldStats, newStats) => {
-    return (oldStats.armor !== newStats.armor ||
-      oldStats.speed !== newStats.speed ||
-      oldStats.awareness !== newStats.awareness ||
-      oldStats.resilience !== newStats.resilience ||
-      oldStats.special.length !== newStats.special.length); /* TODO: This may cause a bug in some edge cases where a new special case is added and a seperate one removed. Fix this later. */
+    if (oldStats.armor !== newStats.armor){
+      console.log("Armor is different");
+      return true;
+    }
+    else if (oldStats.speed !== newStats.speed){
+      return true;
+    }
+    else if (oldStats.resilience !== newStats.resilience){
+      console.log("Resilience is different");
+      return true;
+    }
+    else if (oldStats.awareness !== newStats.awareness){
+      console.log("Awareness is different");
+      return true;
+    }
+    else if (oldStats.special.length !== newStats.special.length){ /* TODO: This may cause a bug in some edge cases where a new special case is added and a seperate one removed. Fix this later. */
+      console.log("Special is different");
+      return true;
+    }
+    else {
+      return false;
+    }
   }
 
   //if props change, update corresponding stats.
@@ -66,8 +83,6 @@ class CombatStats extends PureComponent {
       speciesStats = this.props.speciesStats;
     }
     let stats = this.props.equipmentStats;
-
-    console.log("equipment speed: " + stats.speed);
 
     stats = this.handleSpeciesStats(stats, speciesStats);
 
