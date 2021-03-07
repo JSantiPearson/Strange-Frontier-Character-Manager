@@ -146,7 +146,6 @@ class ProfileInputs extends Component {
      this.setState({ saves });
    }
    handleName = (event) => {
-    console.log("Name: " + event.nativeEvent.text);
     this.setState({ name: event.nativeEvent.text });
     this.props.nameCallback(event.nativeEvent.text);
    }

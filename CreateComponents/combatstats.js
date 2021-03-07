@@ -25,22 +25,18 @@ class CombatStats extends PureComponent {
 
   isEquipmentDifferent = (oldStats, newStats) => {
     if (oldStats.armor !== newStats.armor){
-      console.log("Armor is different");
       return true;
     }
-    else if (oldStats.speed !== newStats.speed){
+    else if (oldStats.speed !== newStats.speed){ //TODO: Speed is getting a strange error right now, need to fix
       return true;
     }
     else if (oldStats.resilience !== newStats.resilience){
-      console.log("Resilience is different");
       return true;
     }
     else if (oldStats.awareness !== newStats.awareness){
-      console.log("Awareness is different");
       return true;
     }
     else if (oldStats.special.length !== newStats.special.length){ /* TODO: This may cause a bug in some edge cases where a new special case is added and a seperate one removed. Fix this later. */
-      console.log("Special is different");
       return true;
     }
     else {

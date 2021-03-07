@@ -195,11 +195,9 @@ class Purchased extends Component {
     let deleteAmount = this.state.delete;
     if (increase){
       deleteAmount++;
-      console.log("Change delete amount from " + (deleteAmount-1) + " to " + deleteAmount);
     }
     else{
       deleteAmount--;
-      console.log("Change delete amount from " + (deleteAmount+1) + " to " + deleteAmount);
     }
     this.setState({ delete: deleteAmount });
   }

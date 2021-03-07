@@ -43,7 +43,7 @@ function Option(props){
         feats: props.state.feats,
         navigation: props.navigation,
         route: props.route,
-        onSelect: props.onSelect
+        onSelect: props.onSelect,
       }) : undefined}
     >
       <Text style={styles.optionText}>{props.text}</Text>
@@ -128,6 +128,10 @@ class Builder extends Component {
     this.setState({ saves });
   }
 
+  sendCharacter = character => {
+    this.props.characterCallback(character);
+  }
+
   /**
   * If availability for a character builder section has opened, change state to reflect this.
   * TODO: Could do some optimizing here, maybe pushing onto a stack. Either way, this logic is spaghetti code, on top of being pretty ugly.
@@ -197,7 +201,8 @@ class Builder extends Component {
             attributes: this.state.attributes,
             species: this.state.species,
             saves: this.state.saves,
-            feats: this.state.feats
+            feats: this.state.feats,
+            characterCallback: this.sendCharacter
           })}
           title="Skip"
           color='rgb(250, 0, 115)'

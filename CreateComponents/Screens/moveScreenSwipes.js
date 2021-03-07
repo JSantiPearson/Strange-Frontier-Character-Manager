@@ -115,7 +115,6 @@ class MoveScreen extends Component {
 
 function MoveItem(props) {
   //TODO: Bring over all needed props to this function in a tidy way.
-  console.log("Passing move cost: " + props.move.cost);
   return (
     <Swipeable
       rightButtons={[

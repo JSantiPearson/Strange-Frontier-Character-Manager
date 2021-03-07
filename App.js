@@ -87,6 +87,14 @@ function CatalogueScreen({ navigation, route }) {
 const Stack = createStackNavigator();
 
 class App extends React.Component {
+  state={
+    characters: []
+  }
+  addCharacter = character => {
+    let characters = [...this.state.characters];
+    characters.push(character);
+    this.setState({ characters });
+  }
   render() {
     return(
       <>
@@ -163,16 +171,12 @@ class App extends React.Component {
                 headerTitleStyle: {color: "white"},
               }}
             />
-            <Stack.Screen
-              name="Build"
-              component={Builder}
-              initialParams={{
-                skillsAvail: false,
-                featsAvail: false,
-                equipmentAvail: false
-              }}
-            />
-
+            <Stack.Screen name="Build">
+              {props => <Builder
+                  {...props}
+                  characterCallback={this.addCharacter}
+               />}
+            </Stack.Screen>
             <Stack.Screen
               name="Attributes"
               component={BuilderAttributes}

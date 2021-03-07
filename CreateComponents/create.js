@@ -78,9 +78,7 @@ class Create extends PureComponent {
     }
     else {
       this.props.navigation.navigate('Home', {});
-      this.props.route.params.onSelect({ name: this.state.name });
-      this.props.route.params.onSelect({ species: this.props.route.params.species });
-      this.props.route.params.onSelect({ speciesStats: this.state.stats });
+      this.props.route.params.characterCallback(this.state);
     }
   }
 
