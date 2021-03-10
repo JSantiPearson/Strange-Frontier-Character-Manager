@@ -1,5 +1,7 @@
 import 'react-native-gesture-handler';
 
+import { LogBox } from 'react-native';
+
 import React from 'react';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -8,6 +10,8 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import ProfileInputs from './CreateComponents/input.js';
 import CombatStats from './CreateComponents/combatstats';
 import Create from './CreateComponents/create';
+
+import CharacterList from './CreateComponents/characterList';
 
 import ProfileScreen from './CreateComponents/Screens/profileScreen';
 import MoveScreen from './CreateComponents/Screens/moveScreenSwipes';
@@ -54,25 +58,19 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-function HomeScreen({ navigation }) {
+function HomeScreen({ navigation, route }) {
+  var { characters } = route.params;
+    console.log("Home screen characters: " + characters[0].name);
   return (
     <>
       <View style={styles.container}>
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.imageButton} onPress={() => navigation.navigate('Build')}>
-            <ImageBackground source={require('./assets/img/Create.png')} resizeMode={"cover"} style={styles.backgroundImage}>
-              <Text style={styles.buttonText}>Create</Text>
-            </ImageBackground>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.imageButton} onPress={() => navigation.navigate('Play', { navigation })}>
-            <ImageBackground source={require('./assets/img/Play.png')} resizeMode={"cover"} style={styles.backgroundImage}>
-              <Text style={styles.buttonText}>Play</Text>
-              <Text style={[styles.buttonText, {fontSize: 20}]}>(Under Construction)</Text>
-            </ImageBackground>
-          </TouchableOpacity>
-        </View>
+        <TouchableOpacity onPress={() => navigation.navigate('Build')}>
+          <Text style={styles.buttonText}>Create Character</Text>
+        </TouchableOpacity>
+        <CharacterList
+          characters={characters}
+        />
+        <Text style={styles.buttonText}>Logo Placeholder</Text>
       </View>
     </>
   )
@@ -88,14 +86,21 @@ const Stack = createStackNavigator();
 
 class App extends React.Component {
   state={
-    characters: []
+    characters: [
+      {
+        name: "Simon Shaw"
+      }
+    ]
   }
   addCharacter = character => {
     let characters = [...this.state.characters];
+    character.id = character.name;
     characters.push(character);
     this.setState({ characters });
   }
   render() {
+    LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
+    LogBox.ignoreAllLogs();//Ignore all log notifications
     return(
       <>
         <NavigationContainer>
@@ -103,6 +108,7 @@ class App extends React.Component {
             <Stack.Screen
               name="Home"
               component={HomeScreen}
+              initialParams={{ characters: [...this.state.characters] }}
               options={{
                 headerShown: false
               }}
@@ -262,79 +268,20 @@ class App extends React.Component {
 
 const styles = StyleSheet.create({
   buttonText: {
-    fontSize: 50,
+    fontSize: 23,
+    paddingVertical: Dimensions.get('window').height / 14,
     color: "white",
     fontFamily: 'CCWildWordsRoman',
     textAlign: "center",
-    textShadowColor: 'rgba(0, 0, 0, 1)',
-    textShadowOffset: {width: -2, height: 2},
-    textShadowRadius: 10
-  },
-  tabTitle: {
-    fontSize: 12,
-    color: "white",
-  },
-  headerButton: {
-    fontSize: 15,
-    paddingHorizontal: 20,
-    color: "white",
-  },
-  scrollView: {
-    backgroundColor: Colors.lighter,
-  },
-  engine: {
-    position: 'absolute',
-    right: 0,
-  },
-  body: {
-    backgroundColor: Colors.white,
-  },
-  imageButton: {
-    flex: 1,
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').width / 2,
-  },
-  backgroundImage: {
-    width: "100%",
-    height: "100%",
-    alignItems: 'center',
-    justifyContent: 'center'
   },
   container: {
     flex: 1,
+    backgroundColor: 'black',
     alignItems: 'stretch',
     justifyContent: 'center',
     alignContent: 'stretch',
     flexDirection: 'column',
   },
-  buttonContainer: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    textAlign: 'center',
-    color: Colors.dark,
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
-  }
 });
 
 export default App;

@@ -27,18 +27,6 @@ class CombatStats extends PureComponent {
     if (oldStats.armor !== newStats.armor){
       return true;
     }
-    else if (oldStats.speed !== newStats.speed){ //TODO: Speed is getting a strange error right now, need to fix
-      return true;
-    }
-    else if (oldStats.resilience !== newStats.resilience){
-      return true;
-    }
-    else if (oldStats.awareness !== newStats.awareness){
-      return true;
-    }
-    else if (oldStats.special.length !== newStats.special.length){ /* TODO: This may cause a bug in some edge cases where a new special case is added and a seperate one removed. Fix this later. */
-      return true;
-    }
     else {
       return false;
     }

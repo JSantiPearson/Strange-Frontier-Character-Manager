@@ -200,6 +200,7 @@ class Builder extends Component {
             navigation: this.props.navigation,
             attributes: this.state.attributes,
             species: this.state.species,
+            speciesStats: this.state.speciesStats,
             saves: this.state.saves,
             feats: this.state.feats,
             characterCallback: this.sendCharacter
