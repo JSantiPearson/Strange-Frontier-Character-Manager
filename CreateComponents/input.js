@@ -195,6 +195,7 @@ class ProfileInputs extends Component {
    _renderProfileSection = () => {
      return(
        <>
+
        <Text style={styles.title}>Profile</Text>
          <View style={styles.section}>
            <Text style={styles.inputTitle}>Name</Text>
@@ -209,7 +210,7 @@ class ProfileInputs extends Component {
      )
    }
    //TODO: Fix navigation here... it currently takes the user back to the builder screen even though they selected 'skip'
-   _renderSpeciesSection = (props) => {
+   _renderSpeciesSection = () => {
      if (this.state.species === undefined){
        return(
          <>
@@ -218,7 +219,7 @@ class ProfileInputs extends Component {
              <TouchableOpacity
                title="Species"
                activeOpacity={0.5}
-               onPress={() => props.navigation.navigate("Species", {onSelect: this.onSelect})}
+               onPress={() => this.props.navigation.navigate("Species", {onSelect: this.onSelect})}
              >
                <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
                  <View style={{flexDirection: 'row', alignItems: 'center'}}>
@@ -256,7 +257,7 @@ class ProfileInputs extends Component {
              <TouchableOpacity
                title="Species"
                activeOpacity={0.5}
-               onPress={() => props.navigation.navigate("Species", {onSelect: this.onSelect})}
+               onPress={() => this.props.navigation.navigate("Species", {onSelect: this.onSelect})}
              >
                <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
                  <View style={{flexDirection: 'row', alignItems: 'center'}}>
@@ -414,8 +415,9 @@ class ProfileInputs extends Component {
           <SafeAreaView style={styles.container}>
             <ScrollView style={styles.scrollView}>
               <View style={styles.container}>
+                {this._renderImage()}
                 {this._renderProfileSection()}
-                {this._renderSpeciesSection(this.props)}
+                {this._renderSpeciesSection()}
                 {this._renderAttributes()}
                 {this._renderHealth()}
                 {this._renderFeats()}
