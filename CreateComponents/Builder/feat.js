@@ -1,7 +1,7 @@
 import React, { Component, PureComponent } from 'react'
 import { View, Button, Text, Picker, TouchableOpacity, LayoutAnimation, TextInput, StyleSheet, SafeAreaView, ScrollView} from 'react-native'
 import { Colors } from 'react-native/Libraries/NewAppScreen';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Accordion from 'react-native-collapsible/Accordion';
 import equal from 'fast-deep-equal';
 
@@ -20,73 +20,73 @@ function TierIndicators(props){
       {props.feat.tierOne == undefined &&
         props.feat.tier < 1 &&
           <View style={styles.rowItem}>
-            <Icon name="circle-outline" size={20} color="white" />
+            <MaterialCommunityIcons name="circle-outline" size={20} color="white" />
           </View>
       }
       {props.feat.tierOne == undefined &&
         props.feat.tier > 0 &&
         <View style={styles.rowItem}>
-          <Icon name="circle-slice-8" size={20} color={glowColor} />
+          <MaterialCommunityIcons name="circle-slice-8" size={20} color={glowColor} />
         </View>
       }
       {props.feat.tierOne != undefined &&
         props.feat.tier < 1 &&
           <View style={styles.rowItem}>
-            <Icon name="numeric-1-circle-outline" size={20} color="white" />
+            <MaterialCommunityIcons name="numeric-1-circle-outline" size={20} color="white" />
           </View>
       }
       {props.feat.tierOne != undefined &&
         props.feat.tier >= 1 &&
         <View style={styles.rowItem}>
-          <Icon name="numeric-1-circle" size={20} color={glowColor} />
+          <MaterialCommunityIcons name="numeric-1-circle" size={20} color={glowColor} />
         </View>
       }
       {props.feat.tierTwo != undefined &&
         props.feat.tier < 2 &&
           <View style={styles.rowItem}>
-            <Icon name="numeric-2-circle-outline" size={20} color="white" />
+            <MaterialCommunityIcons name="numeric-2-circle-outline" size={20} color="white" />
           </View>
       }
       {props.feat.tierTwo != undefined &&
         props.feat.tier >= 2 &&
         <View style={styles.rowItem}>
-          <Icon name="numeric-2-circle" size={20} color={glowColor} />
+          <MaterialCommunityIcons name="numeric-2-circle" size={20} color={glowColor} />
         </View>
       }
       {props.feat.tierThree != undefined &&
         props.feat.tier < 3 &&
           <View style={styles.rowItem}>
-            <Icon name="numeric-3-circle-outline" size={20} color="white" />
+            <MaterialCommunityIcons name="numeric-3-circle-outline" size={20} color="white" />
           </View>
       }
       {props.feat.tierThree != undefined &&
         props.feat.tier >= 3 &&
         <View style={styles.rowItem}>
-          <Icon name="numeric-3-circle" size={20} color={glowColor} />
+          <MaterialCommunityIcons name="numeric-3-circle" size={20} color={glowColor} />
         </View>
       }
       {props.feat.tierFour != undefined &&
         props.feat.tier < 4 &&
           <View style={styles.rowItem}>
-            <Icon name="numeric-4-circle-outline" size={20} color="white" />
+            <MaterialCommunityIcons name="numeric-4-circle-outline" size={20} color="white" />
           </View>
       }
       {props.feat.tierFour != undefined &&
         props.feat.tier >= 4 &&
         <View style={styles.rowItem}>
-          <Icon name="numeric-4-circle" size={20} color={glowColor} />
+          <MaterialCommunityIcons name="numeric-4-circle" size={20} color={glowColor} />
         </View>
       }
       {props.feat.tierFive != undefined &&
         props.feat.tier < 5 &&
           <View style={styles.rowItem}>
-            <Icon name="numeric-5-circle-outline" size={20} color="white" />
+            <MaterialCommunityIcons name="numeric-5-circle-outline" size={20} color="white" />
           </View>
       }
       {props.feat.tierFive != undefined &&
         props.feat.tier >= 5 &&
         <View style={styles.rowItem}>
-          <Icon name="numeric-5-circle" size={20} color={glowColor} />
+          <MaterialCommunityIcons name="numeric-5-circle" size={20} color={glowColor} />
         </View>
       }
     </>
@@ -100,25 +100,25 @@ function FeatTier(props){
         {props.tier == props.feat.tier+1 && /* if this tier is exactly one above the highest tier purchased, then it is purchasable */
           <TouchableOpacity activeOpacity={0.6} style={styles.rowItem} onPress={() => props.changeFeatTiers(true)}>
             <View style={styles.tierCircle}>
-              <Icon name="circle-outline" size={18} color="white" />
+              <MaterialCommunityIcons name="circle-outline" size={18} color="white" />
             </View>
           </TouchableOpacity>
         }
         {props.tier < props.feat.tier && /* If this tier has other higher tiers equipped on top of it, then it cannot be unequipped until the tiers above it have also been unequipped */
           <View style={[styles.tierCircle, {paddingHorizontal: 6}]}>
-            <Icon name="circle-slice-8" size={18} color="white" />
+            <MaterialCommunityIcons name="circle-slice-8" size={18} color="white" />
           </View>
         }
         {props.tier == props.feat.tier && /* If this tier is the highest purchased tier, it can be unequipped. */
           <TouchableOpacity activeOpacity={0.6} style={styles.rowItem} onPress={() => props.changeFeatTiers(false)}>
             <View style={styles.tierCircle}>
-              <Icon name="circle-slice-8" size={18} color="white" />
+              <MaterialCommunityIcons name="circle-slice-8" size={18} color="white" />
             </View>
           </TouchableOpacity>
         }
         {props.tier > props.feat.tier+1 && /* If this tier is higher than the current purchasable tier, then it is locked from purchase */
           <View style={[styles.tierCircle, {paddingLeft: 7}]}>
-            <Icon name="lock" size={18} color="white" />
+            <MaterialCommunityIcons name="lock" size={18} color="white" />
           </View>
         }
         <Text style={styles.tier}>Tier {props.tier}</Text>

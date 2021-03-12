@@ -3,7 +3,7 @@ import { View, Button, Dimensions, Modal, Text, Picker, TouchableOpacity, Layout
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import Accordion from 'react-native-collapsible/Accordion';
 import NumberInput from '../Utilities/numberInput';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const SECTION = [
   {
@@ -138,7 +138,7 @@ class Purchased extends Component {
         <TouchableOpacity
           onPress= {() => this.handleDelete(this.props.name)}
         >
-          <Icon name="delete" size={18} color="white" />
+          <MaterialCommunityIcons name="delete" size={18} color="white" />
         </TouchableOpacity>
     </View>
     )

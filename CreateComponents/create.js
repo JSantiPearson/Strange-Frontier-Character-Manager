@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Alert, View, Button, Text, Picker, TouchableOpacity, TextInput, StyleSheet, SafeAreaView, ScrollView } from 'react-native'
 import { useNavigation } from '@react-navigation/native';
 import { Dropdown } from "react-native-material-dropdown"
@@ -183,7 +183,7 @@ class Create extends PureComponent {
                  else if (route.name === 'Notes') {
                    iconName = 'format-list-bulleted';
                  }
-                 return <Icon name={iconName} size={26} color={color} style={{ textAlignVertical: 'center' }} />;
+                 return <MaterialCommunityIcons name={iconName} size={26} color={color} style={{ textAlignVertical: 'center' }} />;
                },
              })}
              tabBarOptions={{

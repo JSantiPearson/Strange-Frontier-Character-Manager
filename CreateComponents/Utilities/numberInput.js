@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import { View, Button, Text, Picker, TouchableOpacity, TextInput, StyleSheet} from 'react-native'
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 class NumberInput extends PureComponent {
   state = {
@@ -24,20 +24,20 @@ class NumberInput extends PureComponent {
       <View style={styles.row}>
         {(this.props.minValue == undefined && this.props.numberValue > 0) || this.props.numberValue > this.props.minValue &&
           <TouchableOpacity onPress={() => this.props.changeNumber(this.props.numberName, false)}>
-            <Icon name="minus-circle" size={22} color='rgb(250, 0, 115)' />
+            <MaterialCommunityIcons name="minus-circle" size={22} color='rgb(250, 0, 115)' />
           </TouchableOpacity>
         }
         {(this.props.minValue == undefined && this.props.numberValue <= 0) || this.props.numberValue <= this.props.minValue &&
-          <Icon name="minus-circle" size={22} color='rgba(250, 0, 115, 0.5)' />
+          <MaterialCommunityIcons name="minus-circle" size={22} color='rgba(250, 0, 115, 0.5)' />
         }
         <Text style={[styles.text, {textAlign: "center", width: 40}]}>{this.state.value}</Text>
         {(this.state.value < this.props.maxValue || this.props.maxValue === undefined) &&
           <TouchableOpacity onPress={() => this.props.changeNumber(this.props.numberName, true)}>
-            <Icon name="plus-circle" size={22} color='rgb(250, 0, 115)' />
+            <MaterialCommunityIcons name="plus-circle" size={22} color='rgb(250, 0, 115)' />
           </TouchableOpacity>
         }
         {this.state.value >= this.props.maxValue &&
-          <Icon name="plus-circle" size={22} color='rgba(250, 0, 115, 0.5)' />
+          <MaterialCommunityIcons name="plus-circle" size={22} color='rgba(250, 0, 115, 0.5)' />
         }
       </View>
     )

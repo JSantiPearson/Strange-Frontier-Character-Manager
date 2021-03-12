@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { View, Button, Text, Picker, TouchableOpacity, TextInput, StyleSheet, SafeAreaView, ScrollView} from 'react-native'
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import equal from 'fast-deep-equal';
 import NumberInput from './Utilities/numberInput';
 

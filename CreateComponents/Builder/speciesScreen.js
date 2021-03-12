@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Dimensions, Button, Modal, Text, Picker, TouchableOpacity, TextInput, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 /**
 * Option is a component that renders a button that will redirect the user to a page
@@ -41,7 +41,7 @@ function SpeciesModal(props){ //TODO: Fix the scrolling within the modal
                <SafeAreaView>
                  <ScrollView>
                    <TouchableOpacity onPress={() => props.setDetailsVisible(props.species)}>
-                     <Icon name="close-circle" style={{paddingBottom: 20}} size={25} color='rgb(250, 0, 115)' />
+                     <MaterialCommunityIcons name="close-circle" style={{paddingBottom: 20}} size={25} color='rgb(250, 0, 115)' />
                    </TouchableOpacity>
                    <Text style={styles.speciesTitle}>{props.name}</Text>
                    <Text style={styles.text}>{props.lore}</Text>

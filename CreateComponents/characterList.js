@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, SectionList, ImageBackground, Dimensions, Button, Modal, Text, Picker, TouchableOpacity, TextInput, StyleSheet, SafeAreaView, ScrollView, FlatList } from 'react-native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 class CharacterList extends Component {
   renderCharacter = character => {

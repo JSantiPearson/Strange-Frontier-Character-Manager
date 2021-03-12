@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Button, Text, Picker, TouchableOpacity, TextInput, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import NumberInput from '../Utilities/numberInput';
 
 class SpeciesChoice extends Component {
@@ -62,7 +62,7 @@ class SpeciesChoice extends Component {
                <Text style={styles.title}>{this.props.route.params.species} Species Traits</Text>
                <View style={styles.column}>
                  <View style={styles.row}>
-                   <Icon name="shield-account" style={{paddingLeft: 10}} size={20} color='rgb(250, 0, 115)' />
+                   <MaterialCommunityIcons name="shield-account" style={{paddingLeft: 10}} size={20} color='rgb(250, 0, 115)' />
                    <Text style={[styles.text, {paddingLeft: 20}]}>Base Combat Stats</Text>
                  </View>
                  <View style={styles.statRow}>

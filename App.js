@@ -6,7 +6,7 @@ import React from 'react';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import ProfileInputs from './CreateComponents/input.js';
 import CombatStats from './CreateComponents/combatstats';
 import Create from './CreateComponents/create';
@@ -123,7 +123,7 @@ class App extends React.Component {
               options={{
                 headerTitle: "Catalogues",
                 headerLeft: props => (
-                  <Icon {...props} name={"chevron-left"}  size={40} color="white" />
+                  <MaterialCommunityIcons {...props} name={"chevron-left"}  size={40} color="white" />
                 ),
                 headerStyle: {backgroundColor: 'rgb(250, 0, 115)'},
                 headerTitleStyle: {color: "white"},
@@ -135,7 +135,7 @@ class App extends React.Component {
               options={{
                 headerTitle: "Trinitaire Arms",
                 headerLeft: props => (
-                  <Icon {...props} name={"chevron-left"}  size={40} color="white" />
+                  <MaterialCommunityIcons {...props} name={"chevron-left"}  size={40} color="white" />
                 ),
                 headerStyle: {backgroundColor: 'rgb(250, 0, 115)'},
                 headerTitleStyle: {color: "white"},
@@ -147,7 +147,7 @@ class App extends React.Component {
               options={{
                 headerTitle: "Dodana Arms",
                 headerLeft: props => (
-                  <Icon {...props} name={"chevron-left"}  size={40} color="white" />
+                  <MaterialCommunityIcons {...props} name={"chevron-left"}  size={40} color="white" />
                 ),
                 headerStyle: {backgroundColor: 'rgb(250, 0, 115)'},
                 headerTitleStyle: {color: "white"},
@@ -159,7 +159,7 @@ class App extends React.Component {
               options={{
                 headerTitle: "Narmato Arms",
                 headerLeft: props => (
-                  <Icon {...props} name={"chevron-left"}  size={40} color="white" />
+                  <MaterialCommunityIcons {...props} name={"chevron-left"}  size={40} color="white" />
                 ),
                 headerStyle: {backgroundColor: 'rgb(250, 0, 115)'},
                 headerTitleStyle: {color: "white"},
@@ -171,7 +171,7 @@ class App extends React.Component {
               options={{
                 headerTitle: "Lepar's Black Market",
                 headerLeft: props => (
-                  <Icon {...props} name={"chevron-left"}  size={40} color="white" />
+                  <MaterialCommunityIcons {...props} name={"chevron-left"}  size={40} color="white" />
                 ),
                 headerStyle: {backgroundColor: 'rgb(250, 0, 115)'},
                 headerTitleStyle: {color: "white"},
@@ -189,7 +189,7 @@ class App extends React.Component {
               options={{
                 headerTitle: "",
                 headerLeft: props => (
-                  <Icon {...props} name={"chevron-left"}  size={40} color="white" />
+                  <MaterialCommunityIcons {...props} name={"chevron-left"}  size={40} color="white" />
                 ),
                 headerStyle: {backgroundColor: 'rgb(250, 0, 115)'},
               }}
@@ -201,7 +201,7 @@ class App extends React.Component {
               options={{
                 headerTitle: "",
                 headerLeft: props => (
-                  <Icon {...props} name={"chevron-left"}  size={40} color="white" />
+                  <MaterialCommunityIcons {...props} name={"chevron-left"}  size={40} color="white" />
                 ),
                 headerStyle: {backgroundColor: 'rgb(250, 0, 115)'},
               }}
@@ -213,7 +213,7 @@ class App extends React.Component {
               options={{
                 headerTitle: "",
                 headerLeft: props => (
-                  <Icon {...props} name={"chevron-left"}  size={40} color="white" />
+                  <MaterialCommunityIcons {...props} name={"chevron-left"}  size={40} color="white" />
                 ),
                 headerStyle: {backgroundColor: 'rgb(250, 0, 115)'},
               }}
@@ -225,7 +225,7 @@ class App extends React.Component {
               options={{
                 headerTitle: "",
                 headerLeft: props => (
-                  <Icon {...props} name={"chevron-left"}  size={40} color="white" />
+                  <MaterialCommunityIcons {...props} name={"chevron-left"}  size={40} color="white" />
                 ),
                 headerStyle: {backgroundColor: 'rgb(250, 0, 115)'},
               }}
@@ -237,7 +237,7 @@ class App extends React.Component {
               options={{
                 headerTitle: "",
                 headerLeft: props => (
-                  <Icon {...props} name={"chevron-left"}  size={40} color="white" />
+                  <MaterialCommunityIcons {...props} name={"chevron-left"}  size={40} color="white" />
                 ),
                 headerStyle: {backgroundColor: 'rgb(250, 0, 115)'},
               }}
@@ -249,7 +249,7 @@ class App extends React.Component {
               options={{
                 headerTitle: "",
                 headerLeft: props => (
-                  <Icon {...props} name={"chevron-left"}  size={40} color="white" />
+                  <MaterialCommunityIcons {...props} name={"chevron-left"}  size={40} color="white" />
                 ),
                 headerStyle: {backgroundColor: 'rgb(250, 0, 115)'},
               }}

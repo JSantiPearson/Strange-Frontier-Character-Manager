@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { View, Button, Dimensions, Image, Text, TouchableOpacity, TextInput, StyleSheet, SafeAreaView, ScrollView} from 'react-native'
 import { useNavigation } from '@react-navigation/native';
 import { Picker } from '@react-native-picker/picker';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import DetermineAttributes from './attributes'
 import LifePoints from './health'
 import SavingThrows from './savingthrows'
@@ -275,7 +275,7 @@ class ProfileInputs extends Component {
              >
                <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
                  <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                   <Icon
+                   <MaterialCommunityIcons
                      name={"plus-circle"}
                      size={20}
                      color='rgb(250, 0, 115)'
@@ -286,7 +286,7 @@ class ProfileInputs extends Component {
                      <Text style={styles.text}>Choose a Species</Text>
                  </View>
                  <View style={{paddingRight: 10}}>
-                   <Icon
+                   <MaterialCommunityIcons
                      name={"chevron-right"}
                      size={25}
                      color='rgb(250, 0, 115)'
@@ -313,7 +313,7 @@ class ProfileInputs extends Component {
              >
                <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
                  <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                   <Icon
+                   <MaterialCommunityIcons
                      name={"minus-circle"}
                      size={20}
                      color='rgb(250, 0, 115)'
@@ -324,7 +324,7 @@ class ProfileInputs extends Component {
                  <Text style={styles.text}>{this.state.species}</Text>
                  </View>
                  <View style={{paddingRight: 10}}>
-                   <Icon
+                   <MaterialCommunityIcons
                      name={"chevron-right"}
                      size={25}
                      color='rgb(250, 0, 115)'
@@ -435,7 +435,7 @@ class ProfileInputs extends Component {
            >
              <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
                <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                 <Icon
+                 <MaterialCommunityIcons
                    name={"plus-circle"}
                    size={20}
                    color='rgb(250, 0, 115)'
@@ -446,7 +446,7 @@ class ProfileInputs extends Component {
                <Text style={styles.text}>Choose Feats</Text>
                </View>
                <View style={{paddingRight: 10}}>
-                 <Icon
+                 <MaterialCommunityIcons
                    name={"chevron-right"}
                    size={25}
                    color='rgb(250, 0, 115)'

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { View, Button, Text, Picker, TouchableOpacity, TextInput, StyleSheet} from 'react-native'
 import Slider from '@react-native-community/slider'
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import NumberInput from '../Utilities/numberInput';
 
 class BuilderAttributes extends Component {
@@ -119,7 +119,7 @@ class BuilderAttributes extends Component {
        <View style={styles.container}>
           <View style={styles.column}>
             <View style={styles.row}>
-              <Icon name="shield-account" style={{paddingLeft: 10}} size={20} color='rgb(250, 0, 115)' />
+              <MaterialCommunityIcons name="shield-account" style={{paddingLeft: 10}} size={20} color='rgb(250, 0, 115)' />
               <Text style={[styles.text, {paddingLeft: 20, }]}>Determine Attribute Scores</Text>
             </View>
             <View style={styles.attrRow}>
