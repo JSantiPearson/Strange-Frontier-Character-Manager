@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
-import { View, Button, Dimensions, Text, TouchableOpacity, TextInput, StyleSheet, SafeAreaView, ScrollView} from 'react-native'
+import { View, Button, Dimensions, Image, Text, TouchableOpacity, TextInput, StyleSheet, SafeAreaView, ScrollView} from 'react-native'
 import { useNavigation } from '@react-navigation/native';
 import { Picker } from '@react-native-picker/picker';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import DetermineAttributes from './attributes'
 import LifePoints from './health'
 import SavingThrows from './savingthrows'
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 
 function GoToButton({ screenName }) {
   const navigation = useNavigation();
@@ -102,6 +103,7 @@ class ProfileInputs extends Component {
         willpower: 0
       },
       health: 1,
+      resourcePath: {},
    }
 
    componentDidMount() {
@@ -120,6 +122,40 @@ class ProfileInputs extends Component {
      }
      this.setState(data);
    }
+
+   selectFile = () => {
+    var options = {
+      title: 'Select Image',
+      customButtons: [
+        {
+          name: 'customOptionKey',
+          title: 'Choose file from Custom Option'
+        },
+      ],
+      storageOptions: {
+        skipBackup: true,
+        path: 'images',
+      },
+    };
+
+    launchImageLibrary(options, res => {
+      console.log('Response = ', res);
+
+      if (res.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (res.error) {
+        console.log('ImagePicker Error: ', res.error);
+      } else if (res.customButton) {
+        console.log('User tapped custom button: ', res.customButton);
+        alert(res.customButton);
+      } else {
+        let source = res;
+        this.setState({
+          resourcePath: source,
+        });
+      }
+    });
+  };
 
    /* Takes the bonuses of the two relevant attributes and averages them, returning the save value */
    calculateSave = (attr1, attr2) => {
@@ -192,10 +228,33 @@ class ProfileInputs extends Component {
    handleFeats = (featsList) => {
      this.setState({ feats: featsList})
    }
+
+   _renderImage = () => {
+     return(
+       <>
+        <Image
+          source={{
+            uri: 'data:image/jpeg;base64,' + this.state.resourcePath.data,
+          }}
+          style={{ width: 100, height: 100 }}
+        />
+        <Image
+          source={{ uri: this.state.resourcePath.uri }}
+          style={{ width: 200, height: 200 }}
+        />
+        <Text style={{ alignItems: 'center' }}>
+          {this.state.resourcePath.uri}
+        </Text>
+        <TouchableOpacity onPress={this.selectFile} style={styles.button}  >
+            <Text style={styles.buttonText}>Select File</Text>
+        </TouchableOpacity>
+      </>
+     )
+   }
+
    _renderProfileSection = () => {
      return(
        <>
-
        <Text style={styles.title}>Profile</Text>
          <View style={styles.section}>
            <Text style={styles.inputTitle}>Name</Text>
@@ -443,6 +502,20 @@ const styles = StyleSheet.create({
     borderBottomColor: 'rgb(165, 165, 165)',
     borderBottomWidth: StyleSheet.hairlineWidth,
   },
+  button: {
+   width: 250,
+   height: 60,
+   backgroundColor: '#3740ff',
+   alignItems: 'center',
+   justifyContent: 'center',
+   borderRadius: 4,
+   marginBottom:12
+  },
+  buttonText: {
+   textAlign: 'center',
+   fontSize: 15,
+   color: '#fff'
+ },
   container: {
     flex: 1,
     paddingTop: 10,
