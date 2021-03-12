@@ -235,10 +235,18 @@ class ProfileInputs extends Component {
        <Text style={styles.title}>Profile</Text>
          <View style={[styles.section, {alignItems: 'center'}]}>
            <TouchableOpacity onPress={this.selectFile}>
-             <Image
-               source={{ uri: this.state.resourcePath.uri }}
-               style={{ width: 150, height: 150,  }}
-             />
+             {this.state.resourcePath.uri === undefined &&
+               <Image
+                 source={require('../assets/img/profile.png')}
+                 style={{ width: 150, height: 150,  }}
+               />
+             }
+             {this.state.resourcePath.uri !== undefined &&
+               <Image
+                 source={{ uri: this.state.resourcePath.uri }}
+                 style={{ width: 150, height: 150,  }}
+               />
+             }
            </TouchableOpacity>
          </View>
          <View style={styles.section}>
