@@ -153,6 +153,7 @@ class ProfileInputs extends Component {
         this.setState({
           resourcePath: source,
         });
+        this.props.imageCallback(source.uri);
       }
     });
   };
@@ -169,6 +170,7 @@ class ProfileInputs extends Component {
      var mod = Math.floor((attr-10)/2);
      return mod;
    }
+
    handleSavingThrows = (attributes) => {
      let fortitude = this.calculateSave(attributes.strength, attributes.constitution);
      let reflex = this.calculateSave(attributes.dexterity, attributes.intelligence);

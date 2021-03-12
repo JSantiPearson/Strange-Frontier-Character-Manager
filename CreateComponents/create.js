@@ -156,6 +156,9 @@ class Create extends PureComponent {
   setName = name => {
     this.setState({ name });
   }
+  setImage = image => {
+    this.setState({ image });
+  }
   render() {
      return (
        <>
@@ -202,6 +205,7 @@ class Create extends PureComponent {
                  route={this.props.route}
                  species={this.state.species}
                  nameCallback={this.setName}
+                 imageCallback={this.setImage}
                  speciesCallback={this.setSpecies}
                  speciesStatsCallback={this.setSpeciesStats}
                  attributes={this.props.route.params.attributes}
