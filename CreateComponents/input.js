@@ -229,33 +229,18 @@ class ProfileInputs extends Component {
      this.setState({ feats: featsList})
    }
 
-   _renderImage = () => {
-     return(
-       <>
-        <Image
-          source={{
-            uri: 'data:image/jpeg;base64,' + this.state.resourcePath.data,
-          }}
-          style={{ width: 100, height: 100 }}
-        />
-        <Image
-          source={{ uri: this.state.resourcePath.uri }}
-          style={{ width: 200, height: 200 }}
-        />
-        <Text style={{ alignItems: 'center' }}>
-          {this.state.resourcePath.uri}
-        </Text>
-        <TouchableOpacity onPress={this.selectFile} style={styles.button}  >
-            <Text style={styles.buttonText}>Select File</Text>
-        </TouchableOpacity>
-      </>
-     )
-   }
-
    _renderProfileSection = () => {
      return(
        <>
        <Text style={styles.title}>Profile</Text>
+         <View style={[styles.section, {alignItems: 'center'}]}>
+           <TouchableOpacity onPress={this.selectFile}>
+             <Image
+               source={{ uri: this.state.resourcePath.uri }}
+               style={{ width: 150, height: 150,  }}
+             />
+           </TouchableOpacity>
+         </View>
          <View style={styles.section}>
            <Text style={styles.inputTitle}>Name</Text>
            <TextInput style = {styles.input}
@@ -474,7 +459,6 @@ class ProfileInputs extends Component {
           <SafeAreaView style={styles.container}>
             <ScrollView style={styles.scrollView}>
               <View style={styles.container}>
-                {this._renderImage()}
                 {this._renderProfileSection()}
                 {this._renderSpeciesSection()}
                 {this._renderAttributes()}
