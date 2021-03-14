@@ -35,8 +35,8 @@ class CharacterList extends Component {
           >
             <View style={{ flexDirection: "row" }}>
               <Image
-                source={character.image}
-                style={{ width: 50, height: 50 }}
+                source={{ uri: character.image }}
+                style={{ width: 55, height: 55 }}
               />
               <Text style={styles.character}>{character.name}</Text>
             </View>
@@ -76,6 +76,7 @@ class CharacterList extends Component {
     paddingLeft: 15,
     paddingRight: 15,
     paddingTop: 15,
+    marginBottom: 10,
     height: Dimensions.get('window').height / 7,
     borderRadius: 5
    },
