@@ -11,7 +11,7 @@ import ProfileInputs from './CreateComponents/input.js';
 import CombatStats from './CreateComponents/combatstats';
 import Create from './CreateComponents/create';
 
-import CharacterList from './CreateComponents/characterList';
+import HomeScreen from './CreateComponents/Screens/homeScreen';
 
 import ProfileScreen from './CreateComponents/Screens/profileScreen';
 import MoveScreen from './CreateComponents/Screens/moveScreenSwipes';
@@ -58,24 +58,6 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-function HomeScreen({ navigation, route }) {
-  var { characters } = route.params;
-    console.log("Home screen characters: " + characters[0].name);
-  return (
-    <>
-      <View style={styles.container}>
-        <TouchableOpacity onPress={() => navigation.navigate('Build')}>
-          <Text style={styles.buttonText}>Create Character</Text>
-        </TouchableOpacity>
-        <CharacterList
-          characters={characters}
-        />
-        <Text style={styles.buttonText}>Logo Placeholder</Text>
-      </View>
-    </>
-  )
-}
-
 function CatalogueScreen({ navigation, route }) {
   return (
     <Catalogues route={route} navigation={navigation} />
@@ -96,6 +78,7 @@ class App extends React.Component {
     let characters = [...this.state.characters];
     character.id = character.name;
     characters.push(character);
+    console.log("Added character " + character.name);
     this.setState({ characters });
   }
   render() {
@@ -107,12 +90,13 @@ class App extends React.Component {
           <Stack.Navigator>
             <Stack.Screen
               name="Home"
-              component={HomeScreen}
-              initialParams={{ characters: [...this.state.characters] }}
-              options={{
-                headerShown: false
-              }}
-            />
+              options={{headerShown: false}}
+            >
+              {props => <HomeScreen
+                  {...props}
+                  characters={[...this.state.characters]}
+               />}
+            </Stack.Screen>
             <Stack.Screen
               name="Create"
               component={Create}
