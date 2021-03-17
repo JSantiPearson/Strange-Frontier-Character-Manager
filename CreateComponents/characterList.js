@@ -8,7 +8,7 @@ class CharacterList extends Component {
   renderCharacter = character => {
     if (character.image === undefined){
       return(
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => this.props.navigation.navigate('Play')}>
           <LinearGradient
             start={{x: 0, y: 0}} end={{x: 1, y: 0}}
             colors={['rgb(250, 0, 115)', 'rgb(0, 0, 0)']}
@@ -27,21 +27,23 @@ class CharacterList extends Component {
     }
     else {
       return(
-        <TouchableOpacity>
-          <LinearGradient
-            start={{x: 0, y: 0}} end={{x: 1, y: 0}}
-            colors={['rgb(250, 0, 115)', 'rgb(0, 0, 0)']}
-            style={styles.linearGradient}
-          >
-            <View style={{ flexDirection: "row" }}>
-              <Image
-                source={{ uri: character.image }}
-                style={{ width: 55, height: 55 }}
-              />
-              <Text style={styles.character}>{character.name}</Text>
-            </View>
-          </LinearGradient>
-        </TouchableOpacity>
+        <>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate('Play')}>
+            <LinearGradient
+              start={{x: 0, y: 0}} end={{x: 1, y: 0}}
+              colors={['rgb(250, 0, 115)', 'rgb(0, 0, 0)']}
+              style={styles.linearGradient}
+            >
+              <View style={{ flexDirection: "row" }}>
+                <Image
+                  source={{ uri: character.image }}
+                  style={{ width: 55, height: 55 }}
+                />
+                <Text style={styles.character}>{character.name}</Text>
+              </View>
+            </LinearGradient>
+          </TouchableOpacity>
+        </>
       )
     }
   }

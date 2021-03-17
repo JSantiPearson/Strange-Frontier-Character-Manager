@@ -9,8 +9,9 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import ProfileInputs from './CreateComponents/input.js';
 import CombatStats from './CreateComponents/combatstats';
-import Create from './CreateComponents/create';
 
+import Create from './CreateComponents/create';
+import Play from './PlayComponents/play';
 import HomeScreen from './CreateComponents/Screens/homeScreen';
 
 import ProfileScreen from './CreateComponents/Screens/profileScreen';
@@ -100,6 +101,10 @@ class App extends React.Component {
             <Stack.Screen
               name="Create"
               component={Create}
+            />
+            <Stack.Screen
+              name="Play"
+              component={Play}
             />
             <Stack.Screen
               name="Catalogues"

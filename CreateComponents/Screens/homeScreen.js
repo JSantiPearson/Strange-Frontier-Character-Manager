@@ -23,6 +23,7 @@ class HomeScreen extends Component {
             <Text style={styles.buttonText}>Create Character</Text>
           </TouchableOpacity>
           <CharacterList
+            {...this.props}
             characters={this.props.characters}
           />
           <Text style={styles.buttonText}>Logo Placeholder</Text>
