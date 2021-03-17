@@ -32,8 +32,13 @@ const styles = StyleSheet.create({
    width: 40,
    height: 40,
    borderRadius: 40/2,
-   backgroundColor: "white",
    justifyContent: 'center',
+   shadowColor: 'black',
+   shadowOpacity: 0.26,
+   shadowOffset: { width: 0, height: 2},
+   shadowRadius: 10,
+   elevation: 3,
+   backgroundColor: 'white'
   },
   bonusCircle: {
     width: 20,
@@ -42,7 +47,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     justifyContent: 'center',
     position: "absolute",
-    top: 0,
-    left: 30,
+    top: -5,
+    left: 25,
   }
 });
